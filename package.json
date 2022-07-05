@@ -1,0 +1,39 @@
+{
+  "name": "vitepress-basic-docs",
+  "version": "1.0.0",
+  "description": "vitepress项目基础文档",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "serve": "vitepress serve",
+    "commit": "git-cz"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/flingyp/vitepress-basic-docs"
+  },
+  "keywords": [
+    "Vitepress",
+    "docs"
+  ],
+  "author": "FlingYP",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/github.com/flingyp/issues"
+  },
+  "homepage": "https://github.com/github.com/flingyp#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.0",
+    "@commitlint/config-conventional": "^17.0.0",
+    "commitizen": "^4.2.4",
+    "typescript": "^4.6.4",
+    "vitepress": "^1.0.0-alpha.4",
+    "vue": "^3.2.37"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
