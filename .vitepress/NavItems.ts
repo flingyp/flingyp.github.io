@@ -1,0 +1,63 @@
+import { DefaultTheme } from "vitepress";
+
+export const NavItemList: DefaultTheme.NavItem[] = [
+  {
+    text: "前端宝藏库",
+    items: [
+      {
+        text: "HTML5",
+        link: "/frontend/HTML5/Skill",
+      },
+      {
+        text: "CSS3",
+        link: "/frontend/CSS3/Layout",
+      },
+      {
+        text: "JavaScript",
+        link: "/frontend/JavaScript/ES6",
+      },
+      {
+        text: "TypeScript",
+        link: "/frontend/TypeScript/",
+      },
+      {
+        text: "Vue",
+        link: "/frontend/Vue/Vue3",
+      },
+      {
+        text: "React",
+        link: "/frontend/React/React",
+      },
+    ],
+  },
+  {
+    text: "随记文章",
+    items: [
+      {
+        text: "小程序相关随记",
+        link: "/notes/UniappNotes",
+      },
+      {
+        text: "Git 相关随记",
+        link: "/notes/Git.md",
+      },
+      {
+        text: "Nginx 基本操作",
+        link: "/notes/Nginx",
+      },
+      {
+        text: "Linux 基本命令",
+        link: "/notes/Linux",
+      },
+    ],
+  },
+  {
+    text: "相关链接",
+    items: [
+      {
+        text: "VAdmire Plus",
+        link: "https://vadmire.top",
+      },
+    ],
+  },
+];

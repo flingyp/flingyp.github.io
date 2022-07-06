@@ -1,23 +1,21 @@
 ---
 layout: home
-
 title: VitePress
 titleTemplate: Vite & Vue Powered Static Site Generator
 
 hero:
-  name: BasicDocs
-  text: Vite & Vue Powered Static Site Generator
-  tagline: Simple, powerful, and performant. Meet the modern SSG framework you've always wanted.
+  name: Code Record
+
   image:
     src: /docs-logo.png
     alt: Vitest
   actions:
     - theme: brand
-      text: Get Started
-      link: /guide/
+      text: 开始
+      link: /frontend/HTML5/
     - theme: alt
-      text: View on GitHub
-      link: https://github.com/vuejs/vitepress
+      text: GitHub
+      link: https://github.com/flingyp
 
 features:
   - title: "Vite: The DX that can't be beat"
