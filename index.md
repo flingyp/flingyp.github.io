@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 开始
-      link: /frontend/HTML5/
+      link: /frontend/HTML5/RandomRecord
     - theme: alt
       text: GitHub
       link: https://github.com/flingyp

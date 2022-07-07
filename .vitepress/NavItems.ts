@@ -6,7 +6,7 @@ export const NavItemList: DefaultTheme.NavItem[] = [
     items: [
       {
         text: "HTML5",
-        link: "/frontend/HTML5/Skill",
+        link: "/frontend/HTML5/RandomRecord",
       },
       {
         text: "CSS3",

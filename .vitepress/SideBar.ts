@@ -8,7 +8,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
       items: [
         {
           text: "杂记",
-          link: "/frontend/HTML5/Skill",
+          link: "/frontend/HTML5/RandomRecord",
         },
       ],
     },
@@ -31,6 +31,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
         {
           text: "CSS常用技巧",
           link: "/frontend/CSS3/Skill",
+        },
+        {
+          text: "杂记",
+          link: "/frontend/CSS3/RandomRecord",
         },
       ],
     },
