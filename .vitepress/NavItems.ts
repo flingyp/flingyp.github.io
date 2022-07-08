@@ -49,6 +49,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         text: "Linux 基本命令",
         link: "/notes/Linux",
       },
+      {
+        text: 'JS正则表达式随记',
+        link: '/notes/RegExp'
+      }
     ],
   },
   {
