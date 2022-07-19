@@ -31,6 +31,15 @@ export const NavItemList: DefaultTheme.NavItem[] = [
     ],
   },
   {
+    text: "前端工程化",
+    items: [
+      {
+        text: "代码规范化",
+        link: "/frontend/Engineering/CodeStandard",
+      },
+    ],
+  },
+  {
     text: "随记文章",
     items: [
       {
@@ -50,9 +59,9 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         link: "/notes/Linux",
       },
       {
-        text: 'JS正则表达式随记',
-        link: '/notes/RegExp'
-      }
+        text: "JS正则表达式随记",
+        link: "/notes/RegExp",
+      },
     ],
   },
   {

@@ -64,6 +64,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
           text: "Vue3相关语法",
           link: "/frontend/Vue/Vue3",
         },
+        {
+          text: "Vue3+TSX语法写法总结",
+          link: "/frontend/Vue/Vue3Tsx.md",
+        },
       ],
     },
     {
