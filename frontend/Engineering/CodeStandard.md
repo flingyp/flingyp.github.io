@@ -227,3 +227,36 @@ commit 消息的书写格式： `type(必填): description`
     "first-release": "pnpm run release -- --first-release", // 第一次发版
 }
 ```
+
+### 手动控制版本更新
+
+```json
+"script": {
+  "release:changelog:major": "standard-version --release-as major", // 升级 major
+  "release:changelog:minor": "standard-version --release-as minor", // 升级 minor
+  "release:changelog:patch": "standard-version --release-as patch", // 升级 patch
+}
+```
+
+### 配置哪些 commit 消息写入 changelog
+
+在自己项目根目录下创建配置文件 `.versionrc`
+
+hidden 属性值控制是否将该类型的 commit 消息写入 changlog, 不填的情况下默认是:false
+
+```json
+"types": [
+  { "type": "feat", "section": "✨ Features | 新功能" },
+  { "type": "fix", "section": "🐛 Bug Fixes | Bug 修复" },
+  { "type": "init", "section": "🎉 Init | 初始化" },
+  { "type": "docs", "section": "✏️ Documentation | 文档" },
+  { "type": "style", "section": "💄 Styles | 风格" },
+  { "type": "refactor", "section": "♻️ Code Refactoring | 代码重构" },
+  { "type": "perf", "section": "⚡ Performance Improvements | 性能优化" },
+  { "type": "test", "section": "✅ Tests | 测试" },
+  { "type": "revert", "section": "⏪ Revert | 回退", "hidden": true },
+  { "type": "build", "section": "📦‍ Build System | 打包构建" },
+  { "type": "chore", "section": "🚀 Chore | 构建/工程依赖/工具" },
+  { "type": "ci", "section": "👷 Continuous Integration | CI 配置" }
+]
+```
