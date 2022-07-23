@@ -5,11 +5,11 @@ import { SideBarList } from "./SideBar";
 
 export default defineConfig({
   base: "/",
-  title: "CodeRecord",
+  title: "Growth Record",
   description: "个人博客",
   themeConfig: {
     // 文档标题
-    siteTitle: "Code Record",
+    siteTitle: "Growth Record",
     // 文档LOGO
     logo: "/docs-logo.png",
     // 顶部栏导航栏

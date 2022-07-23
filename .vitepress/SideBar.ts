@@ -50,6 +50,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
           text: "JavaScript常用技巧",
           link: "/frontend/JavaScript/Skill",
         },
+        {
+          text: "杂记",
+          link: "/frontend/JavaScript/RandomRecord",
+        },
       ],
     },
     {
