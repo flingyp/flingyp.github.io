@@ -61,11 +61,60 @@ dist
 Dockerfile
 ```
 
+5. eslint 配置文件参考
+
+```js
+module.exports = {
+  env: {
+    browser: true,
+    es2021: true,
+  },
+  extends: [
+    "plugin:vue/essential",
+    "airbnb-base",
+    "plugin:prettier/recommended",
+  ],
+  parserOptions: {
+    ecmaVersion: "latest",
+    parser: "@typescript-eslint/parser",
+    sourceType: "module",
+  },
+  plugins: ["vue", "@typescript-eslint"],
+  rules: {
+    "import/prefer-default-export": "off",
+    "vue/no-multiple-template-root": "off", // Vue SFC 模板根模块
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        devDependencies: true, // 对开发依赖设置为true，不报错
+        optionalDependencies: false,
+        peerDependencies: false,
+        bundledDependencies: false,
+      },
+    ],
+  },
+};
+```
+
 ### 集成 Prettier
 
 1. 安装：`pnpm install prettier -D`
 
 2. 配置 Prettier 配置文件：在项目根目录创建 `.prettierrc` 文件，可以[参考文档](https://prettier.io/docs/en/options.html)
+
+```json
+{
+  "printWidth": 120,
+  "useTabs": false,
+  "tabWidth": 2,
+  "semi": false,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "arrowParens": "avoid",
+  "bracketSpacing": true,
+  "vueIndentScriptAndStyle": true
+}
+```
 
 3. 注：VSCode 编辑器使用 Prettier 配置需要下载插件 Prettier - Code formatter。 勾选保存后格式化，并且选择格式化文档方式为 prettierrc
 
@@ -85,6 +134,8 @@ Dockerfile
 
 解决两者冲突问题需要用到 eslint-plugin-prettier 和 eslint-config-prettier
 
+安装：`pnpm install eslint-plugin-prettier eslint-config-prettier -D`
+
 eslint-plugin-prettier：会将 Prettier 的规则设置到 ESlint 的规则当中
 
 eslint-config-prettier：关闭 ESLint 中和 Prettier 中发生冲突的规则
@@ -100,6 +151,12 @@ module.exports = {
   ...
 }
 ```
+
+## 添加一些脚本命令
+
+Eslint 自动修复： `"lint:fix": "eslint --cache \"{src,example}/**/*.{vue,js,ts,tsx}\" --fix"`
+
+Prettier 自动格式化：`"lint:prettier": "prettier --write \"{src,example}/**/*.{js,json,tsx,css,less,scss,vue,html,md}\""`
 
 ## Husky + Lint-Staged 代码提交规范
 
@@ -142,8 +199,7 @@ lint-staged 只检测那些加入缓冲区的文件，本地暂存代码检查�
 "lint-staged": {
   "src/**/*.{js,jsx,ts,tsx,json}": [
     "prettier --write",
-    "eslint",
-    "git add"
+    "eslint --cache --fix",
   ]
 },
 ```
@@ -240,23 +296,41 @@ commit 消息的书写格式： `type(必填): description`
 
 ### 配置哪些 commit 消息写入 changelog
 
-在自己项目根目录下创建配置文件 `.versionrc`
+在自己项目根目录下创建配置文件 `.versionrc.json`
 
 hidden 属性值控制是否将该类型的 commit 消息写入 changlog, 不填的情况下默认是:false
 
 ```json
-"types": [
-  { "type": "feat", "section": "✨ Features | 新功能" },
-  { "type": "fix", "section": "🐛 Bug Fixes | Bug 修复" },
-  { "type": "init", "section": "🎉 Init | 初始化" },
-  { "type": "docs", "section": "✏️ Documentation | 文档" },
-  { "type": "style", "section": "💄 Styles | 风格" },
-  { "type": "refactor", "section": "♻️ Code Refactoring | 代码重构" },
-  { "type": "perf", "section": "⚡ Performance Improvements | 性能优化" },
-  { "type": "test", "section": "✅ Tests | 测试" },
-  { "type": "revert", "section": "⏪ Revert | 回退", "hidden": true },
-  { "type": "build", "section": "📦‍ Build System | 打包构建" },
-  { "type": "chore", "section": "🚀 Chore | 构建/工程依赖/工具" },
-  { "type": "ci", "section": "👷 Continuous Integration | CI 配置" }
-]
+{
+  "types": [
+    { "type": "feat", "section": "✨ Features | 新功能" },
+    { "type": "fix", "section": "🐛 Bug Fixes | Bug 修复" },
+    { "type": "init", "section": "🎉 Init | 初始化", "hidden": true },
+    { "type": "docs", "section": "✏️ Documentation | 文档", "hidden": true },
+    { "type": "style", "section": "💄 Styles | 风格", "hidden": true },
+    { "type": "refactor", "section": "♻️ Code Refactoring | 代码重构" },
+    {
+      "type": "perf",
+      "section": "⚡ Performance Improvements | 性能优化",
+      "hidden": true
+    },
+    { "type": "test", "section": "✅ Tests | 测试", "hidden": true },
+    { "type": "revert", "section": "⏪ Revert | 回退", "hidden": true },
+    {
+      "type": "build",
+      "section": "📦‍ Build System | 打包构建",
+      "hidden": true
+    },
+    {
+      "type": "chore",
+      "section": "🚀 Chore | 构建/工程依赖/工具",
+      "hidden": true
+    },
+    {
+      "type": "ci",
+      "section": "👷 Continuous Integration | CI 配置",
+      "hidden": true
+    }
+  ]
+}
 ```
