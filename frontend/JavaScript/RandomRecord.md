@@ -83,3 +83,18 @@ undefined === null; // false
 Number(null); // 0
 Number(undefined); // NaN
 ```
+
+## 5. == 和 === 的区别
+
+:::tip
+== 比较的是值，之间的比较会存在隐式转换
+
+=== 除了比较值，还比较两者的类型
+:::
+
+```ts
+console.log(1 == "1"); // true  string 转换为 number
+console.log(true == 1); // true  boolean 转换为 number
+console.log(null == undefined); // true
+console.log([1, 2] == "1,2"); // true
+```

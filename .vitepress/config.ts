@@ -7,6 +7,12 @@ export default defineConfig({
   base: "/",
   title: "Growth Record",
   description: "个人博客",
+  markdown: {
+    theme: {
+      light: "vitesse-light",
+      dark: "vitesse-dark",
+    },
+  },
   themeConfig: {
     // 文档标题
     siteTitle: "Growth Record",
