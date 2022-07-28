@@ -98,3 +98,80 @@ console.log(true == 1); // true  boolean 转换为 number
 console.log(null == undefined); // true
 console.log([1, 2] == "1,2"); // true
 ```
+
+## 6. JavaScript 微任务和宏任务
+
+:::tip
+JavaScript 是单线程语言。
+
+JS 的代码执行循序：先执行主线程的同步任务，后执行事件循环 Event Table 中的异步任务（宏任务、微任务）。
+
+异步任务包括：Ajax 请求、setTimeout、`promise.then()` 等
+
+任务队列 Event Queue：JS 中有两类任务队列。宏任务队列 和 微任务队列。宏任务队列可以有多个。微任务队列只能有一个
+
+宏任务：script（全局任务就是主线程的同步任务）, setTimeout, setInterval, setImmediate, I/O, UI rendering
+
+微任务： process.nextTick （node.js 中进程相关的对象）, Promise.then、catch、finally, Object.observer, MutationObserver
+
+:::
+
+![JS代码执行顺序](https://img-blog.csdnimg.cn/20200714184207672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NjI0Mzg2,size_16,color_FFFFFF,t_70)
+
+先执行一个宏任务，查看是否有可执行的微任务，执行完所有微任务后再执行新的宏任务
+
+![宏微任务执行关系](https://img-blog.csdnimg.cn/20200714184526268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NjI0Mzg2,size_16,color_FFFFFF,t_70)
+
+```js
+console.log("1");
+setTimeout(function () {
+  console.log(2);
+  new Promise(function (resolve, reject) {
+    console.log(3);
+    resolve();
+  }).then(function () {
+    console.log(4);
+  });
+});
+new Promise(function (resolve, reject) {
+  console.log(5);
+  resolve();
+})
+  .then(function () {
+    console.log(6);
+  })
+  .then(function () {
+    console.log(7);
+  });
+setTimeout(function () {
+  console.log(8);
+  new Promise(function (resolve, reject) {
+    console.log(9);
+    resolve();
+  }).then(function () {
+    console.log(10);
+  });
+});
+// 1 5 6 7 2 3 4 8 9 10
+```
+
+:::info
+
+1. 先执行主线程的所有同步任务。打印：1 5
+
+2. 在执行当前所有的微任务。打印：6 7
+
+3. 进入事件循环中执行异步任务
+
+4. 执行第一个 setTimeout 宏任务。 打印：2 3
+
+5. 执行第一个 setTimeout 宏任务所有微任务。打印：4
+
+6. 执行第二个 setTimeout 宏任务。打印：8 9
+
+7. 执行第二个 setTimeout 宏任务所有微任务。打印：10
+
+所以执行顺序是：1 5 6 7 2 3 4 8 9 10  
+:::
+
+**总结**：先执行主线程所有同步任务（一次宏任务）- 执行所有当前微任务 - 在执行异步任务（一次宏任务）- 在执行当前的所有微任务 - 周而复始

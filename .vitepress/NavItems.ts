@@ -71,6 +71,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         text: "VAdmire Plus",
         link: "https://vadmire.top",
       },
+      {
+        text: "@flypeng/tool",
+        link: "https://yyblog.top/flypeng-tool",
+      },
     ],
   },
 ];
