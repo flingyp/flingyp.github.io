@@ -2,6 +2,9 @@ import { defineConfig } from "vitepress";
 
 import { NavItemList } from "./NavItems";
 import { SideBarList } from "./SideBar";
+import NotesNavItems from "./NotesNavItems";
+
+NavItemList.push(NotesNavItems);
 
 export default defineConfig({
   base: "/",

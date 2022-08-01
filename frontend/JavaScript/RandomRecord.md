@@ -175,3 +175,125 @@ setTimeout(function () {
 :::
 
 **总结**：先执行主线程所有同步任务（一次宏任务）- 执行所有当前微任务 - 在执行异步任务（一次宏任务）- 在执行当前的所有微任务 - 周而复始
+
+## 7. JavaScript 作用域
+
+:::tip
+静态作用域：静态作用域又叫词法作用域，JavaScript 就是静态作用域
+:::
+
+```js
+var x = 10;
+function f() {
+  // 如果此处声明了变量x则返回的是自身作用域的局部变量x
+  // var x = 30
+
+  // 此时访问的x变量是全局变量x
+  return x;
+}
+function g() {
+  var x = 20;
+  // 执行函数f，就去定义该函数的地方查找
+  return f();
+}
+console.log(g());
+```
+
+上述代码中，函数 f 返回的 x 是外层定义的 x，也就是 10，我们调用 g 的时候，虽然 g 里面也有个变量 x，但是在这里我们并没有用它，用的是 f 里面的 x。也就是说我们调用一个函数时，如果这个函数的变量没有在函数中定义，就去定义该函数的地方查找，这种查找关系在我们代码写出来的时候其实就确定了，所以叫静态作用域
+
+:::tip
+变量提升：在 ES6 之前，我们申明变量都是使用 var，使用 var 申明的变量都是函数作用域，即在函数体内可见，这会带来变量提升的问题（即变量声明提前）
+:::
+
+```js
+var x = 1;
+function f() {
+  console.log(x); // undefined
+  var x = 2;
+  console.log(x); // 2
+}
+f();
+
+// 上面代码相当于如下代码：
+
+var x = 1;
+function f() {
+  var x;
+  console.log(x); // undefined
+  x = 2;
+  console.log(x); // 2
+}
+f();
+```
+
+在函数体内部使用了关键字`var`声明变量 x。所以它其实在整个函数内部可见，也就是说，变量 x 的声明相当于提前到了函数内部的最开始地方，但是变量赋值还是在运行的`x = 2`地方执行。所以第一个输出 `undefined`，第二个输出 `2`
+
+:::tip
+函数提升：和变量提升同理
+:::
+
+```js
+function f() {
+  x();
+  // 普通函数声明提前
+  function x() {
+    console.log(1);
+  }
+}
+f();
+
+// 上面代码相当于如下代码：
+
+function f() {
+  function x() {
+    console.log(1);
+  }
+  x();
+}
+f();
+```
+
+注意：将上面的 `x` 函数换成函数表达式就不行了，会报错
+
+```js
+function f() {
+  x();
+
+  var x = function () {
+    console.log(1);
+  };
+}
+f();
+
+// 上面代码相当于如下代码：
+
+function f() {
+  var x;
+  // 此时的x是undefined，但是你将它当中函数调用。所以它会报错
+  // Uncaught TypeError: x is not a function
+  x();
+  x = function () {
+    console.log(1);
+  };
+}
+f();
+```
+
+:::tip
+变量声明和函数声明的优先级谁更高？（如果有二个名称相同的变量和函数，谁优先级谁更高）
+
+答案是：函数声明的优先级更高
+:::
+
+```js
+var x = 1;
+function x() {}
+// 所以说是想声明了函数再声明了变量，从而覆盖了函数的声明
+console.log(x); // 1
+```
+
+:::warning
+参考文章：
+
+https://blog.csdn.net/dennis_jiang/article/details/106157904
+:::

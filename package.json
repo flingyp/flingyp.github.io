@@ -4,11 +4,12 @@
   "description": "vitepress项目基础文档",
   "main": "index.js",
   "scripts": {
-    "dev": "vitepress dev",
-    "build": "vitepress build",
+    "dev": "pnpm create:docs && vitepress dev",
+    "build": "pnpm create:docs && vitepress build",
     "serve": "vitepress serve",
     "commit": "git-cz",
-    "release": "standard-version"
+    "release": "standard-version",
+    "create:docs": "esno script/docs.ts"
   },
   "repository": {
     "type": "git",
@@ -28,6 +29,7 @@
     "@commitlint/cli": "^17.0.0",
     "@commitlint/config-conventional": "^17.0.0",
     "commitizen": "^4.2.4",
+    "esno": "^0.16.3",
     "standard-version": "^9.5.0",
     "typescript": "^4.6.4",
     "vitepress": "^1.0.0-alpha.4",

@@ -40,31 +40,6 @@ export const NavItemList: DefaultTheme.NavItem[] = [
     ],
   },
   {
-    text: "随记文章",
-    items: [
-      {
-        text: "小程序相关随记",
-        link: "/notes/UniappNotes",
-      },
-      {
-        text: "Git 相关随记",
-        link: "/notes/Git.md",
-      },
-      {
-        text: "Nginx 基本操作",
-        link: "/notes/Nginx",
-      },
-      {
-        text: "Linux 基本命令",
-        link: "/notes/Linux",
-      },
-      {
-        text: "JS正则表达式随记",
-        link: "/notes/RegExp",
-      },
-    ],
-  },
-  {
     text: "相关链接",
     items: [
       {
