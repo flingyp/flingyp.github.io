@@ -4,8 +4,8 @@
   "description": "vitepress项目基础文档",
   "main": "index.js",
   "scripts": {
-    "dev": "pnpm create:docs && vitepress dev",
-    "build": "pnpm create:docs && vitepress build",
+    "dev": "npm create:docs && vitepress dev",
+    "build": "npm create:docs && vitepress build",
     "serve": "vitepress serve",
     "commit": "git-cz",
     "release": "standard-version",

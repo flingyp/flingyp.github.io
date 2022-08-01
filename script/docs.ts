@@ -29,7 +29,6 @@ const directories = resultFiles.filter((filePath) => {
   }
 });
 // 所有目录名称
-console.log("directories：", directories);
 
 interface Bar {
   text: string;
