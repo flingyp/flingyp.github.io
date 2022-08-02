@@ -52,4 +52,8 @@ export const NavItemList: DefaultTheme.NavItem[] = [
       },
     ],
   },
+  {
+    text: "宝藏网站",
+    link: "/Sites",
+  },
 ];
