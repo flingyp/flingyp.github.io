@@ -1,6 +1,6 @@
 <template>
   <div class="site-container">
-    <label class="page-title-box">宝藏网站列表</label>
+    <label class="page-title-box">在线资源</label>
     <div class="website-list-container">
       <div class="website-item" v-for="item in websiteList" :key="item.href">
         <img :src="item.logo" alt="" srcset="" />
@@ -32,7 +32,7 @@ const websiteList = ref<WebSiteInfo[]>(treasureWebsite);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .page-title-box {
@@ -45,7 +45,7 @@ const websiteList = ref<WebSiteInfo[]>(treasureWebsite);
   color: var(--vp-c-brand);
   text-shadow: 0px 0px 40px var(--vp-c-brand);
   position: absolute;
-  top: 8%;
+  top: 4%;
 }
 
 .website-list-container {
@@ -53,12 +53,12 @@ const websiteList = ref<WebSiteInfo[]>(treasureWebsite);
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
-  margin-top: 40px;
+  height: 90%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-column-gap: 20px;
   grid-row-gap: 10px;
-  overflow: hidden;
+  overflow-y: scroll;
   padding: 20px 30px;
 }
 
@@ -83,5 +83,14 @@ const websiteList = ref<WebSiteInfo[]>(treasureWebsite);
 .website-item > a {
   font-size: 16px;
   color: var(--vp-c-brand);
+}
+
+::-webkit-scrollbar,
+::-webkit-scrollbar-thumb {
+  width: 8px;
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--vp-c-brand);
 }
 </style>

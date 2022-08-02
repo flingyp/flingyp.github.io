@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "title": "Canva 可画",
+    "href": "https://www.canva.cn/",
+    "logo": "https://static.canva.cn/static/images/android-192x192-2.png",
+    "description": "在线设计网站 | 海报设计 | 免费图标"
+  },
+  {
+    "title": "Git配置GPG",
+    "href": "https://zhuanlan.zhihu.com/p/76861431",
+    "logo": "https://picx.zhimg.com/v2-4288e43abc4c8ad0e37cdb93ccce6b28_xs.jpg?source=172ae18b",
+    "description": "在Github上使用GPG的全过程"
+  },
+  {
+    "title": "极简插件",
+    "href": "https://chrome.zzzmh.cn/#/index",
+    "logo": "https://chrome.zzzmh.cn/favicon.ico",
+    "description": "Chrome各大插件下载"
+  },
+  {
+    "title": "标小智",
+    "href": "https://www.logosc.cn/logo/favicon?s=%E5%B7%A5%E5%85%B7",
+    "logo": "https://www.logosc.cn/img/logo-icons/monogram.svg?v=1",
+    "description": "Favicon.icon 图标生成工具"
+  }
+]
