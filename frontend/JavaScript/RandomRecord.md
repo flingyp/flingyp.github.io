@@ -187,7 +187,6 @@ var x = 10;
 function f() {
   // 如果此处声明了变量x则返回的是自身作用域的局部变量x
   // var x = 30
-
   // 此时访问的x变量是全局变量x
   return x;
 }
@@ -213,9 +212,7 @@ function f() {
   console.log(x); // 2
 }
 f();
-
 // 上面代码相当于如下代码：
-
 var x = 1;
 function f() {
   var x;
@@ -241,9 +238,7 @@ function f() {
   }
 }
 f();
-
 // 上面代码相当于如下代码：
-
 function f() {
   function x() {
     console.log(1);
@@ -258,15 +253,12 @@ f();
 ```js
 function f() {
   x();
-
   var x = function () {
     console.log(1);
   };
 }
 f();
-
 // 上面代码相当于如下代码：
-
 function f() {
   var x;
   // 此时的x是undefined，但是你将它当中函数调用。所以它会报错
@@ -297,3 +289,118 @@ console.log(x); // 1
 
 https://blog.csdn.net/dennis_jiang/article/details/106157904
 :::
+
+## 8. 原型与原型链
+
+:::tip
+
+必须知道的点：
+
+1. 所有的构造函数都是通过 Function 创建的
+2. 所以的对象都是通过 new 实例化出来的
+3. 所有的函数都是对象
+
+`prototype` -> 原型：本质就是一个对象
+
+`__proto__` -> 原型链（形成原型链的一个桥节点）
+
+:::
+
+### 原型与原型链的总结
+
+1. 构造函数中存在一个属性叫做 `prototype`（原型）
+2. 对象都有一个隐藏属性 `__proto__`，这个属性保存着该对象的构造函数 `contructor` 的 `prototype` 属性
+
+```js
+// 构造函数 Test
+function Test() {}
+
+// 实例化对象 test
+const test = new Test();
+
+// 根据上面的两点结论得出
+console.log(test.__proto__ === Test.prototype); // true
+// 又因为 prototype 本质是一个对象，那么它自己本身也有一个 __proto__ 属性
+// Test.prototype 是个对象，所以它的构造函数是Object
+console.log(Test.prototype.__proto__ === Object.prototype); // true
+// 同理 Object.prototype 也是个对象，但是Object是最顶层的了 所以它的 __proto__ 是 null
+console.log(Object.prototype.__proto__); // null
+```
+
+根据上面的描述可以总结出下面的结构内容：
+
+```js
+test: {
+  __proto__: Test.prototype = {
+    __proto: (Object.prototype = {
+      __proto__: null,
+    }),
+  };
+}
+```
+
+**总结：** `__proto__` 指向的是构造出自己的那个构造函数的 `prototype` 属性。而每个对象（包括构造函数）上都会有一个隐式 **proto** 去指向 prototype。最后形成一条链，指向的终点就是 Object。形成这条链后就又有另一个概念**原型继承**。如果去访问对象中某个属性，如果自身内部不存在那么就会去原型链上向上查找该属性。
+
+### Function 和 Object
+
+根据这三点去看本质
+
+1. 所有的构造函数都是通过 Function 创建的
+2. 所以的对象都是通过 new 实例化出来的
+3. 所有的函数都是对象
+
+```js
+// 构造函数 Test
+function Test() {}
+// 实例化对象 test
+const test = new Test();
+
+// 1. 所有的构造函数都是通过 Function 创建的
+console.log(Test.__proto__ === Function.prototype); // true
+console.log(Object.__proto__ === Function.prototype); // true
+// 那么构造函数 Function 本身呢由谁构造出来呢？
+// 可以看到 Function 的构造函数是自己本身
+console.log(Function.constructor); // ƒ Function() {}
+// 所以下面这句话也是成立的
+console.log(Function.__proto__ === Function.prototype); // true
+
+// 从而推出这句话
+console.log(Object.__proto__ === Function.__proto__); // true
+```
+
+总结：
+
+1. 在 JS 中万物皆对象
+
+2. 所有构造函数都是通过 `new Function()` 构造出来
+
+3. `object.__proto__ === object.contructor.prototype`
+
+## 9. `slice` 和 `splice` 分别是干嘛的
+
+:::tip
+slice用来截取数组中某段片段，返回一个新的数组
+
+```ts
+[1,2,3,4,5,6].slice(1, 3) // [2,3] 
+[1,2,3,4,5,6].slice(2) // [3,4,5,6]
+[1,2,3,4,5,6].slice(-2) // [5,6] 
+```
+
+splice用来删除元素或添加数组元素，返回删除的数组，会改变原数组
+
+`Array.prototype.splice(index, many, ...items)`
+
+1. index 要从哪里开始删除元素
+
+2. many 删除多少个元素
+
+3. items 添加到数组的元素
+
+```ts
+[1,2,3,4,5,6].splice(1,1) // [1,3,4,5,6]
+[1,2,3,4,5,6].splice(1,0) // [1,2,3,4,5,6]
+[1,2,3,4,5,6].splice(1,0,7,8,9) // [1,7,8,9,2,4,5,6] 
+```
+:::
+
