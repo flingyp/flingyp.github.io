@@ -577,3 +577,64 @@ console.log(grade);
 console.log(grade[stu1]);
 console.log(grade[stu2]);
 ```
+
+## Promise
+
+### 基本使用
+
+:::tip 简单介绍
+
+Promise 是 ES6 的新技术，是在 JS 中解决异步编程的解决方案（解决了回调地狱的问题）
+
+从语法上总结：Promise 是一个构造函数
+
+从功能上总结：Promise 对象用来封装一个异步操作并且可以获取其操作成功或者失败的结果值
+
+:::
+
+```ts
+/**
+ * 使用 Promise 构造函数创建一个promise对象
+ * 传递一个函数，存在两个参数，resolve、reject，在函数中编写对应的异步操作
+ * 成功调用 resolve(data)
+ * 失败调用 reject(error)
+ */
+const promise = new Promise((resolve, reject) => {
+  // 异步操作
+  // resolve 会将 promise对象的状态设置为成功
+  // reject 会将 promise对象的状态设置为失败
+});
+// 成功执行第一个回调函数，失败执行第二个回调函数
+promise.then(
+  (data) => {
+    console.log(data);
+  },
+  (error) => {
+    console.log(error);
+  }
+);
+```
+
+### API 相关介绍
+
+1. `Promise` 构造函数
+
+> `new Promise((resolve, reject) => {})`
+
+注意：Promise 中的异步操作会在 JS 中与同步任务一起执行
+
+2. `Promise.prototype.then()`
+
+> 异步操作成功后执行并且返回一个新的 promise 的对象
+
+3. `Promise.prototype.catch()`
+
+> 异步操作失败后执行
+
+4. `Promise.all()`
+
+> 返回一个新的 promise，只有所有的 promise 都执行成功才算成功，有一个失败就直接失败
+
+5. `Promise.race()`
+
+> 返回一个新的 promise，第一个完成异步操作的 promise 的结果状态就是最终的结果状态
