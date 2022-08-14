@@ -11,20 +11,39 @@
 :::
 
 :::tip
-为什么要用闭包：
 
-1. 使用闭包可以访问其他函数作用域下的变量
+闭包的优点：
+
+1. 可以在外部访问闭包中的内部函数的局部变量
 
 2. 不需要将啥杂七杂八的变量都定义在全局环境当中。避免变量污染全局
 
 3. 把变量存到独立的作用域，作为私有成员的存在
 
-注意点：
+闭包的缺点：
 
-正常情况下，函数执行完成，内部变量会被销毁（释放内存空间）
+1. 变量会驻留在内存中，会造成内存损耗问题
 
-在闭包的情况下，内部函数保存了对外部变量的引用并且没有被执行，所以导致变量不会被垃圾回收，会对内存消耗有影响。
 :::
+
+```ts
+// 问题：会打印四个4，但是就是想根据循环打印 1 2 3 4 呢
+// 解释问题：首先根据JS执行顺序，会先执行完所有for循环，再去执行异步任务 setTimeout。但是变量是使用 var 关键字声明的，此时的i是作用在全局的。执行完循环后i已经变成4了，所以打印出来的i就都是4了
+for (var i = 0; i < 4; i++) {
+  setTimeout(() => {
+    console.log(i); // 打印四个 4
+  }, i * 1000);
+}
+
+// 使用闭包配合立即执行函数解决此问题，此时的i作为参数传入立即执行函数当中，会存在到这个闭包当中
+for (var i = 0; i < 4; i++) {
+  (function (i) {
+    setTimeout(() => {
+      console.log(i); // 打印四个 4
+    }, i * 1000);
+  })(i);
+}
+```
 
 ## 2. 延迟加载 JS 方式有哪些？
 
@@ -290,7 +309,23 @@ console.log(x); // 1
 https://blog.csdn.net/dennis_jiang/article/details/106157904
 :::
 
-## 8. 原型与原型链
+## 8. JavaScript 预编译是什么
+
+:::tip 介绍
+
+JavaScript 代码是由浏览器的 JS 解析器执行的。解析器在执行过程时分为两步：**预编译和代码执行**
+
+预编译的概念：在当前作用域下，JS 代码执行前，浏览器会默认将带有 `var` 和 `function` 声明的变量和函数在内存中提前声明和定义。
+
+因此也有了变量提升和函数提升的概念。
+
+优先级：函数提升 > 变量提升
+
+也就是说同样一个名称的函数和变量，函数会优先被声明，变量则会在后续声明，从而会覆盖声明的函数。
+
+:::
+
+## 9. 原型与原型链
 
 :::tip
 
@@ -376,18 +411,19 @@ console.log(Object.__proto__ === Function.__proto__); // true
 
 3. `object.__proto__ === object.contructor.prototype`
 
-## 9. `slice` 和 `splice` 分别是干嘛的
+## 10. `slice` 和 `splice` 分别是干嘛的
 
 :::tip
-slice用来截取数组中某段片段，返回一个新的数组
+slice 用来截取数组中某段片段，返回一个新的数组
 
 ```ts
-[1,2,3,4,5,6].slice(1, 3) // [2,3] 
-[1,2,3,4,5,6].slice(2) // [3,4,5,6]
-[1,2,3,4,5,6].slice(-2) // [5,6] 
+[1, 2, 3, 4, 5, 6]
+  .slice(1, 3) // [2,3]
+  [(1, 2, 3, 4, 5, 6)].slice(2) // [3,4,5,6]
+  [(1, 2, 3, 4, 5, 6)].slice(-2); // [5,6]
 ```
 
-splice用来删除元素或添加数组元素，返回删除的数组，会改变原数组
+splice 用来删除元素或添加数组元素，返回删除的数组，会改变原数组
 
 `Array.prototype.splice(index, many, ...items)`
 
@@ -398,9 +434,237 @@ splice用来删除元素或添加数组元素，返回删除的数组，会改�
 3. items 添加到数组的元素
 
 ```ts
-[1,2,3,4,5,6].splice(1,1) // [1,3,4,5,6]
-[1,2,3,4,5,6].splice(1,0) // [1,2,3,4,5,6]
-[1,2,3,4,5,6].splice(1,0,7,8,9) // [1,7,8,9,2,4,5,6] 
+[1, 2, 3, 4, 5, 6]
+  .splice(1, 1) // [1,3,4,5,6]
+  [(1, 2, 3, 4, 5, 6)].splice(1, 0) // [1,2,3,4,5,6]
+  [(1, 2, 3, 4, 5, 6)].splice(1, 0, 7, 8, 9); // [1,7,8,9,2,4,5,6]
 ```
+
 :::
 
+## 11. 实现数组去重的方式
+
+### 第一种：`Array.from()` 和 `Set`
+
+:::tip 介绍
+Set： 允许你存储任何类型的唯一值，无论是原始值或者是对象引用
+
+`Array.from()`：对一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例
+:::
+
+```ts
+const array = [12, 24, 30, 12, 31, 24, "你好", "天气", "你好"];
+// 去重操作
+const clearRepeat = (array: Array<unknow>) => Array.from(new Set(array)); // [12, 24, 30, 31, '你好', '天气']
+```
+
+### 第二种：使用 `includes()` 去重操作
+
+`indexOf` 也是同理的
+
+```ts
+const array = [12, 24, 30, 12, 31, 24, "你好", "天气", "你好"];
+const clearRepeat = (array) => {
+  const newArray = [];
+  array.forEach((item) => {
+    newArray.includes(item) ? void 0 : newArray.push(item);
+  });
+  return newArray;
+};
+console.log(clearRepeat(array));
+```
+
+### 第三种：`sort` 排序
+
+对数组进行排序整理，循环遍历每一项都与自己的上一项去做比较
+
+```ts
+const array = [12, 24, 30, 12, 31, 24, "你好", "天气", "你好"];
+const clearRepeat = (arr) => {
+  arr = arr.sort();
+  const newArray = [];
+  for (let i = 0; i < arr.length; i++) {
+    if (i == 0) {
+      newArray.push(arr[i]);
+    } else {
+      if (arr[i - 1] !== arr[i]) {
+        newArray.push(arr[i]);
+      }
+    }
+  }
+  return newArray;
+};
+console.log(clearRepeat(array));
+```
+
+## 12. 函数内部 this 指向
+
+:::tip 介绍
+函数的`this`在调用绑定时，完全取决于函数的调用位置。谁调用函数就指向谁。
+
+参考文章：https://juejin.cn/post/6844903746984476686#heading-0
+:::
+
+## 13. new 操作符具体做了什么
+
+:::tip 介绍
+
+1. 创建了一个空对象
+2. 将空对象的`__proto__` 指向于构造函数的`prototype`原型
+3. 将空对象作为构造函数的上下文（改变 this 指向）
+4. 对构造函数有返回值的处理判断（默认返回 this）
+
+:::
+
+```ts
+function Foo() {
+  this.name = "张三";
+  // return this // 默认
+  // return 11; // 如果返回值是基础数据类型，则会忽略，返回 this
+  // return {test: '引用类型'} // 如果返回值的是引用类型，则构造出来的对象就变成返回的引用数据
+}
+const foo = new Foo();
+console.log(foo);
+```
+
+自定义实现：
+
+```ts
+function Fun(age, name) {
+  this.age = age;
+  this.name = name;
+}
+function create(fn, ...args) {
+  // 1. 创建了一个空对象
+  var obj = {};
+  // 2. 将空对象的`__proto__` 指向于构造函数的`prototype`原型
+  Object.setPrototypeOf(obj, fn.prototype);
+  // 3. 将空对象作为构造函数的上下文（改变 this 指向）
+  var result = fn.apply(obj, args);
+  // 4. 对构造函数有返回值的处理判断（默认返回 this）
+  return result instanceof Object ? result : obj;
+}
+create(Fun, 18, "张三");
+```
+
+## 14. `call`、`apply`、`bind` 的区别
+
+:::tip 介绍
+
+共同点：修改函数内部的 this 指向
+区别：
+
+1. call、apply 会立即执行。bind 不会立即执行，因为 bind 返回的是一个函数
+2. 参数的传递：apply 第二个参数是数组. call、bind 有多少个参数就写多少个
+
+:::
+
+```ts
+var str = "你好";
+var obj = { str: "这是obj对象内部的str" };
+function fun(name) {
+  this.name = name;
+  console.log(this, this.str);
+}
+
+// call 立即执行
+fun.call(obj, "张三"); // { str: "这是obj对象内部的str", name: '张三' } 这是obj对象内部的str
+// apply 立即执行
+fun.apply(obj，["张三"]); // { str: "这是obj对象内部的str", name: '张三' } 这是obj对象内部的str
+// bind 不会立即执行，因为 bind 返回的是一个函数
+fun.bind(obj, '张三')();  // { str: "这是obj对象内部的str", name: '张三' } 这是obj对象内部的str
+
+fun(); // window{} 你好
+```
+
+## 15. 深拷贝和浅拷贝
+
+:::tip
+浅拷贝是拷贝一层，深层次的对象级别的就拷贝引用；深拷贝是拷贝多层，每一级别的数据都会拷贝出来
+:::
+
+### 理解
+
+#### 基本类型-> (名 和 值存储在栈内存中)
+
+例如 let a = 1
+
+栈内存
+
+| name | val |
+| :--: | :-: |
+|  a   |  1  |
+
+- 当 b = a 赋值时， 栈内存会新开辟一块内存 用于存放 b
+
+| name | val |
+| :--: | :-: |
+|  a   |  1  |
+|  b   |  1  |
+
+所以当你此时修改 a=2，对 b 并不会造成影响，因为此时的 b 已自食其力，翅膀硬了，不受 a 的影响了。当然，let a=1,b=a;虽然 b 不受 a 影响，但这也算不上深拷贝。
+
+因为深拷贝本身只针对较为复杂的 object 类型数据。
+
+#### 引用数据类型
+
+- 名存在栈内存中， 值也存在内存中。但是栈内存会提供一个引用地址指向推内存中的值
+
+![](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124133428359-1292133331.jpg)
+
+- 当 b = a 进行拷贝时， 其实复制的是 a 的引用地址，而并非堆里面的值
+
+![](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124133647796-1390255671.jpg)
+
+- 而当我们 a[0] = 1 是进行数据修改时，由于 a 与 b 指向的是同一个地址，所以自然 b 也受到影响了。 **这就是 浅拷贝**
+
+![](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124133934328-67216865.jpg)
+
+- 如果，我们在堆内存中也开辟一个新的内存专门为 b 存放值， 就和基本类型那样。 就可以达到深拷贝的效果了
+
+![](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124140906203-2099568933.jpg)
+
+### 如何实现 深拷贝
+
+#### JSON.stringify 结合 JSON.parse 实现深拷贝
+
+- JSON.stringify 把 JS 对象 转换为 字符串
+- JSON.parse 把 JSON 字符串 转换为 JS 对象
+
+```js
+JSON.parse(JSON.stringify(arr));
+```
+
+#### 简单的实现深拷贝
+
+:::tip
+深拷贝的原理就是： 基本类型 赋值的 原理。 在堆内存中也开辟一个新的内存专门为 b 存放值
+:::
+
+```js
+// 深拷贝
+function deepCopy(obj) {
+  let copy = {};
+  if (Array.isArray(obj)) copy = [];
+  for (const key in obj) {
+    if (typeof obj[key] === "object") {
+      copy[key] = deepCopy(obj[key]);
+    } else {
+      copy[key] = obj[key];
+    }
+  }
+  return copy;
+}
+```
+
+## 16. `var、const、let` 的区别
+
+:::tip
+
+1. 使用 `var` 声明的变量存在变量提升的机制，`const、let` 则不存在这个机制了
+
+2. `const` 声明的变量不可以被再次赋值
+
+3. ES5 之前没有块级作用域的概念、ES6 之后 `const、let` 声明的变量有块级作用域了
+
+:::
