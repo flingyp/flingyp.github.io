@@ -1,0 +1,1 @@
+import{_ as e,c as t,o as a,b as o}from"./app.8775426f.js";const E=JSON.parse('{"title":"","description":"","frontmatter":{},"headers":[],"relativePath":"README.md"}'),r={name:"README.md"},s=o("h1",{align:"center"},"FlingYP Personal Blog",-1),n=[s];function c(_,i,d,l,p,m){return a(),t("div",null,n)}var h=e(r,[["render",c]]);export{E as __pageData,h as default};
