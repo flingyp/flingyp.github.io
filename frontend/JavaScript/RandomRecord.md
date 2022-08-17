@@ -668,3 +668,63 @@ function deepCopy(obj) {
 3. ES5 之前没有块级作用域的概念、ES6 之后 `const、let` 声明的变量有块级作用域了
 
 :::
+
+## 17. 函数节流和防抖
+
+**节流和防抖函数**是前端性能优化的知识，在实际开发中遇到的情况相当高
+
+:::tip 节流函数
+节流的含义就是在函数执行一次后，该函数在指定时间内期限内不在工作，直到过了这段时间才能重新生效。就想水库的水阀一样只需要在指定时间打开即可
+
+例子：页面滚动事件，如果不进行设置的话滚动事件执行次数非常高。通过节流函数则可以减少滚动事件执行次数
+:::
+
+:::tip 防抖函数
+防抖的含义就是让事件延迟执行，事件处理函数只执行一次
+
+例子：根据 Input 输入框的输入内容进行某种搜索，通常需要使用到防抖函数。只获取用户最后一次输出的整体内容再进行搜索。事件函数只用执行一次即可
+:::
+
+**函数的实现**
+
+```ts
+/**
+ * 防抖函数
+ * @param callback
+ * @param delay （单位：毫秒）
+ */
+export default function useDebounce(callback: Function, delay: number) {
+  let timer: any = null;
+  return function () {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(callback, delay);
+  };
+}
+```
+
+```ts
+/**
+ * 节流函数
+ * @param callback
+ * @param delay
+ */
+export default function useThrottle(callback: Function, delay: number) {
+  let flag = true;
+  let firstTimer: number = 0;
+  return function () {
+    // 记录第一次的时间戳
+    if (flag) {
+      firstTimer = Date.now();
+      flag = false;
+    }
+    // 获取现在的时间戳
+    const current = Date.now();
+    // 如果现在的时间戳 >= 第一次时间戳 + 延迟执行的时间 就可以执行函数
+    if (current >= firstTimer + delay) {
+      callback();
+      flag = true;
+      firstTimer = Date.now();
+    }
+  };
+}
+```
