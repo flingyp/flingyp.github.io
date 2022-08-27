@@ -72,6 +72,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
           text: "Vue3+TSX语法写法总结",
           link: "/frontend/Vue/Vue3Tsx.md",
         },
+        {
+          text: "杂记",
+          link: "/frontend/Vue/RandomRecord.md",
+        },
       ],
     },
     {

@@ -30,3 +30,7 @@
 .dark {
   --vp-code-line-highlight-color: rgba(0, 0, 0, 0.5);
 }
+
+body {
+  font-size: 14px;
+}

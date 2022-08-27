@@ -53,7 +53,7 @@ CSS 盒模型一共有两种：**标准模型**、**怪异模型**
   /*    
     盒子的宽 = width + paddingLeft + paddingRight + borderLeft + borderRight = 228
     盒子的高 = height + paddingTop + paddingBottom + borderTop + borderBottom = 228       
-*/
+  */
   width: 200px;
   height: 200px;
   padding: 10px;
@@ -154,3 +154,189 @@ BFC 全称 （Block Formatting Context-块级格式化上下文）可以形成�
 如果修改一个既不要布局也不要绘制的属性，渲染引擎将直接跳过布局和图层绘制的阶段，只执行后续的合成操作，这个过程叫做 合成。
 
 比如使用了 CSS 的 transform 来实现动画效果，这可以避开重排和重绘阶段，直接在非主线程上执行合成动画操作。这样的效率是很高的，因为是在非主线程上合成，并没有占用主线程的资源，另外也避开了布局和绘制两个子阶段，所以 相对于重绘和重排，合成能大大提升绘制效率。
+
+## 6. `line-height` 和 `height` 的区别
+
+:::tip
+
+line-height 是每一行文字的高度，如果文字换行则整个盒子的高度会增大（行数\*行高）
+height 是一个死值，就是盒子的高度
+:::
+
+## 7. CSS 选择器有哪些以及选择器的优先级？哪些属性可以继承？
+
+:::tip 选择器
+通配选择器 \*、id 选择器、类选择器、标签选择器、相邻选择器 `+`、后代选择器 `ul li`、子元素选择器 `ul > li`、属性选择器 `div[href]`
+:::
+
+:::tip 优先级比较和权重计算
+优先级：`!important > 内联样式 > id > class > 标签 > 通配`
+
+第一：内联样式 权重值：1000
+
+第二：id 选择器 权重值：100
+
+第三： 类选择器 权重值： 10
+
+第四：标签&伪元素选择器 权重值：1
+
+第五： 通配 `>、+等` 权重值：0
+:::
+
+:::tip 哪些属性可以继承？
+
+`font-size、color、line-height、text-algn` 等
+
+:::
+
+## 8. 用 CSS 画一个三角形
+
+使用边框`border`画
+
+```css
+#box {
+  width: 0px;
+  height: 0px;
+  border-top: 50px solid rgba(0, 0, 0, 0);
+  border-right: 50px solid rgba(0, 0, 0, 0);
+  border-bottom: 50px solid rgba(0, 0, 0, 0);
+  border-left: 50px solid green;
+}
+```
+
+## 9. 元素的水平垂直居中
+
+### 元素水平居中
+
+- `margin: 0 auto;`
+
+> 居中不好使的原因：
+> 1、元素没有设置宽度，没有宽度怎么居中！
+> 2、设置了宽度依然不好使，你设置的是行内元素吧。
+
+```css
+#box {
+  width: 100px;
+  height: 100px;
+  border: 1px solid red;
+}
+.child-1 {
+  width: 20px;
+  height: 20px;
+  border: 1px solid black;
+  margin: 0 auto;
+}
+```
+
+```html
+<div id="box">
+  <div class="child-1">1</div>
+</div>
+```
+
+### 元素水平垂直居中
+
+#### 方法一：position 定位 （已知元素宽高）
+
+> 父元素设置为：position: relative;
+> 子元素设置为：position: absolute;
+> 距上 50%，据左 50%，然后减去元素自身宽度的距离就可以实现
+
+```css
+#box {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #2980b9;
+  position: relative;
+}
+.child-1 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #e74c3c;
+  top: 50%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+}
+```
+
+```html
+<div id="box">
+  <div class="child-1">1</div>
+</div>
+```
+
+#### 方法二：position + transfrom （元素宽高可以未知）
+
+> 如果元素未知宽度，只需将方法一中的 margin-left: -50px; margin-top: -50px; 替换为：transform: translate(-50%,-50%);
+
+```css
+#box {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #2980b9;
+  position: relative;
+}
+.child-1 {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #e74c3c;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+```
+
+```html
+<div id="box">
+  <div class="child-1">1</div>
+</div>
+```
+
+#### 方法三： flex 布局
+
+> 给父元素添加这三条代码即可 `display: flex;` flex 布局 `justify-content: center;` 使子项目水平居中 `align-items: center;` 使子项目垂直居中
+
+```css
+#box {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #2980b9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.child-1 {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #e74c3c;
+}
+```
+
+```html
+<div id="box">
+  <div class="child-1">1</div>
+</div>
+```
+
+## 10. 清除浮动的方式
+
+:::tip 清除浮动
+
+1. 通过触发 BFC 清除浮动
+
+2. 通过 `clear:both` 属性
+
+:::
+
+给浮动元素添加一个伪元素设置 `clear:both`
+
+```css
+div:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+```
