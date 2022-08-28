@@ -29,3 +29,25 @@
 建议：在平时开发中永远不要将两个 API 放在同一个元素上。可以根据需求在外部包裹一层 `<template v-for/v-if></template>`
 
 :::
+
+## 3. `v-model` 双向绑定使用
+
+:::tip `v-model`
+
+`v-model` 是一个语法糖。默认情况下相当于 `:value` 和 `@update:value`，使用双向绑定可以减少繁琐事件，提高开发体验。
+
+Vue3 甚至可以使用参数形式来绑定多个响应式数据。例如： `v-model:content`、`v-model:header`
+
+:::
+
+## 4. Vue3 中如何扩展一个组件
+
+:::tip 扩展组件
+
+Vue3 模式下最好通过 Composition API 来进行组件的扩展。首先开发者通过 `Props` 和 `Emits` 来与子组件进行通信，之后配合响应式模块可以很方便得多编写独立功能的钩子来提供响应式的数据。
+
+当我们需要新增组件功能时，只需要在当前的组件基础上新增对应的钩子来完成功能的开发。
+
+[官方关于组合式函数（composables 或 hooks）的介绍和用法](https://staging-cn.vuejs.org/guide/reusability/composables.html)
+
+:::

@@ -728,3 +728,98 @@ export default function useThrottle(callback: Function, delay: number) {
   };
 }
 ```
+
+## 18. 函数柯里化的使用
+
+:::tip 函数柯里化
+
+柯里化通常称作为部分求值，其含义是给函数分步传递参数。
+每次传递参数进行处理，并返回一个更具体的函数接受剩下的参数。
+这中间可嵌套多层这样的接受部分参数的函数，直至返回最终结果
+:::
+
+```ts
+const sumFn = (...args) => {
+  return args.reduce((a, b) => {
+    return a + b;
+  }, 0);
+};
+
+const currying = function (fun) {
+  const args = [];
+  return function result(...rest) {
+    // 如果没有传递参数，那么就是返回结果
+    if (rest.length === 0) {
+      return func(args);
+    } else {
+      // 如果传递了参数，那么就继续累加
+      args.push(...rest);
+      return result;
+    }
+  };
+};
+
+currying(sumFn)(1)(2)(3)(); // 6
+currying(sumFn)(1, 2)(3, 4)(5)(); // 15
+currying(sumFn)(1)(2, 3, 4, 5)(6)(); // 21
+```
+
+## 19. JavaScript 中数组的方法总结
+
+:::tip 数组方法总结
+
+[Array.prototype.concat(...valueN)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)：用于合并两个或多个数组。不会改变现有数组，而是返回一个新数组。（可以合并数组或值）
+
+[Array.prototype.entries()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)：用于返回一个新的数组迭代器对象。该对象包含数组中每个索引的建/值对
+
+[Array.prototype.every(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)：用于判断数组中每个元素是否可以通过回调函数的判断。返回 boolean 值，有一个元素未通过直接返回 `false`
+
+[Array.prototype.some(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some)：用于判断数组中是否有元素可以通过回调函数的判断。返回 boolean 值，有一个元素通过直接返回 `true`
+
+[Array.prototype.fill(value, start?, end?)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)：用固定值 value 来填充数组，start 起始索引，end 是终止索引均为可选
+
+[Array.prototype.filter(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)：创建一个新数组，包含通过回调函数的所有元素，过滤没有通过回调函数的元素
+
+[Array.prototype.find(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)：返回数组中通过回调函数的**第一个元素的值**，否则返回`undefined`
+
+[Array.prototype.findLast(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLast)：返回数组中通过回调函数的**最后一个元素的值**，否则返回`undefined`
+
+[Array.prototype.findIndex(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)：返回数组中通过回调函数的**第一个元素的下标索引**，否则返回 `-1`
+
+[Array.prototype.findLastIndex(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex)：返回数组中通过回调函数的**最后一个元素的下标索引**，否则返回 `-1`
+
+[Array.prototype.flat(depth?=1)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+
+[Array.prototype.flatMap(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
+
+扁平化数组，将数组中所有元素与遍历到的子数组的元素合并返回一个新数组（扁平化结构）。参数 depth 是指定要提取嵌套数组的结构深度，默认值为 1
+
+[Array.prototype.includes(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)：用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回 false
+
+[Array.prototype.indexOf(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)：返回在数组中指定元素的第一个元素下标索引，如果不存在，则返回-1
+
+[Array.prototype.lastIndexOf(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)：返回在数组中指定元素的最后一个元素下标索引，如果不存在，则返回-1
+
+[Array.prototype.isArray(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)：判断是否是数组
+
+[Array.prototype.join(separator?=',')](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/join)：将所用元素通过指定分隔符链接并且返回这个字符串
+
+[Array.prototype.pop()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)：删除数组中最后一个元素，并且返回该元素。会改变原数组
+
+[Array.prototype.shift()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)：删除数组中第一个元素，并且返回该元素。会改变原数组
+
+[Array.prototype.push()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)：向数组末尾添加元素
+
+[Array.prototype.unshift()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)：将一个或多个元素添加到数组的开头
+
+[Array.prototype.reduce()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)：累加器。对数组中的每个元素按序执行一个 reducer 函数，每一次运行 reducer 会将先前元素的计算结果作为参数传入，最后将其结果汇总为单个返回值
+
+[Array.prototype.reverse()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)：将数组中元素的位置颠倒，并返回该数组。数组的第一个元素会变成最后一个，数组的最后一个元素变成第一个。该方法会改变原数组
+
+[Array.prototype.slice(start，end)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)：数组切片。返回一个新的数组，是由 begin 和 end 决定的原数组的浅拷贝（包括 begin，不包括 end）。原始数组不会被改变
+
+[Array.prototype.splice(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)：通过删除或替换现有元素或者原地添加新的元素来修改数组，并以数组形式返回被修改的内容。此方法会改变原数组
+
+[Array.prototype.sort(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)：数组排序
+
+:::

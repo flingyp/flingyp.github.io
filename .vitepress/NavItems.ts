@@ -18,7 +18,7 @@ export const NavItemList: DefaultTheme.NavItem[] = [
       },
       {
         text: "TypeScript",
-        link: "/frontend/TypeScript",
+        link: "/frontend/TypeScript/",
       },
       {
         text: "Vue",
