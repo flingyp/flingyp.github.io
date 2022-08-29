@@ -823,3 +823,21 @@ currying(sumFn)(1)(2, 3, 4, 5)(6)(); // 21
 [Array.prototype.sort(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)：数组排序
 
 :::
+
+## 20. `Cookie、SessionStorage、LocalStorage` 的区别
+
+它们都是浏览器的本地存储。都是存储在浏览器本地的
+
+:::tip 区别
+
+1. `Cookie` 是由服务端写入，而`SessionStorage、LocalStorage`都是有前端写入的
+
+2. `Cookie` 是在由服务端写入的时候就设置了过期时间，`LocalStorage`是写入后就一直存在，除非手动清除它们，`SessionStorage` 页面关闭就会清除
+
+3. `Cookie`的存储空间比较小大概 4KB，`SessionStorage、 LocalStorage`存储空间比较大，大概 5M
+
+4. `Cookie、SessionStorage、 LocalStorage` 数据共享都遵循同源原则，SessionStorage 还限制必须是同一个页面
+
+它们的应用场景也不同，Cookie 一般用于存储登录验证信息 SessionID 或者 token，LocalStorage 常用于存储不易变动的数据，减轻服务器的压力，SessionStorage 可以用来检测用户是否是刷新进入页面，如音乐播放器恢复播放进度条的功能
+
+:::

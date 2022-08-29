@@ -51,3 +51,17 @@ Vue3 模式下最好通过 Composition API 来进行组件的扩展。首先开�
 [官方关于组合式函数（composables 或 hooks）的介绍和用法](https://staging-cn.vuejs.org/guide/reusability/composables.html)
 
 :::
+
+## 5. 谈谈对 Vue 数据响应式理解
+
+:::tip
+
+数据响应式：**能够使数据变化可以被检测并且做出相应的响应机制**
+
+MVVM 框架中都要解决一个核心的问题是**如何连接数据层和视图层**。通过**数据驱动视图**，数据变化，视图更新，要做到这点的就需要做到数据响应式处理
+
+在 Vue2 中，采用的是 `Object.defineProperty()` 的方式对响应式数据进行拦截。但是使用此 API 有一些缺点：1. 新增或删除属性的不会被依赖收集也就不会有响应式的特性，需要使用 `Vue.set/delete` 等 API 才能生效。2. 对应 ES6 中的 Map、Set 这些数据结构不支持。
+
+在 Vue3 中 采用的是 ES6 的 `Proxy`代理实现数据的响应式
+
+:::
