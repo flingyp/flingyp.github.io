@@ -5,16 +5,16 @@
 执行上下文（执行环境）：全局环境（全局作用域）、函数环境（函数作用域）
 
 :::tip
-什么是闭包：是指可访问另一个作用域下的变量的函数。或者说函数嵌套，内部函数就是闭包。
+什么是闭包：是指可以访问另一个函数作用域中的变量的函数
 
-我们可以在内部函数中访问外部函数作用域的变量就可以采用闭包的形式。
+我们可以在内部函数中访问外部函数作用域的变量就可以采用闭包的形式
 :::
 
 :::tip
 
 闭包的优点：
 
-1. 可以在外部访问闭包中的内部函数的局部变量
+1. 可以在函数体外部访问内部函数的私有变量
 
 2. 不需要将啥杂七杂八的变量都定义在全局环境当中。避免变量污染全局
 
@@ -22,7 +22,7 @@
 
 闭包的缺点：
 
-1. 变量会驻留在内存中，会造成内存损耗问题
+1. 垃圾回收器不会将闭包中变量销毁，于是就造成了内存泄露，内存泄露积累多了就容易导致内存溢出
 
 :::
 
@@ -839,5 +839,110 @@ currying(sumFn)(1)(2, 3, 4, 5)(6)(); // 21
 4. `Cookie、SessionStorage、 LocalStorage` 数据共享都遵循同源原则，SessionStorage 还限制必须是同一个页面
 
 它们的应用场景也不同，Cookie 一般用于存储登录验证信息 SessionID 或者 token，LocalStorage 常用于存储不易变动的数据，减轻服务器的压力，SessionStorage 可以用来检测用户是否是刷新进入页面，如音乐播放器恢复播放进度条的功能
+
+:::
+
+## 21. JavaScript 中判断变量类型的方法总结
+
+- [推荐文章](https://blog.csdn.net/haotian1997/article/details/114577180?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-114577180-blog-106403998.t5_layer_eslanding_A_0&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-114577180-blog-106403998.t5_layer_eslanding_A_0&utm_relevant_index=1)
+
+一共有四种方式来判断变量类型：`typeof`、`instanceof`、`constructor`、`Object.prototype.toString.call()`
+
+:::tip typeof
+
+介绍：`typeof` 只适合去判断基础数据类型的变量. 引用数据类型 Object 无论是对象还是数组等统一返回 `object`
+
+特点：`typeof null` 会返回一个 object、`typeof function(){}` 会返回一个 function
+
+缺点：`typeof` 对应引用数据类型来说，并不能很好的去判断其变量的具体类型
+
+:::
+
+:::tip instanceof
+
+介绍：`instanceof` 运算符用于检测构造函数的 `prototype` 属性是否出现某个实例对象的原型链上。简单来说就是来判断 A 是否为 B 的实例
+
+`[] instanceof Array` ：实际上是判断 Array.prototype 是否在[]的原型链上
+
+:::
+
+缺点：不管是数组对象还是正则对象，都是 Object 的实例，检测结果都是 TRUE ，所以无法基于这个结果判断是否为普通对象（Array、Date、RegExp 对象等）。加上是否处于原型链上的判断方法不严谨，instanceof 方法判断的是是否处于原型链上，而不是是不是处于原型链最后一位，所以会出现下面这种情况：
+
+```ts
+var arr = [1, 2, 3];
+console.log(arr instanceof Array); // true
+console.log(arr instanceof Object); // true
+function fn() {}
+console.log(fn instanceof Function); // true
+console.log(fn instanceof Object); // true
+```
+
+其次，基本数据类型的实例是无法基于它检测出来的
+
+- 不能检测基本数据类型
+
+- 字面量方式创建的不能检测，构造函数创建的就可以检测
+
+对于基本数据类型来说，字面量方式创建出来的结果和实例方式创建的是有一定区别的
+
+```ts
+console.log(1 instanceof Number); //false
+console.log(new Number(1) instanceof Number); //true
+```
+
+对于特殊的数据类型 null 和 undefined，他们的所属类是 Null 和 Undefined，但是浏览器把这两个类保护起来了，不允许我们在外面访问使用
+
+:::tip constructor
+
+介绍：通过查看变量的构造函数来判断。还可以处理基本数据类型的检测
+
+缺点：不能判断 `null` 和 `undefined`，因为它们不需要通过构造函数创建，所以是没有构造函数的
+
+:::
+
+```ts
+var aa = [1, 2];
+console.log(aa.constructor === Array); //true
+console.log(aa.constructor === RegExp); //false
+console.log((1).constructor === Number); //true
+var reg = /^$/;
+console.log(reg.constructor === RegExp); //true
+console.log(reg.constructor === Object); //false
+```
+
+:::tip Object.prototype.toString.call()
+
+介绍：这个方法在 Object 的原型上，找到 Object.prototype 上的 toString 方法，让 toString 方法执行，并且基于 call 让方法中的 this 指向检测的数据值，这样就可以实现数据类型检测了
+
+:::
+
+```ts
+Object.prototype.toString.call(""); // [object String]
+Object.prototype.toString.call(1); // [object Number]
+Object.prototype.toString.call(true); // [object Boolean]
+Object.prototype.toString.call(undefined); // [object Undefined]
+Object.prototype.toString.call(null); // [object Null]
+Object.prototype.toString.call(new Function()); // [object Function]
+Object.prototype.toString.call(new Date()); // [object Date]
+Object.prototype.toString.call([]); // [object Array]
+Object.prototype.toString.call(new RegExp()); // [object RegExp]
+Object.prototype.toString.call(new Error()); // [object Error]
+Object.prototype.toString.call(document); // [object HTMLDocument]
+Object.prototype.toString.call(window); //[object global] window是全局对象global的引用
+```
+
+## 22. 在浏览器输入 URL 回车之后发生了什么
+
+:::tip
+
+:::
+
+## 23. 浏览器是如何渲染页面的
+
+:::tip
+
+介绍：浏览器获取 HTML 后，通过 HTML 解析器解析构建一颗 DOM 树，然后解析遇到 CSS 样式就会被 CSS 解析器解析成 CSS 规则树（CSSOM）。之后浏览器会根据 DOM 树和 CSS 规则树进行渲染生成一颗渲染树。再之后会对页面进行布局，通过解析计算出每一个渲染树节点的位置和大小，在页面屏幕上画出渲染树的所有节点。最后对布局的节点进行绘制呈现出一个完整的页面
+
+主要流程：构建 DOM-> 构建 CSSOM -> 构建渲染树 -> 布局 -> 绘制
 
 :::

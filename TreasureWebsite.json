@@ -64,5 +64,11 @@
     "href": "https://material.io/resources/color/#!/?view.left=1&view.right=0&primary.color=D81B60",
     "logo": "https://material.io/resources/color/assets/images/ic_colortool_72px.png",
     "description": "颜色工具"
+  },
+  {
+    "title": "Modern.js 现代Web工程体系",
+    "href": "https://modernjs.dev/",
+    "logo": "https://modernjs.dev/img/favicon.ico",
+    "description": "Modern.js 现代Web工程体系"
   }
 ]

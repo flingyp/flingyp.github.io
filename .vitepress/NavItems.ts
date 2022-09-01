@@ -37,6 +37,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         text: "代码规范化",
         link: "/frontend/Engineering/CodeStandard",
       },
+      {
+        text: "Changesets多包管理",
+        link: "/frontend/Engineering/Changesets"
+      }
     ],
   },
   {
