@@ -511,7 +511,7 @@ console.log(clearRepeat(array));
 
 1. 创建了一个空对象
 2. 将空对象的`__proto__` 指向于构造函数的`prototype`原型
-3. 将空对象作为构造函数的上下文（改变 this 指向）
+3. 执行这个函数并且使用`apply`改变函数的 this 指向。将空对象作为构造函数的上下文（改变 this 指向）
 4. 对构造函数有返回值的处理判断（默认返回 this）
 
 :::
@@ -530,21 +530,28 @@ console.log(foo);
 自定义实现：
 
 ```ts
-function Fun(age, name) {
-  this.age = age;
+function Cat(name, color) {
   this.name = name;
+  this.color = color;
+  console.log(this);
+  // return {};
 }
-function create(fn, ...args) {
+
+Function.createInstance = function (fn, ...rest) {
   // 1. 创建了一个空对象
-  var obj = {};
+  const obj = {};
   // 2. 将空对象的`__proto__` 指向于构造函数的`prototype`原型
-  Object.setPrototypeOf(obj, fn.prototype);
-  // 3. 将空对象作为构造函数的上下文（改变 this 指向）
-  var result = fn.apply(obj, args);
+  obj.__proto__ = fn.prototype;
+  // 3. 执行这个函数并且使用`apply`改变函数的 this 指向。将空对象作为构造函数的上下文（改变 this 指向）
+  const result = fn.apply(obj, rest);
   // 4. 对构造函数有返回值的处理判断（默认返回 this）
+  // 如果构造函数 return 的是一个基础数据类型 就默认返回 this
+  // 如果构造函数 return 的是一个引用数据类型这返回这个引用数据
+  // 构造函数默认返回 this
   return result instanceof Object ? result : obj;
-}
-create(Fun, 18, "张三");
+};
+// const cat = new Cat("小皮", 2);
+Function.createInstance(Cat, "小皮", 2);
 ```
 
 ## 14. `call`、`apply`、`bind` 的区别
@@ -575,6 +582,56 @@ fun.apply(obj，["张三"]); // { str: "这是obj对象内部的str", name: '张
 fun.bind(obj, '张三')();  // { str: "这是obj对象内部的str", name: '张三' } 这是obj对象内部的str
 
 fun(); // window{} 你好
+```
+
+### 手写 `call` 和 `bind`
+
+区别就是：call 是立即执行、bind 是返回一个函数
+
+```ts
+const person = { str: "obj对象内部的str" };
+function fun(name, age) {
+  this.name = name;
+  this.age = age;
+  console.log(this);
+  return this;
+}
+
+Function.prototype.myCall = function () {
+  // 将 arguments 转换为数组
+  const propsArr = new Array(...arguments);
+  // 如果没有传递参数时指向window
+  if (propsArr.length === 0) propsArr[0] = window;
+  const obj = propsArr.shift();
+  obj.fn = this;
+  // 此时调用 obj.fn() fn函数里面的this则是指向obj了
+  const result = obj.fn(...propsArr);
+  // 执行完函数fn，要将属性fn删除
+  delete obj.fn;
+  return result;
+};
+// fun.call(obj, "张三", 30);
+console.log(fun.myCall(person, "张三", 30));
+
+// 返回的是一个函数
+Function.prototype.myBind = function () {
+  // 将 arguments 转换为数组
+  const propsArr = new Array(...arguments);
+  // 如果没有传递参数时指向window
+  if (propsArr.length === 0) propsArr[0] = window;
+  const obj = propsArr.shift();
+  obj.fn = this;
+  return () => {
+    // 此时调用 obj.fn() fn函数里面的this则是指向obj了
+    const result = obj.fn(...propsArr);
+    // 执行完函数fn，要将属性fn删除
+    delete obj.fn;
+    return result;
+  };
+};
+
+// fun.bind(person, "张三", 20)();
+fun.myBind(person, "张三", 20)();
 ```
 
 ## 15. 深拷贝和浅拷贝
@@ -946,3 +1003,17 @@ Object.prototype.toString.call(window); //[object global] window是全局对象g
 主要流程：构建 DOM-> 构建 CSSOM -> 构建渲染树 -> 布局 -> 绘制
 
 :::
+
+## 24. 手写模板字符串的实现
+
+```ts
+const str = "Hello ${key} World ${name} 基础数据类型777";
+String.prototype.template = function (params) {
+  const handleStr = this;
+  const newStr = handleStr.replace(/\$\{(.*?)\}/g, (value, key) => {
+    return params[key];
+  });
+  return newStr;
+};
+str.template({ key: "唯一", name: "模板字符串" });
+```
