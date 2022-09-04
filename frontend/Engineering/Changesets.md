@@ -30,6 +30,26 @@
 
 - 运行 `pnpm publish -r` 此命令将发布注册表中尚未出现的所有升级版本的包
 
+### Config.json 配置文件
+
+```json
+{
+  "$schema": "https://unpkg.com/@changesets/config@2.1.1/schema.json",
+  "changelog": "@changesets/cli/changelog",
+  "commit": false,
+  "fixed": [],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "origin/main",
+  "updateInternalDependencies": "patch",
+  "ignore": [],
+  "___experimentalUnsafeOptions_WILL_CHANGE_IN_PATCH": {
+    "onlyUpdatePeerDependentsWhenOutOfRange": true,
+    "updateInternalDependents": "always"
+  }
+}
+```
+
 ## 配合 GitHub Actions 完成自动化版本发包
 
 执行流程：当我们在本地仓库运行 `pnpm changeset` 修改了相关包生成的变更集，之后就可以将代码提交到有远程仓库的主分支中。GitHub Actions 会自动执行 `pnpm changeset version` 请求创建一个 PR，我们合并 PR 后就会自动帮助发包 运行 `pnpm changeset publish`
@@ -68,12 +88,21 @@
 
 - 注意秘钥名称对应
 
+:::warning
+
+`secrets.ACTIONS_PUBLISH_TOKEN` 每配置一个 NPM Token 必须去 NPM 生成一个，不可以使用其他仓库已经配置过的 `NPM Token`
+
+因为使用了其他仓库配置的 NPM Token 秘钥，在 PR 后进行第二次 Actions 会报错的（排错排了很久，才发现是 NPM Token 的问题）
+
+:::
+
 ```yaml
-name: Changesets
+name: Packages publish
 on:
   push:
     branches:
       - main
+
 # env:
 #   CI: true
 #   PNPM_CACHE_FOLDER: .pnpm-store
@@ -94,7 +123,7 @@ jobs:
       - name: install pnpm
         run: npm i pnpm@latest -g
       - name: Setup npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_PUBLISH_TOKEN }}" > .npmrc
       - name: setup pnpm config
         run: pnpm config set store-dir $PNPM_CACHE_FOLDER
       - name: install dependencies
@@ -102,12 +131,12 @@ jobs:
       - name: create and publish versions
         uses: changesets/action@v1
         with:
-          version: pnpm ci:version
+          version: pnpm changeset version
           commit: "chore: update versions"
           title: "chore: update versions"
-          publish: pnpm ci:publish
+          publish: pnpm changeset publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.ACTIONS_PUBLISH_TOKEN }}
 ```
 
 ## @changesets/changelog-github
