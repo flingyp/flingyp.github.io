@@ -638,3 +638,110 @@ promise.then(
 5. `Promise.race()`
 
 > 返回一个新的 promise，第一个完成异步操作的 promise 的结果状态就是最终的结果状态
+
+## Set、Map、WeakSet、WeakMap
+
+`Set` 是一种集合的数据结构，`Map` 是一种字典的数据结构
+
+共同点：集合、字典都可以存储不重复的值
+
+不同点：集合是以 `[value1、value2]` 的形式存储元素、字典是以 `[key, value]` 的形式存储
+
+### Set
+
+介绍：Set 是 ES6 新增的数据结构，类似于数组，但是**成员的值都是唯一的，没有重复的值**，一般称为`Set集合`
+
+```ts
+const dataGather = new Set();
+
+// 增删改查
+// dataGather.add() 添加元素
+// dataGather.delete() 删除元素
+// dataGather.has() 判断是否存在元素
+// dataGather.clear() 清空集合
+
+// 遍历 （注意：Set集合的建名和建值都是 值）
+// dataGather.keys() 返回键名的遍历器
+for (let key of dataGather.keys()) {
+  console.log(key);
+}
+// dataGather.values() 返回键值的遍历器
+for (let value of dataGather.values()) {
+  console.log(value);
+}
+// dataGather.entries()：返回键值对的遍历器
+for (let arr of dataGather.entries()) {
+  console.log(arr); // [key, value];
+}
+// forEach()：使用回调函数遍历每个成员
+dataGather.forEach((value, key) => console.log(key + ":" + value));
+```
+
+### Map
+
+介绍：Map 类型是键值对的有序列表，而键和值都可以是任意类型
+
+```ts
+const dataGather = new Map();
+
+// 增删改查
+// dataGather.size 元素集合成员总数
+// dataGather.set(key, value) 设置元素
+// dataGather.get(key) 获取元素
+// dataGather.has(key) 判断是否存在元素
+// dataGather.delete(key) 删除元素
+// dataGather.clear() 清空集合
+
+// 遍历
+// dataGather.keys() 返回键名的遍历器
+for (let key of dataGather.keys()) {
+  console.log(key);
+}
+// dataGather.values() 返回键值的遍历器
+for (let value of dataGather.values()) {
+  console.log(value);
+}
+// dataGather.entries()：返回键值对的遍历器
+for (let arr of dataGather.entries()) {
+  console.log(arr); // [key, value];
+}
+// forEach()：使用回调函数遍历每个成员
+dataGather.forEach((value, key) => console.log(key + ":" + value));
+```
+
+### WeakSet
+
+WeakSet 可以接受一个具有 Iterable 接口的对象作为参数
+
+在 API 中 WeakSet 与 Set 的区别：
+
+- 没有遍历操作的 API
+- 没有 size 属性
+- WeakSet 只能成员只能是引用类型，而不能是其他类型的值
+
+WeakSet 里面的引用只要在外部消失，它在 WeakSet 里面的引用就会自动消失
+
+### WeakMap
+
+WeakMap 结构与 Map 结构类似，也是用于生成键值对的集合
+
+在 API 中 WeakMap 与 Map 的区别：
+
+- 没有遍历操作的 API
+- 没有 clear 清空方法
+- WeakMap 只接受对象作为键名（null 除外），不接受其他类型的值作为键名
+
+注意：WeakMap 弱引用的只是键名，而不是键值。键值依然是正常引用
+
+WeakMap 的键名所指向的对象，一旦不再需要，里面的键名对象和所对应的键值对会自动消失，不用手动删除引用
+
+```ts
+const wm = new WeakMap();
+let key = {};
+let obj = { foo: 1 };
+
+wm.set(key, obj);
+obj = null;
+wm.get(key);
+// Object {foo: 1}
+```
