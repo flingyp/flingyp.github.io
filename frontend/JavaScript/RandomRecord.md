@@ -994,7 +994,25 @@ Object.prototype.toString.call(window); //[object global] window是全局对象g
 
 :::
 
-## 23. 浏览器是如何渲染页面的
+## 23. 简述输入网址到浏览器显示的过程
+
+:::tip
+
+DNS 解析：将域名解析成 IP 地址
+
+TCP 连接：TCP 三次握手
+
+发送 HTTP 请求
+
+服务器处理请求并返回 HTTP 报文
+
+浏览器解析渲染页面
+
+断开连接：TCP 四次挥手
+
+:::
+
+## 24 浏览器解析渲染页面
 
 :::tip
 
@@ -1004,7 +1022,7 @@ Object.prototype.toString.call(window); //[object global] window是全局对象g
 
 :::
 
-## 24. 手写模板字符串的实现
+## 25. 手写模板字符串的实现
 
 ```ts
 const str = "Hello ${key} World ${name} 基础数据类型777";
@@ -1016,4 +1034,28 @@ String.prototype.template = function (params) {
   return newStr;
 };
 str.template({ key: "唯一", name: "模板字符串" });
+```
+
+## 26. 实现 `instanceof`
+
+原理：`instanceof` 用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链上
+
+方式： `object instanceof constructor`
+
+```ts
+function myInstanceOf(targetObj, targetConstructor) {
+  // 如果 targetObj 不是一个引用数据类型或者没有传构造函数，直接返回 false
+  if (typeof targetObj !== "object" || targetConstructor === null) return false;
+  // Object.getPrototypeOf() 获取原型
+  let targetPrototype = Object.getPrototypeOf(targetObj);
+
+  while (true) {
+    // 如果对象原型是空的，返回false
+    if (targetPrototype === null) return false;
+    // 如果对象的原型和构造函数的原型相同，返回true
+    if (targetPrototype === targetConstructor.prototype) return true;
+    // 如果上面都没有，就获取对象的原型的原型，在此循环，知道找到或者为null
+    targetPrototype = Object.getPrototypeOf(targetPrototype);
+  }
+}
 ```

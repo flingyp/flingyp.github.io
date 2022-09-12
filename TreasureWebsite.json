@@ -70,5 +70,11 @@
     "href": "https://modernjs.dev/",
     "logo": "https://modernjs.dev/img/favicon.ico",
     "description": "Modern.js 现代Web工程体系"
+  },
+  {
+    "title": "MKLab在线工具",
+    "href": "https://www.mklab.cn/utils/regex",
+    "logo": "https://cdn.mklab.cn/images/favicon.png",
+    "description": "Regex正则表达式在线测试生成工具 - MKLab在线工具"
   }
 ]
