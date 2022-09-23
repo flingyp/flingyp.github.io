@@ -592,52 +592,135 @@ Promise 是 ES6 的新技术，是在 JS 中解决异步编程的解决方案（
 
 :::
 
-```ts
+```js
+// Promise 是一个构造函数，实例初始化的时候接受一个回调函数，回调函数接受两个参数
 /**
- * 使用 Promise 构造函数创建一个promise对象
- * 传递一个函数，存在两个参数，resolve、reject，在函数中编写对应的异步操作
- * 成功调用 resolve(data)
- * 失败调用 reject(error)
+ * resolve：解决。异步任务成功时执行
+ * reject：拒绝。异步任务失败是执行
  */
-const promise = new Promise((resolve, reject) => {
-  // 异步操作
-  // resolve 会将 promise对象的状态设置为成功
-  // reject 会将 promise对象的状态设置为失败
+const p = new Promise((resolve, reject) => {
+  // 异步任务
+  // resolve(data) 成功时执行， 会将promise对象的状态设置为：resolve
+  // reject(err) 失败时执行， 会将promise对象的状态设置为：reject
 });
-// 成功执行第一个回调函数，失败执行第二个回调函数
-promise.then(
+
+p.then(
   (data) => {
-    console.log(data);
+    // 成功时执行的回调函数
   },
-  (error) => {
-    console.log(error);
+  (err) => {
+    // 失败是执行的回调函数
   }
 );
 ```
 
-### API 相关介绍
+### Promise 状态
 
-1. `Promise` 构造函数
+实例对象中的一个属性：**PromiseState**
 
-> `new Promise((resolve, reject) => {})`
+- Pending 等待中...
 
-注意：Promise 中的异步操作会在 JS 中与同步任务一起执行
+- Resolved/ Fullfilled 已执行
 
-2. `Promise.prototype.then()`
+- Rejected 已失败
 
-> 异步操作成功后执行并且返回一个新的 promise 的对象
+**Promise 状态的改变说明**：
 
-3. `Promise.prototype.catch()`
+1. 只有两种可能，且一个 Promise 对象只能改变一次
 
-> 异步操作失败后执行
+2. `Pending -> Resolved` 或 `Pending -> Rejected`
 
-4. `Promise.all()`
+3. 无论变为成功还是失败，都会有一个结果数据
 
-> 返回一个新的 promise，只有所有的 promise 都执行成功才算成功，有一个失败就直接失败
+### Promise 对象的值
 
-5. `Promise.race()`
+实例对象中的一个属性：**PromiseResult**，保存着 Promise 对象成功或失败的结果
 
-> 返回一个新的 promise，第一个完成异步操作的 promise 的结果状态就是最终的结果状态
+### Promise 构造函数
+
+```js
+Promise(executor) {
+  // 执行的内容
+}
+```
+
+1. **executor 函数：(resolve, reject) => {}**
+
+2. resolve 函数：在函数内部定义成功时，执行的方法
+
+3. reject 函数：在函数内部定义失败时，执行的方法
+
+### Promise.prototype.then(onResolved, onRejected)
+
+第一个回调函数是 onResolved 用于接受 Promise 成功时执行的回调函数
+
+第二个回调函数是 onRejected 用于接受 Promise 失败时执行的回调函数
+
+### Promise.prototype.catch(onRejected)
+
+回调函数是 onRejected 用于接受 Promise 失败时执行的回调函数
+
+### Promise.resolve(data)
+
+返回一个 成功/失败 的 Promise 对象
+
+注意：
+
+1. 如果传入的参数为 非 Promise 类型的数据，则返回的结果为成功的 Promise 对象
+
+2. 如果传入的参数为 Promise 类型的数据，则参数的结果决定了 resolve 返回的结果
+
+### Promise.reject(err)
+
+返回一个 失败的 Promise 对象
+
+### Promise.all(promises)
+
+返回一个新的 Promise 对象，只有所有的 promise 成功才会返回成功，只要有一个失败了就直接失败
+
+### Promise.race(promises)
+
+返回一个新的 Promise 对象，第一个完成的 Promise 的结果状态就是最终的结果状态
+
+### Promise 常见问题
+
+1. 如何改变 Promise 的状态
+
+通过 `resolve(value)`、`reject(err)` 或 抛出异常都会改变其状态
+
+2. 一个 Promise 指定多个成功/失败的回调函数，都会调用吗
+
+当 promise 改变为对应状态时都会调用
+
+3. 改变 Promise 状态和指定回调函数谁先谁后
+
+都有可能，正常情况下是先指定回调再改变状态, 但也可以先改状态再指定回调
+
+比如在 Promise 执行的回调函数，使用 `setTimeout` 来延迟更新 Promise 的状态就会先指定回调函数，当状态被修改后会立即执行指定的回调函数
+
+4. `promise.then()` 返回的新 promise 的结果状态由什么决定
+
+由 `then()` 指定的回调函数执行的结果决定
+
+- 如果抛出异常, 新 promise 变为 rejected, reason 为抛出的异常
+
+- 如果返回的是非 promise 的任意值, 新 promise 变为 resolved, value 为返回的值
+
+- 如果返回的是另一个新 promise, 此 promise 的结果就会成为新 promise 的结果
+
+5. Promise 如何串连多个操作任务
+
+promise 的 `then()` 返回一个新的 promise, 可以开成 then()的链式调用
+
+6. Promise 异常传统
+
+当使用 promise 的 then 链式调用时, 可以在最后指定失败的回调，前面任何操作出了异常, 都会传到最后失败的回调中处理
+
+7. 中断 Promise 链
+
+如何在使用 promise 的 then 链式调用时, 在中间中断, 不再调用后面的回调函数
+
+方法：在回调函数中返回一个 Pending 状态的 promise 对象
 
 ## Set、Map、WeakSet、WeakMap
 

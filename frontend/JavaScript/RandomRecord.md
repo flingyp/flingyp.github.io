@@ -752,9 +752,9 @@ function deepCopy(obj) {
  */
 export default function useDebounce(callback: Function, delay: number) {
   let timer: any = null;
-  return function () {
+  return function (this: unknown, ...rest: unknown[]) {
     if (timer) clearTimeout(timer);
-    timer = setTimeout(callback, delay);
+    timer = setTimeout(callback.apply(this, rest), delay);
   };
 }
 ```
@@ -766,21 +766,15 @@ export default function useDebounce(callback: Function, delay: number) {
  * @param delay
  */
 export default function useThrottle(callback: Function, delay: number) {
-  let flag = true;
-  let firstTimer: number = 0;
-  return function () {
-    // 记录第一次的时间戳
-    if (flag) {
-      firstTimer = Date.now();
-      flag = false;
-    }
-    // 获取现在的时间戳
-    const current = Date.now();
-    // 如果现在的时间戳 >= 第一次时间戳 + 延迟执行的时间 就可以执行函数
-    if (current >= firstTimer + delay) {
-      callback();
-      flag = true;
-      firstTimer = Date.now();
+  let record = Date.now();
+
+  return function (this: unknown, ...rest: unknown[]) {
+    const nowTime = Date.now();
+    const context = this;
+    const args = rest;
+    if (nowTime >= record + delay) {
+      record = Date.now();
+      return callback.apply(context, args);
     }
   };
 }
@@ -1028,8 +1022,8 @@ TCP 连接：TCP 三次握手
 const str = "Hello ${key} World ${name} 基础数据类型777";
 String.prototype.template = function (params) {
   const handleStr = this;
-  const newStr = handleStr.replace(/\$\{(.*?)\}/g, (value, key) => {
-    return params[key];
+  const newStr = handleStr.replace(/\$\{(.*?)\}/g, ($0, $1) => {
+    return params[$1];
   });
   return newStr;
 };
@@ -1056,6 +1050,186 @@ function myInstanceOf(targetObj, targetConstructor) {
     if (targetPrototype === targetConstructor.prototype) return true;
     // 如果上面都没有，就获取对象的原型的原型，在此循环，知道找到或者为null
     targetPrototype = Object.getPrototypeOf(targetPrototype);
+  }
+}
+```
+
+## 27. 实现 Promise 基本功能和相关 API
+
+```ts
+class Promise {
+  PromiseState = "pending";
+  PromiseResult = null;
+
+  callbacks = [];
+
+  constructor(executor) {
+    // 保存当前promise对象的实例
+    const _self = this;
+
+    // 调用 resolve方法 Promise的状态要修改为成功
+    function resolve(value) {
+      if (_self.PromiseState !== "pending") return;
+
+      _self.PromiseState = "fulfilled";
+      _self.PromiseResult = value;
+
+      // 如果是异步修改状态值的话，则 callbacks 有对应的回调函数
+      if (_self.callbacks.length !== 0) {
+        _self.callbacks.forEach((item) => {
+          item.onResolved();
+        });
+      }
+    }
+    // 调用 reject方法 Promise的状态要修改为失败
+    function reject(reason) {
+      if (_self.PromiseState !== "pending") return;
+
+      _self.PromiseState = "rejected";
+      _self.PromiseResult = reason;
+
+      // 如果是异步修改状态值的话，则 callbacks 有对应的回调函数
+      if (_self.callbacks.length !== 0) {
+        _self.callbacks.forEach((item) => {
+          item.onRejected();
+        });
+      }
+    }
+
+    try {
+      // Promise 在初始化的时候会同步执行这个 executor 回调函数
+      executor(resolve, reject);
+    } catch (error) {
+      reject(error);
+    }
+  }
+
+  // .then() 方法返回一个promise实例对象
+  // 返回一个非Promise类型的值，则promise对象状态值修改为成功，结果为非Promise类型的值
+  // 返回一个Promise类型的值，则该Promise类型的值返回的值为结果值，状态值修改为成功
+  then(onResolved, onRejected) {
+    return new Promise((resolve, reject) => {
+      // 保存当前promise对象的实例
+      const _self = this;
+
+      const callback = (handle) => {
+        const instanceResult = handle(_self.PromiseResult);
+        if (instanceResult instanceof Promise) {
+          instanceResult.then(
+            (v) => {
+              resolve(v);
+            },
+            (e) => {
+              reject(e);
+            }
+          );
+        } else {
+          resolve(instanceResult);
+        }
+      };
+
+      // 状态修改为 fulfilled 时 调用 onResolved()
+      if (_self.PromiseState === "fulfilled") {
+        // const instanceResult = onResolved(_self.PromiseResult);
+        // if (instanceResult instanceof Promise) {
+        //   instanceResult.then(
+        //     (v) => {
+        //       resolve(v);
+        //     },
+        //     (e) => {
+        //       reject(e);
+        //     }
+        //   );
+        // } else {
+        //   resolve(instanceResult);
+        // }
+        setTimeout(() => {
+          callback(onResolved);
+        });
+      }
+
+      // 状态修改为 rejected 时调用 onRejected()
+      if (_self.PromiseState === "rejected") {
+        // const instanceResult = onRejected(_self.PromiseResult);
+        // if (instanceResult instanceof Promise) {
+        //   instanceResult.then(
+        //     (v) => {
+        //       resolve(v);
+        //     },
+        //     (e) => {
+        //       reject(e);
+        //     }
+        //   );
+        // } else {
+        //   resolve(instanceResult);
+        // }
+        setTimeout(() => {
+          callback(onRejected);
+        });
+      }
+
+      // 如果是异步任务去修改Promise对象状态
+      if (_self.PromiseState === "pending") {
+        // 保存这两个回调函数，等待状态修改，再去执行
+        _self.callbacks.push({
+          onResolved: function () {
+            // onResolved(_self.PromiseResult);
+            setTimeout(() => {
+              callback(onResolved);
+            });
+          },
+          onRejected: function () {
+            // onRejected(_self.PromiseResult);
+            setTimeout(() => {
+              callback(onRejected);
+            });
+          },
+        });
+      }
+    });
+  }
+
+  catch(onRejected) {
+    return this.then(null, onRejected);
+  }
+  // 返回一个 rejected 状态的 Promise对象
+  static reject(reason) {
+    return new Promise((resolve, reject) => {
+      reject(reason);
+    });
+  }
+
+  // 传递一个带有多个Promise对象的数组，所有对象成功则算成功，有一个失败则算失败
+  static all(values) {
+    return new Promise((resolve, reject) => {
+      let result = [];
+      values.forEach((value, index) => {
+        if (value.PromiseState !== "fulfilled") {
+          reject(value.PromiseResult);
+          return;
+        } else {
+          result[index] = value.PromiseResult;
+        }
+      });
+      resolve(result);
+    });
+  }
+
+  // 传递一个带有多个Promise对象的数组，先执行的第一个promise对象则算成功
+  static race(values) {
+    return new Promise((resolve, reject) => {
+      values.forEach((value, index) => {
+        // 只有第一个执行promise就可以修改它的状态，其他的promise都被return了
+        value.then(
+          (v) => {
+            resolve(v);
+          },
+          (r) => {
+            reject(r);
+          }
+        );
+      });
+    });
   }
 }
 ```
