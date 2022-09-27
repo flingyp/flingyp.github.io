@@ -828,3 +828,32 @@ obj = null;
 wm.get(key);
 // Object {foo: 1}
 ```
+
+## 可选链操作符
+
+编程实务中，如果读取对象内部的某个属性，往往需要判断一下该对象是否存在。比如，要读取 message.body.user.firstName，安全的写法是写成下面这样。
+
+```ts
+const firstName =
+  (message &&
+    message.body &&
+    message.body.user &&
+    message.body.user.firstName) ||
+  "default";
+```
+
+或者使用三元运算符?:，判断一个对象是否存在。
+
+```ts
+const fooInput = myForm.querySelector("input[name=foo]");
+const fooValue = fooInput ? fooInput.value : undefined;
+```
+
+所以在 ES2020 引入的链判断运算符，简化上面的写法
+
+```ts
+const firstName = message?.body?.user?.firstName || "default";
+const fooValue = myForm.querySelector("input[name=foo]")?.value;
+```
+
+上面代码使用了 `?.` 运算符，直接在链式调用的时候判断，左侧的对象是否为 `null` 或 `undefined`。如果是的，就不再往下运算，而是返回 `undefined`

@@ -191,15 +191,15 @@ height 是一个死值，就是盒子的高度
 
 ## 8. 用 CSS 画一个三角形
 
-使用边框`border`画
+使用边框 `border` 画
 
 ```css
 #box {
   width: 0px;
   height: 0px;
-  border-top: 50px solid rgba(0, 0, 0, 0);
-  border-right: 50px solid rgba(0, 0, 0, 0);
-  border-bottom: 50px solid rgba(0, 0, 0, 0);
+  border-top: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 50px solid transparent;
   border-left: 50px solid green;
 }
 ```
@@ -338,5 +338,62 @@ div:after {
   content: "";
   display: block;
   clear: both;
+}
+```
+
+## 11. 如何实现左侧固定宽度，右侧自适应布局
+
+### 第一种
+
+通过 Flex 布局，左侧设置固定宽度 `width: 宽度` 或者 `flex-basic: 宽度`, 右侧设置 `flex: 1`
+
+```css
+.container {
+  display: flex;
+}
+
+.left {
+  /* width: 300  */
+  flex-basic: 300px;
+  /* 设置0代表，当容器空间不足时，不会缩小 */
+  flex-shrink: 0;
+}
+
+.right {
+  flex: 1;
+}
+```
+
+## 第二种
+
+通过 Grid 网格布局
+
+```css
+.container {
+  display: grid;
+  /* 两列 */
+  grid-template-columns: 300px 1fr;
+}
+```
+
+## 第三种
+
+浮动 + BFC
+
+```css
+.container {
+  height: 400px;
+  background-color: skyblue;
+}
+.left {
+  float: left;
+  width: 300px;
+  height: 200px;
+  background-color: red;
+}
+.right {
+  height: 200px;
+  background-color: blue;
+  overflow: hidden;
 }
 ```
