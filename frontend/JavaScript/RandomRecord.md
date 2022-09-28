@@ -1341,3 +1341,67 @@ clientWidth = width（可视区宽度（width + Padding））
 offsetWidth = width（可视区宽度（width + Padding））+ border
 
 :::
+
+## 34. 手写 Flat 扁平化数组
+
+```ts
+const arr = [
+  1,
+  2,
+  3,
+  4,
+  [5, 6, 7, [8, 9, 10, [11, 12, 13]]],
+  14,
+  "string",
+  { name: "前端收割机" },
+];
+// 使用递归 实现扁平化
+function myFlat(arr) {
+  let res = []; // 存放扁平化结构的数组
+  arr.forEach((item) => {
+    // 判断当前元素是否为数组
+    if (Array.isArray(item)) {
+      // 递归调用
+      res = res.concat(myFlat(item));
+    } else {
+      res.push(item);
+    }
+  });
+  return res;
+}
+
+// reduce + 递归
+function myFlat(arr) {
+  return arr.reduce((pre, cur) => {
+    return pre.concat(Array.isArray(cur) ? myFlat(cur) : cur);
+  }, []);
+}
+
+// 利用栈去进行扁平
+function myFlat(arr) {
+  const res = [];
+  // 将数组拷贝至栈，直接复制会改变原数组
+  const stack = [].concat(arr);
+  while (stack.length !== 0) {
+    const value = stack.pop();
+    if (Array.isArray(value)) {
+      stack.push(...value);
+    } else {
+      res.unshift(value);
+    }
+  }
+  return res;
+}
+
+// reduce + 递归 控制拉平的层数
+function myFlat(arr, num = 1) {
+  return num > 0
+    ? arr.reduce((pre, cur) => {
+        return pre.concat(Array.isArray(cur) ? myFlat(cur, num - 1) : cur);
+      }, [])
+    : arr.slice();
+}
+
+console.log(myFlat());
+console.log(myFlat(arr, 2));
+```

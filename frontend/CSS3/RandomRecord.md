@@ -364,7 +364,7 @@ div:after {
 }
 ```
 
-## 第二种
+### 第二种
 
 通过 Grid 网格布局
 
@@ -376,7 +376,7 @@ div:after {
 }
 ```
 
-## 第三种
+### 第三种
 
 浮动 + BFC
 
@@ -397,3 +397,87 @@ div:after {
   overflow: hidden;
 }
 ```
+
+## 12. 如何实现左右固定，中间自适应布局
+
+### 第一种
+
+Flex 布局
+
+```css
+.container {
+  display: flex;
+}
+
+.left {
+  flex-basis: 300px;
+  flex-shrink: 0;
+}
+
+.right {
+  flex-basis: 300px;
+  flex-shrink: 0;
+}
+
+.main {
+  flex-grow: 1;
+}
+```
+
+### 第二种
+
+Grid 网格布局
+
+```css
+.container {
+  height: 20rem;
+  margin: 2rem;
+  background-color: #eeeeee;
+  display: grid;
+  grid-template-columns: 300px 1fr 300px;
+}
+
+.left {
+  height: 100%;
+  border: 1px solid black;
+}
+
+.main {
+  height: 100%;
+}
+
+.right {
+  height: 100%;
+  border: 1px solid;
+}
+```
+
+## 13. 文本超出显示省略号
+
+### 单行文本
+
+```css
+/* 添加如下属性，缺一不可 */
+.demo {
+  white-space: nowrap; /* 文本不换行 */
+  overflow: hidden; /* 溢出部分隐藏 */
+  text-overflow: ellipsis; /* 溢出部分省略号显示 */
+}
+```
+
+### 多行文本
+
+```css
+.demo {
+  overflow: hidden;
+  display: -webkit-box; /* 将对象作为弹性伸缩盒子模型显示 */
+  -webkit-line-clamp: 3; /* 限制在一个块元素显示的文本的行数 */
+  -webkit-box-orient: vertical; /* 规定框的子元素应该被水平或垂直排列 从上向下垂直排列子元素 */
+}
+```
+
+### 14. normalize.css 与 reset.css 有什么区别
+
+`normalize.css`：标准化，会保留有关的样式，比如 H1 的字体大小
+
+`reset.css`：重置化，将所有样式都会重置

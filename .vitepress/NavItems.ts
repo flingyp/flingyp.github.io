@@ -39,8 +39,8 @@ export const NavItemList: DefaultTheme.NavItem[] = [
       },
       {
         text: "Changesets多包管理",
-        link: "/frontend/Engineering/Changesets"
-      }
+        link: "/frontend/Engineering/Changesets",
+      },
     ],
   },
   {
@@ -53,6 +53,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
       {
         text: "@flypeng/tool",
         link: "https://yyblog.top/flypeng-tool",
+      },
+      {
+        text: "vitepress-demo-preview",
+        link: "https://yyblog.top/vitepress-demo-preview",
       },
     ],
   },

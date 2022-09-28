@@ -169,7 +169,7 @@ console.log(person); // { name: 'yepeng', age: 28 }
 
 ## Array
 
-### ES5 中遍历数组的方式
+### 遍历数组的方式
 
 ```js
 let arr = [1, 2, 3, 2, 4];
@@ -296,6 +296,14 @@ let obj = {
   foo: "bar",
 };
 ```
+
+### Object.keys()、Object.values()、Object.entries
+
+`Object.keys()` 返回对象中所有键名的数组
+
+`Object.values()` 返回对象中所有键值的数组
+
+`Object.entries()` 返回一个二维数组，元素由 键名 + 键值组合的数组 `[key, value]`
 
 ### Object.assign()
 
@@ -857,3 +865,23 @@ const fooValue = myForm.querySelector("input[name=foo]")?.value;
 ```
 
 上面代码使用了 `?.` 运算符，直接在链式调用的时候判断，左侧的对象是否为 `null` 或 `undefined`。如果是的，就不再往下运算，而是返回 `undefined`
+
+## Null 判断运算符
+
+读取对象属性的时候，如果某个属性的值是 null 或 undefined，有时候需要为它们指定默认值。常见做法是通过||运算符指定默认值。
+
+```ts
+const headerText = response.settings.headerText || "Hello, world!";
+const animationDuration = response.settings.animationDuration || 300;
+const showSplashScreen = response.settings.showSplashScreen || true;
+```
+
+上面代码有一个这样的问题，只要属性的值为 null 或 undefined，默认值就会生效。但是其实如果属性的值为 空字符串 或者 false 或 0，默认值都会生效
+
+为了避免这种情况，ES2020 引入了一个新的 Null 判断运算符 `??`。它的行为类似||，但是只有运算符左侧的值为 null 或 undefined 时，才会返回右侧的值。
+
+```ts
+const headerText = response.settings.headerText ?? "Hello, world!";
+const animationDuration = response.settings.animationDuration ?? 300;
+const showSplashScreen = response.settings.showSplashScreen ?? true;
+```
