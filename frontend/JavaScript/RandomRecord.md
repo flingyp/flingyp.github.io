@@ -987,11 +987,7 @@ Object.prototype.toString.call(document); // [object HTMLDocument]
 Object.prototype.toString.call(window); //[object global] window是全局对象global的引用
 ```
 
-## 22. 在浏览器输入 URL 回车之后发生了什么
-
-:::tip
-
-:::
+## 22. TODO
 
 ## 23. 简述输入网址到浏览器显示的过程
 
@@ -1011,15 +1007,7 @@ TCP 连接：TCP 三次握手
 
 :::
 
-## 24 浏览器解析渲染页面
-
-:::tip
-
-介绍：浏览器获取 HTML 后，通过 HTML 解析器解析构建一颗 DOM 树，然后解析遇到 CSS 样式就会被 CSS 解析器解析成 CSS 规则树（CSSOM）。之后浏览器会根据 DOM 树和 CSS 规则树进行渲染生成一颗渲染树。再之后会对页面进行布局，通过解析计算出每一个渲染树节点的位置和大小，在页面屏幕上画出渲染树的所有节点。最后对布局的节点进行绘制呈现出一个完整的页面
-
-主要流程：构建 DOM-> 构建 CSSOM -> 构建渲染树 -> 布局 -> 绘制
-
-:::
+## 24. TODO
 
 ## 25. 手写模板字符串的实现
 
