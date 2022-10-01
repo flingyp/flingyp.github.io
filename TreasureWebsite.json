@@ -76,5 +76,11 @@
     "href": "https://www.mklab.cn/utils/regex",
     "logo": "https://cdn.mklab.cn/images/favicon.png",
     "description": "Regex正则表达式在线测试生成工具 - MKLab在线工具"
+  },
+  {
+    "title": "CodePen",
+    "href": "https://codepen.io/",
+    "logo": "https://cpwebassets.codepen.io/assets/favicon/favicon-touch-de50acbf5d634ec6791894eba4ba9cf490f709b3d742597c6fc4b734e6492a5a.png",
+    "description": "可以再上面找到自己感兴趣的CSS效果和一些布局上面的需求"
   }
 ]

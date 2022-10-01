@@ -147,7 +147,7 @@ height 是一个死值，就是盒子的高度
 
 :::tip 哪些属性可以继承？
 
-`font-size、color、line-height、text-algn` 等
+`font-size、color、line-height、text-align` 等
 
 :::
 
@@ -438,8 +438,33 @@ Grid 网格布局
 }
 ```
 
-### 14. normalize.css 与 reset.css 有什么区别
+## 14. normalize.css 与 reset.css 有什么区别
 
 `normalize.css`：标准化，会保留有关的样式，比如 H1 的字体大小
 
 `reset.css`：重置化，将所有样式都会重置
+
+## 15. 介绍 CSS 隐藏元素的几种方法
+
+:::tip
+
+1. `display: none` 将元素移出文档流
+2. `opacity: 0` 将元素透明度设置为 0，仍然在文档流，其作用于元素上的事件（如点击）有效
+3. `visibility: hidden` 将元素透明度设置为 0，仍然在文档流，但作用于其上的事件（如点击）无效
+4. `content-visibility: hidden` 移出文档流，但是再次显示时消耗性能
+5. 绝对定位于到当前位置不可见的位置
+6. 字体大小设置为 0
+
+:::
+
+## 16. 如何自定义滚动条样式
+
+滚动条相关样式都是伪元素，以 scrollbar 打头，有以下伪元素，从 -webkit 中可见兼容性一般，不过无所谓，现在 Chrome 浏览器占大头
+
+- `::-webkit-scrollbar` — 整个滚动条.
+- `::-webkit-scrollbar-button` — 滚动条上的按钮 (上下箭头).
+- `::-webkit-scrollbar-thumb` — 滚动条上的滚动滑块.
+- `::-webkit-scrollbar-track` — 滚动条轨道.
+- `::-webkit-scrollbar-track-piece` — 滚动条没有滑块的轨道部分.
+- `::-webkit-scrollbar-corner` — 当同时有垂直滚动条和水平滚动条时交汇的部分.
+- `::-webkit-resizer` — 某些元素的 corner 部分的部分样式(例:textarea 的可拖动按钮).
