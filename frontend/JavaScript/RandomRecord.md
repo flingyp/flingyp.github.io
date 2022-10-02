@@ -987,7 +987,15 @@ Object.prototype.toString.call(document); // [object HTMLDocument]
 Object.prototype.toString.call(window); //[object global] window是全局对象global的引用
 ```
 
-## 22. TODO
+## 22. 如何阻止事件冒泡和默认事件
+
+:::tip
+
+标准的 DOM 对象中使用事件对象的 `event.stopPropagation()` 方法来阻止事件冒泡，但是在 IE8 一下通过设置事件对象的 `cancelBubble` 属性为 `true` 来阻止冒泡。
+
+默认事件科院通过事件对象的 `event.preventDefault()` 方法来阻止，而 IE 则需要设置 `event.returnValue` 属性为 `false` 来阻止默认事件。
+
+:::
 
 ## 23. 简述输入网址到浏览器显示的过程
 
@@ -1007,7 +1015,11 @@ TCP 连接：TCP 三次握手
 
 :::
 
-## 24. TODO
+## 24. JSONP 的实现原理
+
+:::tip
+JSONP 的原理是使用 `script` 标签来实现跨域，因为 `script` 标签的的 `src` 属性是不受同源策略的影响的，因此可以使用其来跨域。一个最简单的 `JSONP` 就是创建一个 `script` 标签，设置相应的 `URL`，在 `URL` 之后添加相应的 `callback`，格式类似于 `url?callback=xxx`，服务端根据我们的 `callback` 来返回相应的数据，类似于 `res.send(req.query.callback + '('+ data + ')')`，这样就实现了一个最简单的 `JSONP`
+:::
 
 ## 25. 手写模板字符串的实现
 
