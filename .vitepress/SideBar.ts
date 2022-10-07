@@ -109,4 +109,24 @@ export const SideBarList: DefaultTheme.Sidebar = {
       ],
     },
   ],
+  "/services": [
+    {
+      text: "Nest.js",
+      collapsible: true,
+      items: [
+        {
+          text: "基本使用",
+          link: "/services/Nest/",
+        },
+        {
+          text: "环境变量配置",
+          link: "/services/Nest/build",
+        },
+        {
+          text: "服务常用配置",
+          link: "/services/Nest/configuration",
+        },
+      ],
+    },
+  ],
 };

@@ -31,6 +31,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
     ],
   },
   {
+    text: "Nest.js",
+    link: "/services/Nest/",
+  },
+  {
     text: "前端工程化",
     items: [
       {
