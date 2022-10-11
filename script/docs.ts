@@ -39,9 +39,8 @@ interface Bar {
 const generateNavBar: Bar[] = [];
 directories.forEach((moduleName) => {
   const generateItem: Bar = { text: "", link: "" };
-  const noteName = moduleName.match(/(.+).md/)[1];
-
-  generateItem.text = `${moduleName.replace(moduleName[0], noteName)}`;
+  const noteName = moduleName.match(/(.+).md/)![1] + ".md";
+  generateItem.text = `${moduleName.replace(moduleName, noteName)}`;
   generateItem.link = `/notes/${noteName}`;
   generateNavBar.push(generateItem);
 });
