@@ -95,3 +95,7 @@ async function bootstrap() {
 ```
 
 之后我们就可通过 `process.env.NODE_ENV` 访问到了
+
+## 使用 `Yaml` 配置文件
+
+安装：`pnpm add yaml`
