@@ -39,27 +39,89 @@ export class AppModule implements NestModule {
 }
 ```
 
-## 全局响应拦截器（统一返回数据格式）
+## 全局日志打印拦截器
+
+同全局日志打印中间件功能一样
 
 ```ts
 import {
   CallHandler,
   ExecutionContext,
   Injectable,
+  Logger,
+  NestInterceptor,
+} from '@nestjs/common';
+import { Request } from 'express';
+import { Observable, tap } from 'rxjs';
+import { useFormatDate } from '@flypeng/tool';
+
+@Injectable()
+export class LoggingInterceptor implements NestInterceptor {
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    const request = context.switchToHttp().getRequest<Request>();
+    const startNow = useFormatDate('yyyy-MM-dd hh:mm:ss');
+
+    Logger.log(`Request start... ${startNow}`, 'LoggingInterceptor');
+    console.log(`\t\t\tRequest-URL: ${request.url}\t\t\t`);
+    console.log(`\t\t\tRequest-Method: ${request.method}\t\t\t`);
+    console.log(`\t\t\tRequest-Ip: ${request.ip}\t\t\t`);
+    console.log(
+      `\t\t\tRequest-QueryParams: ${JSON.stringify(request.query)}\t\t\t`,
+    );
+    console.log(`\t\t\tRequest-Body: ${JSON.stringify(request.body)}\t\t\t`);
+    return next.handle().pipe(
+      tap(() => {
+        const endNow = useFormatDate('yyyy-MM-dd hh:mm:ss');
+        Logger.log(`Request ending... ${endNow}`, 'LoggingInterceptor');
+      }),
+    );
+  }
+}
+```
+
+在 `main.ts` 配置拦截器
+
+```ts
+// 全局响应拦截器（统一返回数据格式）
+app.useGlobalInterceptors(new LoggingInterceptor());
+```
+
+## 全局响应拦截器（统一返回数据格式）
+
+```ts
+import {
+  CallHandler,
+  ExecutionContext,
+  HttpStatus,
+  Injectable,
   NestInterceptor,
 } from "@nestjs/common";
 import { map, Observable } from "rxjs";
 
+/**
+ * Common Response Structure
+ */
+export class CommonResponse {
+  code = HttpStatus.OK;
+  message = "操作成功";
+  data = null;
+  constructor(data: unknown, code?: number, message?: string) {
+    this.code = code;
+    this.message = message;
+    this.data = data;
+  }
+}
+
+/**
+ * Global Response Interceptor
+ */
 @Injectable()
-export class TransformResInterceptor implements NestInterceptor {
+export class ResponseInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(
-      map((data) => {
-        return {
-          data,
-          code: 200,
-          message: "请求成功",
-        };
+      map((value: unknown) => {
+        if (value instanceof CommonResponse) return value;
+        else return new CommonResponse(value, 200, "操作成功");
       })
     );
   }

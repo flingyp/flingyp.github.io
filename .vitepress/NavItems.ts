@@ -51,6 +51,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
     text: "相关链接",
     items: [
       {
+        text: "Vue Admin Pro",
+        link: "https://admin.yyblog.top",
+      },
+      {
         text: "VAdmire Plus",
         link: "https://vadmire.top",
       },
