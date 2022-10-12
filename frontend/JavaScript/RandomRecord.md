@@ -1405,3 +1405,44 @@ function myFlat(arr, num = 1) {
 console.log(myFlat());
 console.log(myFlat(arr, 2));
 ```
+
+## 35. JavaScript 字符串的方法总结
+
+:::tip
+`String.prototype.charAt(index)`：返回字符串中指定下标的字符
+
+`String.prototype.charCodeAt(index)`：返回字符串中指定下标字符的 Unicode 值
+
+`String.prototype.concat(str1, [...strN])`：返回一个新的字符串，将一个或多个字符串与原字符串连接合并
+
+`String.prototype.endsWith(str1)`：判断当前字符串是否是以另外一个固定的子字符串结尾的。根据结果返回 `true` 或 `false`
+
+`String.prototype.startsWith(str1)`：判断当前字符串是否是以另外一个固定的子字符串开头的。根据结果返回 `true` 或 `false`
+
+`String.prototype.includes(str1, position? = 0)`：判断一个字符串是否包含在另一个字符串中，根据情况返回 `true` 或 `false`
+
+`String.prototype.indexOf(str, position? = 0)`：搜索整个调用字符串，并返回指定子字符串第一次出现的索引
+
+`String.prototype.padEnd(targetLength, padString)`：用一个字符串填充当前字符串。第一个参数当前字符串需要填充到的目标长度。如果这个数值小于当前字符串的长度，则返回当前字符串本身。第二个参数体操的字符串默认是空
+
+`String.prototype.padStart()`：与 padEnd 同理，填充左边
+
+`String.prototype.repeat(n)`：返回一个字符串，重复 N 次原始字符串并连接
+
+`String.prototype.slice(startIndex, endIndex?)`：返回一个新字符串，提取字符串某一段子字符串
+
+`String.prototype.split(separator)`：用指定的分隔符分隔返回一个子字符串数组
+
+`String.prototype.substring(startIndex, endIndex?)`：返回一个新字符串，从第一个参数下标开始到结尾下标（不包括）
+
+`String.prototype.toLowerCase()`：将字符串转换为小写的返回
+
+`String.prototype.toUpperCase()`：将字符串转换为大写的返回
+
+`String.prototype.trim()`：删除字符串两端空白字符并且返回新字符串
+
+`String.prototype.trimRight()`：删除字符串末端空白字符并且返回新字符串
+
+`String.prototype.trimStart()`：删除字符串开头空白字符并且返回新字符串
+
+:::

@@ -74,17 +74,7 @@ CSS 盒模型一共有两种：**标准模型**、**怪异模型**
 }
 ```
 
-## 3. 使用 CSS 画出一个扇形
-
-```css
-.sector-box {
-  width: 0;
-  height: 0;
-  border: 100px solid;
-  border-color: orangered transparent transparent transparent;
-  border-radius: 50%;
-}
-```
+## 3. TODO
 
 ## 4. BFC 是什么？触发 BFC 的条件是什么？有哪些应用场景？
 
@@ -168,7 +158,7 @@ height 是一个死值，就是盒子的高度
 
 ## 9. 元素的水平垂直居中
 
-### 元素水平居中
+### 盒子水平居中
 
 - `margin: 0 auto;`
 
