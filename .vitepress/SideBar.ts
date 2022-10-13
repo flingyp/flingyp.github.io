@@ -129,4 +129,16 @@ export const SideBarList: DefaultTheme.Sidebar = {
       ],
     },
   ],
+  "/books/vue_design_realize": [
+    {
+      text: "Vue.js 设计与实现",
+      collapsible: true,
+      items: [
+        {
+          text: "第一篇：框架设计与实现",
+          link: "/books/vue_design_realize/框架设计概览",
+        },
+      ],
+    },
+  ],
 };

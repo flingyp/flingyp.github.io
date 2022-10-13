@@ -72,4 +72,8 @@ export const NavItemList: DefaultTheme.NavItem[] = [
     text: "宝藏网站",
     link: "/Sites",
   },
+  {
+    text: "Vue.js 设计与实现",
+    link: "/books/vue_design_realize/框架设计概览",
+  },
 ];
