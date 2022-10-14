@@ -109,18 +109,35 @@ Number(undefined); // NaN
 
 ## 5. == 和 === 的区别
 
-:::tip
-== 比较的是值，之间的比较会存在隐式转换
+**等于操作符**：在 `JavaScript` 中存在隐式转换。等于操作符 == 在比较中会先进行类型转换，再确定值是否相等
 
-=== 除了比较值，还比较两者的类型
-:::
+遵循以下规则：
 
 ```ts
-console.log(1 == "1"); // true  string 转换为 number
-console.log(true == 1); // true  boolean 转换为 number
+// 1. 如果任一操作数是布尔值，则将其转换为数值再比较是否相等
+console.log(true == 1); // true
+// 2. 如果一个操作数是字符串，另一个操作数是数值，则尝试将字符串转换为数值，再比较是否相等
+console.log("55" == 55); // true
+// 3. 如果一个操作数是对象，另一个操作数不是，则会默认调用对象的 valueOf() 方法取得其原始值，再根据前面的规则进行比较
+let obj = {
+  a: 2,
+};
+obj.valueOf = function () {
+  // 重写 valueOf 方法
+  return 1;
+};
+console.log(obj == 1); // true
+// 4. null 和 undefined 是相等
 console.log(null == undefined); // true
-console.log([1, 2] == "1,2"); // true
+// 5. 如果有任一操作数是 NAN，则相等操作符返回 false
+console.log(NAN == NAN); // false
+// 6. 如果两个操作数都是对象，则比较它们是不是同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回true
+let obj1 = { name: "xxx" };
+let obj2 = { name: "xxx" };
+console.log(obj1 == obj2); // false
 ```
+
+**全等操作符**：由 3 个等于号 === 表示，只用在两个操作数在不转换的前提下相等才返回 true。即类型相同，值也要相同
 
 ## 6. JavaScript 微任务和宏任务
 
@@ -641,15 +658,20 @@ fun.myBind(person, "张三", 20)();
 
 ## 15. 深拷贝和浅拷贝
 
-:::tip
-浅拷贝是拷贝一层，深层次的对象级别的就拷贝引用；深拷贝是拷贝多层，每一级别的数据都会拷贝出来
+### 数据类型存储
+
+JavaScript 中存在两大数据类型：基本类型、引用类型
+
+- 基本数据类型保存在栈内存中
+- 引用数据类型的值保存在堆内存中，而将堆地址保存在栈中
+
+:::tip 介绍
+浅拷贝指的是创建新的数据，这个数据有着原始数据属性值的一份精确拷贝。如果属性是基本类型，则拷贝的是属性的值。如果属性是引用类型，则拷贝的就是内存地址。浅拷贝是拷贝一层，深层次的对象级别的就拷贝引用；深拷贝是拷贝多层，每一级别的数据都会拷贝出来
 :::
 
-### 理解
+#### 基础数据类型
 
-#### 基本类型-> (名 和 值存储在栈内存中)
-
-例如 let a = 1
+例如 `let a = 1`
 
 栈内存
 
@@ -657,22 +679,20 @@ fun.myBind(person, "张三", 20)();
 | :--: | :-: |
 |  a   |  1  |
 
-- 当 b = a 赋值时， 栈内存会新开辟一块内存 用于存放 b
+- 当 `b = a` 赋值时， 栈内存会新开辟一块内存 用于存放 b
 
 | name | val |
 | :--: | :-: |
 |  a   |  1  |
 |  b   |  1  |
 
-所以当你此时修改 a=2，对 b 并不会造成影响，因为此时的 b 已自食其力，翅膀硬了，不受 a 的影响了。当然，let a=1,b=a;虽然 b 不受 a 影响，但这也算不上深拷贝。
-
-因为深拷贝本身只针对较为复杂的 object 类型数据。
+所以当你此时修改 a=2，对 b 并不会造成影响，因为此时的 b 已自食其力，翅膀硬了，不受 a 的影响了。当然，let a=1,b=a;虽然 b 不受 a 影响，但这也算不上深拷贝。因为深拷贝本身只针对较为复杂的 object 类型数据。
 
 #### 引用数据类型
 
 - 名存在栈内存中， 值也存在内存中。但是栈内存会提供一个引用地址指向推内存中的值
 
-![](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124133428359-1292133331.jpg)
+[](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124133428359-1292133331.jpg)
 
 - 当 b = a 进行拷贝时， 其实复制的是 a 的引用地址，而并非堆里面的值
 
@@ -697,9 +717,7 @@ fun.myBind(person, "张三", 20)();
 JSON.parse(JSON.stringify(arr));
 ```
 
-#### 简单的实现深拷贝
-
-:::tip
+:::tip 简单的实现深拷贝
 深拷贝的原理就是： 基本类型 赋值的 原理。 在堆内存中也开辟一个新的内存专门为 b 存放值
 :::
 
@@ -1446,3 +1464,154 @@ console.log(myFlat(arr, 2));
 `String.prototype.trimStart()`：删除字符串开头空白字符并且返回新字符串
 
 :::
+
+## 36. Ajax 原生基本使用
+
+`Ajax` 全称 `Async JavaScript And XML`， 是一种创建交互式用于的网页开发技术，可以在不加载整个网页的情况下，与服务器交换数据，并且更新部分网页内容
+
+基本流程：
+
+1. 创建一个 Ajax 的核心对象 `XMLHttpRequest`
+2. 通过 `XMLHttpRequest` 对象的 `open()` 方法与服务端建立连接
+3. 构建请求所需要的数据内容，通过对象的 `send()` 方法发送给服务器端
+4. 通过 `XMLHttpRequest` 对象提供的 `onreadystatechange` 事件监听服务器端你的通信状态
+5. 接受并处理服务端向客户端响应的数据结果
+6. 将处理结果更新到 HTML 页面中
+
+```ts
+function myAjax(options) {
+  //创建XMLHttpRequest对象
+  const xhr = new XMLHttpRequest();
+
+  //初始化参数的内容
+  options = options || {};
+  options.type = (options.type || "GET").toUpperCase();
+  options.dataType = options.dataType || "json";
+  const params = options.data;
+
+  //发送请求
+  if (options.type === "GET") {
+    xhr.open("GET", options.url + "?" + params, true);
+    xhr.send(null);
+  } else if (options.type === "POST") {
+    xhr.open("POST", options.url, true);
+    xhr.send(params);
+  }
+
+  //接收请求
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4) {
+      let status = xhr.status;
+      if (status >= 200 && status < 300) {
+        options.success && options.success(xhr.responseText, xhr.responseXML);
+      } else {
+        options.fail && options.fail(status);
+      }
+    }
+  };
+}
+```
+
+使用方式如下：
+
+```ts
+myAjax({
+  type: "post",
+  dataType: "json",
+  data: {},
+  url: "https://xxxx",
+  success: function (text, xml) {
+    //请求成功后的回调函数
+    console.log(text);
+  },
+  fail: function (status) {
+    ////请求失败后的回调函数
+    console.log(status);
+  },
+});
+```
+
+## 37. BOM 的理解，常用的 BOM 对象
+
+`BOM` 全称 `Browser Object Model` 浏览器对象模型，提供了与浏览器进行交互的对象
+
+作用就是和浏览器做一些交互功能，例如进行页面的前进、后退、刷新，浏览器的窗口发生变化，滚动条的滚动以及获取浏览器的一些信息
+
+### Window
+
+BOM 的核心对象就是 `window`，具有双重角色，即是浏览器的一个接口也是全局对象
+
+因此所有在全局作用域中声明的变量、函数都会变成 `window` 对象的属性和方法
+
+- `window.open()` 打开一个新的浏览器接口
+- `window.close()` 关闭浏览器窗口
+- `window.scrollTo()` 滚动浏览器滚动条
+- `window.scrollBy()` 滚动浏览器滚动条
+
+### Location
+
+`location.reload()` 此 API 可以重新刷新当前页面。这个方法会根据最有效的方式刷新页面，如果页面自上一次请求以来没有改变过，页面就会从浏览器缓存中重新加载
+
+如果要强制从服务器中重新加载，传递一个参数 true 即可
+
+### Navigator
+
+主要用来获取浏览器的属性，区分浏览器类型。属性较多，且兼容性比较复杂
+
+### Screen
+
+获取客户端信息，也就是浏览器窗口外面的客户端显示器的信息，比如像素宽度和像素高度
+
+### History
+
+主要用来操作浏览器 URL 的历史记录，可以通过参数向前，向后，或者向指定 URL 跳转
+
+- `history.go()` 接收一个整数数字或者字符串参数：向最近的一个记录中包含指定字符串的页面跳转
+- `history.forward()` 向前跳转一个页面
+- `history.back()` 向后跳转一个页面
+- `history.length()` 获取历史记录数
+
+## 38. DOM 常见操作
+
+文档对象模型
+
+### 创建节点
+
+- 创建新元素：`const divEl = document.createElement('div')`
+- 创建文本节点：`const textEl = document.createTextNode('content')`
+- 创建文档碎片：`const fragment = document.createDocumentFragment()`
+- 创建属性节点，可以是自定义属性：`const dataAttribute = document.createAttribute('custom')`
+
+### 查询节点
+
+```ts
+document.getElementById("id属性值"); // 返回拥有指定id的对象的引用
+document.getElementsByClassName("class属性值"); // 返回拥有指定class的对象集合
+document.getElementsByTagName("标签名"); // 返回拥有指定标签名的对象集合
+document.getElementsByName("name属性值"); // 返回拥有指定名称的对象结合
+document / element.querySelector("CSS选择器"); // 仅返回第一个匹配的元素
+document / element.querySelectorAll("CSS选择器"); // 返回所有匹配的元素
+document.documentElement;
+获取页面中的HTML标签;
+document.body; // 获取页面中的BODY标签
+document.all[""]; // 获取页面中的所有元素节点的对象集合型
+```
+
+### 更新节点
+
+```ts
+document.innerHTML = "ABC"; // 设置DOM节点的文本内容（会影响到子节点）
+document.innerText / textContent; // 自动对字符串进行HTML编码，保证无法设置任何HTML标签
+// 两者的区别在于读取属性时，innerText不返回隐藏元素的文本，而textContent返回所有文本
+document.style.color = "#ff0000"; // 设置CSS
+```
+
+### 添加节点
+
+- `appendChild` 把一个子节点添加到父节点的最后一个子节点
+- `insertBefore` 把子节点插入到指定的位置
+- `setAttribute` 在指定元素中添加一个属性节点，如果元素中已有该属性改变属性值
+
+### 删除节点
+
+- `removeChild()` 删除一个节点，首先要获得该节点本身以及它的父节点，然后，调用父节点的removeChild把自己删掉
