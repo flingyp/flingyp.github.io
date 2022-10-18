@@ -139,28 +139,32 @@ console.log(obj1 == obj2); // false
 
 **全等操作符**：由 3 个等于号 === 表示，只用在两个操作数在不转换的前提下相等才返回 true。即类型相同，值也要相同
 
-## 6. JavaScript 微任务和宏任务
+## 6. 对事件循环的理解
 
-:::tip
-JavaScript 是单线程语言。
+首先，`JavaScript` 是一门单线程的语言，意味着同一时间内只能做一件事，但是这并不意味着单线程就是阻塞，而实现单线程非阻塞的方法就是事件循环
 
-JS 的代码执行循序：先执行主线程的同步任务，后执行事件循环 Event Table 中的异步任务（宏任务、微任务）。
+在 `JavaScript` 中所有任务都可以分为：同步任务、异步任务
 
-异步任务包括：Ajax 请求、setTimeout、`promise.then()` 等
-
-任务队列 Event Queue：JS 中有两类任务队列。宏任务队列 和 微任务队列。宏任务队列可以有多个。微任务队列只能有一个
-
-宏任务：script（全局任务就是主线程的同步任务）, setTimeout, setInterval, setImmediate, I/O, UI rendering
-
-微任务： process.nextTick （node.js 中进程相关的对象）, Promise.then、catch、finally, Object.observer, MutationObserver
-
-:::
+- 同步任务：立即执行的任务，同步任务一般会直接进入到主线程中执行
+- 异步任务：异步执行的任务，比如网络请求、定时函数、`.then()`等
 
 ![JS代码执行顺序](https://img-blog.csdnimg.cn/20200714184207672.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NjI0Mzg2,size_16,color_FFFFFF,t_70)
 
-先执行一个宏任务，查看是否有可执行的微任务，执行完所有微任务后再执行新的宏任务
+**总结 JS 的执行循序**：同步任务进入主线程，即主执行栈，异步任务进入任务队列，主线程内的任务执行完毕为空，会去任务队列读取对应的任务，推入主线程执行。上述过程的不断重复就事件循环
+
+### 宏任务和微任务
+
+任务队列 Event Queue：JS 中有两类任务队列。宏任务队列 和 微任务队列。宏任务队列可以有多个。微任务队列只能有一个
+
+- 微任务的执行实际是当前宏任务结束之前
+
+宏任务：全局任务（主线程的同步任务）、`setTimeout/setInterval`、I/O、UI、UI rendering
+
+微任务：`Promise.then()`、`MutationObserver`、`process.nextTick（node.js 中进程相关的对象）`
 
 ![宏微任务执行关系](https://img-blog.csdnimg.cn/20200714184526268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NjI0Mzg2,size_16,color_FFFFFF,t_70)
+
+执行机制：执行一个宏任务，如果遇到微任务就将它放到微任务的事件队列中，当前宏任务执行完成后，会查看微任务的事件队列，然后将里面的所有微任务依次执行完。上述过程的不断重复
 
 ```js
 console.log("1");
@@ -215,6 +219,47 @@ setTimeout(function () {
 :::
 
 **总结**：先执行主线程所有同步任务（一次宏任务）- 执行所有当前微任务 - 在执行异步任务（一次宏任务）- 在执行当前的所有微任务 - 周而复始
+
+### Async 和 Await
+
+Async 函数返回一个 Promise 对象，Await 命令后面跟着一个 Promise 对象，如果不是就直接返回对应的值
+
+Await 会阻塞后面代码的执行（后面代码会加入到微任务队列中），先执行外面的同步代码，同步代码执行完，再回到 Async 函数中，再执行之前阻塞的代码
+
+```ts
+async function async1() {
+  console.log("async1 start");
+  await async2();
+  console.log("async1 end");
+}
+async function async2() {
+  console.log("async2");
+}
+console.log("script start");
+setTimeout(function () {
+  console.log("setTimeout");
+});
+async1();
+new Promise(function (resolve) {
+  console.log("promise1");
+  resolve();
+}).then(function () {
+  console.log("promise2");
+});
+console.log("script end");
+/**
+ * script start
+ * async1 start
+ * async2
+ * promise1
+ * script end
+ * async1 end
+ * promise2
+ * setTimeout
+ */
+```
+
+分析：先打印 `script start`，遇到 `setTimeout` 丢进任务队列中，执行 `async1` 函数，打印 `async1 start`，执行 `async2` 函数打印 `async2`，后面的被任务阻塞去执行其他的同步任务，后面再打印 `promise1、script end` 执行完所有同步代码后，先执行阻塞的代码，然后打印 `async1 end、promise2` 最后执行异步任务的宏任务只有 `setTimeout` 了最后打印 `setTimeout`
 
 ## 7. JavaScript 作用域
 
@@ -658,83 +703,60 @@ fun.myBind(person, "张三", 20)();
 
 ## 15. 深拷贝和浅拷贝
 
-### 数据类型存储
-
 JavaScript 中存在两大数据类型：基本类型、引用类型
 
-- 基本数据类型保存在栈内存中
-- 引用数据类型的值保存在堆内存中，而将堆地址保存在栈中
+- 基本数据类型：进行变量赋值的时候拷贝的是**数据的值**
+- 引用数据类型：进行变量赋值的时候拷贝的是**数据的值存放在堆中的内存地址**
 
-:::tip 介绍
-浅拷贝指的是创建新的数据，这个数据有着原始数据属性值的一份精确拷贝。如果属性是基本类型，则拷贝的是属性的值。如果属性是引用类型，则拷贝的就是内存地址。浅拷贝是拷贝一层，深层次的对象级别的就拷贝引用；深拷贝是拷贝多层，每一级别的数据都会拷贝出来
-:::
+### 浅拷贝、深拷贝
 
-#### 基础数据类型
+**浅拷贝**：创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝。如果属性是基本类型，拷贝的就是基本类型的值。如果属性是引用类型，拷贝的就是内存地址。
 
-例如 `let a = 1`
+**深拷贝**：是将一个对象从内存中完整的拷贝一份出来,从堆内存中开辟一个新的区域存放新对象,且**修改新对象不会影响原对象**。
 
-栈内存
+### 浅拷贝的实现方式
 
-| name | val |
-| :--: | :-: |
-|  a   |  1  |
+`Object.assign()`、`展开运算符`、`Array.prototype.concat()`、`Array.prototype.slice()`
 
-- 当 `b = a` 赋值时， 栈内存会新开辟一块内存 用于存放 b
+### 深拷贝的实现方式
 
-| name | val |
-| :--: | :-: |
-|  a   |  1  |
-|  b   |  1  |
+`JSON.parse(JSON.stringify())`
 
-所以当你此时修改 a=2，对 b 并不会造成影响，因为此时的 b 已自食其力，翅膀硬了，不受 a 的影响了。当然，let a=1,b=a;虽然 b 不受 a 影响，但这也算不上深拷贝。因为深拷贝本身只针对较为复杂的 object 类型数据。
+这也是利用 JSON.stringify 将对象转成 JSON 字符串，再用 JSON.parse 把字符串解析成对象，一去一来，新的对象产生了，而且对象会开辟新的栈，实现深拷贝。**这种方法虽然可以实现数组或对象深拷贝,但不能处理函数和正则**,因为基于它处理后得到的正则不再是正则（变为空对象），得到的函数就不再是函数（变为 null）了
 
-#### 引用数据类型
+### 手写深拷贝
 
-- 名存在栈内存中， 值也存在内存中。但是栈内存会提供一个引用地址指向推内存中的值
+递归方法实现深度克隆原理：**遍历对象、数组直到里边都是基本数据类型，然后再去复制，就是深度拷贝**
 
-[](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124133428359-1292133331.jpg)
-
-- 当 b = a 进行拷贝时， 其实复制的是 a 的引用地址，而并非堆里面的值
-
-![](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124133647796-1390255671.jpg)
-
-- 而当我们 a[0] = 1 是进行数据修改时，由于 a 与 b 指向的是同一个地址，所以自然 b 也受到影响了。 **这就是 浅拷贝**
-
-![](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124133934328-67216865.jpg)
-
-- 如果，我们在堆内存中也开辟一个新的内存专门为 b 存放值， 就和基本类型那样。 就可以达到深拷贝的效果了
-
-![](https://images2018.cnblogs.com/blog/1213309/201711/1213309-20171124140906203-2099568933.jpg)
-
-### 如何实现 深拷贝
-
-#### JSON.stringify 结合 JSON.parse 实现深拷贝
-
-- JSON.stringify 把 JS 对象 转换为 字符串
-- JSON.parse 把 JSON 字符串 转换为 JS 对象
-
-```js
-JSON.parse(JSON.stringify(arr));
-```
-
-:::tip 简单的实现深拷贝
-深拷贝的原理就是： 基本类型 赋值的 原理。 在堆内存中也开辟一个新的内存专门为 b 存放值
-:::
-
-```js
-// 深拷贝
-function deepCopy(obj) {
-  let copy = {};
-  if (Array.isArray(obj)) copy = [];
-  for (const key in obj) {
-    if (typeof obj[key] === "object") {
-      copy[key] = deepCopy(obj[key]);
-    } else {
-      copy[key] = obj[key];
+```ts
+function deepClone(targetObj, hash = new WeakMap()) {
+  if (targetObj === null) return targetObj; // 如果是 null 就不进行拷贝操作
+  if (targetObj instanceof Date) return new Date(targetObj);
+  if (targetObj instanceof RegExp) return new RegExp(targetObj);
+  if (typeof targetObj !== "object") return targetObj; // 是基本数据类型
+  // 如果对象属性引用的targetObj自己的情况下，就会出现无限递归的情况
+  if (hash.has(targetObj)) return has.get(targetObj);
+  // 创建目标对象的构造函数创建对象
+  const cloneObj = new targetObj.constructor();
+  // 将每次进行克隆的targetObj和cloneObj进行一个记录
+  hash.set(targetObj, cloneObj);
+  for (let key in targetObj) {
+    if (targetObj.hasOwnProperty(key)) {
+      cloneObj[key] = deepClone(targetObj[key], hash);
     }
   }
-  return copy;
+  return cloneObj;
 }
+```
+
+测试：
+
+```ts
+let obj = { name: 1, address: { x: 100 } };
+obj.o = obj; // 对象存在循环引用的情况
+let d = deepClone(obj);
+obj.address.x = 200;
+console.log(d);
 ```
 
 ## 16. `var、const、let` 的区别
@@ -1017,21 +1039,21 @@ Object.prototype.toString.call(window); //[object global] window是全局对象g
 
 ## 23. 简述输入网址到浏览器显示的过程
 
-:::tip
+1. **解析 URL**：首先会对 URL 进行解析，分析所需要使用的传输协议和请求的资源的路径。如果输入的 URL 中的协议或者主机名不合法，将会把地址栏中输入的内容传递给搜索引擎。如果没有问题，浏览器会检查 URL 中是否出现了非法字符，如果存在非法字符，则对非法字符进行转义后再进行下一过程。
 
-DNS 解析：将域名解析成 IP 地址
+2. **缓存判断**：浏览器会判断所请求的资源是否在缓存里，如果请求的资源在缓存里并且没有失效，那么就直接使用，否则向服务器发起新的请求。
 
-TCP 连接：TCP 三次握手
+3. **DNS 解析**：下一步首先需要获取的是输入的 URL 中的域名的 IP 地址，首先会判断**本地**是否有该域名的 IP 地址的缓存，如果有则使用，如果没有则向**本地 DNS 服务器**发起请求。本地 DNS 服务器也会先检查是否存在缓存，如果没有就会先向**根域名服务器**发起请求，获得负责的**顶级域名服务器**的地址后，再向顶级域名服务器请求，然后获得负责的**权威域名服务器**的地址后，再向权威域名服务器发起请求，最终**获得域名的 IP 地址**后，本地 DNS 服务器再将这个 IP 地址返回给请求的用户。
 
-发送 HTTP 请求
+4. **获取 MAC 地址**：当浏览器得到 IP 地址后，数据传输还需要知道目的主机 MAC 地址
 
-服务器处理请求并返回 HTTP 报文
+5. **TCP 三次握手**： TCP 建立连接的三次握手的过程，首先客户端向服务器发送一个 SYN 连接请求报文段和一个随机序号，服务端接收到请求后向客户端发送一个 SYN ACK 报文段，确认连接请求，并且也向客户端发送一个随机序号。客户端接收服务器的确认应答后，进入连接建立的状态，同时向服务器也发送一个 ACK 确认报文段，服务器端接收到确认后，也进入连接建立状态，此时双方的连接就建立起来了。
 
-浏览器解析渲染页面
+6. **返回数据**：当页面请求发送到服务器端后，服务器端会返回一个 html 文件作为响应，浏览器接收到响应后，开始对 html 文件进行解析，开始页面的渲染过程。
 
-断开连接：TCP 四次挥手
+7. **页面渲染**：浏览器首先会根据 html 文件构建 DOM 树，根据解析到的 css 文件构建 CSSOM 树，如果遇到 script 标签，则判端是否含有 defer 或者 async 属性，要不然 script 的加载和执行会造成页面的渲染的阻塞。当 DOM 树和 CSSOM 树建立好后，根据它们来构建渲染树。渲染树构建好后，会根据渲染树来进行布局。布局完成后，最后使用浏览器的 UI 接口对页面进行绘制。这个时候整个页面就显示出来了。
 
-:::
+8. **TCP 四次挥手**：最后一步是 TCP 断开连接的四次挥手过程。若客户端认为数据发送完成，则它需要向服务端发送连接释放请求。服务端收到连接释放请求后，会告诉应用层要释放 TCP 链接。
 
 ## 24. JSONP 的实现原理
 
@@ -1285,25 +1307,19 @@ class Promise {
 - 在箭头函数中，this 的指向是由外层（函数或全局）作用域决定的
   :::
 
-## 30. 什么是事件监听
+## 30. JSON.stringify() 有什么缺点
 
-:::tip
-首先需要区别清楚事件监听和事件监听器。
-在绑定事件的时候，我们需要对应的书写一个事件处理程序，来应对事件发生时的具体行为。
-这个事件处理程序我们也称之为事件监听器。
-当事件绑定好后，程序就会对事件进行监听，当用户触发事件时，就会执行对应的事件处理程序。
-关于事件监听，_W3C_ 规范中定义了 _3_ 个事件阶段，依次是捕获阶段、目标阶段、冒泡阶段。
+1. 如果有属性是 Date 类型的，则通过 `JSON.stringify()` 后在 `JSON.parse()` 得到的结果不再是 Date 类型，而是字符串类型了
 
-- **捕获**阶段：在事件对象到达事件目标之前，事件对象必须从 _window_ 经过目标的祖先节点传播到事件目标。 这个阶段被我们称之为捕获阶段。在这个阶段注册的事件监听器在事件到达其目标前必须先处理事件。
-- **目标** 阶段：事件对象到达其事件目标。 这个阶段被我们称为目标阶段。一旦事件对象到达事件目标，该阶段的事件监听器就要对它进行处理。如果一个事件对象类型被标志为不能冒泡。那么对应的事件对象在到达此阶段时就会终止传播。
-- **冒泡** 阶段：事件对象以一个与捕获阶段相反的方向从事件目标传播经过其祖先节点传播到 _window_。这个阶段被称之为冒泡阶段。在此阶段注册的事件监听器会对相应的冒泡事件进行处理。
+2. 如果有属性是正则类型的，则通过`JSON.stringify()` 后在 `JSON.parse()` 得到的结果会是个空对象
 
-`element.addEventListener('type', listener, useCapture)` useCapture：默认值为 false，表示事件冒泡。当设置为 true 时，表示事件捕获。
+3. 如果有属性是 `undefined` 则在序列化后的结果属性会丢失
 
-如果我们给元素定义了多个事件监听器并且设置了不同的 useCapture，记住永远都是 **先捕获后冒泡**
+4. 如果有属性是 NAN、Infinity 则在序列化后的结果属性会变成 `null`
 
-事件委托机制：就是利用了捕获、冒泡的原理。只指定一个事件处理程序，就可以管理某一类型的所有事件。
-:::
+5. JSON.stringify()只能序列化对象的可枚举的自有属性，例如 如果 obj 中的对象是有构造函数生成的， 则使用 JSON.parse(JSON.stringify(obj))深拷贝后，会丢弃对象的 constructor
+
+6. 如果对象中存在循环引用的情况也无法正确实现深拷贝；
 
 ## 31. ESM 和 Commonjs 的导入导出有什么区别
 
@@ -1614,4 +1630,102 @@ document.style.color = "#ff0000"; // 设置CSS
 
 ### 删除节点
 
-- `removeChild()` 删除一个节点，首先要获得该节点本身以及它的父节点，然后，调用父节点的removeChild把自己删掉
+- `removeChild()` 删除一个节点，首先要获得该节点本身以及它的父节点，然后，调用父节点的 removeChild 把自己删掉
+
+## 39. 什么是事件监听
+
+首先需要区别清楚事件监听和事件监听器
+
+在绑定事件的时候，我们需要对应的书写一个事件处理程序，来应对事件发生时的具体行为。
+这个事件处理程序我们也称之为事件监听器
+
+当事件绑定好后，程序就会对事件进行监听，当用户触发事件时，就会执行对应的事件处理程序。
+
+关于事件监听，_W3C_ 规范中定义了 _3_ 个事件阶段，依次是捕获阶段、目标阶段、冒泡阶段。
+
+- **捕获**阶段：在事件对象到达事件目标之前，事件对象必须从 _window_ 经过目标的祖先节点传播到事件目标。 这个阶段被我们称之为捕获阶段。在这个阶段注册的事件监听器在事件到达其目标前必须先处理事件。
+- **目标** 阶段：事件对象到达其事件目标。 这个阶段被我们称为目标阶段。一旦事件对象到达事件目标，该阶段的事件监听器就要对它进行处理。如果一个事件对象类型被标志为不能冒泡。那么对应的事件对象在到达此阶段时就会终止传播。
+- **冒泡** 阶段：事件对象以一个与捕获阶段相反的方向从事件目标传播经过其祖先节点传播到 _window_。这个阶段被称之为冒泡阶段。在此阶段注册的事件监听器会对相应的冒泡事件进行处理。
+
+`element.addEventListener('type', listener, useCapture)`
+
+useCapture：默认值为 false，表示事件冒泡。当设置为 true 时，表示事件捕获。
+
+如果我们给元素定义了多个事件监听器并且设置了不同的 useCapture，记住永远都是 **先捕获后冒泡**
+
+事件委托机制：就是利用了捕获、冒泡的原理。只指定一个事件处理程序，就可以管理某一类型的所有事件。
+
+## 40. 解释下什么是事件委托？以及它的应用场景？
+
+### 是什么
+
+事件代理：俗地来讲，就是把一个元素响应事件的函数委托到另一个元素
+
+事件流的都会经过三个阶段： 捕获阶段 -> 目标阶段 -> 冒泡阶段，而事件委托就是在冒泡阶段完成
+
+事件委托，会把一个或者一组元素的事件委托到它的父层或者更外层元素上，真正绑定事件的是外层元素，而不是目标元素
+
+当事件响应到目标元素上时，会通过事件冒泡机制从而触发它的外层元素的绑定事件上，然后在外层元素上去执行函数
+
+### 应用场景
+
+如果我们有一个列表，列表之中有大量的列表项，我们需要在点击列表项的时候响应一个事件
+
+我们不需要给每个子节点都绑定上点击事件，只需要给它们的父级绑定事件
+
+```html
+<body>
+  <ul id="list">
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+    <li>item 4</li>
+  </ul>
+  <script>
+    document.getElementById("list").addEventListener("click", function (e) {
+      var event = e || window.event;
+      // event.target、event.srcElement 触发事件的目标元素
+      var target = event.target || event.srcElement;
+      if (target.nodeName.toLocaleLowerCase() === "li") {
+        console.log("the content is:", target.innerHTML);
+      }
+    });
+  </script>
+</body>
+```
+
+还有一种场景是利用事件委托来动态绑定事件
+
+```html
+<body>
+  <input type="button" name="" id="btn" value="添加" />
+  <ul id="ul1">
+    <li>item 1</li>
+    <li>item 2</li>
+    <li>item 3</li>
+    <li>item 4</li>
+  </ul>
+  <script>
+    const oBtn = document.getElementById("btn");
+    const oUl = document.getElementById("ul1");
+    const num = document.querySelectorAll("#ul1 li").length;
+
+    //事件委托，添加的子元素也有事件
+    oUl.onclick = function (ev) {
+      ev = ev || window.event;
+      const target = ev.target || ev.srcElement;
+      if (target.nodeName.toLowerCase() == "li") {
+        console.log("the content is: ", target.innerHTML);
+      }
+    };
+
+    //添加新节点
+    oBtn.onclick = function () {
+      num++;
+      const oLi = document.createElement("li");
+      oLi.innerHTML = `item ${num}`;
+      oUl.appendChild(oLi);
+    };
+  </script>
+</body>
+```

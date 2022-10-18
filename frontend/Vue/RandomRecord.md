@@ -1,22 +1,12 @@
 ## 1. Vue3 组件之间的通信方式有哪些
 
-:::tip 组件之间的通信方式
-
-`Props、Emits`：用于父子组件之间数据的传递
-
-`expose、ref`：在 Vue3 中我们需要通过 `ref` 去获取组件的实例，并且 Vue 并不会将所有组件实例属性和方法暴露出来。我们需要通过 `defineExpose` 将实例的属性和方法暴露出来。在父组件我们可以通过获取组件实例来向子组件传递数据。
-
-`透传 Attributes`：指的是在子组件中，没使用 prop 或 emits 定义的 attribute，可以通过 `$attrs` 来访问。[文档介绍](https://cn.vuejs.org/guide/components/attrs.html)
-
-`v-model` 语法糖
-
-`Slots` 插槽
-
-`Provide/Inject`：适合跨组件传递
-
-`Vuex、Pinia`：跨组件通信工具
-
-:::
+- `Props、Emits`：用于父子组件之间数据的传递
+- `expose、ref`：在 Vue3 中我们需要通过 `ref` 去获取组件的实例，并且 Vue 并不会将所有组件实例属性和方法暴露出来。我们需要通过 `defineExpose` 将实例的属性和方法暴露出来。在父组件我们可以通过获取组件实例来向子组件传递数据。
+- `透传 Attributes`：指的是在子组件中，没使用 prop 或 emits 定义的 attribute，可以通过 `$attrs` 来访问。[文档介绍](https://cn.vuejs.org/guide/components/attrs.html)
+- `v-model` 语法糖
+- `Slots` 插槽
+- `Provide/Inject`：适合跨组件传递
+- `Vuex、Pinia`：跨组件通信工具
 
 ## 2. `v-if` 和 `v-for` 哪个优先级更高
 
@@ -155,28 +145,16 @@ createElementVNode(
 
 ## 11. 谈谈 Vue 的生命周期吧
 
-总结：组件的生命周期可以这么划分：组件创建前后、组件挂载前后、组件更新前后、组件销毁前后
+Vue 实例有一个完整的生命周期。从实例创建、初始化数据、编译模板、挂载 DOM、渲染、更新、又渲染、卸载等一系列过程，就是 Vue 的声明周期
 
-:::tip
-
-- `beforeCreate`：组件实例创建之前调用
-- `created`：组件实例创建之后调用。实例完成：数据观测、属性和方法的运算、 watch/event 事件回调。但是没有 DOM
+- `beforeCreate`：组件实例创建之前调用，此时还无法访问到相关方法和数据
+- `created`：组件实例创建之后调用。实例完成：数据观测、属性和方法的运算、 watch/event 事件回调。但是 DOM 还未挂载
 - `beforeMount`：挂载之前调用，相关 render 函数首次被调用
 - `mounted`：组件实例被挂载到 DOM 上之后调用
 - `beforeUpdate`：响应式数据被更新前调用，发生在虚拟 DOM 重新渲染和打补丁
 - `updated`：由于数据更新导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子
 - `beforeDestroy`：组件实例销毁前调用
 - `destroyed`：组件实例销毁之后调用
-
-每个生命周期可以做什么事情
-
-- created：实例已经创建完成，因为他是最早触发的，所以可以进行一些数据、资源的请求。
-- mounted：实例已经挂载完成，可以进行一些 DOM 操作。
-- beforeUpdate：可以在这个钩子中进一步的更改状态，不会触发重渲染。
-- updated：可以执行依赖于 DOM 的操作，但是要避免更改状态，可能会导致更新无线循环。
-- destroyed：可以执行一些优化操作，清空计时器，解除绑定事件。
-
-:::
 
 ## 12. 说说 `nextTick` 的使用
 
@@ -206,23 +184,39 @@ watch：检测响应式数据的变化，执行回调
 
 ## 14. Vue Router 中 hash 模式和 history 模式的区别
 
-:::tip
-SPA 指的是单页面应用。它的核心就是只有一个 HTML 文件，更新视图而不用重新加载页面。优点就是用户体验好、快、内容的改变不需要重新加载页面。缺点就是 SPA 不利用搜索引擎的抓取，首页加载文件时间会过长，文件渲染的速度就会相对较慢。
+SPA 即**单页面应用程序**。只有一个 HTML 文件并且在**用户与应用程序进行交互时**动态的更新此页面的 Web 应用程序。浏览器一开始会加载必需的 HTML 、 CSS 和 JavaScript ，而所有的页面更新操作**都由 JavaScript 来控制**。
 
-而 Vue Router 在实现单页面路由时就提供了 Hash 和 History 两种模式
+- SPA 的优点：用户体验好、页面内容的改变不需要我们去重新加载新的页面
+- SPA 的缺点：不利于搜索引擎的抓取，首页加载时间会过长、页面渲染的速度会相对较慢
 
-Hash 路由是通过哈希来进行路由跳转的
+单页面应用程序时就提供了 Hash 和 History 两种模式
 
-1. URL 中会带有一个 `#` 号
-2. 通过 `window.onhashchange` 监听 Hash 的改变，借此实现无刷新跳转的功能
-3. 每改变一次 Hash，都会在浏览器的访问历史中增加一个记录
+### Hash 模式
 
-History 路由
+Hash 模式的前端路由的路径是用井号 # 拼接在真实 URL 后面的。当井号 # 后面的路径发生变化时，浏览器并不会重新发起请求，而是会触发 `onhashchange` 事件。
 
-1. history 模式是通过调用 `window.history` 对象上的一系列方法来实现页面的无刷新跳转
-2. 路径直接拼接在端口号后面，后面的路径也会随着 http 请求发给服务器，因此单页面应用使用了 History 模式后在刷新页面后会报 404 错误。项目打包上线后需要后端服务器的配合来完成。
+例如：https://vadmire.top/#/login
 
-:::
+特点：
+
+- 1. Hash 变化会出现页面跳转即浏览器的前进和后退。
+- 2. Hash 改变的是 # 后面的路由不会刷新页面，所有的更新操作是由 JavaScript 来实现的，并不会向服务器发送 HTTP 请求去获取对应路径页面。
+- 3. Hash 通过 `window.onhashchange` 的方式，来监听 Hash 的改变，借此实现无刷新跳转的功能
+
+### History 模式
+
+`History API` 是 HTML5 提供的新特性，允许开发者**直接更改前端路由**，即更新浏览器 URL 地址而不会**重新发起请求**。总结一句话：页面内容没变，地址栏的地址改变了
+
+当我们使用 `History` 模式将前端项目部署上线后，在我们通过 `index.html` 去访问单页面应用某个路径下的内容，正常的路由跳转是没有问题的。**但是我们重新刷新页面的时候就会出现 404 的情况**
+
+原因在于：重新刷新页面后浏览器会重新发送一次 HTTP 请求，去请求对应路径下的页面。但是服务器其实是没有这个页面的所以会报 404 的情况。这个时候我们就需要 **通过服务端来允许访问如何路径下的页面重定向到** `index.html` 上
+
+### 总结
+
+针对不同的应用场景我们可以选择不同模式
+
+- 如果是 `B端` 系统更加推荐 Hash 模式，相对简单容易
+- 如果是 `C端` 系统对外观有一定要求就可以考虑选择 `History` 模式但是需要 **服务端支持**
 
 ## 15. Key 的作用
 
@@ -289,3 +283,155 @@ mount(
 ```
 
 总结：在实例创建阶段，Vue 会将一些全局 API 定义，在实例挂载阶段创建虚拟 DOM 最后调用渲染函数将虚拟 DOM 进行渲染
+
+## 17. Vue 项目部署到服务器后刷新出现 404 的问题
+
+前后端分离开发模式下，前端只需要将项目打包，将打包文件扔到目标服务器即可。Vue 是单页面应用，无论有多少页面构建物都只会产出一个 `index.html` 文件
+
+### 如果路由是 `History` 模式
+
+`History` 模式下就会出现页面刷新出现 404 问题
+
+**原因**：在于当我们在地址栏输入 `www.xxx.com` 地址时，首先一定会访问到服务器的目标文件的 `index.html` 这时候是不会有 404 的问题。但是如果我们在访问或者重定向到 `www.xxx.com/xx` 页面时其实就会向服务器发送一个 HTTP 请求，去请求 `/xx` 页面的文件内容，这个时候自然服务器是没有这个路径的文件资源的。所以就会报 404 问题
+
+### 如果路由是 `Hash` 模式
+
+`Hash` 模块是用符号 # 表示的。 如 `www.xxx.com/#/xx`
+
+它的特点在于 `Hash` 虽然出现在 URL 中，但不会被包括在 HTTP 请求中，对服务端完全没有影响，因此改变 `Hash` 不会重新加载页面。该模式下仅 `Hash` 符号之前的内容会被包含在请求中，如 `www.xxx.com/#/xx` 只有 `www.xxx.com` 会被包含在请求中
+
+### 解决方案
+
+本质单页面应用就只有一个页面，路由则是通过 JS 来执行视图切换的，`History` 模式下去请求其他不存在的页面自然会报 404 问题。
+
+所以如果你的项目配置的是 `History` 模式下，所以进行以下的配置
+
+解决方案：就是在服务器进行配置，将任意页面都重定向到 `index.html` 文件，把路由交给前端处理
+
+以 Nginx 为例子，只需要修改它的配置文件。添加：`try_files $uri $uri/ /index.html;` 这么一条配置即可
+
+```ts
+server {
+  listen  80;
+  server_name  www.xxx.com;
+
+  location / {
+    index  /data/dist/index.html;
+    try_files $uri $uri/ /index.html;
+  }
+}
+```
+
+配置完毕后，重启 Nginx： `nginx -s reload`
+
+为了避免这种情况，你应该在 Vue 应用里面覆盖所有的路由情况，然后在给出一个 404 页面
+
+```ts
+const router = new VueRouter({
+  mode: "history",
+  routes: [
+    { path: "*", component: NotFoundComponent }, // 添加一条匹配404页面的路由
+  ],
+});
+```
+
+## 18. Vue 项目是如何解决跨域的呢
+
+跨域的本质是**浏览器的同源策略**的一种安全手段，它是浏览器最核心也是最基本的安全功能
+
+同源：就是指在同一个域下（协议相同、主机相同、端口相同）的情况下。非同源：则上面有一个不同都属于非同源，这个时候就会产生跨域
+
+如何解决跨域有很多：`JSONP`、`CORS`、`Proxy`。实际开发中主要会采用 `CORS`、`Proxy` 这两种
+
+### CORS
+
+CORS （Cross-Origin Resource Sharing，跨域资源共享）是一个系统，它由一系列传输的 HTTP 头组成，这些 HTTP 头决定浏览器是否阻止前端 JavaScript 代码获取跨域请求的响应
+
+CORS 实现起来非常方便，只需要增加一些 HTTP 头，让服务器能声明允许的访问来源。一般都是后端配置 CORS，就可以实现跨域资源共享
+
+`Koa` 服务框架为例：
+
+```ts
+app.use(async (ctx, next) => {
+  ctx.set("Access-Control-Allow-Origin", "*");
+  ctx.set(
+    "Access-Control-Allow-Headers",
+    "Content-Type, Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild"
+  );
+  ctx.set("Access-Control-Allow-Methods", "PUT, POST, GET, DELETE, OPTIONS");
+  if (ctx.method == "OPTIONS") {
+    ctx.body = 200;
+  } else {
+    await next();
+  }
+});
+```
+
+### Proxy
+
+代理（Proxy）也称网络代理，是一种特殊的网络服务，允许一个（一般为客户端）通过这个服务与另一个网络终端（一般为服务器）进行非直接的连接。一些网关、路由器等网络设备具备网络代理功能。一般认为代理服务有利于保
+障网络终端的隐私或安全，防止攻击
+
+**方案一**：平时开发中如果后台没有配置去 CORS，一般会通过脚手架来配置本地代理服务器，通过该服务器转发请求到后台服务，得到结果返回给前端。但是本地代理只是在开发中有效果，最终发布上线时如果 Web 应用和接口服务器不在一起仍会跨域
+
+以 `vue-cli` 脚手架为例
+
+```js
+module.exports = {
+  devServer: {
+    host: "127.0.0.1",
+    port: 8084,
+    open: true, // vue项目启动时自动打开浏览器
+    proxy: {
+      "/api": {
+        // '/api'是代理标识，用于告诉node，url前面是/api的就是使用代理的
+        target: "http://xxx.xxx.xx.xx:8080", //目标地址，一般是指后台服务器地址
+        changeOrigin: true, //是否跨域
+        pathRewrite: {
+          // pathRewrite 的作用是把实际Request Url中的'/api'用""代替
+          "^/api": "",
+        },
+      },
+    },
+  },
+};
+```
+
+通过 axios 发送请求中，配置请求的根路径：`axios.defaults.baseURL = '/api'`
+
+**方案二**：通过配置 `Nginx` 实现反向代理
+
+## 19. 自定义指令是什么？应用场景有哪些？
+
+在 `Vue` 中提供了一套为数据驱动视图更为方便的操作，这些操作被称为指令系统
+
+不同的指令可以完成或实现不同的功能，除了核心功能默认内置的指令 (v-model 和 v-show)，Vue 也允许注册自定义指令
+
+### 如何实现自定义指令
+
+全局注册主要是通过 `Vue.directive` 方法进行注册。第一个参数是指令名称，第二个参数可以是对象，也可以是一个指令函数
+
+```ts
+// 注册一个全局自定义指令 `v-focus`
+Vue.directive("focus", {
+  // 当被绑定的元素插入到 DOM 中时……
+  inserted: function (el) {
+    // 聚焦元素
+    el.focus(); // 页面加载完成之后自动让输入框获取到焦点的小功能
+  },
+});
+```
+
+存在如下钩子函数：
+
+- `bind`：只调用一次，指令第一次绑定到元素时调用。在这里可以进行一次性的初始化设置
+- `inserted`：被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)
+- `update`：所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前。指令的值可能发生了改变，也可能没有。但是你可以通过比较更新前后的值来忽略不必要的模板更新
+- `componentUpdated`：指令所在组件的 VNode 及其子 VNode 全部更新后调用
+- `unbind`：只调用一次，指令与元素解绑时调用
+
+### 应用场景
+
+- 一键 Copy 功能
+- 权限按钮
+- 防止表单重复提交

@@ -443,6 +443,8 @@ Grid 网格布局
 }
 ```
 
+**注意点**：纯字母的内容不会换行也不会有省略号出现。英文字母默认不会换行需要添加属性 `word-break:break-all;` 强制换行
+
 ## 14. normalize.css 与 reset.css 有什么区别
 
 `normalize.css`：标准化，会保留有关的样式，比如 H1 的字体大小
