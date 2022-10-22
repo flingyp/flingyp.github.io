@@ -1729,3 +1729,14 @@ useCapture：默认值为 false，表示事件冒泡。当设置为 true 时，�
   </script>
 </body>
 ```
+
+## 41. 通过 `.charCodeAt(index)` 获取指定字符的 Unicode 编码值
+
+```ts
+const str = "ABC013";
+console.log(str.charCodeAt(0)); // A -> 65
+```
+
+数字 Unicode 编码范围：48 - 57（0 到 9）
+小写字母 Unicode 编码范围：97 - 122（a 到 z）
+大小字母 Unicode 编码范围：65 - 90 （A 到 Z）
