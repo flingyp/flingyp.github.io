@@ -138,6 +138,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
           text: "第一篇：框架设计与实现",
           link: "/books/vue_design_realize/框架设计概览",
         },
+        {
+          text: "第二篇：响应式系统",
+          link: "/books/vue_design_realize/响应式系统",
+        },
       ],
     },
   ],
