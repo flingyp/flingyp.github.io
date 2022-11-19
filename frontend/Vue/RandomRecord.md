@@ -435,3 +435,33 @@ Vue.directive("focus", {
 - 一键 Copy 功能
 - 权限按钮
 - 防止表单重复提交
+
+## 20. KeepAlive 缓存组件
+
+KeepAlive 组件是 Vue 官方提供的一个内置组件，在开发过程中使用 KeepAlive 包裹动态组件 Component 时，会将不活动的组件实例缓存起来，不会去销毁它们。这样在进行组件切换过程中会将状态保留在内存中，防止反复创建组件，可以保证组件的活性。
+
+结合 `include` 和 `exclude` 可以明确指定缓存哪些组件或排除缓存指定组件
+
+```vue
+<template>
+  <keep-alive>
+    <component :is="view"></component>
+  </keep-alive>
+</template>
+```
+
+```vue
+<!-- 结合 VueRouter -->
+<template>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component"></component>
+    </keep-alive>
+  </router-view>
+</template>
+```
+
+缓存后如果要获取数据，解决方案有两种：
+
+1. 通过 `beforeRouteEnter` 函数，在每次进入路由前做具体操作
+2. 通过 `actived` 钩子函数，在 KeepAlive 缓存组件被激活的时候，都会执行 `actived` 钩子函数

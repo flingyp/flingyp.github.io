@@ -57,6 +57,20 @@ export const SideBarList: DefaultTheme.Sidebar = {
       ],
     },
     {
+      text: "TypeScript",
+      collapsible: true,
+      items: [
+        {
+          text: "基础语法",
+          link: "/frontend/TypeScript/",
+        },
+        {
+          text: "工具类型",
+          link: "/frontend/TypeScript/ToolType",
+        },
+      ],
+    },
+    {
       text: "Vue",
       collapsible: true,
       items: [

@@ -45,14 +45,22 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         text: "Changesets多包管理",
         link: "/frontend/Engineering/Changesets",
       },
+      // {
+      //   text: "前端脚手架",
+      //   link: "/frontend/Engineering/WebCli",
+      // },
+      {
+        text: "关于代码格式化",
+        link: "/frontend/Engineering/CodeFormat",
+      },
     ],
   },
   {
     text: "相关链接",
     items: [
       {
-        text: "Vue Admin Pro",
-        link: "https://admin.yyblog.top",
+        text: "YRoam Admin",
+        link: "https://yyblog.top/yroam-admin/",
       },
       {
         text: "VAdmire Plus",
