@@ -1,179 +1,617 @@
-# React
+---
+outline: deep
+---
 
 ## 介绍
 
-> React 是一个声明式，高效且灵活的用于构建用户界面的 JavaScript 库。使用 React 可以将一些简短、独立的代码片段组合成复杂的 UI 界面，这些代码片段被称作“组件”
+React 由 `Facebook` 开源，是一个声明式、高效且灵活的用于构建用户界面的 JavaScript 库。使用 React 可以将一些简短、独立的代码片段组合成复杂的 `UI` 界面，这些代码片段被称作组件
 
-- [中文网站](https://reactjs.bootcss.com/)
+- [英文文档](https://reactjs.org/)
+- [中文文档 1](https://react.docschina.org/)
+- [中文文档 2](https://reactjs.bootcss.com/)
 
-## 特点：
+## 特点
 
 1. 声明式的设计
-2. 高效，采用虚拟 DOM 来实现 DOM 渲染，最大限度的减少 DOM 操作
-3. 灵活，跟其他库灵活搭配使用
-4. JSX （俗称 JS 里面写 HTML）
-5. 组件化、模块化
-6. 单向的数据流。 （没有实现数据的双向绑定）
+2. 组件化、模块化开发
+3. 采用虚拟 DOM 来实现 DOM 渲染（最大限度的减少 DOM 操作）
+4. 单向的数据流（非双向数据流）
 
-## 创建项目
+## 初次体验
 
-1. 通过 script 引入使用，仅用于学习调试使用
+```html
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>hello_react</title>
+  </head>
+  <body>
+    <!-- 准备好一个容器 -->
+    <div id="app"></div>
 
-```js
-<script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
-<script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
-```
+    <!--React核心库-->
+    <script
+      src="https://unpkg.com/react@16/umd/react.development.js"
+      crossorigin
+    ></script>
+    <!--react-dom用于支持React操作DOM-->
+    <script
+      src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"
+      crossorigin
+    ></script>
+    <!-- 引入Babel帮助转译JSX转为JS语法 -->
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 
-2. 通过 **React 的脚手架** 创建项目
+    <script type="text/babel">
+      // 1. 创建虚拟DOM
+      const VDOM = <h1>Hello World</h1>;
 
-```js
-// 1.安装脚手架Create React App。
-npm install -g create-react-app 建议 cnpm install -g create-react-app
-// 2.创建项目
-create-react-app 01reactapp(项目名称)
-```
-
-```
-注： 这里 如果在创建项目的过程会中报错，请执行以下操作
-
-1. 由于网络原因，某些依赖包加载失败，解决方法：设置 npm 镜像为 cnpm
-npm config set registry https://registry.npm.taobao.org
-2. 清空缓存
-npm cache clean --force
-```
-
-3. 通过 npx 来 Create React App
-
-```js
-// 其实 就是第二种方法
-// 它会配置你的开发环境，以便使你能够使用最新的 JavaScript 特性，提供良好的开发体验，并为生产环境优化你的应用程序。你需要在你的机器上安装 Node >= 8.10 和 npm >= 5.6。要创建项目，请执行
-npx create-react-app my-app
-// 注意
-// 第一行的 npx 不是拼写错误 —— 它是 npm 5.2+ 附带的 package 运行工具。
-```
-
-## 元素渲染
-
-```jsx
-let h1 = <h1>helloworld</h1>;
-使用JSX的写法，可以创建JS元素对象
-注意：JSX元素对象，或者组件对象，必须只有1个根元素（根节点）
-
-通过 ReactDOM.render(element, root) 来实现元素渲染
-遇到 <> 标签按 XML/HTML解析， 遇到 {} 按 JS 解析
+      // 2. 将虚拟DOM渲染到页面中
+      ReactDOM.render(VDOM, document.getElementById("app"));
+    </script>
+  </body>
+</html>
 ```
 
 ## React JSX
 
-- 在 React 写的 JS 都是 Jsx 语言
+### 基本介绍
 
-> React 使用 JSX 来替代常规的 JavaScript。
->
-> JSX 是一个看起来很像 XML 的 JavaScript 语法扩展
+JSX 全称 JavaScript XML。React 定义了一种类似于 XML 的 JavaScript 扩展语法
 
-优点：
+本质上是 `React.createElement(component, props, ...children)` 方法的语法糖
 
-- JSX 执行更快，编译为 JavaScript 代码时进行优化
+**作用：** 用来简化创建虚拟 DOM
 
-- 类型更安全，编译过程如果出错就不能编译，及时发现错误
+**优点：**
 
-- JSX 编写模板更加简单快速。（不要跟 VUE 比）
+1. JSX 执行的更快。在通过 Babel 编译为 JavaScript 代码时会进行优化
+2. JSX 编写模板更加简单便捷
+3. 类型更安全，编译过程如果出错就不能编译，及时发现错误
 
-注意：
+**注意：**
 
 1. JSX 必要得有根节点
 2. 正常的普通 HTML 元素要小写。如果是大写，默认认为是组件。
 
-### JSX
+### 语法规则
 
-1. 由 HTML 元素构成
-2. 中间如果需要插入变量 用 { }
-3. { } 中间可以使用表达式
-4. { } 中间表达式可以使用 JSX 对象
-5. 属性和 html 内容一样都是 { } 来插入内容
+1. 标签中混入 JavaScript 表达式要用 `{}` 包裹
+2. 标签的类名指定不能用 `class`，要用 `className`
+3. 内联样式，要用 **双花括号** 包裹
+4. 只有一个根标签
+5. 标签必须闭合
+6. 标签首字母
+   1. **标签首字母是小写字母开头**，则将该标签转为 HTML 中同名元素，若 HTML 中无该标签对应的同名元素则报错
+   2. **标签首字母是大写字母开头**，React 就去渲染对应的组件，若组件没有定义则报错
 
-## React 的 JSX 注释写法
+## JSX 基本语法
+
+### 元素渲染
+
+使用 `{}` 进行渲染变量
 
 ```jsx
-let element3 = (
-  <div>
-            {/* 只能这样写注释 */}
-            <h1 className={classStr2} style={exampleStyle}>
-      helloworld
-    </h1>
-        
-  </div>
+const HelloText = 'Hello World'
+// 遇到 <> 标签按 XML/HTML解析， 遇到 {} 按 JS 解析
+const VDom = (
+	<>
+  	<h1>{HelloText}</h1>
+  <>
+)
+```
+
+### JSX 注释
+
+```jsx
+const HelloText = 'Hello World'
+const VDom = (
+	<>
+  	{/* JSX内如何编写注释 */}
+  	<h1>{HelloText}</h1>
+  <>
+)
+```
+
+### 添加样式
+
+在 React 中，通过 `className` 这个属性来指定 `CSS` 类。这个和 HTML 的 `class` 的属性功能是一样的
+
+```jsx
+const VDom = <h1 className="container">Hello World</h1>;
+```
+
+### 列表渲染
+
+在 React JSX 中，使用**数组的 Map 方法**，对每一项数据按照 JSX 的形式进行加工，最终得到一个每一项都是 JSX 对象的数组，在将数组渲染到模板中
+
+Key 值的作用：如果数据索引没有发生变化则 UI 不会发送重绘， 只有发生变化的部分会发生重绘，这样达到节省资源节省渲染提升性能。
+
+```jsx
+const numbers = ["React", "Vue", "Angular", "JavaScript", "TypeScript"];
+const VDom = (
+  <ul>
+    {numbers.map((item, index) => {
+      return <li key={index}>{item}</li>;
+    })}
+  </ul>
 );
+// 渲染虚拟DOM
+ReactDOM.render(VDom, document.getElementById("app"));
 ```
 
-## React 组件
+### 条件渲染
 
-- 函数式组件
-- 类 Class 组件
+在 React 中，你可以创建不同的组件来封装各种你需要的行为。然后，依据应用的不同状态，你可以只渲染对应状态下的部分内容
+
+在 React 中通过 `if` 和 条件表达式来进行条件渲染
+
+#### if 语句
 
 ```jsx
-//函数式组件
-function Childcom(props) {
-  console.log(props);
-
-  let title = <h2>我是副标题</h2>;
-  let weather = props.weather; //条件判断
-  let isGo = weather == "下雨" ? "不出门" : "出门";
-
-  return (
-    <div>
-                  <h1>函数式组件helloworld</h1>
-                  {title}
-                  
-      <div>
-                        是否出门？                 <span>{isGo}</span>
-                    
-      </div>
-              
-    </div>
-  );
+let content;
+const isReact = true;
+// 通过If语法来实现条件渲染
+if (isReact) {
+  content = "It is React framework";
+} else {
+  content = "It's not React framework";
 }
+const VDom = <div>{content}</div>;
+// 渲染虚拟DOM
+ReactDOM.render(VDom, document.getElementById("app"));
 ```
 
+#### 条件表达式
+
 ```jsx
-//类组件定义
-class HelloWorld extends React.Component {
+const isReact = true
+const VDom = (
+	{
+    isReact ? (<div>It is React framework</div>)
+		: (<div>It's not React framework</div>)
+  }
+)
+// 渲染虚拟DOM
+ReactDOM.render(VDom, document.getElementById('app'))
+```
+
+**注意点：** 如果不需要 `else` 分支，还可以使用更加简短的 `&&` 语法
+
+```jsx
+const isReact = true
+const VDom = (
+	{
+    isReact && (<div>It is React framework</div>)
+  }
+)
+// 渲染虚拟DOM
+ReactDOM.render(VDom, document.getElementById('app'))
+```
+
+## React Developer Tools 调试工具
+
+React 提供的谷歌开发者工具调试插件
+
+## React Component 组件
+
+React 用来定义组件有两种方式：**函数式组件**、**类式组件**
+
+函数式组件适用于简单组件（无状态）的定义
+
+类式组件适用于复杂组件（有状态）的定义
+
+### 函数式组件
+
+```jsx
+function MyComponent() {
+  // 函数式组件的This是undefined
+  console.log(this);
+  return <h2>函数式组件</h2>;
+}
+// 渲染组件
+ReactDOM.render(<MyComponent />, document.getElementById("app"));
+```
+
+### 类式组件
+
+```jsx
+class MyComponent extends React.Component {
   render() {
+    // This是组件实例对象
     console.log(this);
+    return <h2>类式组件</h2>;
+  }
+}
+// 渲染组件
+ReactDOM.render(<MyComponent />, document.getElementById("app"));
+```
+
+### 注意点
+
+1. 组件名首字母必须大写
+2. 虚拟 DOM 元素只能有一个根元素
+3. 虚拟 DOM 元素必须有结束标签
+
+## React State 状态
+
+组件实例的三大核心属性之一：`State`
+
+### 基本定义
+
+```jsx
+class Weather extends React.Component {
+  constructor(props) {
+    super(props);
+    // 组件状态初始化
+    this.state = { isHot: false };
+  }
+  render() {
     return (
       <div>
-                        <h1>类组件定义HELLOWORLD</h1>
-                        <h1>hello:{this.props.name}</h1>
-                        
-        <Childcom weather={this.props.weather} />
-        {/*复合组件： 在组件中可以引入其他组件*/}
-                    
+        {/* 通过组件状态数据来进行条件渲染 */}
+        今天天气很热吗？ {this.state.isHot ? "是" : "不是"}
       </div>
     );
   }
 }
 ```
 
-## React 状态
+### `.setState()`
 
-- 相当于 Vue 的 data
-
-### this.setState()
-
-- 使用 `this.setState()` 来时刻更新组件 state
+在 React 中使用 `this.setState({key: value})` 来更新组件实例对象的 State
 
 ```js
-// 不要直接修改 State, 不会重新渲染组件
-this.state.xxxxxx = "xxx";
-// 使用 setState()
-this.setState({ xxxxxx: "xxx" });
+this.setState({ isHot: !isHot });
 ```
 
-## 生命周期函数
+**注意** `setState` 更新状态的2种写法
 
-<img src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1589647159564&di=329ed207592e19f75259e0bb5badc3df&imgtype=0&src=http%3A%2F%2Fwww.fkit.org%2Fuploads%2Fallimg%2F181205%2F1-1Q205164420504.png" alt="周期函数" style="zoom:200%;" />
+`setState(stateChange, [callback])`
 
-![执行过程](https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=4201876802,3227315254&fm=26&gp=0.jpg)
+- `stateChange`  为状态对象（该对象可以体现出状态的更改）
+- callback是可选的回调函数，它在状态更新完毕、界面也更新后(render调用后)才被调用
+
+`setState(updater, [callback])`
+
+- `updater` 为返回 `stateChange` 对象的函数
+- `updater`可以接收到State和Props
+- callback是可选的回调函数，它在状态更新完毕、界面也更新后(render调用后)才被调用
+
+## React Props 属性
+
+组件实例的三大核心属性之一：`Props`
+
+使用 `PropsTypes`进行类型检查，可[参考文档](https://react.docschina.org/docs/typechecking-with-proptypes.html)
+
+### 基本使用
+
+```jsx
+class Person extends React.Component {
+  render() {
+    const { name, sex, age } = this.props;
+    return (
+      <ul>
+        <li>姓名：{name}</li>
+        <li>性别：{sex}</li>
+        <li>年龄：{age}</li>
+      </ul>
+    );
+  }
+}
+const tom = { name: "Tom", sex: "男", age: 20 };
+ReactDOM.render(
+  // 简写方式：<Person {...tom} />
+  <Person name={tom.name} sex={tom.sex} age={tom.age} />,
+  document.getElementById("app")
+);
+```
+
+### 对 Props 属性类型进行限制
+
+```jsx
+class Person extends React.Component {
+  render() {
+    const { name, sex, age } = this.props;
+    return (
+      <ul>
+        <li>姓名：{name}</li>
+        <li>性别：{sex}</li>
+        <li>年龄：{age}</li>
+      </ul>
+    );
+  }
+}
+// 对Props属性类型限制
+Person.propTypes = {
+  name: PropTypes.string.isRequired // String类型、必传
+  sex: PropTypes.string // String类型
+  age: PropTypes.number // Number类型
+}
+```
+
+### 对 Props 属性设置默认值
+
+```jsx
+class Person extends React.Component {
+  render() {
+    const { name, sex, age } = this.props;
+    return (
+      <ul>
+        <li>姓名：{name}</li>
+        <li>性别：{sex}</li>
+        <li>年龄：{age}</li>
+      </ul>
+    );
+  }
+}
+// 对Props属性设置默认值
+Person.defaultProps = {
+  sex: "男",
+  age: 18,
+};
+```
+
+### 简写类型检查的方式
+
+```jsx
+class Person extends React.Component {
+  // 对Props属性类型限制
+  static propTypes = {
+    name: PropTypes.string.isRequired // String类型、必传
+    sex: PropTypes.string // String类型
+    age: PropTypes.number // Number类型
+  }
+  // 对Props属性设置默认值
+  static defaultProps = {
+    sex: '男',
+    age: 18
+  }
+
+  render() {
+    const { name, sex, age } = this.props;
+    return (
+      <ul>
+        <li>姓名：{name}</li>
+        <li>性别：{sex}</li>
+        <li>年龄：{age}</li>
+      </ul>
+    );
+  }
+}
+```
+
+## React Refs
+
+组件实例的三大核心属性之一：`Refs`
+
+[参考文档](https://react.docschina.org/docs/refs-and-the-dom.html)
+
+在 React 中我们可以通过组件实例属性`Refs` 来获取到绑定了 `ref`属性的 DOM 节点
+
+### 字符串类型 Ref
+
+```jsx
+class Demo extends React.Component {
+  showData() {
+    const { input1 } = this.refs;
+    console.log(input1.value);
+  }
+  showData2() {
+    const { input2 } = this.refs;
+    console.log(input2.value);
+  }
+  render() {
+    return (
+      <div>
+        <input ref="input1" type="text" placeholder="点击按钮提示数据" />
+        <button onClick={() => this.showData()}>点我提示左侧的数据</button>
+        <input
+          ref="input2"
+          type="text"
+          onBlur={() => this.showData2()}
+          placeholder="失去焦点提示数据"
+        />
+      </div>
+    );
+  }
+}
+```
+
+### 回调函数 Ref
+
+回调形式的`Ref`，会把当前的 DOM 元素通过实参的方式传递给开发者
+
+[关于回调 refs 的说明](https://react.docschina.org/docs/refs-and-the-dom.html#caveats-with-callback-refs)
+
+```jsx
+class Demo extends React.Component {
+  showData() {
+    const { input1 } = this;
+    console.log(input1.value);
+  }
+  showData2() {
+    const { input2 } = this;
+    console.log(input2.value);
+  }
+  render() {
+    return (
+      <div>
+        {/* element是绑定的DOM元素 */}
+        <input
+          ref={(element) => (this.input1 = element)}
+          type="text"
+          placeholder="点击按钮提示数据"
+        />
+        <button onClick={() => this.showData()}>点我提示左侧的数据</button>
+        <input
+          ref={(element) => (this.input2 = element)}
+          type="text"
+          onBlur={() => this.showData2()}
+          placeholder="失去焦点提示数据"
+        />
+      </div>
+    );
+  }
+}
+```
+
+### `React.createRef()` 创建 Ref
+
+`React.createRef()` 调用后可以返回一个容器，该容器可以存储被 `ref` 所标识的节点
+
+```jsx
+class Demo extends React.Component {
+  inputOne = React.createRef();
+  inputTwo = React.createRef();
+  showData = () => {
+    console.log(this.inputOne.current.value);
+  };
+  showData2 = () => {
+    console.log(this.inputTwo.current.value);
+  };
+  render() {
+    return (
+      <div>
+        <input ref={this.inputOne} type="text" placeholder="点击按钮提示数据" />
+        &nbsp;
+        <button onClick={this.showData}>点我提示左侧的数据</button>&nbsp;
+        <input
+          ref={this.inputTwo}
+          onBlur={this.showData2}
+          type="text"
+          placeholder="失去焦点提示数据"
+        />
+        &nbsp;
+      </div>
+    );
+  }
+}
+```
+
+## React Method 事件
+
+特点：绑定的事件命名为驼峰命名法、`{}` 插入的是一个函数
+
+[参考文档](https://react.docschina.org/docs/handling-events.html)
+
+### 基本示例
+
+```jsx
+class Weather extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { isHot: false };
+  }
+  // 注册事件
+  setIsHot(value) {
+    this.setState({ isHot: !value });
+  }
+  render() {
+    const { isHot } = this.state;
+    return (
+      // 绑定事件函数（组件事件名大小写）
+      // <div onClick={this.setIsHot.bind(this, isHot)}>
+      <div onClick={() => this.setIsHot(isHot)}>
+        天气炎热吗？ {isHot ? "是" : "不是"}
+      </div>
+    );
+  }
+}
+```
+
+### 为事件传递参数
+
+```jsx
+// 第一种
+<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+// 第二种
+<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+```
+
+## 非受控组件
+
+在 HTML 中，通常表单之类的标签有内置的属性和方法来维护自己的 State，并且根据用户输入进行更新。
+
+**而非受控组件就是不需要通过 React 来管理表单数据，而是通过真实 DOM 来获取数据**
+
+```jsx
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.input = React.createRef();
+  }
+  handleSubmit(event) {
+    event.preventDefault();
+    alert("A name was submitted: " + this.input.current.value);
+  }
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Name:
+          <input type="text" ref={this.input} />
+        </label>
+        <input type="submit" value="Submit" />
+      </form>
+    );
+  }
+}
+```
+
+## 受控组件
+
+在 HTML 中，通常表单之类的标签有内置的属性和方法来维护自己的 State，并且根据用户输入进行更新
+
+而在 React，通常将数据状态保存在组件实例的 State 属性中，并且只能通过 `setState()` 来更新
+
+**而这种通过 React 来控制元素状态的成为受控组件**
+
+```jsx
+class NameForm extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { value: "" };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  handleChange(event) {
+    this.setState({ value: event.target.value });
+  }
+  handleSubmit(event) {
+    // 阻止默认事件提交
+    event.preventDefault();
+    alert("提交的名字: " + this.state.value);
+  }
+  render() {
+    return (
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          名字:
+          <input
+            type="text"
+            value={this.state.value}
+            onChange={this.handleChange}
+          />
+        </label>
+        <input type="submit" value="提交" />
+      </form>
+    );
+  }
+}
+```
+
+## React 生命周期钩子函数
+
+React 组件从创建到死亡会经历一些特定的阶段。其中就包含了一系列钩子函数，会在特定的时刻调用
+
+**主要分为三个阶段**：初始化阶段、更新阶段、卸载阶段
+
+### React 生命周期(旧)
+
+![React 生命周期(旧)](</React 生命周期(旧).png>)
 
 ```jsx
 class Clock extends React.Component {
@@ -181,261 +619,113 @@ class Clock extends React.Component {
     super(props);
     this.state = { date: new Date() };
   }
-  // 组件被挂载前 执行的生命周期函数
-  componentWillMount() {}
-  // 组件被挂载后 执行的生命周期函数
-  componentDidMount() {}
-  // 在componentDidMount()后 如果state改变 则进入 shouldComponentUpdate: 返回 true 和 false， true代表允许改变 false 代表不能改变
 
-  // 如果 props 发生改变执行 然后 进入 shouldComponentUpdate
+  // 组件挂载前
+  componentWillMount() {}
+  // 组件挂载后
+  componentDidMount() {}
+  
+  // 子组件（父组件传递给子组件的Props发生改变调用）
+  // 此钩子函数被调用后 再进入 shouldComponentUpdate
   componentWillReceiveProps() {}
 
-  // 数据在改变之前执行 (state、 props)
+  // 组件是否更新（在组件挂载后，如果State状态发送改变，则进入此钩子）
+  // 返回 True 代表允许更新，返回 False 代表不允许更新（此钩子函数如果不写默认是True）
+  // 此钩子就是一个阀门
+  shouldComponentUpdate() {}
+  
+  // 组件更新前（State、Props、.forceUpdate()）
   componentWillUpdate() {}
-  // 数据修改完成 执行的生命周期函数 (state、 props)
+  // 组件更新后（State、Props）
   componentDidUpdate() {}
 
-  // 组件被卸载前 执行的生命周期函数
+  // 组件卸载前
   componentWillUnmount() {}
 
+  // 初次渲染、State状态更新后
   render() {
     return (
-      <div>
-        <h1>Hello, world!</h1>
-        <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
-      </div>
+      <h2>It is {this.state.date.toLocaleTimeString()}</h2>
     );
   }
 }
 ```
 
-## React 事件
+### React 生命周期(新)
 
-特点：
+[参考文档](https://react.docschina.org/docs/react-component.html#the-component-lifecycle)
 
-- 绑定的事件命名：驼峰命名法
-- { } 传入一个函数，而不是字符串
+在新版本中 `componentWillMount`、`componentWillReceiveProps`、`componentWillUpdate` 废除三个钩子函数
 
-```jsx
-<button onClick={this.sendData}>传递helloworld给父元素</button>
-```
+新增两个钩子函数 `static getDerivedStateFromProps()`、`static getSnapshotBeforeUpdate()`
 
-事件对象 e：React 返回的事件对象是代理的原生的事件对象，如果想要查看事件对象的具体值，必须之间输出事件对象的属性
-
-注意：
-
-- 原生，阻止默认行为时，可以直接返回 return false；
-
-- React 中，阻止默认必须 e.preventDefault();
-
-### 向事件处理程序传递参数
-
-> 在循环中，通常我们会为事件处理函数传递额外的参数。例如，若 `id` 是你要删除那一行的 ID，以下两种方式都可以向事件处理函数传递参数：
+![React 生命周期(新)](</React 生命周期(新).png>)
 
 ```jsx
-<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button> // 箭头函数
-<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button> // .bind()
-```
-
-## React 条件渲染
-
-> 在 React 中，你可以创建不同的组件来封装各种你需要的行为。然后，依据应用的不同状态，你可以只渲染对应状态下的部分内容
-
-React 中的条件渲染和 JavaScript 中的一样，使用 JavaScript 运算符 [`if`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else) 或者[条件运算符](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator)去创建元素来表现当前的状态，然后让 React 根据它们来更新 UI。
-
-在 react 中用 jsx 渲染 dom 的时候经常会遇到 if 条件判断，然而在 jsx 中竟是不允许 if 条件判断的。以下有几种判断方式，可以根据自己的应用场景，挑选适合的。
-
-方法一：
-
-```jsx
-class HelloMessage extends React.Component {
-  render() {
-    let userMessage;
-    if (this.props.loggedIn) {
-      userMessage = (
-        <span>
-          <h2>{`Welcome Back ${this.props.name}`}</h2>
-          <p>You can visit settings to reset your password</p>
-        </span>
-      );
-    } else {
-      userMessage = <h2>Hey man! Sign in to see this section</h2>;
-    }
-    return (
-      <div>
-        <h1>My Super React App</h1>
-        {userMessage}
-      </div>
-    );
-  }
-}
-```
-
-方法二:
-
-```jsx
-class HelloMessage extends React.Component {
-  renderUserMessage() {
-    if (this.props.loggedIn) {
-      return (
-        <span>
-          <h2>{`Welcome Back ${this.props.name}`}</h2>
-          <p>You can visit settings to reset your password</p>
-        </span>
-      );
-    } else {
-      return <h2>Hey man! Log in to see this section</h2>;
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>My Super React App</h1>
-        {this.renderUserMessage()}
-      </div>
-    );
-  }
-}
-```
-
-方法三: 三元运算符
-
-```jsx
-class HelloMessage extends React.Component {
-  render (){
-    return(
-      <div>
-        <h1>
-          { this.props.loggedIn ?  'You are logged In' : 'You are not logged In' }
-        </h1>
-      </div>
-    )
-  }
-```
-
-方法四：
-
-```jsx
-class HelloMessage extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>My Super React App</h1>
-        {this.props.loggedIn ? (
-          <span>
-            <h2>{`Welcome Back ${this.props.name}`}</h2>
-            <p>You can visit settings to reset your password</p>
-          </span>
-        ) : (
-          <h2>Hey man! Log in to see this section</h2>
-        )}
-      </div>
-    );
-  }
-}
-```
-
-## React 列表渲染
-
-- 将列表内容拼装成数组放置到模板中。将数据拼装成数组的 JSX 对象
-
-- 使用数组的**map 方法**，对每一项数据按照 JSX 的形式进行加工，最终得到 1 个每一项都是 JSX 对象的数组，在将数组渲染到模板中
-- Key 值
-  - 作用： 如果数据索引没有发生变化则 UI 不会发送重绘， 只有发生变化的部分会发生重绘，这样达到节省资源节省渲染提升性能。
-
-```jsx
-// 简单的案例
-function NumberList(props) {
-  const numbers = props.numbers;
-  const listItems = numbers.map((number, index) => (
-    <li key={index}>{number}</li>
-  ));
-  return <ul>{listItems}</ul>;
-}
-
-const numbers = [1, 2, 3, 4, 5];
-ReactDOM.render(
-  <NumberList numbers={numbers} />,
-  document.getElementById("root")
-);
-```
-
-## React 组件的插槽
-
-```jsx
-// App组件
-export default class App extends React.Component{
+class Clock extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = { date: new Date() };
   }
+
+  // 组件挂载后
+  componentDidMount() {}
+    
+	// 组件是否更新（在组件挂载后，如果State状态发送改变，则进入此钩子）
+  // 返回 True 代表允许更新，返回 False 代表不允许更新（此钩子函数如果不写默认是True）
+  // 此钩子就是一个阀门
+  shouldComponentUpdate() {}
+  
+  // derived 派生的
+  // 若State的值在任何时候都取决于Props，那么可以使用此钩子函数
+  static getDerivedStateFromProps(props, state) {
+    return props
+  }
+  // snapshot 快照
+  // 参考文档：https://react.docschina.org/docs/react-component.html#getsnapshotbeforeupdate
+  static getSnapshotBeforeUpdate() {}
+  
+  // 组件更新后（State、Props）
+  componentDidUpdate() {}
+
+  // 组件卸载前
+  componentWillUnmount() {}
+
+  // 初次渲染、State状态更新后
   render() {
     return (
-      <Slot>
-        <div key="aaa">我是插槽一</div>
-        <div key="bbb">我是插槽二</div>
-      </Slot>
+      <h2>It is {this.state.date.toLocaleTimeString()}</h2>
+    );
+  }
+}
+```
+
+## `<Fragment>`
+
+使用 `Fragment` 包裹的组件，可以不用必须有一个真实的DOM根标签了
+
+```jsx
+class Demo extends React.Component {
+  render() {
+		return (
+      // Fragment 不会被渲染在DOM节点上
+    	<Fragment>
+      	<div>Hello World</div>
+      </Fragment>
     )
   }
-// slot 组件
-class slot extends React.Component{
-    constructor(props) {
-        super(props)
-        console.log(props)
-    }
-    render() {
-        return (
-            <div>
-                <div>slot组件</div>
-                <div>slot插槽插入的内容如下</div>
-                {
-                    this.props.children.map(item => item)
-                }
-            </div>
-        )
-    }
 }
-// 在 slot 组件 通过 this.props.children 可以获取App组件里的两个插槽。 然后通过 map 遍历出来
 ```
 
-## 调试工具 React developer tools
 
-- https://www.cnblogs.com/Super-scarlett/p/8657572.html
 
-- 类似 Vue 的 Vue Devtools
+## React 脚手架
 
-## react-transition-group 动画库
+安装 `npm install -g create-react-app` 或 使用 `npx create-react-app projectName` 命令
 
-- [Github](https://github.com/reactjs/react-transition-group)
+## VsCode 相关插件
 
-## Simple React Snippets（VsCode 插件）
+- `Simple React Snippets`
+- `ES7 React/Redux/GraphQL/React-Native`
 
-- 用于快速生成 React 基本代码
-
-## Ant Design UI 库使用
-
-> `antd` 是基于 Ant Design 设计体系的 React UI 组件库，主要用于研发企业级中后台产品。
-
-- [官方文档](https://ant.design/docs/react/introduce-cn)
-
-### 安装
-
-```bash
-npm install antd --save
-如果你的网络环境不佳，推荐使用 cnpm
-```
-
-### 使用
-
-```js
-import { Button } from "antd";
-
-ReactDOM.render(<Button />, mountNode);
-
-// 还需要引入样式
-import "antd/dist/antd.css"; // or 'antd/dist/antd.less'
-```
-
-### 按需加载
-
-- https://www.jianshu.com/p/9ca927b748f7
+ 

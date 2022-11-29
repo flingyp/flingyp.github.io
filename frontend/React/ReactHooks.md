@@ -1,16 +1,22 @@
-# ReactHooks
+## ReactHooks
 
-## 介绍
+`React Hooks`就是**用函数的形式代替原来的继承类的形式**，并且**使用预函数的形式管理`state`**
 
-> `React Hooks`就是**用函数的形式代替原来的继承类的形式**，并且**使用预函数的形式管理`state`**，有 Hooks 可以不再使用类的形式定义组件了。这时候你的认知也要发生变化了，原来把组件分为有状态组件和无状态组件，有状态组件用类的形式声明，无状态组件用函数的形式声明。那**现在所有的组件都可以用函数来声明了**。
->
-> hooks 只是多了一种写组件的方法，使编写一个组件更简单更方便，同时可以自定义 hook 把公共的逻辑提取出来，让逻辑在多个组件之间共享。
+有 Hooks 可以不再使用类的形式定义组件了。这时候你的认知也要发生变化了，原来把组件分为有状态组件和无状态组件，有状态组件用类的形式声明，无状态组件用函数的形式声明。那**现在所有的组件都可以用函数来声明了**
+
+Hooks 只是多了一种写组件的方法，使编写一个组件更简单更方便，同时可以自定义 Hook 把公共的逻辑提取出来，让逻辑在多个组件之间共享
+
+**Hook使用的注意事项：**
+
+- Hook不能在类组件中使用
+- 只能在函数最外层调用Hook，不能在循环或者条件判断或者子函数中调用
+- 只能在React的函数组件中调用Hook，不能在其他的JavaScript函数中调用
 
 ## React Hooks 编写形式的对比
 
-> 用一个最简单的有状态组件。当点击按钮时，点击数量不断增加。
+用一个最简单的有状态组件。当点击按钮时，点击数量不断增加。
 
-### 原始写法
+### React 类组件写法
 
 ```jsx
 import React, { Component } from "react";
@@ -38,7 +44,7 @@ class Example extends Component {
 export default Example;
 ```
 
-### React Hooks 写法
+### React Hooks 函数组件写法
 
 ```jsx
 import React, { useState } from "react";
@@ -60,107 +66,119 @@ function Example() {
 export default Example;
 ```
 
-## useState 的介绍和用法
+## `useState`  
 
-### 介绍
-
-> 是 react 自带的一个 hook 函数，它的作用是用来声明状态变量。
->
-> [官方文档](https://zh-hans.reactjs.org/docs/hooks-state.html)
-
-### useState 的用法
-
-1. 声明
-   1. `import React, { useState } from 'react';`
-2. 读取
-   1. `const [ age, setAge ] = useState(18)`
-3. 修改
-   1. 调用读取的第二个变量(是个方法，用于设置修改第一个变量的值)
+是 React 自带的一个 Hook 函数，它的作用是用来声明状态State变量
 
 ```jsx
 import React, { useState } from "react";
-
-function Example2() {
-  const [age, setAge] = useState(18);
-  const [sex, setSex] = useState("男");
-  const [name, setName] = useState("xiaopeng");
-  console.log(useState); // 打印出 useState是个函数
-  // useState(initialState) {
-  //   var dispatcher = resolveDispatcher();
-  //   return dispatcher.useState(initialState);
-  // }
-  console.log(useState(18)); // 调用 useState 函数返回值是个数组
-  // [18, fn()]
+function Counter() {
+  const [count, setCount] = useState(0)
   return (
     <div>
-      <p>今年:{age}岁</p>
-      <p>性别:{sex}</p>
-      <p>姓名:{name}</p>
+    	<p>{count}</p>
+      <button onClick={() => setCount(count + 1)}></button>
     </div>
-  );
+  )
 }
-export default Example2;
+export default Counter;
 ```
 
-## useEffect 介绍和用法。代替生命周期函数
-
-> 在**用`Class`制作组件时，经常会用生命周期函数**，来处理一些额外的事情（副作用：和函数业务主逻辑关联不大，特定时间或事件中执行的动作，比如 Ajax 请求后端数据，添加登录监听和取消登录，手动修改`DOM`等等）。**在`React Hooks`中也需要这样类似的生命周期函数，比如在每次状态（State）更新时执行，它为我们准备了`useEffect`**
-
-### 原始生命周期函数的使用
+`useState` 返回值的第二个设置的方法，有两种写法
 
 ```jsx
-import React, { Component } from "react";
-class Example3 extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      count: 0,
-    };
-  }
-  // 组件被挂载
-  componentDidMount() {
-    console.log(`ComponentDidMount=>You clicked ${this.state.count} times`);
-  }
-  // 组件被更新
-  componentDidUpdate() {
-    console.log(`componentDidUpdate=>You clicked ${this.state.count} times`);
-  }
-  render() {
-    return (
-      <div>
-        <p>你点击的次数{this.state.count}</p>
-        <button onClick={this.addCount.bind(this)}>请点击</button>
-      </div>
-    );
-  }
-  addCount() {
-    this.setState({ count: this.state.count + 1 });
-  }
-}
-export default Example3;
-// 页面初始被挂载时会执行 componentDidMount 生命周期函数。当我们点击 请点击 按钮时组件被更新 会执行 componentDidUpdate 生命周期函数
+// 第一种直接传入更新的值
+setState(value)
+// 第二种传入一个回调函数，进行复制的更新逻辑操作
+setState(callback)
 ```
 
-### 用 useEffect 函数代替生命周期函数
+ **注意**：如果更新的数据与上一次一样，React将跳过子组件的渲染和 Effect 的执行
+
+## `useContext`
+
+使用 `useContext` 可以**实现跨级组件之间的数据通信**。接收一个Context对象并且返回该Context的当前值
+
+**以计数器为例子：**
+
+在父级组件导入 `createContext` 并调用函数来创建Context上下文，我们可以得到一个新组件
+
+- `const CountContext= CountContext()`
+
+使用这个新组件，组件内部包裹的就是自己的子组件
+
+- `<CountContext.Provider value={count}> <Counter /> </CountContext>`
+
+同时还要将这个新组件导出
+
+- `export {CountContext}`
 
 ```jsx
-import React, { useState, useEffect } from "react"; // 1. 先引入 useEffect
+// 1. 在父组件 导入createContext函数
+import React, { useState, createContext } from "react";
+import Counter from "./component/Counter";
+
+// 2. 调用createContext函数得到一个新组件
+const CountContext = createContext();
 
 function Example() {
   const [count, setCount] = useState(0);
-  // 页面初始被挂载时 会调用 useEffect 函数。 当我们点击 请点击 按钮时组件被更新 也会执行 useEffect 函数
-  useEffect(() => {
-    console.log(`useEffect=>You clicked ${count} times`);
-  });
-
   return (
     <div>
       <p>你点击的次数{count}</p>
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
+      <button onClick={() => setCount(count + 1)}>
+        请点击
+      </button>
+      {/3. 使用这个 CountContext.Provider，组件内部包裹的就是子组件/}
+      <CountContext.Provider value={count}>
+        <Counter />
+      </CountContext.Provider>
+    </div>
+  );
+}
+export { Example, CountContext };
+```
+
+此时就相当于把 `count` 变量提供给子组件以及后代组件了（也就是实现了上下文）。**当父组件的`count`变量发生变化时，子组件也会发生变化**
+
+在子组件中，我们使用 `useContext` 接收上下文变量，并且需要导入到父组件提供的新组件
+
+```jsx
+import React, { useContext } from "react";
+import { CountContext } from "./Example";
+
+function Counter() {
+  // 在组件使用 useContext(CountConext) 来接收父组件传递的值
+  const count = useContext(CountContext);
+  return <h2>{count}</h2>;
+}
+export default Counter;
+```
+
+## `useEffect`
+
+在 用`Class`制作组件时，经常会用生命周期函数，来处理一些额外的事情（副作用：和函数业务主逻辑关联不大，特定时间或事件中执行的动作，比如 Ajax 请求后端数据，添加登录监听和取消登录，手动修改`DOM`等等）
+
+**在`React Hooks`中也需要这样类似的生命周期函数，比如在每次状态（State）更新时执行**
+
+**执行时机：**
+
+- React会在首次页面渲染后调用副作用函数
+- 当数据状态发送改变后页面重新渲染也会调用副作用函数
+
+```jsx
+import React, { useState, useEffect } from "react"; =
+
+function Example() {
+  const [count, setCount] = useState(0);
+  // React会在每次渲染后调用副作用函数、当数据状态发送改变后页面重新渲染也会调用副作用函数
+  useEffect(() => {
+    console.log(`You clicked ${count} times`);
+  });
+  return (
+    <div>
+      <p>你点击的次数{count}</p>
+      <button onClick={() => setCount(count + 1)}>
         请点击
       </button>
     </div>
@@ -171,11 +189,16 @@ export default Example;
 
 总结：
 
-1. React 首次渲染和之后的每次渲染都会调用一遍`useEffect`函数，而之前我们要用两个生命周期函数分别表示首次渲染(componentDidMonut)和更新导致的重新渲染(componentDidUpdate)。
+- React 首次渲染和之后的每次渲染都会调用一遍 `useEffect` 函数
+- `useEffect` 函数执行的时刻是**页面渲染后再去执行的**，也就是说这些函数时异步执行的，执行不会阻碍浏览器更新视图。而`componentDidMonut`和`componentDidUpdate`中的代码都是同步执行的。个人认为这个有好处也有坏处吧，比如我们要根据页面的大小，然后绘制当前弹出窗口的大小，如果时异步的就不好操作了。
 
-2. useEffect 中定义的函数的执行不会阻碍浏览器更新视图，也就是说这些函数时异步执行的，而`componentDidMonut`和`componentDidUpdate`中的代码都是同步执行的。个人认为这个有好处也有坏处吧，比如我们要根据页面的大小，然后绘制当前弹出窗口的大小，如果时异步的就不好操作了。
+### 只执行一次 `useEffect`
 
-## useEffect 实现组件解绑 componentWillUnmount 生命周期函数
+`useEffect` 的第二个参数，它是与该副作用关联的状态或属性依赖的数组，数组中可以写入很多状态对应的变量，意思是当变量状态值发生变化时，再去执行 `useEffect`
+
+**但是当传入空数组 `[]` 时，那么表示 `useEffect` 不依赖任何值的变化只会在首次初渲染时执行**
+
+### useEffect 实现组件解绑
 
 总结：`useEffect`的第二个参数，它是一个数组，数组中可以写入很多状态对应的变量，意思是当变量状态值发生变化时，我们才进行解绑。但是当传空数组`[]`时，就是当组件将被销毁时才进行解绑，这也就实现了`componentWillUnmount`的生命周期函数。
 
@@ -187,7 +210,6 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 function Index() {
   useEffect(() => {
     console.log("欢迎来到index页面");
-
     return () => {
       console.log("离开 index 页面");
     };
@@ -198,7 +220,6 @@ function Index() {
 function List() {
   useEffect(() => {
     console.log("欢迎来到list页面");
-
     return () => {
       console.log("离开 list 页面");
     };
@@ -213,23 +234,14 @@ function Example() {
   return (
     <div>
       <p>你点击的次数{count}</p>
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
+      <button onClick={() => setCount(count + 1)}>
         请点击
       </button>
 
       <Router>
-        <ul>
-          <li>
-            <Link to="/">首页</Link>
-          </li>
-          <li>
-            <Link to="/list/">列表</Link>
-          </li>
-        </ul>
+        <Link to="/">首页</Link>
+        <Link to="/list/">列表</Link>
+        
         <Route path="/" exact component={Index} />
         <Route path="/list/" component={List} />
       </Router>
@@ -239,67 +251,9 @@ function Example() {
 export default Example;
 ```
 
-## useContext 父子组件传值
+## `useReducer` 
 
-这里以计数器为例子：
-
-1. 在父组件 导入 **createContext 函数** 用于创建 context
-2. 调用 **createContext 函数** 得到一个组件
-   1. `const CountConext = createContext()`
-3. 使用这个组件， 组件内部包裹的就是子组件
-4. 这里 还要把这个 `CountConext` 创建的组件导出
-
-```jsx
-// 1.在父组件 导入 createContext函数 用于创建 context
-import React, { useState, createContext } from "react";
-import Counter from "./Example4child";
-// 2. 调用  createContext函数 得到一个组件
-const CountConext = createContext();
-
-function Example4() {
-  const [count, setCount] = useState(0);
-  return (
-    <div>
-      <p>你点击的次数{count}</p>
-      <button
-        onClick={() => {
-          setCount(count + 1);
-        }}
-      >
-        请点击
-      </button>
-      {/3. 使用这个 组件.Provider ， 组件内部包裹的就是子组件/}
-      <CountConext.Provider value={count}>
-        <Counter />
-      </CountConext.Provider>
-    </div>
-  );
-}
-export { Example4, CountConext };
-```
-
-就相当于把**`count`变量**允许跨层级实现传递和使用了（也就是实现了上下文），**当父组件的`count`变量发生变化时，子组件也会发生变化**。
-
-5. 在子组件中使用 useContext 接收上下文变量。 引入 `useContext`
-   1. `import React, { useContext } from 'react';`
-6. 再引入 父组件的 `CountConext`
-   1. `import { CountConext } from './Example4'`
-7. 在组件 使用 `useContext(CountConext)` 来接收父组件传递的值
-
-```jsx
-import React, { useContext } from "react";
-import { CountConext } from "./Example4";
-
-function Counter() {
-  const count = useContext(CountConext);
-  return <h2>{count}</h2>;
-}
-export default Counter;
-```
-
-## useReducer 介绍和使用
-
-> 了解 reducer 的含义后，就可以讲 useReducer 了，它也是**React hooks 提供的函数**，可以增强我们的`Reducer`，实现类似 Redux 的功能。
+它也是React hooks 提供的钩子函数，可以增强我们的`Reducer`，实现类似 ` Redux` 的功能。
 
 以计数器为例子：
 

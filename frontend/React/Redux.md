@@ -1,4 +1,6 @@
-# Redux
+## Redux
+
+Redux是一专门用于做状态管理的JS库，集中式管理多个组件共享的状态
 
 ## 安装
 
@@ -11,39 +13,23 @@ npm install --save react-redux
 npm install --save-dev redux-devtools
 ```
 
-## Redux 的工作流程
+## Redux 工作流程
 
-![工作流程](https://upload-images.jianshu.io/upload_images/15943270-04acc99a381bf8fb.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/638/format/webp)
+![Redux 工作流程](https://img2018.cnblogs.com/blog/1087883/201812/1087883-20181205145741397-1912744867.png)
 
-1. 首先，用户发出 Aciton
+在 React Components 中派发`dispatch` 出 **Action**，**Store** 会自动调用 **Reducers** 去修改 `State` 状态后将新的 `State` 交给 **Store**。 `State` 发生变化后重新渲染。
 
-- `store.dispatch(action)`
+## Redux 三个核心概念
 
-2. 然后，Store 自动调用 Reducer，并且传入两个参数：当前 State 和收到的 Action。 Reducer 会返回新的 State 。
+### Action
 
-- `let nextState = todoApp(previousState, action);`
+动作对象，包含两个属性（`type` 标识属性，值为字符串、`data` 数据属性，值类型任意）
 
-State 一旦有变化，Store 就会调用监听函数。
+`{type: 'ADD_STUDENT', data: {name: 'Tom', age: 20}}`
 
-```
-// 设置监听函数
-store.subscribe(listener);
-```
+### Store
 
-listener 可以通过 store.getState()得到当前状态。如果使用的是 React，这时可以触发重新渲染 View。
-
-```js
-function listerner() {
-  let newState = store.getState();
-  component.setState(newState);
-}
-```
-
-## Store
-
-> 数据仓库，保存数据的地方。
->
-> 强调一下 **Redux 应用只有一个单一的 store**
+状态数据仓库，强调一下 **Redux 应用只有一个单一的 store**
 
 Store 有以下职责：
 
@@ -53,26 +39,65 @@ Store 有以下职责：
 - 通过 [`subscribe(listener)`](https://www.redux.org.cn/docs/api/Store.html#subscribe) 注册监听器;
 - 通过 [`replaceReducer(nextReducer)`](https://www.redux.org.cn/docs/api/Store.html#replaceReducer) 返回的函数注销监听器。
 
-## State
+### Reducers
 
-> state 是个对象，数据仓库里的所有数据都放到一个 state 里
+是个函数通过获取动作改变 `State` 状态，生成个新的 `State` 状态
 
-## Action
+注意：Reducers 只负责修改数据状态，不负责重新更新渲染页面
 
-> 行为，触发数据改变的方法。
+## Redux 编写流程
 
-## Dispatch
+### 创建 Store
 
-> 将动作触发成方法
+```jsx
+import { createStore } from 'redux'
+import Reducer from './Reducer'
 
-## Reducer
+const store = createStore(Reducer)
+export default store
+```
 
-> 是个函数，通过获取动作，改变数据，生成个新 state。从而改变页面
+### 创建纯函数 Reducer
+
+```jsx
+// Reducer.js
+const defaultState = {} // 初始化默认值State
+export default const Reducer = (previousState = defaultState, action) => {
+  const {type, data} = action
+  // 根据不同的Action Type返回不同的State
+  return newState
+}
+```
+
+### 组件中获取Store的状态数据
+
+在组件中通过 `store.getState()` 获取数据
+
+### 组件中修改Store的状态数据
+
+在组件调用 `store.dispatch({type: '', data: {}})` 方法去执行 `Reducer`
+
+- `dispatch` 派发
+
+### 状态数据发生变化后，更新页面
+
+通过 `store.subscribe(callback)` 方法，在数据发送变化后，执行回调
+
+- `subscribe` 订阅
+
+```jsx
+componentDidMount(){
+  //检测Redux中状态的变化，只要变化就更新页面变化
+  store.subscribe(()=>{
+    this.setState({})
+  })
+} 
+```
 
 ## Redux DevTools 调试插件
 
 1. 在谷歌浏览器下载 Redux DevTools 插件
-2. 配置 Redux Dev Tools 插件
+2. 配置 Redux DevTools 插件
    - [Github 网址](https://github.com/zalmoxisus/redux-devtools-extension)
 
 ```js
@@ -83,104 +108,6 @@ const store = createStore(
   ++window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-```
-
-## Redux 基本编写流程
-
-#### 1. 编写创建 store 仓库 (./store/index.js)
-
-```js
-// 1. 导入 createStore
-import { createStore } from "redux";
-
-// 2. 导入 reducers 纯函数 (想象成 图书管理员 用于派发数据)
-import reducer from "./reducer";
-
-// 3. 创建 store 仓库   (想象成 图书仓库)
-let store = createStore(reducer);
-
-export default store;
-```
-
-#### 2. 编写 reducer 纯函数 (./store/reducer.js)
-
-```js
-const defaultState = {}; // 用于设置 state 初始默认值
-
-export default (state = defaultState, action) => {
-  return state;
-};
-```
-
-#### 3. 组件中获取获得 store 中的数据
-
-> 有了 store 仓库，也有了数据，那如何获得 stroe 中的数据那？你可以在要使用的组件中，先引入 store。
-
-```js
-import store from './store/index'
-
-// 然后可以通过 store.getState() 获取数据
-// 可以在组件的 constructor(props) {} 打印结果
-constructor(props) {
-    super(props)
-    console.log(store.getState())
-}
-```
-
-#### 4. 组件中如何动态改变 store 中的数据
-
-```jsx
-// 举个例子：
-// 当用户在 输入框 中不段改变输入的内容时 会触发 onChange 事件
-<Input
-    placeholder={this.state.inputValue}
-    style={{ width:'250px', marginRight: '10px'}}
-    onChange = {this.changeInputValue}
-    value = {this.state.inputValue}
-/>
-
-changeInputValue(e) {
-    // 通过e 实时获取输入框内容 e.target.value
-    // 先回顾下Redux的工作流程。1. 重点： 建立一个 action 对象
-    const action = {
-        type: 'changeInput',
-        value: e.target.value
-    }
-    // 2. 重点： 通过 store.dispatch()方法将 action对象 传递给 store。 然后 store 会自动 传递到 reducer
-    // 因为 store 就是个 图书馆用于存放书的 而 reducer 比喻就是个 管理员 用于派发的书的。
-    store.dispatch(action)
-}
-
-
-// 这时候 在 reducer.js 中 就可以对数据进行处理了
-export default (state = defaultState, action) => {
-    // 这里的 state 就是 store中存放的数据（前） 而 action 打印出来的就是 上面 的 action 对象
-    console.log(state, action)
-    // Reducer 里只能读取 state ， 不能直接改变 state。所以下面对 state 进行深度拷贝
-    // 如果 action.type 和 上面的 type 对应 === changeInput，就会执行 if语句的代码
-    if(action.type === 'changeInput') {
-        let newState = JSON.parse(JSON.stringify(state)) // 对 state 深度拷贝
-        // 把输入框的新内容 重新赋到 inputValue ， 再返回 到 store 重新存放。
-        newState.inputValue = action.value
-        return newState
-    }
-    return state
-}
-```
-
-#### 5.store 中的数据值改变了后，但是视图层的内容没有发生改变
-
-```jsx
-// 在这个时候 需要用到一个 方法叫做 store.subscribe()， 方法接收一个函数。
-// 官方解释： 添加一个变化监听器。每当 dispatch action 的时候就会执行，state 树中的一部分可能已经变化。你可以在回调函数里调用 getState() 来拿到当前 state。
-
-this.storeChange = this.storeChange.bind(this)
-store.subscribe(this.storeChange)
-
-storeChange() {
-    this.setState(store.getState())
-}
-// 就是当  每 store.dispatch(action) 的时候 就会执行这个 store.subscribe(this.storeChange) 方法， 方法中接收一个函数。 通过这个函数 我们可以  store.getState() 获取到修改后的 store 数据，避免出现 store 数据改变，视图层的数据没有发生变化的情况。
 ```
 
 ## 写 Redux 的小技巧
@@ -291,7 +218,9 @@ store拿到了Reducer的数据，自己对自己进行了更新。
 
 ## Redux 中间件
 
-> 如果用过 express.js 之类的 web 框架，对中间件（Middleware）这个概念可能不会陌生。**中间件**其实就是一种独立运行于各个框架组件之间的胶水代码。在 Express.js 或 Koa 等框架中，中间件通常是运行在收到请求到处理请求之间，可是实现日志记录、身份认证等预处理操作。而在 Redux 里，中间件是运行在 action 发送出去，到达 reducer 之间的一段代码。
+> 如果用过 express.js 之类的 web 框架，对中间件（Middleware）这个概念可能不会陌生。**中间件**其实就是一种独立运行于各个框架组件之间的胶水代码。在 Express.js 或 Koa 等框架中，中间件通常是运行在收到请求到处理请求之间，可是实现日志记录、身份认证等预处理操作。
+>
+> 而在 Redux 里，中间件是运行在 action 发送出去，到达 reducer 之间的一段代码。
 
 ### redux-thunk 中间件
 
@@ -299,13 +228,13 @@ store拿到了Reducer的数据，自己对自己进行了更新。
 
 #### 安装
 
-`cnpm install --save redux-thunk`
+`npm install --save redux-thunk`
 
 #### 配置 redux-thunk 中间件
 
 1. 如果你没有 **Redux DevTools 调试插件** 官方提供的配置步骤就是正确的
 
-- 要启用 Redux Thunk，请使用 applyMiddleware（）
+- 要启用 Redux Thunk，请使用 `applyMiddleware()`
 
 ```js
 import { createStore, applyMiddleware } from "redux";

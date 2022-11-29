@@ -1,145 +1,161 @@
-# ReactRouter
+---
+outline: deep
+---
 
-- [官方文档](https://reacttraining.com/react-router/web/guides/quick-start)
+## 内置组件
 
-- 在搭建一个 React 项目后
+- `<BrowserRouter>`
+- `<HashRouter>`
+- `<Route>`
+- `<Link>`
+- `<NavLink>`
+- `<Switch>`
 
-```
-npm install react-router-dom --save
-```
+## `<Link>`  和 `<Route>` 
 
-第一个例子：
-
-```jsx
-import React from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import Home from "./Home";
-import Mine from "./Mine";
-// 假设 有两个页面 Home Mine
-
-/**
-*	function Home() {
-      return <h2>Home</h2>;
-    }
-    function Mine() {
-      return <h2>Mine</h2>;
-    }
-*/
-
-function App() {
-  return (
-    <div className="App">
-      <Router>
-        <Route path="/home" component={Home}></Route>
-        <Route path="/mine" component={Mine}></Route>
-      </Router>
-    </div>
-  );
-}
-// 当我们访问 /home 时 页面渲染 Home 组件   访问 /mine 时 页面渲染Mine组件
-export default App;
-```
-
-## BrowserRouter 和 HashRouter 的区别
-
-```
-HashRouter: 锚点 # 链接
-BrowserRouter： h5新特性
-```
-
-## Link 跳转
+`<Link>` 路由链接 和 `<Route>` 注册路由
 
 ```jsx
-function App() {
+import { BrowserRouter, Link, Route } from 'react-router-dom'
+
+export default function App() {
   return (
-    <div className="App">
-      <Router>
-        <ul>
-          <li>
+    <BrowserRouter>
+        <div className="app">
+          <div className="links">
             <link to="/home">Home页面</link>
-          </li>
-          <li>
             <link to="/mine">Mine页面</link>
-          </li>
-        </ul>
-        <Route path="/home" component={Home}></Route>
-        <Route path="/mine" component={Mine}></Route>
-      </Router>
-    </div>
+          </div>
+
+          {/*当点击Home页面，下面就会渲染Home组件，当点击Mine页面，下面就会渲染Mine组件*/}
+          <div className="container">
+            <Route path="/home" component={Home}></Route>
+            <Route path="/mine" component={Mine}></Route>
+          </div>
+        </div>
+    </BrowserRouter>
   );
 }
-// 当我们访问 /home 时 页面渲染 Home 组件   访问 /mine 时 页面渲染Mine组件
-// 当点击 Home页面 会页面渲染 Home 组件 当点击Mine页面会页面渲染Mine组件
-export default App;
 ```
 
-## exact strict 精准匹配
+## `<NavLink>`
 
-> exact`默认为false，如果为true时，需要和路由相同时才能匹配，但是如果有斜杠也是可以匹配上的。 如果在父路由中加了`exact`，是不能匹配子路由的,建议在子路由中加`exact
->
-> `strict`默认为 false，如果为 true 时，路由后面有斜杠而 url 中没有斜杠，是不匹配的
->
-> 两者基本上是连用的
+作用和 `Link` 一样，可以添加 `activeClassName` 属性指定激活时 `Link` 的样式
 
 ```jsx
-// exact是Route的一个属性，认为其是一种严格匹配模式
+<NavLink activeClassName="activeClass" to="/xxx">Link</NavLink>
+```
 
-// 举个例子：
+## `<Switch>`
+
+`Switch` 可以保证只渲染其中一个子路由（单一匹配）
+
+应用场景：如果有两个路由 `<Route path="xxx">` 一样， `Switch` 可以保证只渲染第一个匹配到的路由（虽然这种场景很少见）
+
+```jsx
+import { BrowserRouter, Link, Route } from 'react-router-dom'
+
+export default function App() {
+  return (
+    <BrowserRouter>
+        <div className="app">
+          <div className="links">
+            <link to="/home">Home页面</link>
+            <link to="/mine">Mine页面</link>
+          </div>
+
+          {/*当点击Mine页面，只会渲染Mine组件*/}
+          <div className="container">
+            <Route path="/home" component={Home}></Route>
+            <Route path="/mine" component={Mine}></Route>
+            <Route path="/mine" component={OtherMine}></Route>
+          </div>
+        </div>
+    </BrowserRouter>
+  );
+}
+```
+
+## 处理多级路径刷新页面资源文件丢失问题
+
+- 第一种：使用根路径 `/`（常用）
+- 第二种： 使用`%PUBLIC_URL%`（常用，只适用于React脚手架上）
+- 第三种：更改路由模式为 `HashRouter`
+
+## 路由的模糊匹配、精准匹配
+
+在 `<Route>` 组件有个属性 `exact` 可以开启路径的精准匹配模式（默认是模糊匹配）
+
+### exact 精准匹配
+
+精准匹配：只有路径和路由相同情况下才能匹配，但是如果有斜杠也是可以匹配上的
+
+模糊匹配：路径和路由部分匹配，也会渲染组件
+
+```jsx
+// 需求：当我们访问/home时会渲染Home组件，但是当我们访问/home/num时会同时渲染Home和HomeNum组件
+<Route path="/mine" component={Mine}></Route>
 <Route path="/home" component={Home}></Route>
 <Route path="/home/num" component={HomeNum}></Route>
-<Route path="/mine" component={Mine}></Route>
-// 当我们访问 /home 时会渲染 Home  但是 当我们访问 /home/num 时会同时 渲染 Home 和 HomeNum组件
+// 这其实就是模糊匹配。访问/home/num时也会匹配到/home路由
+```
 
-// 有时候 我们的需求就是要渲染不同路径的对应的组件。 对于这个问题 React-Router 的 Route标签有个属性叫 exact
+```jsx
+// 需求：当我们访问/home时会渲染Home组件，但是当我们访问/home/num只渲染HomeNum组件
+<Route path="/mine" component={Mine}></Route>
+<Route exact path="/home" component={Home}></Route>
+<Route exact path="/home/num" component={HomeNum}></Route>
+// 可以给 Route 添加 exact 属性，开启精准匹配
+```
+
+### strict 严格模式
+
+需求：不加 `strict ` 时：如果访问的是 `xx/home/` 时 也会渲染 Home 组件，如果加上的话只有访问 `/home` 路径才会渲染对应组件
+
+```jsx
+<Route path="/mine" component={Mine}></Route>
 <Route exact strict path="/home" component={Home}></Route>
 <Route exact path="/home/num" component={HomeNum}></Route>
-<Route path="/mine" component={Mine}></Route>
-// 当我们给标签添加上这个属性 就默认对其开启严格匹配模式。 只有访问对应的路径 才能渲染对应的组件。
-// 不加 strict 时：如果访问的是 ../home/ 时 也会渲染 Home 组件， 如果加上的话 只有对应 /home 才会渲染对应组件
+```
+
+## `<Redirect>` 
+
+```jsx
+{/* 放在路由的最下放，如果上方的路由都没有匹配上，就会走重定向 */}
+<Redirect to="/home"></Redirect>
+
+{/* 也可以手动指定路由重定向的位置 */}
+<Redirect from="/" to="/home"></Redirect>
+```
+
+## Push 和 Replace
+
+- push：叠加上一次的页面依然存在
+- replace:：替换，上一次页面不存在
+
+```jsx
+props.history.push("/");
+props.history.replace("/");
 ```
 
 ## 配置 404 页面
 
-1. 需要用到 Switch 组件包括路由组件（Switch 组件保证只渲染其中一个子路由)
-2. 配置 notFount 路由
+1. 需要用到 Switch 组件包裹路由组件（Switch 组件保证只渲染其中一个子路由)
+2. 配置 `NotFound` 路由
 
 ```jsx
 <Switch>
+  <Route path="/mine" component={Mine}></Route>
   <Route exact strict path="/home" component={Home}></Route>
   <Route exact path="/home/num" component={HomeNum}></Route>
-  <Route path="/mine" component={Mine}></Route>
   {/*404 一定要放在最底部*/}
-  <Route component={notFound}></Route>
+  <Route component={NotFound}></Route>
 </Switch>
 ```
 
-## NavLink
+## 高阶组件 withRouter
 
-```
-和Link跳转作用一样， 但可以添加对应跳转元素的不同样式
-```
-
-## Redirect 重定向
-
-```jsx
-<Redirect from="/" to="/home"></Redirect>
-// 访问 / 时 重定向到 /home
-```
-
-## 跳转到指定路径下 push replace
-
-```js
-props.history.push("/");
-
-props.history.replace("/");
-// 两者区别：
-//	push:	叠加上一次的页面依然存在
-//	replace: 是替换，上一次页面不存在
-```
-
-## React-Router 高阶组件 withRouter
-
-> withRouter`的作用就是, 如果我们某个组件没有被`Router`管理, 但是我们要依靠它去跳转一个页面, 比如点击页面的`logo`, 返回首页, 这时候就可以使用`withRouter`来做。
+`withRouter` 的作用就是, 如果我们某个组件没有被`Router`管理, 但是我们要依靠它去跳转一个页面, 比如点击页面的`logo`，返回首页，这时候就可以使用`withRouter`来做。
 
 ```jsx
 import React form 'react'
@@ -149,24 +165,20 @@ class MineDemo extends React.Component{
     clickMandle() {
         console.log(this.props)
     }
-
     render() {
         return (
-            <div>
-                <button onClick={this.clickMandle.bind(this)}>回到Home</button>
-            </div>
+            <button onClick={this.clickMandle.bind(this)}>回到Home</button>
         )
     }
 }
-// export default MineDemo
 export default withRouter(MineDemo)
 // 如果组件 MineDemo 没有被Router管理 那么 this.props 打印出来的就是空对象
-// 所以可以通过 withRouter 高阶组件  那么 this.props 打印出来的就会有 Router相关的信息
+// 所以可以通过 withRouter 高阶组件 那么 this.props 打印出来的就会有 Router相关的信息
 ```
 
 ## Prompt 组件
 
-> 当页面切换时，需要进行一些提示，这个时候就可以使用 Router 中的 Prompt 组件
+当页面切换时，需要进行一些提示，这个时候就可以使用 `Prompt` 组件
 
 ```jsx
 // 它有个必须的属性 message 用于给用户提示信息
@@ -176,3 +188,29 @@ export default withRouter(MineDemo)
 // 基本使用方式：  when 可以通过变量来控制
 <Prompt when={true} message="您确定要离开当前页面吗？"/>
 ```
+
+## 路由懒加载
+
+路由懒加载功能需要通过 React的Lazy函数配置 `import()` 语句动态加载组件（组件代码会被分开打包）。
+
+然后在路由部分使用 `<Suspense></Suspense>` 组件包裹，`fallback` 可以添加加载时组件
+
+
+
+```jsx
+// 1. 通过Lazy函数配置 `import()` 语句动态加载组件
+const LoginDemo = lazy(() => import('@/pages/login'))
+// 2. 需要使用 Suspense 可以指定一个加载得到路由打包文件前显示的一个自定义Loading界面
+class Demo extends React.Component {
+  render() {
+    return (
+      <Suspense fallback={<h1>Page Loding...</h1>}>
+      	<Siwtch>
+        	<Route path="/login" component={Login}></Route>
+        </Siwtch>
+      </Suspense>
+    )
+  }
+}
+```
+

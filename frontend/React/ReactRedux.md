@@ -1,41 +1,31 @@
 ---
-title: ReactRedux
-tags:
-  - 前端
-categories:
-  - 记录学习-成长
+outline: deep
 ---
 
-# ReactRedux
+## React Redux
 
-## 介绍
+`React-Redux`这是一个 React 生态中常用组件，它可以简化`Redux`流程
 
-> `React-Redux`这是一个 React 生态中常用组件，它可以简化`Redux`流程
->
-> React-Redux 规定，所有的 UI 组件都由用户提供，容器组件则是由 React-Redux 自动生成。也就是说，用户负责视觉层，状态管理则是全部交给它。
->
-> UI 组件负责 UI 的呈现，容器组件负责管理数据和逻辑
+`React-Redux` 规定，所有的 `UI` 组件都由用户提供，容器组件则是由 `React-Redux` 自动生成。也就是说，用户负责视觉层，状态管理则是全部交给它。
 
-[React-Redux 阮一峰](http://www.ruanyifeng.com/blog/2016/09/redux_tutorial_part_three_react-redux.html)
+`UI` 组件负责 `UI` 的呈现，容器组件负责管理数据和逻辑
 
-## 安装
+安装 `react-redux`之前确保安装了 `redux`
 
-- 安装 `react-redux`之前确保安装了 `redux`
-
-`cnpm install react-redux --save`
+- `npm install react-redux --save`
 
 ## 组件
 
-> React-Redux 将所有组件分成两大类：UI 组件（presentational component）和容器组件（container component）。
+`React-Redux `将所有组件分成两大类：`UI` 组件（Presentational Component）和容器组件（Container Component）。
 
-#### UI 组件
+### UI 组件
 
 - 只负责 UI 的呈现，不带有任何业务逻辑
 - 没有状态（即不使用`this.state`这个变量）
 - 所有数据都由参数（`this.props`）提供
 - 不使用任何 Redux 的 API
 
-#### 容器组件
+### 容器组件
 
 - 负责管理数据和业务逻辑，不负责 UI 的呈现
 - 带有内部状态
@@ -43,12 +33,12 @@ categories:
 
 ## Connect
 
-> React-Redux 提供`connect`方法，用于从 UI 组件生成容器组件。`connect`的意思，就是将这两种组件连起来。
+`React-Redux` 提供 `connect` 方法，用于从 UI 组件生成容器组件。`connect` 的意思，就是将这两种组件连起来。
 
 ```js
 import { connect } from "react-redux";
 const VisibleTodoList = connect()(TodoList);
-// 上面代码中，TodoList是 UI 组件，VisibleTodoList就是由 React-Redux 通过connect方法自动生成的容器组件。
+// 上面代码中，TodoList是 UI 组件，VisibleTodoList就是由 React-Redux通过connect方法自动生成的容器组件
 ```
 
 因为没有定义业务逻辑，上面的容器组件毫无意义，只是 UI 组件的一个单纯的包装层。为了定义业务逻辑，需要给出下面两方面的信息。
@@ -65,7 +55,7 @@ const VisibleTodoList = connect()(TodoList);
 import { connect } from "react-redux";
 
 const VisibleTodoList = connect(mapStateToProps, mapDispatchToProps)(TodoList);
-// mapStateToProps和mapDispatchToProps。它们定义了 UI 组件的业务逻辑。前者负责输入逻辑，即将state映射到 UI 组件的参数（props），后者负责输出逻辑，即将用户对 UI 组件的操作映射成 Action。
+// mapStateToProps和mapDispatchToProps。它们定义了 UI 组件的业务逻辑。前者负责输入逻辑，即将state映射到 UI 组件的参数（props），后者负责输出逻辑，即将用户对 UI 组件的操作映射成 Action
 ```
 
 ## mapStateToProps()
@@ -82,7 +72,7 @@ const mapStateToProps = (state) => {
     todos: getVisibleTodos(state.todos, state.visibilityFilter),
   };
 };
-// mapStateToProps会订阅 Store，每当state更新的时候，就会自动执行，重新计算 UI 组件的参数，从而触发 UI 组件的重新渲染。
+// mapStateToProps会订阅 Store，每当state更新的时候，就会自动执行，重新计算 UI 组件的参数，从而触发 UI 组件的重新渲染
 ```
 
 ## mapDispatchToProps()
@@ -94,26 +84,17 @@ const mapStateToProps = (state) => {
 > 如果 是一个函数 会有两个参数。 `dispatch` 和 `ownProps`（容器组件的`props`对象）
 
 ```js
-// 函数
+// 函数 
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        onClick: () => {
-            dispatch({
-                type: 'SET_VISIBILITY_FILTER',
-                filter: ownProps.filter
-            });
-        },
-        xxx: () => {
-
-        }
-    };
+  return {
+    onClick: () => {
+      dispatch({type: 'SET_VISIBILITY_FILTER', filter: ownProps.filter});
+    }
+  }
 }
 // 对象
 const mapDispatchToProps = {
-    onClick: (filter) => {
-        type: 'SET_VISIBILITY_FILTER',
-            filter: filter
-    };
+  onClick: (filter) => { type: 'SET_VISIBILITY_FILTER', filter: filter }
 }
 ```
 
@@ -132,9 +113,9 @@ let store = createStore(todoApp);
 
 render(
   <Provider store={store}>
-    <App />
+  	<App />
   </Provider>,
-  document.getElementById("root")
+	document.getElementById("root")
 );
-// Provider在根组件外面包了一层，这样一来，App的所有子组件就默认都可以拿到state了。
+// Provider在根组件外面包了一层，这样一来，App的所有子组件就默认都可以拿到state了
 ```

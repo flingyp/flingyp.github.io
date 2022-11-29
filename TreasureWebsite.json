@@ -82,5 +82,11 @@
     "href": "https://codepen.io/",
     "logo": "https://cpwebassets.codepen.io/assets/favicon/favicon-touch-de50acbf5d634ec6791894eba4ba9cf490f709b3d742597c6fc4b734e6492a5a.png",
     "description": "可以再上面找到自己感兴趣的CSS效果和一些布局上面的需求"
+  },
+  {
+    "title": "印记中文",
+    "href": "https://docschina.org/",
+    "logo": "https://docschina.org/favicon.ico",
+    "description": "印记中文 - 深入挖掘国外前端新领域，为国内 Web 前端开发人员提供优质文档！"
   }
 ]

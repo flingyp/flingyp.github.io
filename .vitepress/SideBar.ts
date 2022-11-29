@@ -101,7 +101,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
           link: "/frontend/React/React",
         },
         {
-          text: "ReactRouter",
+          text: "React Router",
           link: "/frontend/React/ReactRouter",
         },
         {
