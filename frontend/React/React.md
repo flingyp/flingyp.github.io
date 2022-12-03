@@ -266,18 +266,18 @@ class Weather extends React.Component {
 this.setState({ isHot: !isHot });
 ```
 
-**注意** `setState` 更新状态的2种写法
+**注意** `setState` 更新状态的 2 种写法
 
 `setState(stateChange, [callback])`
 
-- `stateChange`  为状态对象（该对象可以体现出状态的更改）
-- callback是可选的回调函数，它在状态更新完毕、界面也更新后(render调用后)才被调用
+- `stateChange` 为状态对象（该对象可以体现出状态的更改）
+- callback 是可选的回调函数，它在状态更新完毕、界面也更新后(render 调用后)才被调用
 
 `setState(updater, [callback])`
 
 - `updater` 为返回 `stateChange` 对象的函数
-- `updater`可以接收到State和Props
-- callback是可选的回调函数，它在状态更新完毕、界面也更新后(render调用后)才被调用
+- `updater`可以接收到 State 和 Props
+- callback 是可选的回调函数，它在状态更新完毕、界面也更新后(render 调用后)才被调用
 
 ## React Props 属性
 
@@ -611,7 +611,7 @@ React 组件从创建到死亡会经历一些特定的阶段。其中就包含�
 
 ### React 生命周期(旧)
 
-![React 生命周期(旧)](</React 生命周期(旧).png>)
+![React 生命周期(旧)](/React-Cycle-Old.png)
 
 ```jsx
 class Clock extends React.Component {
@@ -624,7 +624,7 @@ class Clock extends React.Component {
   componentWillMount() {}
   // 组件挂载后
   componentDidMount() {}
-  
+
   // 子组件（父组件传递给子组件的Props发生改变调用）
   // 此钩子函数被调用后 再进入 shouldComponentUpdate
   componentWillReceiveProps() {}
@@ -633,7 +633,7 @@ class Clock extends React.Component {
   // 返回 True 代表允许更新，返回 False 代表不允许更新（此钩子函数如果不写默认是True）
   // 此钩子就是一个阀门
   shouldComponentUpdate() {}
-  
+
   // 组件更新前（State、Props、.forceUpdate()）
   componentWillUpdate() {}
   // 组件更新后（State、Props）
@@ -644,9 +644,7 @@ class Clock extends React.Component {
 
   // 初次渲染、State状态更新后
   render() {
-    return (
-      <h2>It is {this.state.date.toLocaleTimeString()}</h2>
-    );
+    return <h2>It is {this.state.date.toLocaleTimeString()}</h2>;
   }
 }
 ```
@@ -659,7 +657,7 @@ class Clock extends React.Component {
 
 新增两个钩子函数 `static getDerivedStateFromProps()`、`static getSnapshotBeforeUpdate()`
 
-![React 生命周期(新)](</React 生命周期(新).png>)
+![React 生命周期(新)](/React-Cycle-New.png)
 
 ```jsx
 class Clock extends React.Component {
@@ -670,21 +668,21 @@ class Clock extends React.Component {
 
   // 组件挂载后
   componentDidMount() {}
-    
-	// 组件是否更新（在组件挂载后，如果State状态发送改变，则进入此钩子）
+
+  // 组件是否更新（在组件挂载后，如果State状态发送改变，则进入此钩子）
   // 返回 True 代表允许更新，返回 False 代表不允许更新（此钩子函数如果不写默认是True）
   // 此钩子就是一个阀门
   shouldComponentUpdate() {}
-  
+
   // derived 派生的
   // 若State的值在任何时候都取决于Props，那么可以使用此钩子函数
   static getDerivedStateFromProps(props, state) {
-    return props
+    return props;
   }
   // snapshot 快照
   // 参考文档：https://react.docschina.org/docs/react-component.html#getsnapshotbeforeupdate
   static getSnapshotBeforeUpdate() {}
-  
+
   // 组件更新后（State、Props）
   componentDidUpdate() {}
 
@@ -693,31 +691,27 @@ class Clock extends React.Component {
 
   // 初次渲染、State状态更新后
   render() {
-    return (
-      <h2>It is {this.state.date.toLocaleTimeString()}</h2>
-    );
+    return <h2>It is {this.state.date.toLocaleTimeString()}</h2>;
   }
 }
 ```
 
 ## `<Fragment>`
 
-使用 `Fragment` 包裹的组件，可以不用必须有一个真实的DOM根标签了
+使用 `Fragment` 包裹的组件，可以不用必须有一个真实的 DOM 根标签了
 
 ```jsx
 class Demo extends React.Component {
   render() {
-		return (
+    return (
       // Fragment 不会被渲染在DOM节点上
-    	<Fragment>
-      	<div>Hello World</div>
+      <Fragment>
+        <div>Hello World</div>
       </Fragment>
-    )
+    );
   }
 }
 ```
-
-
 
 ## React 脚手架
 
@@ -727,5 +721,3 @@ class Demo extends React.Component {
 
 - `Simple React Snippets`
 - `ES7 React/Redux/GraphQL/React-Native`
-
- 
