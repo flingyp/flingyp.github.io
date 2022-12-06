@@ -8,7 +8,7 @@ Bem 是块`block` 、元素`element` 、修饰符`modifier` 的简写，由 Yand
 
 > `__` 双下划线：双下划线用来连接块和块的子元素
 
-> `_` 单下划线：单下划线用来描述一个块或者块的子元素的一种状态
+> `--` 双中划线：双中划线用来描述一个块或者块的子元素的一种状态
 
 BEM 是一个简单又非常有用的命名约定。让你的前端代码更容易阅读和理解，更容易协作，更容易控制，更加健壮和明确，而且更加严密
 
@@ -19,13 +19,13 @@ BEM 是一个简单又非常有用的命名约定。让你的前端代码更容�
 .block {
 }
 /* 使用 _ 来连接块或块的子元素的状态 */
-.block_modifier {
+.block--modifier {
 }
 /* 代表.block的后代，用于形成一个完整的 .block 的整体 */
 .block__element {
 }
 /* 使用 _ 来连接块或块的子元素的状态 */
-.block__element_modifier {
+.block__element--modifier {
 }
 ```
 
@@ -49,8 +49,8 @@ BEM 的关键是，可以获得更多的描述和更加清晰的结构，从其�
 ```html
 <div class="article">
   <div class="article__body">
-    <button class="article__button_primary"></button>
-    <button class="article__button_success"></button>
+    <button class="article__button--primary"></button>
+    <button class="article__button--success"></button>
   </div>
 </div>
 ```
@@ -92,11 +92,11 @@ BEM 的关键是，可以获得更多的描述和更加清晰的结构，从其�
   &__button {
     padding: 5px 8px;
 
-    &_primary {
+    &--primary {
       background: blue;
     }
 
-    &_success {
+    &--success {
       background: green;
     }
   }
