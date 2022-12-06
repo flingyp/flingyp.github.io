@@ -103,6 +103,38 @@ BEM 的关键是，可以获得更多的描述和更加清晰的结构，从其�
 }
 ```
 
+## BEM 快速创建类名的钩子函数
+
+```ts
+export function useNameSpace(defaultBlock: string = "") {
+  const globalBlock = defaultBlock;
+
+  const b = (block?: string) => (block ? block : globalBlock);
+  const be = (element: string, block?: string) => {
+    block = block ? block : globalBlock;
+    return `${block}__${element}`;
+  };
+  const bm = (modifier: string, block?: string) => {
+    block = block ? block : globalBlock;
+    return `${block}--${modifier}`;
+  };
+  const em = (element: string, modifier: string, block?: string) => {
+    block = block ? block : globalBlock;
+    return `${block}__${element}--${modifier}`;
+  };
+  const bem = (block: string, element: string, modifier: string) =>
+    `${block}__${element}--${modifier}`;
+
+  return {
+    b,
+    be,
+    bem,
+    bm,
+    em,
+  };
+}
+```
+
 ## 相关参考
 
 - [参考文章](https://juejin.cn/post/6844903672162304013)
