@@ -1,16 +1,4 @@
----
-title: TypeScript
-tags:
-  - TypeScript
-categories:
-  - 记录学习-成长
----
-
-# TypeScript
-
 ## 什么是 TypeScript
-
-### 简介
 
 加强版的 JavaScript，添加了类型系统
 
@@ -27,24 +15,18 @@ JavaScript 是一门弱类型语言，它弱化了对一切变量的类型，是
 
 ### 动态类型与静态类型
 
-动态类型是指在运行时才会进行类型检查，这种语言的类型错误往往会导致运行时错误，**JavaScript 是一门解释性语言，没有编译阶段，所以它是动态类型。**
+动态类型是指在运行时才会进行类型检查，这种语言的类型错误往往会导致运行时错误，**JavaScript 是一门解释性语言，没有编译阶段，所以它是动态类型**
 
 ```js
-/**
- * 动态类型 JavaScript
- */
 const num = 10;
 num.push(2);
 ```
 
 上面的代码 num 是一个数字，但是却调用了数组的 push 方法，但是编译器并不会提示你这个错误，只有再运行这个文件时告诉你 `num.push is not a function`
 
-**TypeScript 是一个静态类型。**指编译阶段就能确定每个变量的类型，这种语言的类型错误往往会导致语法错误。TypeScript 在运行前需要先编译为 JavaScript，而在编译阶段就会进行类型检查
+**TypeScript 是一个静态类型** 指编译阶段就能确定每个变量的类型，这种语言的类型错误往往会导致语法错误。TypeScript 在运行前需要先编译为 JavaScript，而在编译阶段就会进行类型检查
 
 ```typescript
-/**
- * 静态类型 TypeScript
- */
 const num = 10;
 num.push(2);
 ```
@@ -134,6 +116,42 @@ console.log(anyThing.myName);
 console.log(anyThing.test());
 ```
 
+## 未知类型 Unknown
+
+就像所有类型都可以赋值给 any，所有类型也都可以赋值给 unknown。这使得 unknown 成为 TypeScript 类型系统的另一种顶级类型（另一种是 any）
+
+```typescript
+let value: unknown;
+
+value = true; // OK
+value = 42; // OK
+value = "Hello World"; // OK
+value = []; // OK
+value = {}; // OK
+value = Math.random; // OK
+value = null; // OK
+value = undefined; // OK
+value = new TypeError(); // OK
+value = Symbol("type"); // OK
+```
+
+对 value 变量的所有赋值都被认为是类型正确的。但是，当我们尝试将类型为 unknown 的值赋值给其他类型的变量时会发生什么？
+
+```typescript
+let value: unknown;
+
+let value1: unknown = value; // OK
+let value2: any = value; // OK
+let value3: boolean = value; // Error
+let value4: number = value; // Error
+let value5: string = value; // Error
+let value6: object = value; // Error
+let value7: any[] = value; // Error
+let value8: Function = value; // Error
+```
+
+**总结**：unknown 类型只能赋值给 any 类型和 unknown 类型本身。直观地说，这是有道理的：只有能够保存任意类型值的容器才能保存 unknown 类型的值。毕竟我们不知道变量 value 中存储了什么类型的值
+
 ## 类型推论
 
 如果没有明确指定变量的类型，那么 TypeScript 就会自动去推断变量的类型。
@@ -183,6 +201,23 @@ console.log(favoriteNumber.toFixed(2));
 // 那么之后去调用 number 没有的方法或属性就会报错
 console.log(favoriteNumber.length);
 ```
+
+## 交叉类型
+
+在 TypeScript 中交叉类型是将多个类型合并为一个类型。通过 & 运算符可以将现有的多种类型叠加到一起成为一种类型，它包含了所需的所有类型的特性
+
+```typescript
+type PartialPointX = { x: number };
+type PartialPointY = { y: number };
+type Point = PartialPointX & PartialPointY;
+
+let point: Point = {
+  x: 3,
+  y: 4,
+};
+```
+
+注意：如果交叉类型在合并多个类型的过程中，刚好出现某个类型存在相同的成员，但对应的类型不一致的情况。那么交叉类型后的类型为 never
 
 ## 对象类型-接口 interface
 
@@ -483,6 +518,34 @@ let strLength2: number = (someValue2 as string).length;
 console.log("strLength2", strLength2);
 ```
 
+## 非空断言
+
+在上下文中当类型检查器无法断定类型时，一个新的后缀表达式操作符 `!` 可以用于断言操作对象是非 null 和非 undefined 类型。具体而言，x! 将从 x 值域中排除 null 和 undefined
+
+### 忽略 Null 和 Undefined 类型
+
+```typescript
+function myFunc(maybeString: string | undefined | null) {
+  // Type 'string | null | undefined' is not assignable to type 'string'.
+  // Type 'undefined' is not assignable to type 'string'.
+  const onlyString: string = maybeString; // Error
+  const ignoreUndefinedAndNull: string = maybeString!; // Ok， espect this various's type is string
+}
+```
+
+### 调用函数时忽略 Undefined 类型
+
+```typescript
+type NumGenerator = () => number;
+
+function myFunc(numGenerator: NumGenerator | undefined) {
+  // Object is possibly 'undefined'.(2532)
+  // Cannot invoke an object which is possibly 'undefined'.(2722)
+  const num1 = numGenerator(); // Error
+  const num2 = numGenerator!(); //OK
+}
+```
+
 ## 声明文件
 
 ### 什么是声明文件？
@@ -637,7 +700,7 @@ console.log(Person.hobby); // HOBBY
 
 ### 常量枚举
 
-> 常量枚举通过在枚举上使用 `const` 修饰符来定义，常量枚举不同于常规的枚举，他们会在编译阶段被删除。
+常量枚举通过在枚举上使用 `const` 修饰符来定义，常量枚举不同于常规的枚举，他们会在编译阶段被删除
 
 ```typescript
 const enum Size {
@@ -645,9 +708,11 @@ const enum Size {
   HEIGHT = 20,
 }
 const area = Size.WIDTH * Size.HEIGHT;
-
-// 常量枚举成员在使用的地方会被内联进来，之所以可以这么做是因为，常量枚举不允许包含计算成员；如上例所示，在运行时是没有 Size 变量的，因此常量枚举会带来一个对性能的提升。
 ```
+
+常量枚举成员在使用的地方会被内联进来，之所以可以这么做是因为，常量枚举不允许包含计算成员
+
+如上例所示，在运行时是没有 Size 变量的，因此常量枚举会带来一个对性能的提升
 
 ## 类
 
@@ -1060,5 +1125,62 @@ function createArray<T = string>(length: number, value: T): Array<T> {
     result[i] = value;
   }
   return result;
+}
+```
+
+## tsconfig.json
+
+```json
+{
+  "compilerOptions": {
+    /* 基本选项 */
+    "target": "es5", // 指定 ECMAScript 目标版本: 'ES3' (default), 'ES5', 'ES6'/'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'
+    "module": "commonjs", // 指定使用模块: 'commonjs', 'amd', 'system', 'umd' or 'es2015'
+    "lib": [], // 指定要包含在编译中的库文件
+    "allowJs": true, // 允许编译 javascript 文件
+    "checkJs": true, // 报告 javascript 文件中的错误
+    "jsx": "preserve", // 指定 jsx 代码的生成: 'preserve', 'react-native', or 'react'
+    "declaration": true, // 生成相应的 '.d.ts' 文件
+    "sourceMap": true, // 生成相应的 '.map' 文件
+    "outFile": "./", // 将输出文件合并为一个文件
+    "outDir": "./", // 指定输出目录
+    "rootDir": "./", // 用来控制输出目录结构 --outDir.
+    "removeComments": true, // 删除编译后的所有的注释
+    "noEmit": true, // 不生成输出文件
+    "importHelpers": true, // 从 tslib 导入辅助工具函数
+    "isolatedModules": true, // 将每个文件做为单独的模块 （与 'ts.transpileModule' 类似）.
+
+    /* 严格的类型检查选项 */
+    "strict": true, // 启用所有严格类型检查选项
+    "noImplicitAny": true, // 在表达式和声明上有隐含的 any类型时报错
+    "strictNullChecks": true, // 启用严格的 null 检查
+    "noImplicitThis": true, // 当 this 表达式值为 any 类型的时候，生成一个错误
+    "alwaysStrict": true, // 以严格模式检查每个模块，并在每个文件里加入 'use strict'
+
+    /* 额外的检查 */
+    "noUnusedLocals": true, // 有未使用的变量时，抛出错误
+    "noUnusedParameters": true, // 有未使用的参数时，抛出错误
+    "noImplicitReturns": true, // 并不是所有函数里的代码都有返回值时，抛出错误
+    "noFallthroughCasesInSwitch": true, // 报告 switch 语句的 fallthrough 错误。（即，不允许 switch 的 case 语句贯穿）
+
+    /* 模块解析选项 */
+    "moduleResolution": "node", // 选择模块解析策略： 'node' (Node.js) or 'classic' (TypeScript pre-1.6)
+    "baseUrl": "./", // 用于解析非相对模块名称的基目录
+    "paths": {}, // 模块名到基于 baseUrl 的路径映射的列表
+    "rootDirs": [], // 根文件夹列表，其组合内容表示项目运行时的结构内容
+    "typeRoots": [], // 包含类型声明的文件列表
+    "types": [], // 需要包含的类型声明文件名列表
+    "allowSyntheticDefaultImports": true, // 允许从没有设置默认导出的模块中默认导入。
+
+    /* Source Map Options */
+    "sourceRoot": "./", // 指定调试器应该找到 TypeScript 文件而不是源文件的位置
+    "mapRoot": "./", // 指定调试器应该找到映射文件而不是生成文件的位置
+    "inlineSourceMap": true, // 生成单个 soucemaps 文件，而不是将 sourcemaps 生成不同的文件
+    "inlineSources": true, // 将代码与 sourcemaps 生成到一个文件中，要求同时设置了 --inlineSourceMap 或 --sourceMap 属性
+
+    /* 其他选项 */
+    "experimentalDecorators": true, // 启用装饰器
+    "emitDecoratorMetadata": true // 为装饰器提供元数据的支持
+  }
 }
 ```
