@@ -9,7 +9,7 @@
     "serve": "vitepress serve",
     "commit": "git-cz",
     "release": "standard-version",
-    "create:docs": "esno script/docs.ts"
+    "create:docs": "esno scripts/docs.ts"
   },
   "repository": {
     "type": "git",
