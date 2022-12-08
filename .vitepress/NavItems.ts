@@ -53,6 +53,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         text: "关于代码格式化",
         link: "/frontend/Engineering/CodeFormat",
       },
+      {
+        text: "Gulp自动化构建工具",
+        link: "/frontend/Engineering/Gulp自动化构建工具",
+      },
     ],
   },
   {
