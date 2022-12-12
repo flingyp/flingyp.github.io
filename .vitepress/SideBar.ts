@@ -68,6 +68,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
           text: "工具类型",
           link: "/frontend/TypeScript/ToolType",
         },
+        {
+          text: "类型体操",
+          link: "/frontend/TypeScript/TypeGymnastics",
+        },
       ],
     },
     {
