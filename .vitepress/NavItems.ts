@@ -57,6 +57,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         text: "Gulp自动化构建工具",
         link: "/frontend/Engineering/Gulp自动化构建工具",
       },
+      {
+        text: "自动生成CHANGELOG",
+        link: "/frontend/Engineering/自动生成CHANGELOG",
+      },
     ],
   },
   {
