@@ -88,5 +88,11 @@
     "href": "https://docschina.org/",
     "logo": "https://docschina.org/favicon.ico",
     "description": "印记中文 - 深入挖掘国外前端新领域，为国内 Web 前端开发人员提供优质文档！"
+  },
+  {
+    "title": "在线文件转换器",
+    "href": "https://cdkm.com/cn/",
+    "logo": "",
+    "description": "将文件从一种格式转换为另一种格式，例如Word转PDF、PDF转JPG、EPUB转MOBI、WEBP转JPG、SVG转PNG、MOV转MP4、MP4转MP3、M4A转MP3等"
   }
 ]
