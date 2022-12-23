@@ -36,6 +36,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
           text: "杂记",
           link: "/frontend/CSS3/RandomRecord",
         },
+        {
+          text: "Sass",
+          link: "/frontend/CSS3/Sass",
+        },
       ],
     },
     {
