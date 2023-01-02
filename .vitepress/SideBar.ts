@@ -141,6 +141,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
           link: "/services/Nest/",
         },
         {
+          text: "相关使用",
+          link: "/services/Nest/devRecord",
+        },
+        {
           text: "环境变量配置",
           link: "/services/Nest/build",
         },
