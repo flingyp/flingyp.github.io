@@ -137,11 +137,11 @@ export const SideBarList: DefaultTheme.Sidebar = {
       collapsible: true,
       items: [
         {
-          text: "基本使用",
+          text: "基本介绍",
           link: "/services/Nest/",
         },
         {
-          text: "相关使用",
+          text: "基本使用",
           link: "/services/Nest/devRecord",
         },
         {
