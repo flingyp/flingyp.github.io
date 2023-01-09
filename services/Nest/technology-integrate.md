@@ -152,3 +152,47 @@ export class ScheduleJobService {
   }
 }
 ```
+
+## Swagger 文档集成
+
+### 基础集成
+
+安装：`pnpm install @nestjs/swagger swagger-ui-express`
+
+在 `main.ts` 文件中定义并且初始化 `SwaggerModule` 类
+
+```ts
+async function bootstrap() {
+  const app = await NestFactory.create(AppModule);
+
+  const swaggerOptions = new DocumentBuilder()
+    .setTitle("Swagger Title")
+    .setDescription("Swagger Docs Description")
+    .setVersion("1.0")
+    .build();
+  const swaggerDocument = SwaggerModule.createDocument(app, swaggerOptions);
+  SwaggerModule.setup("api", app, swaggerDocument);
+
+  await app.listen(3000);
+}
+
+bootstrap();
+```
+
+### 常用装饰器
+
+- `@ApiProperty()` 装饰器来修饰对应 DTO 属性
+- `@ApiTags()` 为控制器附加一个标签
+- `@ApiOperation()` 装饰器来修饰对应的接口
+
+注：[文档-装饰器列表](https://docs.nestjs.cn/9/openapi?id=%e8%a3%85%e9%a5%b0%e5%99%a8)
+
+### 开启 Bearer 认证
+
+使用 `@ApiBearerAuth()` 装饰器开启 Bearer 认证
+
+在运行程序前，使用 `DocumentBuilder` 在基础文档里添加安全定义。
+
+```ts
+const options = new DocumentBuilder().addBearerAuth();
+```
