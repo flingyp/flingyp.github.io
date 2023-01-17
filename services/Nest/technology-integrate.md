@@ -196,3 +196,56 @@ bootstrap();
 ```ts
 const options = new DocumentBuilder().addBearerAuth();
 ```
+
+## 文件上传和静态资源访问
+
+### 文件上传
+
+为了处理文件上传，Nest 提供了一个内置的基于 multer 中间件包的 Express 模块。Multer 处理以 `multipart/form-data` 格式发送的数据，该格式主要用于通过 HTTP POST 请求上传文件。这个模块是完全可配置的，您可以根据您的应用程序需求调整它的行为。
+
+为了更好的类型安全，我们来安装 Multer 的类型声明包： `pnpm install @types/multer -D`
+
+**上传单一文件**
+
+```ts
+@Post('upload')
+// file 就是上传文件的字段名 FileInterceptor 拦截器会进行文件上传的处理
+@UseInterceptors(FileInterceptor('file'))
+uploadFile(@UploadedFile() file: Express.Multer.File) {
+  // file 是上传文件成功后返回的相关文件信息，可以进行数据库的数据存储后返回给用户相应地址
+  console.log(file);
+}
+```
+
+**上传多文件**：使用 `FilesInterceptor()` 拦截器
+
+**模块配置**：在文件上传的模块中进行文件上传配置
+
+注：更多细节配置参考 [multer 文档](https://github.com/expressjs/multer#multeropts)
+
+```ts
+imports: [
+  MulterModule.register({
+    storage: diskStorage({
+      // 配置文件上传后的文件夹路径
+      // destination 也可以是一个函数 来自定义逻辑 根据文件信息来决定存放的路径
+      destination: `./public/images`,
+      filename: (req, file, cb) => {
+        // 在此处自定义保存后的文件名称
+        const filename = `${Date.now()}.${file.mimetype.split('/')[1]}`;
+        return cb(null, filename);
+      },
+    }),
+  }),
+],
+```
+
+### 静态资源访问
+
+在 `main.ts` 文件中进行配置
+
+```ts
+// 静态文件的访问配置
+const rootDir = join(__dirname, "..");
+app.use("/public", express.static(join(rootDir, "public")));
+```

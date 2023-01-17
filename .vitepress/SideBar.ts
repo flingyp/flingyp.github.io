@@ -5,6 +5,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "HTML",
       collapsible: true, // 是否开启折叠
+      collapsed: true,
       items: [
         {
           text: "杂记",
@@ -15,6 +16,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "CSS3",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "布局",
@@ -45,6 +47,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "JavaScript",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "ES6语法",
@@ -63,6 +66,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "TypeScript",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "基础语法",
@@ -81,6 +85,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "Vue",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "Vue2相关语法",
@@ -103,6 +108,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "React",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "React",
@@ -127,6 +133,21 @@ export const SideBarList: DefaultTheme.Sidebar = {
         {
           text: "NextJS",
           link: "/frontend/React/NextJS",
+        },
+      ],
+    },
+    {
+      text: "Babel",
+      collapsible: true,
+      collapsed: true,
+      items: [
+        {
+          text: "Babel 指南",
+          link: "/frontend/Engineering/Babel/",
+        },
+        {
+          text: "Babel 配置参考",
+          link: "/frontend/Engineering/Babel/config",
         },
       ],
     },

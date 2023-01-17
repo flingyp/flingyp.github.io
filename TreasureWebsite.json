@@ -94,5 +94,11 @@
     "href": "https://cdkm.com/cn/",
     "logo": "",
     "description": "将文件从一种格式转换为另一种格式，例如Word转PDF、PDF转JPG、EPUB转MOBI、WEBP转JPG、SVG转PNG、MOV转MP4、MP4转MP3、M4A转MP3等"
+  },
+  {
+    "title": "在线代码格式化",
+    "href": "https://tool.oschina.net/codeformat",
+    "logo": "https://tool.oschina.net/img/favicon.ico",
+    "description": "OSCHINA.NET在线工具,ostools为开发设计人员提供在线工具，提供jsbin在线 CSS、JS 调试，在线 Java API文档,在线 PHP API文档,在线 Node.js API文档,Less CSS编译器，MarkDown编译器等其他在线工具"
   }
 ]
