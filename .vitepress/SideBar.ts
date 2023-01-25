@@ -58,6 +58,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
           text: "杂记",
           link: "/frontend/JavaScript/RandomRecord",
         },
+        {
+          text: "JavaScript设计模式",
+          link: "/frontend/DesignPattern/",
+        },
       ],
     },
     {
