@@ -1,6 +1,5 @@
 <template>
   <div class="site-container">
-    <label class="page-title-box">在线资源</label>
     <div class="website-list-container">
       <div class="website-item" v-for="item in websiteList" :key="item.href">
         <img :src="item.logo" alt="" srcset="" />
@@ -35,19 +34,6 @@ const websiteList = ref<WebSiteInfo[]>(treasureWebsite);
   justify-content: flex-end;
 }
 
-.page-title-box {
-  display: inline-block;
-  width: 100%;
-  height: 30px;
-  text-align: center;
-  line-height: 30px;
-  font-size: 26px;
-  color: var(--vp-c-brand);
-  text-shadow: 0px 0px 40px var(--vp-c-brand);
-  position: absolute;
-  top: 4%;
-}
-
 .website-list-container {
   position: absolute;
   left: 50%;
@@ -55,11 +41,14 @@ const websiteList = ref<WebSiteInfo[]>(treasureWebsite);
   width: 80%;
   height: 90%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(1, 1fr);
   grid-column-gap: 20px;
   grid-row-gap: 10px;
   overflow-y: scroll;
-  padding: 20px 30px;
+  padding: 10px 40px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 2px var(--vp-c-brand);
 }
 
 .website-item {
@@ -85,12 +74,24 @@ const websiteList = ref<WebSiteInfo[]>(treasureWebsite);
   color: var(--vp-c-brand);
 }
 
-::-webkit-scrollbar,
-::-webkit-scrollbar-thumb {
-  width: 8px;
-  border-radius: 6px;
+.website-list-container::-webkit-scrollbar,
+.website-list-container::-webkit-scrollbar-thumb {
+  width: 0px;
 }
-::-webkit-scrollbar-thumb {
-  background: var(--vp-c-brand);
+
+@media screen and (min-width: 1280px) {
+  .website-list-container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+@media screen and (min-width: 1024px) and (max-width: 1280px) {
+  .website-list-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+  .website-list-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 </style>

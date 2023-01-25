@@ -61,6 +61,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         text: "自动生成CHANGELOG",
         link: "/frontend/Engineering/自动生成CHANGELOG",
       },
+      {
+        text: "Babel",
+        link: "/frontend/Engineering/Babel/",
+      },
     ],
   },
   {

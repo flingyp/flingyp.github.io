@@ -5,6 +5,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "HTML",
       collapsible: true, // 是否开启折叠
+      collapsed: true,
       items: [
         {
           text: "杂记",
@@ -15,6 +16,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "CSS3",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "布局",
@@ -45,6 +47,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "JavaScript",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "ES6语法",
@@ -67,6 +70,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "TypeScript",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "基础语法",
@@ -85,6 +89,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "Vue",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "Vue2相关语法",
@@ -107,6 +112,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
     {
       text: "React",
       collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "React",
@@ -134,6 +140,21 @@ export const SideBarList: DefaultTheme.Sidebar = {
         },
       ],
     },
+    {
+      text: "Babel",
+      collapsible: true,
+      collapsed: true,
+      items: [
+        {
+          text: "Babel 指南",
+          link: "/frontend/Engineering/Babel/",
+        },
+        {
+          text: "Babel 配置参考",
+          link: "/frontend/Engineering/Babel/config",
+        },
+      ],
+    },
   ],
   "/services": [
     {
@@ -147,6 +168,10 @@ export const SideBarList: DefaultTheme.Sidebar = {
         {
           text: "基本使用",
           link: "/services/Nest/devRecord",
+        },
+        {
+          text: "技术集成",
+          link: "/services/Nest/technology-integrate",
         },
         {
           text: "环境变量配置",
