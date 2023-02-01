@@ -249,7 +249,7 @@ class Jack {
     return "I speak English";
   }
 }
-class Xiaoming {
+class XiaoMing {
   chinese() {
     return "我只会中文";
   }
@@ -269,9 +269,204 @@ class Communication {
   }
 }
 
-const xiaoMing = new Xiaoming();
+const xiaoMing = new XiaoMing();
 const xiaoHong = new XiaoHong(new Jack());
 const communication = new Communication();
-communication.speak(xiaoming);
+communication.speak(xiaoMing);
 communication.speak(xiaoHong);
+```
+
+## 装饰器模式
+
+装饰者模式能够在不更改源代码自身的情况下，对其进行职责添加。相比于继承装饰器的做法更轻巧。通俗的讲我们给心爱的手机上贴膜，带手机壳，贴纸，这些就是对手机的装饰
+
+**优点**：装饰类和被装饰类它们之间可以相互独立发展，不会相互耦合，装饰器模式是继承的一个替代模式，它可以动态的扩展一个实现类的功能
+
+**缺点**：多层的装饰会增加复杂度
+
+**例子**：在编写飞机大战的游戏中，飞机对象的攻击方式只有普通子弹攻击，如何在不更改原代码的情况下，添加其他的攻击方式，如激光武器，导弹武器
+
+```ts
+class Aircraft {
+  ordinary() {
+    console.log("发射普通子弹");
+  }
+}
+class AircraftDecorator {
+  constructor(aircraft) {
+    this.aircraft = aircraft;
+  }
+  laser() {
+    console.log("发射激光");
+  }
+  guidedMissile() {
+    console.log("发射导弹");
+  }
+  ordinary() {
+    this.aircraft.ordinary();
+  }
+}
+const aircraft = new Aircraft();
+const aircraftDecorator = new AircraftDecorator(aircraft);
+aircraftDecorator.ordinary(); // 发射普通子弹
+aircraftDecorator.laser(); // 发射激光
+aircraftDecorator.guidedMissile(); // 发射导弹
+// 可以看到在不更改源代码的情况下对它进行了装饰扩展
+```
+
+## 代理模式
+
+代理模式的关键是，当客户不方便直接访问一个对象或者不满足需要的时候，提供一个替身对象来控制对这个对象的访问，客户实际上访问的是替身对象。替身对象对请求做出一些处理之后，再把请求转交给本体对象
+
+代理和本体接口需要一致性，代理和本体之间可以说是鸭子类型的关系，不在乎他怎么实现的，只要它们之间暴露的方法一致既可
+
+**优点**：职责清晰，高扩展性，智能化
+
+**缺点**：当对象和对象之间增加了代理可能会影响到处理的速度。实现代理需要额外的工作，有些代理会非常的复杂。
+
+**例子**：都知道，领导拥有公司的最高权限，假设公司有员工 100 个，如果每个人都去找领导去处理事务，那领导肯定会崩溃，因此领导招聘了一个秘书帮他收集整理事务，秘书会在合适时间一次性将需要处理的业务交给老板处理，在这里秘书就是领导的一个代理角色
+
+```ts
+// 员工
+class Staff {
+  constructor(affairType) {
+    this.affairType = affairType;
+  }
+  applyFor(target) {
+    target.receiveApplyFor(this.affairType);
+  }
+}
+// 秘书
+class Secretary {
+  constructor() {
+    this.leader = new Leader();
+  }
+  receiveApplyFor(affair) {
+    this.leader.receiveApplyFor(affair);
+  }
+}
+//领导
+class Leader {
+  receiveApplyFor(affair) {
+    console.log(`批准:${affair}`);
+  }
+}
+
+const staff = new Staff("升职加薪");
+staff.applyFor(new Secretary()); // 批准:升职加薪
+```
+
+## 外观模式
+
+外观模式本质就是封装交互，隐藏系统的复杂性，提供一个可以访问的接口。由一个将子系统一组的接口集成在一起的高层接口，以提供一个一致的外观，减少外界与多个子系统之间的直接交互，从而更方便的使用子系统
+
+**优点**：减少系统的相互依赖，以及安全性和灵活性
+
+**缺点**：违反开放封闭原则，有变动的时候更改会非常麻烦，即使继承重构都不可行
+
+**例子**：外观模式经常被用于处理高级游览器的和低版本游览器的一些接口的兼容处理
+
+```ts
+function addEvent(el, type, fn) {
+  if (el.addEventlistener) {
+    // 高级浏览器添加事件DOM API
+    el.addEventlistener(type, fn, false);
+  } else if (el.attachEvent) {
+    // 低版本浏览器的添加事件API
+    el.attachEvent(`on${type}`, fn);
+  } else {
+    //其他
+    el[type] = fn;
+  }
+}
+```
+
+另一种场景，在某个函数中的某个参数可传可不传的情况下，通过函数重载的方式，让传参更灵活
+
+```ts
+function bindEvent(el, type, selector, fn) {
+  if (!fn) {
+    fn = selector;
+  }
+  // 其他代码
+  console.log(el, type, fn);
+}
+bindEvent(document.body, "click", "#root", () => {});
+bindEvent(document.body, "click", () => {});
+```
+
+## 发布订阅模式
+
+发布订阅又称观察者模式，它定义对象之间的 1 对 N 的依赖关系，当其中一个对象发生变化时，所有依赖于它的对象都会得到通知
+
+发布订阅模式经常出现在我们的工作场景中，如：当你给 DOM 绑定一个事件就已经使用了发布订阅模式，通过订阅 DOM 上的 click 事件，当被点击时会向订阅者发布消息
+
+**优点**：观察者和被观察者它们之间是抽象耦合的。并且建立了触发机制
+
+**缺点**：当订阅者比较多的时候，同时通知所有的订阅者可能会造成性能问题。在订阅者和订阅目标之间如果循环引用执行，会导致崩溃。发布订阅模式没有办法提供给订阅者所订阅的目标它是怎么变化的，仅仅只知道它变化了。
+
+**例子**：比喻前段时间的冬奥会，项目还没有开始的时候可以提前预定，等到项目快开始的时，APP 会提前给我们发送通知即将开始的项目，而没到时间的不通知，另外在项目还没有开始的时候，可以取消订阅避免接受到通知。根据这个需求我们来写一个例子吧
+
+```ts
+class Subject {
+  constructor() {
+    this.observers = {};
+    this.key = "";
+  }
+  add(observer) {
+    const key = observer.project;
+    if (!this.observers[key]) {
+      this.observers[key] = [];
+    }
+    this.observers[key].push(observer);
+  }
+  remove(observer) {
+    const _observers = this.observers[observer.project];
+    console.log(_observers, 11);
+    if (_observers.length) {
+      _observers.forEach((item, index) => {
+        if (item === observer) {
+          _observers.splice(index, 1);
+        }
+      });
+    }
+  }
+  setObserver(subject) {
+    this.key = subject;
+    this.notifyAllObservers();
+  }
+  notifyAllObservers() {
+    this.observers[this.key].forEach((item, index) => {
+      item.update();
+    });
+  }
+}
+
+class Observer {
+  constructor(project, name) {
+    this.project = project;
+    this.name = name;
+  }
+  update() {
+    console.log(
+      `尊敬的:${this.name} 你预约的项目：【${this.project}】 马上开始了`
+    );
+  }
+}
+
+const subject = new Subject();
+const xiaoming = new Observer("滑雪", "xiaoming");
+const A = new Observer("大跳台", "A");
+const B = new Observer("大跳台", "B");
+const C = new Observer("大跳台", "C");
+subject.add(xiaoming);
+subject.add(A);
+subject.add(B);
+subject.add(C);
+subject.remove(B); // 取消订阅
+subject.setObserver("大跳台");
+/** 执行结果
+ * 尊敬的:A 你预约的项目：【大跳台】 马上开始了
+ * 尊敬的:C 你预约的项目：【大跳台】 马上开始了
+ */
 ```
