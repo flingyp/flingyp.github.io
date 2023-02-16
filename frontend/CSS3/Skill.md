@@ -459,3 +459,14 @@ HTML 结构
   margin-top: 10px;
 }
 ```
+
+## `position:sticky` 吸顶、吸底效果
+
+CSS 的 position 值中，有一个非常有用的值 -- `position: sticky`，通常会被用于各种吸顶，吸底，吸边的效果中。它类似与相对定位，但是表示形式为固定定位。
+
+W3C官方定义是：`Sticky positioning is similar to relative positioning except the offsets are automatically calculated in reference to the nearest scrollport.`
+
+翻译就是：Sticky 定位类似于相对定位，（当它表现为 fixed 定位的特性时）会根据最近的滚动容器（nearest scrollport）自动计算偏移量。
+
+- [参考文档，查看DEMO](https://blog.csdn.net/qq_41806901/article/details/121334917)
+
