@@ -25,6 +25,10 @@ export const NavItemList: DefaultTheme.NavItem[] = [
         link: "/frontend/Vue/Vue3",
       },
       {
+        text: "Nuxt3",
+        link: "/frontend/Nuxt3/",
+      },
+      {
         text: "React",
         link: "/frontend/React/React",
       },
@@ -71,11 +75,7 @@ export const NavItemList: DefaultTheme.NavItem[] = [
     text: "相关链接",
     items: [
       {
-        text: "YRoam Admin",
-        link: "https://yyblog.top/yroam-admin/",
-      },
-      {
-        text: "VAdmire Plus",
+        text: "VAdmire Admin",
         link: "https://vadmire.top",
       },
       {

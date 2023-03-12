@@ -110,6 +110,17 @@ export const SideBarList: DefaultTheme.Sidebar = {
       ],
     },
     {
+      text: "Nuxt3",
+      collapsible: true,
+      collapsed: true,
+      items: [
+        {
+          text: "Nuxt3",
+          link: "/frontend/Nuxt3/",
+        },
+      ],
+    },
+    {
       text: "React",
       collapsible: true,
       collapsed: true,
