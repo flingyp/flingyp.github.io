@@ -8,7 +8,7 @@ NavItemList.push(NotesNavItems);
 
 export default defineConfig({
   base: "/",
-  title: "flingyp blog",
+  title: "flingyp",
   description: "个人博客",
   markdown: {
     theme: {
@@ -18,9 +18,9 @@ export default defineConfig({
   },
   themeConfig: {
     // 文档标题
-    siteTitle: "flingyp blog",
+    siteTitle: "flingyp",
     // 文档LOGO
-    logo: "/docs-logo.png",
+    // logo: "/docs-logo.png",
     // 顶部栏导航栏
     nav: NavItemList,
     // 顶部右侧相关社交账号栏
