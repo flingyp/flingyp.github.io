@@ -8,7 +8,7 @@ NavItemList.push(NotesNavItems);
 
 export default defineConfig({
   base: "/",
-  title: "Growth Record",
+  title: "flingyp blog",
   description: "个人博客",
   markdown: {
     theme: {
@@ -18,7 +18,7 @@ export default defineConfig({
   },
   themeConfig: {
     // 文档标题
-    siteTitle: "Growth Record",
+    siteTitle: "flingyp blog",
     // 文档LOGO
     logo: "/docs-logo.png",
     // 顶部栏导航栏
@@ -27,6 +27,9 @@ export default defineConfig({
     socialLinks: [{ icon: "github", link: "https://github.com/flingyp" }],
     // 左侧侧边栏
     sidebar: SideBarList,
+    search: {
+      provider: 'local'  
+    },
     editLink: {
       pattern:
         "https://github.com/flingyp/vitepress-basic-docs/tree/main/:path",
