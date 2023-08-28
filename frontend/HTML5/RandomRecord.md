@@ -107,11 +107,42 @@ ADom.addEventListener("click", (e) => {
 });
 ```
 
-## 5. 浏览器的存储方法
+## 5. 浏览器的常用的存储方法
 
-:::tip
-四种方法：`cookie`、`localStorage`、`sessionStorage`、`indexedDB`
-:::
+1. Cookie：是存储在浏览器上的一小段文本信息，可以随着请求发送到服务器端。**有大小的限制**，通常只能存储 4KB 左右的数据。可以**设置过期时间**，如果不设置过期时间，会在浏览器关闭后自动删除。可以**设置域名和路径**，限制 Cookie 的访问范围。每次发送 HTTP 请求，会将请求域的 Cookie 一起发送给服务器端。
+
+```js
+// 设置 Cookie
+document.cookie =
+  "username=John Doe; expires=Thu, 18 Dec 202312:00:00 UTC; path=/";
+
+// 读取 Cookie
+var username = document.cookie;
+```
+
+在上面的示例中，我们设置了一个名为 username 的 Cookie，它的值为 John Doe，过期时间为 Thu, 18 Dec 2022 12:00:00 UTC，路径为根目录。我们可以通过 `document.cookie` 来读取当前页面的所有 Cookie。
+
+2. WebStorage：`localStorage` 和 `sessionStorage`。它们都可以存储大量数据，区别是 localStorage 的数据会一直保存在用户的计算机上，而 sessionStorage 的数据只在当前会话期间有效。
+
+```js
+// 存储数据
+localStorage.setItem(key, value);
+sessionStorage.setItem(key, value);
+
+// 读取数据
+localStorage.getItem(key);
+sessionStorage.getItem(key);
+
+// 删除数据
+localStorage.removeItem(key);
+sessionStorage.removeItem(key);
+
+// 清空数据
+localStorage.clear();
+sessionStorage.clear();
+```
+
+3. IndexedDB：是一个浏览器端的数据库，与 WebStorage 不同的是，它可以存储大量结构化的数据，提供对数据的增删改查操作。它是一个异步的 API，使用它时需要通过回调函数来获取操作结果。
 
 ## 6. CSRF 攻击
 
@@ -125,10 +156,10 @@ CSRF 视频教程讲解：https://www.bilibili.com/video/BV1iW411171s/?spm_id_fr
 
 防御 CSRF 的相关方法
 
-1. 敏感请求接口尽量使用 POST 类型
+1. 敏感请求接口尽量使用 POST 类型，因为 GET 请求是会被缓存的，而 POST 请求是不会被缓存的
 2. 可以在请求敏感接口前，加入验证码（确保是人工）
-3. 验证 Referer（Referer 可以记录当前请求的来源地址），在后台中判断来源地址
-4. Token （使用 Token 来校验用户）
+3. 验证 Referer（Referer 可以记录当前请求的来源地址），在服务端来判断来源地址是否合法
+4. 使用 Token 验证，服务端下发一个 Token，每次请求时将 Token 携带上，服务端验证 Token 是否合法
 
 ## 7. XSS 攻击
 
@@ -156,15 +187,15 @@ CSRF 视频教程讲解：https://www.bilibili.com/video/BV1iW411171s/?spm_id_fr
 
 ## 8. 页面渲染的过程
 
-浏览器通过请求获取 HTML 后，通过 HTML 解析器解析构建生成一颗 DOM 树。然后将 CSS 解析生成 CSS 规则树（CSSOM）。
+浏览器通过请求获取 HTML 后，通过 HTML 解析器解析构建生成一颗 DOM 树。并且将 CSS 解析生成 CSS 规则树（CSSOM）
 
-浏览器会根据 DOM 树和 CSSOM 树进行合并生成一颗渲染树。
+浏览器会根据 DOM 树和 CSSOM 树进行合并生成一颗渲染树
 
-然后对渲染树进行布局，计算出每一个渲染节点的位置和大小。
+然后对渲染树进行布局，计算出每一个渲染节点的位置和大小
 
 最后对布局的节点进行绘制呈现出一个完整的页面
 
-流程：构建 DOM 树 -> 构建 CSSOM 树 -> 生成渲染树 -> 布局 -> 绘制
+流程：解析 DOM 树 `&&` 解析 CSSOM 树 -> 生成渲染树 -> 布局 -> 绘制
 
 ## 9. 精灵图和 Base64 的区别
 
@@ -174,14 +205,11 @@ Base64：将图片转换为 `Base64` 直接嵌入到网页中。使用 `<img src
 
 ## 10. 什么是 Data URL
 
-:::tip
-`Data URL` 是将图片转换为 `Base64` 直接嵌入到网页中。使用 `<img src="data:[MIME type];base64, data"/>` 这种方式来引用图片，而不需要发送请求去获取图片。
+`Data URL` 是将图片转换为 `Base64` 直接嵌入到网页中。使用 `<img src="data:[MIME type];base64, data"/>` 这种方式来引用图片，而不需要发送请求去获取图片
 
-优点：不需要发送请求
+优点：不需要发送请求，减少 HTTP 请求数量
 
 缺点：Base64 编码后的字符串内容会是一段长串乱码，会比原来的体积大三分之一左右。Data URL 形式的图片不会缓存下来，每次访问页面都要被下载一次。可以将 Data URL 写入到 CSS 文件中随着 CSS 被缓存下来
-
-:::
 
 Base64 的格式：
 
@@ -240,9 +268,9 @@ CSS3 的新特性
 1. 新增选择器：属性选择器、伪类选择器、伪元素选择器
 2. 新增媒体查询
 3. 文字阴影 `text-shadow`
-4. 盒子模型 `box-sizing`
+4. 盒子模型 `box-shadow`
 5. 渐变 `linear-gradient`
 6. 过渡 `transition`
-7. 动画 `transform`
+7. 动画 `animation`
 8. 2D、3D 转换 `transform`
 9. 背景属性 `background-size`、`background-origin`、`background-clip`、`background-attachment`
