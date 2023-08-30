@@ -37,11 +37,11 @@ Flex 是 Flexible Box 的 缩写，意为 **弹性布局**， 用来为盒模型
 ## 容器的属性
 
 - flex-direction： 决定主轴的方向
-- flex-wrap：一条轴线排不下事，是否换行
-- flex-flow：上面两种属性合起来的简写形式
+- flex-wrap：一条轴线排不下时，是否换行
+- flex-flow：上面两种属性合起来的简写形式：`flex-flow: flex-direction flex-warp;`
 - justify-content：决定主轴的对齐方式
 - align-items： 决定交叉轴对齐方式
-- align-content： 决定多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用
+- align-content： 决定多根主轴（多行）的对齐方式。如果项目只有一根主轴，该属性不起作用
 
 ### flex-direction 属性
 
@@ -121,22 +121,22 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ## 项目的属性
 
-- order：定义项目的排列顺序。属性越小，排列越前。默认为 0
-- flex-grow：定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大
-- flex-shrink
-- flex-basis
-- flex
-- align-self： 属性允许单个项目有与其他项目不一样的对齐方式
+- `order`：定义项目的排列顺序。值越小，排列越前。默认为 0
+- `flex-grow`：定义项目的放大比例，默认为 0，即如果主轴方向上存在剩余空间，也不放大
+- `flex-shrink`：定义了项目的缩小比例，默认为 1，即如果空间不足，该项目会缩小。如果属性值为 0，空间不足时，该项目不会缩小
+- `flex-basis`：定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。默认值为 auto，即项目的本来大小
+- `flex`：是 `flex-grow flex-shrink flex-basis` 的简写，默认值为 `0 1 auto`。后两个属性可选
+- `align-self`：属性定义单个项目在交叉轴上的对齐方式，可覆盖 align-items 属性。默认值为 auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch
 
 ### order
 
-> 属性定义项目的排列顺序。属性越小，排列越前。默认为 0
+属性定义项目的排列顺序。属性越小，排列越前。默认为 0
 
 ![](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071013.png)
 
 ### flex-grow 属性
 
-> 定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
+定义项目的放大比例，默认为 0，即如果存在剩余空间，也不放大。
 
 ```css
 .item {
@@ -164,9 +164,9 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ### flex-basis 属性
 
-> 定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即项目的本来大小。
+定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为 auto，即项目的本来大小。
 
-```
+```css
 .item {
   flex-basis: <length> | auto; /* default auto */
 }
@@ -176,13 +176,13 @@ stretch（默认值）：轴线占满整个交叉轴。
 
 ### flex 属性
 
-> flex 属性是 flex-grow, flex-shrink 和 flex-basis 的简写，默认值为 0 1 auto。后两个属性可选。
+flex 属性是 flex-grow, flex-shrink 和 flex-basis 的简写，默认值为 0 1 auto。后两个属性可选。
 
 **建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。**
 
 ### align-self 属性
 
-> align-self 属性允许单个项目有与其他项目不一样的对齐方式，可覆盖 align-items 属性。默认值为 auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch。
+用来定义单个项目在交叉轴上的对齐方式，可覆盖 align-items 属性。默认值为 auto，表示继承父元素的 align-items 属性，如果没有父元素，则等同于 stretch
 
 ```css
 .item {

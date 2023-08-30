@@ -16,6 +16,9 @@ export default defineConfig({
       dark: "vitesse-dark",
     },
   },
+  head: [
+    ['meta', {name: 'referrer', content: 'no-referrer'}]
+  ],
   themeConfig: {
     // 文档标题
     siteTitle: "flingyp",
