@@ -495,7 +495,7 @@ arr.slice(-2); // [5, 6]
 
 `splice` 用来删除元素或添加数组元素，返回删除的数组，会改变原数组（拼接）
 
-- `Array.prototype.splice(index, many, ...items)`
+- `splice(index, many, ...items)`
 - `index` 要从哪里开始删除元素
 - `many` 删除多少个元素
 - `items` 插入的到数组的元素
@@ -652,6 +652,8 @@ fun(); // window{} 你好
 
 ### 手写 `call` 和 `bind`
 
+原理：将执行函数作为临时属性添加到目标对象下，然后执行这个函数，此时函数的this就指向的是目标对象，最后再删除这个临时属性
+
 区别就是：call 是立即执行、bind 是返回一个函数
 
 ```ts
@@ -715,7 +717,7 @@ JavaScript 中存在两大数据类型：基本类型、引用类型
 
 ### 浅拷贝的实现方式
 
-`Object.assign()`、`展开运算符`、`Array.prototype.concat()`、`Array.prototype.slice()`
+`Object.assign()`、`展开运算符`、`concat()`、`slice()`
 
 ### 深拷贝的实现方式
 
@@ -816,12 +818,9 @@ export default function useDebounce(callback: Function, delay: number) {
 
 ## 18. 函数柯里化的使用
 
-:::tip 函数柯里化
-
-柯里化通常称作为部分求值，其含义是给函数分步传递参数。
-每次传递参数进行处理，并返回一个更具体的函数接受剩下的参数。
-这中间可嵌套多层这样的接受部分参数的函数，直至返回最终结果
-:::
+- 柯里化通常称作为部分求值，其含义是给函数分步传递参数
+- 每次传递参数进行处理，并返回一个更具体的函数接受剩下的参数 
+- 这中间可嵌套多层这样的接受部分参数的函数，直至返回最终结果
 
 ```ts
 const sumFn = (...args) => {
@@ -835,7 +834,7 @@ const currying = function (fun) {
   return function result(...rest) {
     // 如果没有传递参数，那么就是返回结果
     if (rest.length === 0) {
-      return func(args);
+      return fun(args);
     } else {
       // 如果传递了参数，那么就继续累加
       args.push(...rest);
@@ -851,109 +850,72 @@ currying(sumFn)(1)(2, 3, 4, 5)(6)(); // 21
 
 ## 19. JavaScript 中数组的方法总结
 
-:::tip 数组方法总结
-
-[Array.prototype.concat(...valueN)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)：用于合并两个或多个数组。不会改变现有数组，而是返回一个新数组。（可以合并数组或值）
-
-[Array.prototype.entries()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)：用于返回一个新的数组迭代器对象。该对象包含数组中每个索引的建/值对
-
-[Array.prototype.every(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)：用于判断数组中每个元素是否可以通过回调函数的判断。返回 boolean 值，有一个元素未通过直接返回 `false`
-
-[Array.prototype.some(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some)：用于判断数组中是否有元素可以通过回调函数的判断。返回 boolean 值，有一个元素通过直接返回 `true`
-
-[Array.prototype.fill(value, start?, end?)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)：用固定值 value 来填充数组，start 起始索引，end 是终止索引均为可选
-
-[Array.prototype.filter(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)：创建一个新数组，包含通过回调函数的所有元素，过滤没有通过回调函数的元素
-
-[Array.prototype.find(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)：返回数组中通过回调函数的**第一个元素的值**，否则返回`undefined`
-
-[Array.prototype.findLast(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLast)：返回数组中通过回调函数的**最后一个元素的值**，否则返回`undefined`
-
-[Array.prototype.findIndex(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)：返回数组中通过回调函数的**第一个元素的下标索引**，否则返回 `-1`
-
-[Array.prototype.findLastIndex(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex)：返回数组中通过回调函数的**最后一个元素的下标索引**，否则返回 `-1`
-
-[Array.prototype.flat(depth?=1)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
-
-[Array.prototype.flatMap(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
-
+- [concat(...valueN)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)：用于合并两个或多个数组。不会改变现有数组，而是返回一个新数组。（可以合并数组或值）
+- [entries()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)：用于返回一个新的数组迭代器对象。该对象包含数组中每个索引的建/值对
+- [every(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/every)：用于判断数组中每个元素是否可以通过回调函数的判断。返回 boolean 值，有一个元素未通过直接返回 `false`
+- [some(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/some)：用于判断数组中是否有元素可以通过回调函数的判断。返回 boolean 值，有一个元素通过直接返回 `true`
+- [fill(value, start?, end?)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/fill)：用固定值 value 来填充数组，start 起始索引，end 是终止索引均为可选
+- [filter(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter)：创建一个新数组，包含通过回调函数的所有元素，过滤没有通过回调函数的元素
+- [find(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/find)：返回数组中通过回调函数的**第一个元素的值**，否则返回`undefined`
+- [findLast(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLast)：返回数组中通过回调函数的**最后一个元素的值**，否则返回`undefined`
+- [findIndex(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findIndex)：返回数组中通过回调函数的**第一个元素的下标索引**，否则返回 `-1`
+- [findLastIndex(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex)：返回数组中通过回调函数的**最后一个元素的下标索引**，否则返回 `-1`
+- [flat(depth?=1)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
+- [flatMap(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
 扁平化数组，将数组中所有元素与遍历到的子数组的元素合并返回一个新数组（扁平化结构）。参数 depth 是指定要提取嵌套数组的结构深度，默认值为 1
-
-[Array.prototype.includes(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)：用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回 false
-
-[Array.prototype.indexOf(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)：返回在数组中指定元素的第一个元素下标索引，如果不存在，则返回-1
-
-[Array.prototype.lastIndexOf(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)：返回在数组中指定元素的最后一个元素下标索引，如果不存在，则返回-1
-
-[Array.prototype.isArray(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)：判断是否是数组
-
-[Array.prototype.join(separator?=',')](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/join)：将所用元素通过指定分隔符链接并且返回这个字符串
-
-[Array.prototype.pop()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)：删除数组中最后一个元素，并且返回该元素。会改变原数组
-
-[Array.prototype.shift()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)：删除数组中第一个元素，并且返回该元素。会改变原数组
-
-[Array.prototype.push()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)：向数组末尾添加元素
-
-[Array.prototype.unshift()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)：将一个或多个元素添加到数组的开头
-
-[Array.prototype.reduce()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)：累加器。对数组中的每个元素按序执行一个 reducer 函数，每一次运行 reducer 会将先前元素的计算结果作为参数传入，最后将其结果汇总为单个返回值
-
-[Array.prototype.reverse()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)：将数组中元素的位置颠倒，并返回该数组。数组的第一个元素会变成最后一个，数组的最后一个元素变成第一个。该方法会改变原数组
-
-[Array.prototype.slice(start，end)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)：数组切片。返回一个新的数组，是由 begin 和 end 决定的原数组的浅拷贝（包括 begin，不包括 end）。原始数组不会被改变
-
-[Array.prototype.splice(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)：通过删除或替换现有元素或者原地添加新的元素来修改数组，并以数组形式返回被修改的内容。此方法会改变原数组
-
-[Array.prototype.sort(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)：数组排序
-
-:::
+- [includes(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)：用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回 false
+- [indexOf(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)：返回在数组中指定元素的第一个元素下标索引，如果不存在，则返回-1
+- [lastIndexOf(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)：返回在数组中指定元素的最后一个元素下标索引，如果不存在，则返回-1
+- [isArray(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray)：判断是否是数组
+- [join(separator?=',')](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/join)：将所用元素通过指定分隔符链接并且返回这个字符串
+- [pop()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/pop)：删除数组中最后一个元素，并且返回该元素。会改变原数组
+- [shift()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/shift)：删除数组中第一个元素，并且返回该元素。会改变原数组
+- [push()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)：向数组末尾添加元素
+- [unshift()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/push)：将一个或多个元素添加到数组的开头
+- [reduce()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce)：累加器。对数组中的每个元素按序执行一个 reducer 函数，每一次运行 reducer 会将先前元素的计算结果作为参数传入，最后将其结果汇总为单个返回值
+- [reverse()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/reverse)：将数组中元素的位置颠倒，并返回该数组。数组的第一个元素会变成最后一个，数组的最后一个元素变成第一个。该方法会改变原数组
+- [slice(start，end)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)：数组切片。返回一个新的数组，是由 begin 和 end 决定的原数组的浅拷贝（包括 begin，不包括 end）。原始数组不会被改变
+- [splice(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)：通过删除或替换现有元素或者原地添加新的元素来修改数组，并以数组形式返回被修改的内容。此方法会改变原数组
+- [sort(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)：数组排序
 
 ## 20. 浏览器几种存储方式的的区别
 
 Cookie 是属于文档对象模型 DOM 的一部分，而`SessionStorage`、`LocalStorage`是属于浏览器对象模型 BOM 的一部分
 
-1. Cookie 是由服务端写入，在请求头中携带。有大小限制 `4K`、过期时间限制
+**Cookie** 是由服务端写入，在请求头中携带。有大小限制 `4K`、过期时间限制
 
-注：如果想删除一个 Cookie，只需要把它的过期时间设置成过去的时间即可。如果不设置过期时间，则表示这个 Cookie 生命周期为浏览器会话期间，只要关闭浏览器窗口，Cookie 就消失了。
+**LocalStorage** 是永久存储，除非手动删除，否则永远不会消失。大小限制大概为 `5M`
 
-2. LocalStorage 是永久存储，除非手动删除，否则永远不会消失。大小限制大概为 `5M`
+**SessionStorage** 是会话级别的存储，页面关闭就会清除。大小限制大概为 `5M`
 
-3. SessionStorage 是会话级别的存储，页面关闭就会清除。大小限制大概为 `5M`
-
-注：刷新页面 SessionStorage 不会清除，但是打开同域新页面访问不到
+- 如果想删除一个 Cookie，只需要把它的过期时间设置成过去的时间即可。如果不设置过期时间，则表示这个 Cookie 生命周期为浏览器会话期间，只要关闭浏览器窗口，Cookie 就消失了
+- 刷新页面 SessionStorage 不会清除，但是打开同域新页面访问不到
 
 区别：
 
 1. 存储大小限制不同
 2. 数据有效期不同
-3. 作用域不同：SessionStorage 不在不同的浏览器页面中共享，即使是同一个页面。LocalStorage 在所有同源窗口中都是共享的。Cookie 也是在所有同源窗口中都是共享的。
+3. 作用域不同：SessionStorage 不在不同的浏览器页面中共享，即使是同一个页面。LocalStorage 在所有同源窗口中都是共享的。Cookie 也是在所有同源窗口中都是共享的
 
 ## 21. JavaScript 中判断变量类型的方法总结
 
 - [推荐文章](https://blog.csdn.net/haotian1997/article/details/114577180?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-114577180-blog-106403998.t5_layer_eslanding_A_0&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-114577180-blog-106403998.t5_layer_eslanding_A_0&utm_relevant_index=1)
 
-一共有四种方式来判断变量类型：`typeof`、`instanceof`、`constructor`、`Object.prototype.toString.call()`
+一共有四种方式来判断变量类型：`typeof`、`instanceof`、`constructor` 和 `Object.prototype.toString.call()`
 
-:::tip typeof
+1. `typeof` 
 
 介绍：`typeof` 只适合去判断基础数据类型的变量. 引用数据类型 Object 无论是对象还是数组等统一返回 `object`
+- 特点：`typeof null` 会返回一个 object、`typeof function(){}` 会返回一个 function
+- 缺点：`typeof` 对应引用数据类型来说，并不能很好的去判断其变量的具体类型
 
-特点：`typeof null` 会返回一个 object、`typeof function(){}` 会返回一个 function
-
-缺点：`typeof` 对应引用数据类型来说，并不能很好的去判断其变量的具体类型
-
-:::
-
-:::tip instanceof
+2. `instanceof`
 
 介绍：`instanceof` 运算符用于检测构造函数的 `prototype` 属性是否出现某个实例对象的原型链上。简单来说就是来判断 A 是否为 B 的实例
-
 `[] instanceof Array` ：实际上是判断 Array.prototype 是否在[]的原型链上
+- 缺点：不管是数组对象还是正则对象，都是 Object 的实例，检测结果都是 TRUE ，所以无法基于这个结果判断是否为普通对象（Array、Date、RegExp 对象等）
 
-:::
-
-缺点：不管是数组对象还是正则对象，都是 Object 的实例，检测结果都是 TRUE ，所以无法基于这个结果判断是否为普通对象（Array、Date、RegExp 对象等）。加上是否处于原型链上的判断方法不严谨，instanceof 方法判断的是是否处于原型链上，而不是是不是处于原型链最后一位，所以会出现下面这种情况：
+加上是否处于原型链上的判断方法不严谨，instanceof 方法判断的是是否处于原型链上，而不是是不是处于原型链最后一位，所以会出现下面这种情况：
 
 ```ts
 var arr = [1, 2, 3];
@@ -967,7 +929,6 @@ console.log(fn instanceof Object); // true
 其次，基本数据类型的实例是无法基于它检测出来的
 
 - 不能检测基本数据类型
-
 - 字面量方式创建的不能检测，构造函数创建的就可以检测
 
 对于基本数据类型来说，字面量方式创建出来的结果和实例方式创建的是有一定区别的
@@ -979,13 +940,10 @@ console.log(new Number(1) instanceof Number); //true
 
 对于特殊的数据类型 null 和 undefined，他们的所属类是 Null 和 Undefined，但是浏览器把这两个类保护起来了，不允许我们在外面访问使用
 
-:::tip constructor
+3. `constructor`
 
 介绍：通过查看变量的构造函数来判断。还可以处理基本数据类型的检测
-
-缺点：不能判断 `null` 和 `undefined`，因为它们不需要通过构造函数创建，所以是没有构造函数的
-
-:::
+- 缺点：不能判断 `null` 和 `undefined`，因为它们不需要通过构造函数创建，所以是没有构造函数的
 
 ```ts
 var aa = [1, 2];
@@ -997,11 +955,9 @@ console.log(reg.constructor === RegExp); //true
 console.log(reg.constructor === Object); //false
 ```
 
-:::tip Object.prototype.toString.call()
+4. `Object.prototype.toString.call()`
 
 介绍：这个方法在 Object 的原型上，找到 Object.prototype 上的 toString 方法，让 toString 方法执行，并且基于 call 让方法中的 this 指向检测的数据值，这样就可以实现数据类型检测了
-
-:::
 
 ```ts
 Object.prototype.toString.call(""); // [object String]
@@ -1020,13 +976,9 @@ Object.prototype.toString.call(window); //[object global] window是全局对象g
 
 ## 22. 如何阻止事件冒泡和默认事件
 
-:::tip
+标准的 DOM 对象中使用事件对象的 `event.stopPropagation()` 方法来阻止事件冒泡，但是在 IE8 以下需要通过设置事件对象的 `cancelBubble` 属性为 `true` 来阻止冒泡
 
-标准的 DOM 对象中使用事件对象的 `event.stopPropagation()` 方法来阻止事件冒泡，但是在 IE8 一下通过设置事件对象的 `cancelBubble` 属性为 `true` 来阻止冒泡。
-
-默认事件科院通过事件对象的 `event.preventDefault()` 方法来阻止，而 IE 则需要设置 `event.returnValue` 属性为 `false` 来阻止默认事件。
-
-:::
+默认事件可以通过事件对象的 `event.preventDefault()` 方法来阻止，而 IE 则需要设置 `event.returnValue` 属性为 `false` 来阻止默认事件
 
 ## 23. 简述输入网址到浏览器显示的过程
 
@@ -1048,9 +1000,8 @@ Object.prototype.toString.call(window); //[object global] window是全局对象g
 
 ## 24. JSONP 的实现原理
 
-:::tip
-JSONP 的原理是使用 `script` 标签来实现跨域，因为 `script` 标签的的 `src` 属性是不受同源策略的影响的，因此可以使用其来跨域。一个最简单的 `JSONP` 就是创建一个 `script` 标签，设置相应的 `URL`，在 `URL` 之后添加相应的 `callback`，格式类似于 `url?callback=xxx`，服务端根据我们的 `callback` 来返回相应的数据，类似于 `res.send(req.query.callback + '('+ data + ')')`，这样就实现了一个最简单的 `JSONP`
-:::
+JSONP 的原理是使用 `script` 标签来实现跨域，因为 `script` 标签的的 `src` 属性是不受同源策略的影响的，因此可以使用其来跨域。
+一个最简单的 `JSONP` 就是创建一个 `script` 标签，设置相应的 `URL`，在 `URL` 之后添加相应的 `callback`，格式类似于 `url?callback=xxx`，服务端根据我们的 `callback` 来返回相应的数据，类似于 `res.send(req.query.callback + '('+ data + ')')`，这样就实现了一个最简单的 `JSONP`
 
 ## 25. 手写模板字符串的实现
 
