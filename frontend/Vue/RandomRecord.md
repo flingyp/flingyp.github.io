@@ -1,49 +1,27 @@
 ## 1. Vue3 组件之间的通信方式有哪些
 
-- `Props、Emits`：用于父子组件之间数据的传递
-- `expose、ref`：在 Vue3 中我们需要通过 `ref` 去获取组件的实例，并且 Vue 并不会将所有组件实例属性和方法暴露出来。我们需要通过 `defineExpose` 将实例的属性和方法暴露出来。在父组件我们可以通过获取组件实例来向子组件传递数据。
-- `透传 Attributes`：指的是在子组件中，没使用 prop 或 emits 定义的 attribute，可以通过 `$attrs` 来访问。[文档介绍](https://cn.vuejs.org/guide/components/attrs.html)
-- `v-model` 语法糖
-- `Slots` 插槽
-- `Provide/Inject`：适合跨组件传递
-- 跨组件通信工具
-- EventBus 事件总线
+1. `Props、Emits`：用于父子组件之间数据的传递
+2. `expose、ref`：在 Vue3 中我们可以通过 `ref` 去获取组件实例。但默认在 Vue3 中并不会将组件实例的相关属性和方法暴露出来。我们需要通过 `defineExpose` 将组件实例的属性和方法暴露出来
+3. `透传 Attributes`：指的是在子组件中，没使用 `prop` 或 `emits` 定义的 attribute，可以通过 `$attrs` 来访问。[文档介绍](https://cn.vuejs.org/guide/components/attrs.html)
+4. `v-model` 语法糖
+5. `Slots` 插槽
+6. `Provide/Inject`：适合跨组件传递
+7.  跨组件通信工具：Pinia、Vuex
+8.  EventBus 事件总线：Vue3 推荐使用的一个发布订阅库 `Mitt`
 
 ## 2. `v-if` 和 `v-for` 哪个优先级更高
 
-:::tip 优先级比较
+- 在 Vue2 中 `v-for` 会比 `v-if` 的优先级高
+- 在 Vue3 中 `v-if` 会比 `v-for` 的优先级高（这样是为了减少循环判断，提高框架性能）
 
-在 Vue2 中 `v-for` 会比 `v-if` 的优先级高
+**总结**：
 
-在 Vue3 中 `v-if` 会比 `v-for` 的优先级高
+1. 在使用 `v-if` 和 `v-for` 时，应该在外部包裹一层 `<template v-for/v-if></template>`，然后根据实际情况来判断是哪个API在外层，哪个API在里层
+2. 多用Computed，在面对要循环根据 `v-if` 所过滤后的数据列表，可以定义一个使用 `computed` 来进行过滤后渲染 
 
-建议：在平时开发中永远不要将两个 API 放在同一个元素上。可以根据需求在外部包裹一层 `<template v-for/v-if></template>`
+- [avoid-v-if-with-v-for](https://cn.vuejs.org/style-guide/rules-essential.html#avoid-v-if-with-v-for)
 
-:::
-
-## 3. `v-model` 双向绑定使用
-
-:::tip `v-model`
-
-`v-model` 是一个语法糖。默认情况下相当于 `:value` 和 `@update:value`，使用双向绑定可以减少繁琐事件，提高开发体验。
-
-Vue3 甚至可以使用参数形式来绑定多个响应式数据。例如： `v-model:content`、`v-model:header`
-
-:::
-
-## 4. Vue3 中如何扩展一个组件
-
-:::tip 扩展组件
-
-Vue3 模式下最好通过 Composition API 来进行组件的扩展。首先开发者通过 `Props` 和 `Emits` 来与子组件进行通信，之后配合响应式模块可以很方便得多编写独立功能的钩子来提供响应式的数据。
-
-当我们需要新增组件功能时，只需要在当前的组件基础上新增对应的钩子来完成功能的开发。
-
-[官方关于组合式函数（composables 或 hooks）的介绍和用法](https://staging-cn.vuejs.org/guide/reusability/composables.html)
-
-:::
-
-## 5. `v-show` 和 `v-if` 的区别
+## 3. `v-show` 和 `v-if` 的区别
 
 控制手段：`v-show` 是通过给元素设置 CSS `display: none` 来控制元素的显示与否 而`v-if` 是通过一定的 JS 手段将整个 DOM 节点进行添加或删除
 
@@ -51,29 +29,79 @@ Vue3 模式下最好通过 Composition API 来进行组件的扩展。首先开�
 
 编译条件：`v-if` 是真正的条件渲染，它会确保在切换过程中条件块内的事件监听器和子组件适当地被销毁和挂载。只有渲染条件为假时，并不做操作，直到为真才渲染
 
-总结：
+**总结**：通过 `v-if` 来控制元素或子组件的显示和隐藏，组件会经历实例的创建、挂载和销毁等阶段。相对来说性能消耗较大，所以如果有频繁的控制元素的显示隐藏的需要，应当首选 `v-show`
 
-1. 通过 `v-if` 来控制元素或子组件的显示和隐藏会经历实例创建、挂载和销毁等阶段。相对来说性能消耗较大，所以如果有频繁的控制元素的显示隐藏的需要，应当首选 `v-show`
+所以在 `v-show` 的切换时，是不会触发内部子组件的生命周期。而在 `v-if` 的切换时，是会触发组件的相关的生命周期函数的
 
-2. `v-show` 由 false 变为 true 的时候不会触发组件的生命周期。`v-if` 由 false 变为 true 的时候，触发组件的 `beforeCreate`、`create`、`beforeMount`、`mounted` 钩子，由 true 变为 false 的时候触发组件的 `beforeDestory`、`destoryed` 方法
+## 4. 谈一谈 Vue3 中如何扩展组件
+
+Vue3 模式下最好的方式是通过 Composition API 来进行组件的扩展
+
+通过使用Vue的响应式模块配合有独立作用域的函数，可以编写特定的业务功能模块和公共功能模块等。以达到更好的抽离代码优化组件结构以实现更好的搭配
+
+当我们需要新增组件功能时，只需要在当前的组件基础上新增对应的钩子来完成功能的开发
+
+- [官方关于组合式函数（composables 或 hooks）的介绍和用法](https://staging-cn.vuejs.org/guide/reusability/composables.html)
+
+## 5. `v-model` 双向绑定使用
+
+`v-model` 是一个语法糖。默认情况下相当于 `v-bind:value` 和 `@update:value`，使用双向绑定可以减少繁琐事件，提高开发体验。
+
+Vue3 甚至可以使用参数形式来绑定多个响应式数据。例如： `v-model:content`、`v-model:header`
+
+```vue
+<script setup>
+defineProps(['modelValue', 'content', 'header'])
+defineEmits(['update:modelValue', 'update:content', 'update:header'])
+</script>
+
+<template>
+  <input
+    :value="modelValue"
+    @input="$emit('update:modelValue', $event.target.value)"
+    @input="$emit('update:content', $event.target.value)"
+    @input="$emit('update:header', $event.target.value)"
+  />
+</template>
+```
+
+```vue
+<template>
+  <MyInput v-model="value"></MyInput>
+  <MyInput v-model:content="content"></MyInput>
+  <MyInput v-model:header="header"></MyInput>
+</template>
+```
 
 ## 6. 谈谈对 Vue 数据响应式理解
 
-:::tip
-
-数据响应式：数据驱动视图的思想,**能够使数据变化可以被检测并且做出相应的响应机制**
+数据响应式：数据驱动视图的思想，**能够使数据变化可以被检测并且做出相应的响应机制**
 
 MVVM 框架中都要解决一个核心的问题是**如何连接数据层和视图层**。通过**数据驱动视图**，数据变化，视图更新，要做到这点的就需要做到数据响应式处理
 
-在 Vue2 中，采用的是 `Object.defineProperty()` 的方式对响应式数据进行拦截。但是使用此 API 有一些缺点：1. 新增或删除属性的不会被依赖收集也就不会有响应式的特性，需要使用 `Vue.set/delete` 等 API 才能生效。2. 对应 ES6 中的 Map、Set 这些数据结构不支持。
+在 Vue2 中，采用的是 `Object.defineProperty()` 的方式对响应式数据进行拦截
 
-在 Vue3 中 采用的是 ES6 的 `Proxy`代理实现数据的响应式
+但是使用此 API 有一些缺点：
 
-:::
+1. 新增或删除属性的不会被依赖收集也就不会有响应式的特性，需要使用 `Vue.set/delete` 等 API 才能生效
+2. 对应 ES6 中的 Map、Set 这些数据结构不支持
 
-## 7. 虚拟 DOM 的理解
+在 Vue3 中 采用的是 ES6 的 `Proxy` 代理实现响应式数据
 
-虚拟 DOM：就是 JavaScript 对象，它通过不同的属性去描述一个 DOM 节点的视图结构
+## 7. `Object.defineProperty` 和 `Proxy`有什么区别
+
+- `defineProperty` 是 ES5 新增的方法，会直接在一个对象上定义一个新属性，或修改其现有属性，并返回此对象
+- `Proxy` 是 E56 新增的，是针对一个对象的代理，而不是针对对象当中的某个属性的代理
+
+**区别**：
+
+1. `defineProperty` 只代理对象上的某个属性, 通过 Getter 和 Setter 方法来劫持属性的读取和写入操作。只能对定义好的属性进行数据监听，而新增属性或删除数据是不会被监听的，也就会失去响应式的特性
+2. 而 Proxy 是代理整个对象，可以完全解决 `defineProperty` 所带来的弊端
+3. Proxy 在调用时递归，`Object.defineProperty` 在一开始就全部递归，Proxy 性能优于 `Object.defineProperty`
+
+## 8. 虚拟 DOM 的理解
+
+虚拟DOM：是用来描述真实DOM的 JavaScript 对象
 
 虚拟 DOM 如何生成？
 
@@ -81,13 +109,13 @@ MVVM 框架中都要解决一个核心的问题是**如何连接数据层和视�
 
 挂载过程结束后，Vue 会进入更新流程，如果发现有响应式数据发生变化，就会引起组件重新渲染，此时就会产生新的虚拟 DOM，和上一次的渲染结构 Diff 就可以得到变化的地方，从而转换为最小量的 DOM 操作，高效更新视图
 
-## 8. 对 Diff 算法的理解
+## 9. 对 Diff 算法的理解
 
 Vue 中的 `diff` 算法又称为 `patching` 算法。虚拟 DOM 想要转换为真实 DOM 就需要通过此方法进行转换
 
-Vue 中 `diff` 执行的时刻是组件内响应式数据变更触发实例执行其更新函数时，更新函数会再次执行渲染函数获得最新虚拟 DOM，然后执行 `patch` 函数，并传入新旧两次虚拟 DOM，通过对比两者找到变化的地方，最后将其转换为真实的 DOM
+当组件内响应式数据发生变化时，会触发实例执行其更新函数来获得最新的虚拟DOM。然后会执行 `patch` 函数，传入新旧虚拟DOM，通过Diff算法来找到两个虚拟DOM存在差异的地方，然后就可以最小化的更新视图
 
-Patch 过程是一个递归过程，遵循一个**同层比较，深度优先**策略
+Patch 的过程是一个递归过程，遵循一个**同层比较，深度优先策略**
 
 - 首先判断两个节点是否为相同同类节点，不同则删除重新创建
 - 如果双方都是文本则更新文本内容
@@ -128,25 +156,21 @@ createElementVNode(
 // 最后这个参数 2 就是一个更新类型标记 (patchFlag)
 ```
 
-## 9. Vue2 `Object.defineProperty` 和 Vue3 `Proxy`有什么区别
+:::details Vue2 和 Vue3 的 Diff算法区别
 
-`defineProperty` 是 ES5 新增的方法，是对一个对象新增或修改某个属性，然后返回该对象
+Vue2中的虚拟dom是进行全量的对比，在运行时会对所有节点生成一个虚拟节点树，当页面数据发生变化时，会遍历判断虚拟Dom所有节点（包括一些不会变化的节点）有没有发生变化
 
-`Proxy` 是 E56 新增的，是对对象的代理，并不是直接的去修改对象
+Vue3在diff算法中相比vue2增加了静态标记, 在模版编译时，编译器会在动态标签末尾加上 /* Text*/ PatchFlag。也就是在生成VNode的时候，同时打上标记，patch 过程中就会判断这个标记来 Diff 优化流程，跳过一些静态节点对比
 
-:::tip
-区别：在 Vue2 中 `defineProperty` 只能对定义好的数据进行数据监听，而新增属性或删除数据是不会被监听的，也就会失去响应式的特性。而 `Proxy` 是对整个对象的代理监听。
 :::
 
 ## 10. 响应式数据发生改变之后 Vue 做了什么事情
 
-:::tip
-当响应式数据监听到数据的变化后，会触发对应组件的渲染方法，渲染前会调用 `beforeUpdate` 钩子函数，在渲染的过程中会 `patch` 重新获取变化后的虚拟 DOM 然后渲染到页面上，渲染后在去调用 `updated` 钩子函数。
-:::
+当响应式数据监听到数据的变化后，会触发对应组件的渲染方法，渲染前会调用 `beforeUpdate` 钩子函数，在渲染的过程中会 `patch` 重新比对新旧虚拟DOM，然后更新渲染到页面上，渲染后在去调用 `onUpdated` 钩子函数
 
 ## 11. 谈谈 Vue 的生命周期吧
 
-Vue 实例有一个完整的生命周期。从实例创建、初始化数据、编译模板、挂载 DOM、渲染、更新、又渲染、卸载等一系列过程，就是 Vue 的声明周期
+Vue 实例有一个完整的生命周期。从实例创建、初始化数据、编译模板、挂载 DOM、渲染、更新、又渲染、卸载等一系列过程，就是 Vue 的生命周期
 
 - `beforeCreate`：组件实例创建之前调用，此时还无法访问到相关方法和数据
 - `created`：组件实例创建之后调用。实例完成：数据观测、属性和方法的运算、 watch/event 事件回调。但是 DOM 还未挂载
@@ -154,34 +178,27 @@ Vue 实例有一个完整的生命周期。从实例创建、初始化数据、�
 - `mounted`：组件实例被挂载到 DOM 上之后调用
 - `beforeUpdate`：响应式数据被更新前调用，发生在虚拟 DOM 重新渲染和打补丁
 - `updated`：由于数据更新导致的虚拟 DOM 重新渲染和打补丁，在这之后会调用该钩子
-- `beforeDestroy`：组件实例销毁前调用
-- `destroyed`：组件实例销毁之后调用
+- `beforeUnmount`：组件实例卸载前调用
+- `unmounted`：组件实例卸载之后调用
 
 ## 12. 说说 `nextTick` 的使用
 
-:::tip
-
 `nextTick()` 是等待下一次 DOM 更新刷新的工具方法
 
-Vue 有一个异步更新策略，意思就是如果数据变化，Vue 不会立即更新 DOM，而是开启一个队列，把组件更新函数保存在队列中，在同一事件循环中发生的所有数据变更后会异步的批量更新。这一策略会导致我们对数据的修改不会及时的体现在 DOM 上，此时如果想要获取更新后的 DOM 状态，就需要使用 `nextTick`
+Vue 有一个异步更新策略，意思就是如果数据变化，Vue 不会立即更新 DOM，而是开启一个队列，把组件更新函数保存在队列中，在同一事件循环中发生的所有数据变更后会异步的批量更新
 
-:::
+这一策略会导致我们对数据的修改不会及时的体现在 DOM 上，此时如果想要获取更新后的 DOM 状态，就需要使用 `nextTick`
 
 ## 13. `watch` 和 `computed` 的区别
 
-:::tip
-
-computed：会返回一个只读的响应式的数据
-
-watch：检测响应式数据的变化，执行回调
+- Computed：会返回一个只读的响应式数据
+- Watch：检测响应式数据的变化后执行相关回调函数
 
 区别：
 
-1. 计算属性可以从响应式数据派生出自己需要的响应式属性。监听器可以监测某个响应式数据的变化并且执行对应的副作用，可以执行一些异步操作等复杂逻辑
-
-2. 两个的使用场景不同。计算属性一般用于对响应式数据进行加工处理得到的全新的响应式数据。监听器则是在数据发送变化后需要执行的操作
-
-:::
+1. 计算属性可以所依赖的响应式数据派生出自己需要的响应式数据，所以计算属性不应该去做一些异步操作或DOM操作
+2. 监听器可以监测某个响应式数据的变化并且执行对应的副作用函数，可以执行一些异步操作等复杂逻辑
+2. 两个的使用场景不同。计算属性用于对响应式数据进行加工处理得到的所需的响应式数据。监听器则是在数据发送变化后需要执行的操作
 
 ## 14. Vue Router 中 hash 模式和 history 模式的区别
 
@@ -230,7 +247,58 @@ const router = new VueRouter({
 - 如果是 `B端` 系统更加推荐 Hash 模式，相对简单容易
 - 如果是 `C端` 系统对外观有一定要求就可以考虑选择 `History` 模式但是需要 **服务端支持**
 
-## 15. Key 的作用
+## 15. Vue 项目部署到服务器后刷新出现 404 的问题
+
+前后端分离开发模式下，前端只需要将项目打包，将打包文件扔到目标服务器即可。Vue 是单页面应用，无论有多少页面构建物都只会产出一个 `index.html` 文件
+
+### 如果路由是 `History` 模式
+
+`History` 模式下就会出现页面刷新出现 404 问题
+
+**原因**：在于当我们在地址栏输入 `www.xxx.com` 地址时，首先一定会访问到服务器的目标文件的 `index.html` 这时候是不会有 404 的问题。但是如果我们在访问或者重定向到 `www.xxx.com/xx` 页面时其实就会向服务器发送一个 HTTP 请求，去请求 `/xx` 页面的文件内容，这个时候自然服务器是没有这个路径的文件资源的。所以就会报 404 问题
+
+### 如果路由是 `Hash` 模式
+
+`Hash` 模块是用符号 # 表示的。 如 `www.xxx.com/#/xx`
+
+它的特点在于 `Hash` 虽然出现在 URL 中，但不会被包括在 HTTP 请求中，对服务端完全没有影响，因此改变 `Hash` 不会重新加载页面。该模式下仅 `Hash` 符号之前的内容会被包含在请求中，如 `www.xxx.com/#/xx` 只有 `www.xxx.com` 会被包含在请求中
+
+### 解决方案
+
+本质单页面应用就只有一个页面，路由则是通过 JS 来执行视图切换的，`History` 模式下去请求其他不存在的页面自然会报 404 问题。
+
+所以如果你的项目配置的是 `History` 模式下，所以进行以下的配置
+
+解决方案：就是在服务器进行配置，将任意页面都重定向到 `index.html` 文件，把路由交给前端处理
+
+以 Nginx 为例子，只需要修改它的配置文件。添加：`try_files $uri $uri/ /index.html;` 这么一条配置即可
+
+```ts
+server {
+  listen  80;
+  server_name  www.xxx.com;
+
+  location / {
+    index  /data/dist/index.html;
+    try_files $uri $uri/ /index.html;
+  }
+}
+```
+
+配置完毕后，重启 Nginx： `nginx -s reload`
+
+为了避免这种情况，你应该在 Vue 应用里面覆盖所有的路由情况，然后在给出一个 404 页面
+
+```ts
+const router = new VueRouter({
+  mode: "history",
+  routes: [
+    { path: "*", component: NotFoundComponent }, // 添加一条匹配404页面的路由
+  ],
+});
+```
+
+## 16. Key 的作用
 
 Key 的作用是用于优化的 `patch` 性能的，更高效的更新虚拟 DOM
 
@@ -238,7 +306,7 @@ Key 的作用是用于优化的 `patch` 性能的，更高效的更新虚拟 DOM
 
 Vue 在使用相同标签元素过渡切换时，也会使用 Key 属性，其目的是为了让 Vue 可以区分它们，否则 Vue 只会替换其内部属性而不会触发过渡效果
 
-## 16. Vue 首次实例创建和挂载发生了什么
+## 17. Vue 首次实例创建和挂载发生了什么
 
 `createApp()` 会创建一个 App 实例，内部通过 `const app = ensureRenderer().createApp(...args)` 来进行实例的创建。内部最终是执行了一个函数 `createAppApi()` 来创建实例的。
 方法会返回一个函数就叫做 `createApp`。内部会创建一个对象，最终返回这个对象，而这个对象就是 App 实例。
@@ -295,57 +363,6 @@ mount(
 ```
 
 总结：在实例创建阶段，Vue 会将一些全局 API 定义，在实例挂载阶段创建虚拟 DOM 最后调用渲染函数将虚拟 DOM 进行渲染
-
-## 17. Vue 项目部署到服务器后刷新出现 404 的问题
-
-前后端分离开发模式下，前端只需要将项目打包，将打包文件扔到目标服务器即可。Vue 是单页面应用，无论有多少页面构建物都只会产出一个 `index.html` 文件
-
-### 如果路由是 `History` 模式
-
-`History` 模式下就会出现页面刷新出现 404 问题
-
-**原因**：在于当我们在地址栏输入 `www.xxx.com` 地址时，首先一定会访问到服务器的目标文件的 `index.html` 这时候是不会有 404 的问题。但是如果我们在访问或者重定向到 `www.xxx.com/xx` 页面时其实就会向服务器发送一个 HTTP 请求，去请求 `/xx` 页面的文件内容，这个时候自然服务器是没有这个路径的文件资源的。所以就会报 404 问题
-
-### 如果路由是 `Hash` 模式
-
-`Hash` 模块是用符号 # 表示的。 如 `www.xxx.com/#/xx`
-
-它的特点在于 `Hash` 虽然出现在 URL 中，但不会被包括在 HTTP 请求中，对服务端完全没有影响，因此改变 `Hash` 不会重新加载页面。该模式下仅 `Hash` 符号之前的内容会被包含在请求中，如 `www.xxx.com/#/xx` 只有 `www.xxx.com` 会被包含在请求中
-
-### 解决方案
-
-本质单页面应用就只有一个页面，路由则是通过 JS 来执行视图切换的，`History` 模式下去请求其他不存在的页面自然会报 404 问题。
-
-所以如果你的项目配置的是 `History` 模式下，所以进行以下的配置
-
-解决方案：就是在服务器进行配置，将任意页面都重定向到 `index.html` 文件，把路由交给前端处理
-
-以 Nginx 为例子，只需要修改它的配置文件。添加：`try_files $uri $uri/ /index.html;` 这么一条配置即可
-
-```ts
-server {
-  listen  80;
-  server_name  www.xxx.com;
-
-  location / {
-    index  /data/dist/index.html;
-    try_files $uri $uri/ /index.html;
-  }
-}
-```
-
-配置完毕后，重启 Nginx： `nginx -s reload`
-
-为了避免这种情况，你应该在 Vue 应用里面覆盖所有的路由情况，然后在给出一个 404 页面
-
-```ts
-const router = new VueRouter({
-  mode: "history",
-  routes: [
-    { path: "*", component: NotFoundComponent }, // 添加一条匹配404页面的路由
-  ],
-});
-```
 
 ## 18. Vue 项目是如何解决跨域的呢
 
@@ -480,41 +497,40 @@ KeepAlive 组件是 Vue 官方提供的一个内置组件，在开发过程中�
 
 ## 21. 关于首屏加载优化处理
 
-1. 压缩打包后文件体积
-2. 开启 GZIP 压缩（需要服务端支持）
-3. 常用包/库使用 CDN 链接加速
-4. 使用路由懒加载来实现动态加载组件
-5. 资源图片压缩或存放到本地
-6. 尽量使用支持按需导入的包和库
+1. 打包压缩文件、减少文件大小
+2. 开启GZIP压缩（需要服务端支持）
+3. 尽量使用支持TreeShaking的包和库
+4. 多使用路由懒加载和异步组件以及动态组件
+5. 资源图片的压缩、以及可配置CDN链接的包和库
 
 ## 22. 常见修饰符
 
 ### 事件修饰符
 
-`.stop` 阻止事件冒泡
-`.prevent` 阻止默认事件
-`.capture` 事件捕获
-`.self` 只有当事件是从侦听器绑定的元素本身触发时才触发回调
-`.once` 只触发一次事件
-`.passive` 用于提升性能，告诉浏览器你不需要阻止事件的默认行为
+- `.stop` 阻止事件冒泡
+- `.prevent` 阻止默认事件
+- `.capture` 事件捕获
+- `.self` 只有当事件是从侦听器绑定的元素本身触发时才触发回调
+- `.once` 只触发一次事件
+- `.passive` 用于提升性能，告诉浏览器你不需要阻止事件的默认行为
 
 ### 按键修饰符
 
-`.enter` 回车键
-`.tab` 制表键
-`.delete` (捕获“删除”和“退格”键)
-`.esc` ESC 键
-`.space` 空格键
-`.up` 向上箭头键
-`.down` 向下箭头键
-`.left` 向左箭头键
-`.right` 向右箭头键
+- `.enter` 回车键
+- `.tab` 制表键
+- `.delete` (捕获“删除”和“退格”键)
+- `.esc` ESC 键
+- `.space` 空格键
+- `.up` 向上箭头键
+- `.down` 向下箭头键
+- `.left` 向左箭头键
+- `.right` 向右箭头键
 
 ### 表单修饰符
 
-`.lazy` 在 `change` 事件中同步输入框的值
-`.number` 自动将用户的输入值转为 Number 类型
-`.trim` 自动过滤用户输入的首尾空格
+- `.lazy` 在 `change` 事件中同步输入框的值
+- `.number` 自动将用户的输入值转为 Number 类型
+- `.trim` 自动过滤用户输入的首尾空格
 
 ## 23. Composition API 相对于 Options API 的优势
 
