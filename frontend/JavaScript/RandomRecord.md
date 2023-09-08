@@ -268,9 +268,9 @@ console.log("script end");
 
 ## 7. JavaScript 作用域
 
-:::tip
-静态作用域：静态作用域又叫词法作用域，JavaScript 就是静态作用域
-:::
+**静态作用域**：静态作用域又叫词法作用域，JavaScript 就是静态作用域
+
+:::details 静态作用域
 
 ```js
 var x = 10;
@@ -288,11 +288,13 @@ function g() {
 console.log(g());
 ```
 
+:::
+
 上述代码中，函数 f 返回的 x 是外层定义的 x，也就是 10，我们调用 g 的时候，虽然 g 里面也有个变量 x，但是在这里我们并没有用它，用的是 f 里面的 x。也就是说我们调用一个函数时，如果这个函数的变量没有在函数中定义，就去定义该函数的地方查找，这种查找关系在我们代码写出来的时候其实就确定了，所以叫静态作用域
 
-:::tip
-变量提升：在 ES6 之前，我们申明变量都是使用 var，使用 var 申明的变量都是函数作用域，即在函数体内可见，这会带来变量提升的问题（即变量声明提前）
-:::
+**变量提升**：在 ES6 之前，我们申明变量都是使用 `var`，使用 `var` 声明的变量都是函数作用域，即在函数体内均可用，这会带来变量提升的问题（即变量声明提前）
+
+:::details 变量提升
 
 ```js
 var x = 1;
@@ -302,7 +304,7 @@ function f() {
   console.log(x); // 2
 }
 f();
-// 上面代码相当于如下代码：
+/** ------上面代码相当于如下代码------ **/
 var x = 1;
 function f() {
   var x;
@@ -313,11 +315,13 @@ function f() {
 f();
 ```
 
+:::
+
 在函数体内部使用了关键字`var`声明变量 x。所以它其实在整个函数内部可见，也就是说，变量 x 的声明相当于提前到了函数内部的最开始地方，但是变量赋值还是在运行的`x = 2`地方执行。所以第一个输出 `undefined`，第二个输出 `2`
 
-:::tip
-函数提升：和变量提升同理
-:::
+**函数提升**：和变量提升同理
+
+:::details 函数提升
 
 ```js
 function f() {
@@ -328,7 +332,7 @@ function f() {
   }
 }
 f();
-// 上面代码相当于如下代码：
+/** ------上面代码相当于如下代码------ **/
 function f() {
   function x() {
     console.log(1);
@@ -338,7 +342,11 @@ function f() {
 f();
 ```
 
+:::
+
 注意：将上面的 `x` 函数换成函数表达式就不行了，会报错
+
+:::details 函数提升
 
 ```js
 function f() {
@@ -348,7 +356,7 @@ function f() {
   };
 }
 f();
-// 上面代码相当于如下代码：
+/** ------上面代码相当于如下代码------ **/
 function f() {
   var x;
   // 此时的x是undefined，但是你将它当中函数调用。所以它会报错
@@ -361,58 +369,47 @@ function f() {
 f();
 ```
 
-:::tip
-变量声明和函数声明的优先级谁更高？（如果有二个名称相同的变量和函数，谁优先级谁更高）
-
-答案是：函数声明的优先级更高
 :::
 
+:::details 变量声明和函数声明的优先级谁更高？（如果有二个名称相同的变量和函数，谁优先级谁更高）
+
 ```js
+// 答案是：函数声明的优先级更高
 var x = 1;
 function x() {}
 // 所以说是想声明了函数再声明了变量，从而覆盖了函数的声明
 console.log(x); // 1
 ```
 
-:::warning
-参考文章：
-
-https://blog.csdn.net/dennis_jiang/article/details/106157904
 :::
+
+:::details 为什么会存在变量声明和函数声明？
+
+在 JavaScript 有存在预编译的概念
+
+:::
+
+- 参考文章：https://blog.csdn.net/dennis_jiang/article/details/106157904
 
 ## 8. JavaScript 预编译是什么
 
-:::tip 介绍
-
 JavaScript 代码是由浏览器的 JS 解析器执行的。解析器在执行过程时分为两步：**预编译和代码执行**
 
-预编译的概念：在当前作用域下，JS 代码执行前，浏览器会默认将带有 `var` 和 `function` 声明的变量和函数在内存中提前声明和定义。
+预编译的概念：在当前作用域下，JS 代码执行前，浏览器会默认将带有 `var` 和 `function` 声明的变量和函数在内存中提前声明和定义
 
-因此也有了变量提升和函数提升的概念。
+因此也有了变量提升和函数提升的概念，优先级：函数提升 > 变量提升
 
-优先级：函数提升 > 变量提升
-
-也就是说同样一个名称的函数和变量，函数会优先被声明，变量则会在后续声明，从而会覆盖声明的函数。
-
-:::
+也就是说同样一个名称的函数和变量，函数会优先被声明，变量则会在后续声明，从而会覆盖声明的函数
 
 ## 9. 原型与原型链
 
 原型 `Prototype` 就是一个普通对象。它是为构造函数的实例共享属性和方法，所有实例中引用的原型都是同一个对象
 
-:::tip
-
-必须知道的点：
-
-1. 所有的构造函数都是通过 Function 创建的
-2. 所以的对象都是通过 new 实例化出来的
-3. 所有的函数都是对象
-
-`prototype` -> 原型：本质就是一个对象
-
-`__proto__` -> 原型链（形成原型链的一个桥节点）
-
-:::
+- 所有的构造函数都是通过 Function 创建的
+- 所以的对象都是通过 New 实例化出来的
+- 所有的函数都是对象
+- `prototype` -> 原型：本质就是一个对象
+- `__proto__` -> 原型链（形成原型链的一个桥节点）
 
 ### 原型与原型链的总结
 
@@ -442,7 +439,7 @@ console.log(Object.prototype.__proto__); // null
 ```js
 test: {
   __proto__: Test.prototype = {
-    __proto: (Object.prototype = {
+    __proto__: (Object.prototype = {
       __proto__: null,
     }),
   };
@@ -481,56 +478,46 @@ console.log(Object.__proto__ === Function.__proto__); // true
 总结：
 
 1. 在 JS 中万物皆对象
-
 2. 所有构造函数都是通过 `new Function()` 构造出来
-
-3. `object.__proto__ === object.contructor.prototype`
+3. `Object.__proto__ === Object.constructor.prototype`
 
 ## 10. `slice` 和 `splice` 分别是干嘛的
 
-:::tip
-slice 用来截取数组中某段片段，返回一个新的数组
+`slice` 截取数组中某段片段，然后返回一个新的数组（切片）
 
-```ts
-[1, 2, 3, 4, 5, 6]
-  .slice(1, 3) // [2,3]
-  [(1, 2, 3, 4, 5, 6)].slice(2) // [3,4,5,6]
-  [(1, 2, 3, 4, 5, 6)].slice(-2); // [5,6]
+```js
+const arr = [1, 2, 3, 4, 5, 6];
+
+arr.slice(1, 3); // [2, 3]
+arr.slice(2); // [3, 4, 5, 6]
+arr.slice(-2); // [5, 6]
 ```
 
-splice 用来删除元素或添加数组元素，返回删除的数组，会改变原数组
+`splice` 用来删除元素或添加数组元素，返回删除的数组，会改变原数组（拼接）
 
-`Array.prototype.splice(index, many, ...items)`
+- `Array.prototype.splice(index, many, ...items)`
+- `index` 要从哪里开始删除元素
+- `many` 删除多少个元素
+- `items` 插入的到数组的元素
 
-1. index 要从哪里开始删除元素
+```js
+const arr = [1, 2, 3, 4, 5, 6];
 
-2. many 删除多少个元素
-
-3. items 添加到数组的元素
-
-```ts
-[1, 2, 3, 4, 5, 6]
-  .splice(1, 1) // [1,3,4,5,6]
-  [(1, 2, 3, 4, 5, 6)].splice(1, 0) // [1,2,3,4,5,6]
-  [(1, 2, 3, 4, 5, 6)].splice(1, 0, 7, 8, 9); // [1,7,8,9,2,4,5,6]
+arr.splice(1, 1); // [1, 3, 4, 5, 6]
+arr.splice(1, 0); // [1, 2, 3, 4, 5, 6]
+arr.splice(1, 0, 7, 8, 9); // [1, 7, 8, 9, 2, 4, 5, 6]
 ```
-
-:::
 
 ## 11. 实现数组去重的方式
 
 ### 第一种：`Array.from()` 和 `Set`
 
-:::tip 介绍
-Set： 允许你存储任何类型的唯一值，无论是原始值或者是对象引用
-
-`Array.from()`：对一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例
-:::
+- `Set` 允许你存储任何类型的唯一值，无论是原始值或者是对象引用
+- `Array.from()` 对一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例
 
 ```ts
 const array = [12, 24, 30, 12, 31, 24, "你好", "天气", "你好"];
-// 去重操作
-const clearRepeat = (array: Array<unknow>) => Array.from(new Set(array)); // [12, 24, 30, 31, '你好', '天气']
+const clearRepeat = (array) => Array.from(new Set(array)); // [12, 24, 30, 31, '你好', '天气']
 ```
 
 ### 第二种：使用 `includes()` 去重操作
@@ -572,31 +559,37 @@ const clearRepeat = (arr) => {
 console.log(clearRepeat(array));
 ```
 
+### 第四种：`filter` 过滤
+
+```ts
+function clearRepeat(arr) {
+  return arr.filter((item, index) => arr.indexOf(item) === index);
+}
+
+const arr = [1, 2, 3, 4, 4, 5];
+const uniqueArr = clearRepeat(arr);
+console.log(uniqueArr); // 输出：[1, 2, 3, 4, 5]
+```
+
 ## 12. 函数内部 this 指向
 
-:::tip 介绍
-函数的`this`在调用绑定时，完全取决于函数的调用位置。谁调用函数就指向谁。
+函数的 `this` 在调用绑定时，完全取决于函数的调用位置。谁调用函数就指向谁
 
-参考文章：https://juejin.cn/post/6844903746984476686#heading-0
-:::
+- 参考文章：https://juejin.cn/post/6844903746984476686#heading-0
 
 ## 13. new 操作符具体做了什么
 
-:::tip 介绍
-
 1. 创建了一个空对象
-2. 将空对象的`__proto__` 指向于构造函数的`prototype`原型
+2. 将空对象的 `__proto__` 指向于构造函数的 `prototype` 原型
 3. 执行这个函数并且使用`apply`改变函数的 this 指向。将空对象作为构造函数的上下文（改变 this 指向）
 4. 对构造函数有返回值的处理判断（默认返回 this）
 
-:::
-
 ```ts
 function Foo() {
+  // return this 默认
+  // return 11 如果返回值是基础数据类型，则会忽略，返回 this
+  // return {test: '引用类型'} 如果返回值的是引用类型，则构造出来的对象就变成返回的引用数据
   this.name = "张三";
-  // return this // 默认
-  // return 11; // 如果返回值是基础数据类型，则会忽略，返回 this
-  // return {test: '引用类型'} // 如果返回值的是引用类型，则构造出来的对象就变成返回的引用数据
 }
 const foo = new Foo();
 console.log(foo);
@@ -617,7 +610,8 @@ Function.createInstance = function (fn, ...rest) {
   const obj = {};
   // 2. 将空对象的`__proto__` 指向于构造函数的`prototype`原型
   obj.__proto__ = fn.prototype;
-  // 3. 执行这个函数并且使用`apply`改变函数的 this 指向。将空对象作为构造函数的上下文（改变 this 指向）
+  // 3. 执行这个函数并且使用`apply`改变函数的 this 指向
+  // 将空对象作为构造函数的上下文（改变 this 指向）
   const result = fn.apply(obj, rest);
   // 4. 对构造函数有返回值的处理判断（默认返回 this）
   // 如果构造函数 return 的是一个基础数据类型 就默认返回 this
@@ -631,15 +625,12 @@ Function.createInstance(Cat, "小皮", 2);
 
 ## 14. `call`、`apply`、`bind` 的区别
 
-:::tip 介绍
+作用：都是用来修改函数的 this 指向的
 
-共同点：修改函数内部的 this 指向
 区别：
 
-1. call、apply 会立即执行。bind 不会立即执行，因为 bind 返回的是一个函数
-2. 参数的传递：apply 第二个参数是数组. call、bind 有多少个参数就写多少个
-
-:::
+- `call`、`apply` 是立即执行，`bind` 不会立即执行，而是返回一个函数
+- `apply` 第二个参数是数组. `call`、`bind` 有多少个参数就写多少个
 
 ```ts
 var str = "你好";
@@ -718,9 +709,9 @@ JavaScript 中存在两大数据类型：基本类型、引用类型
 
 ### 浅拷贝、深拷贝
 
-**浅拷贝**：创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝。如果属性是基本类型，拷贝的就是基本类型的值。如果属性是引用类型，拷贝的就是内存地址。
+**浅拷贝**：创建一个新对象，这个对象有着原始对象属性值的一份精确拷贝。如果属性是基本类型，拷贝的就是基本类型的值。如果属性是引用类型，拷贝的就是内存地址
 
-**深拷贝**：是将一个对象从内存中完整的拷贝一份出来,从堆内存中开辟一个新的区域存放新对象,且**修改新对象不会影响原对象**。
+**深拷贝**：是将一个对象从内存中完整的拷贝一份出来，从堆内存中开辟一个新的区域存放新对象，且**修改新对象不会影响原对象**
 
 ### 浅拷贝的实现方式
 
@@ -730,30 +721,30 @@ JavaScript 中存在两大数据类型：基本类型、引用类型
 
 `JSON.parse(JSON.stringify())`
 
-这也是利用 JSON.stringify 将对象转成 JSON 字符串，再用 JSON.parse 把字符串解析成对象，一去一来，新的对象产生了，而且对象会开辟新的栈，实现深拷贝。**这种方法虽然可以实现数组或对象深拷贝,但不能处理函数和正则**,因为基于它处理后得到的正则不再是正则（变为空对象），得到的函数就不再是函数（变为 null）了
+这也是利用 JSON.stringify 将对象转成 JSON 字符串，再用 JSON.parse 把字符串解析成对象，一去一来，新的对象产生了，而且对象会开辟新的栈，实现深拷贝。**这种方法虽然可以实现数组或对象深拷贝,但不能处理函数和正则**，因为基于它处理后得到的正则不再是正则（变为空对象），得到的函数就不再是函数（变为 null）了
 
 ### 手写深拷贝
 
 递归方法实现深度克隆原理：**遍历对象、数组直到里边都是基本数据类型，然后再去复制，就是深度拷贝**
 
-```ts
-function deepClone(targetObj, hash = new WeakMap()) {
-  if (targetObj === null) return targetObj; // 如果是 null 就不进行拷贝操作
-  if (targetObj instanceof Date) return new Date(targetObj);
-  if (targetObj instanceof RegExp) return new RegExp(targetObj);
-  if (typeof targetObj !== "object") return targetObj; // 是基本数据类型
-  // 如果对象属性引用的targetObj自己的情况下，就会出现无限递归的情况
-  if (hash.has(targetObj)) return has.get(targetObj);
-  // 创建目标对象的构造函数创建对象
-  const cloneObj = new targetObj.constructor();
-  // 将每次进行克隆的targetObj和cloneObj进行一个记录
-  hash.set(targetObj, cloneObj);
-  for (let key in targetObj) {
-    if (targetObj.hasOwnProperty(key)) {
-      cloneObj[key] = deepClone(targetObj[key], hash);
-    }
+```js
+function deepClone(targetValue, hash = new WeakMap()) {
+  // 基本数据类型
+  if (typeof targetValue !== "object") return targetValue;
+
+  // 特殊情况
+  if (targetValue instanceof Date) return new Date(targetValue);
+  if (targetValue instanceof RegExp) return new RegExp(targetValue);
+
+  // 如果对象属性引用的targetValue本身的情况下，就会出现无限递归的情况
+  if (hash.has(targetValue)) return has.get(targetValue);
+
+  const cloneValue = new targetValue.constructor();
+  hash.set(targetValue, cloneValue);
+  for (let key in targetValue) {
+    cloneValue[key] = deepClone(targetValue[key], hash);
   }
-  return cloneObj;
+  return cloneValue;
 }
 ```
 
@@ -769,48 +760,23 @@ console.log(d);
 
 ## 16. `var、const、let` 的区别
 
-:::tip
-
 1. 使用 `var` 声明的变量存在变量提升的机制，`const、let` 则不存在这个机制了
-
 2. `const` 声明的变量不可以被再次赋值
-
 3. ES5 之前没有块级作用域的概念、ES6 之后 `const、let` 声明的变量有块级作用域了
-
-:::
 
 ## 17. 函数节流和防抖
 
 **节流和防抖函数**是前端性能优化的知识，在实际开发中遇到的情况相当高
 
-:::tip 节流函数
-节流的含义就是在函数执行一次后，该函数在指定时间内期限内不在工作，直到过了这段时间才能重新生效。就想水库的水阀一样只需要在指定时间打开即可
+**节流函数**：在函数执行一次后，该函数在指定时间内期限内不在工作，直到过了这段时间才能重新生效。就想水库的水阀一样只需要在指定时间打开即可
 
-例子：页面滚动事件，如果不进行设置的话滚动事件执行次数非常高。通过节流函数则可以减少滚动事件执行次数
-:::
+- 例子：页面滚动事件，如果不进行设置的话滚动事件执行次数非常高。通过节流函数则可以减少滚动事件执行次数
 
-:::tip 防抖函数
-防抖的含义就是让事件延迟执行，事件处理函数只执行一次
+**防抖函数**：就是让事件延迟执行，处理函数只执行一次
 
-例子：根据 Input 输入框的输入内容进行某种搜索，通常需要使用到防抖函数。只获取用户最后一次输出的整体内容再进行搜索。事件函数只用执行一次即可
-:::
+- 例子：根据 Input 输入框的输入内容进行某种搜索，通常需要使用到防抖函数。只获取用户最后一次输出的整体内容再进行搜索。事件函数只用执行一次即可
 
 **函数的实现**
-
-```ts
-/**
- * 防抖函数
- * @param callback
- * @param delay （单位：毫秒）
- */
-export default function useDebounce(callback: Function, delay: number) {
-  let timer: any = null;
-  return function (this: unknown, ...rest: unknown[]) {
-    if (timer) clearTimeout(timer);
-    timer = setTimeout(callback.apply(this, rest), delay);
-  };
-}
-```
 
 ```ts
 /**
@@ -829,6 +795,21 @@ export default function useThrottle(callback: Function, delay: number) {
       record = Date.now();
       return callback.apply(context, args);
     }
+  };
+}
+```
+
+```ts
+/**
+ * 防抖函数
+ * @param callback
+ * @param delay （单位：毫秒）
+ */
+export default function useDebounce(callback: Function, delay: number) {
+  let timer: any = null;
+  return function (this: unknown, ...rest: unknown[]) {
+    if (timer) clearTimeout(timer);
+    timer = setTimeout(callback.apply(this, rest), delay);
   };
 }
 ```
