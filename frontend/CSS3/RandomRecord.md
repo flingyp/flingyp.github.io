@@ -219,7 +219,7 @@ CSS 的特性：层叠性、继承性、优先级
 </div>
 ```
 
-#### 方法二：position + transfrom （元素宽高可以未知）
+#### 方法二：position + transform （元素宽高可以未知）
 
 > 如果元素未知宽度，只需将方法一中的 margin-left: -50px; margin-top: -50px; 替换为：transform: translate(-50%,-50%);
 
@@ -249,9 +249,12 @@ CSS 的特性：层叠性、继承性、优先级
 
 #### 方法三： flex 布局
 
-> 给父元素添加这三条代码即可 `display: flex;` flex 布局 `justify-content: center;` 使子项目水平居中 `align-items: center;` 使子项目垂直居中
+1. 给父元素添加这三条代码即可 `display: flex;` flex 布局 `justify-content: center;` 使子项目水平居中 `align-items: center;` 使子项目垂直居中
+
+2. 给父元素设置 `display: flex;`，给子元素直接设置 `margin: auto;`（在 flex 格式化上下文中，设置了 margin: auto 的元素，在通过 justify-content 和 align-self 进行对齐之前，任何正处于空闲的空间都会分配到该方向的自动 margin 中去）
 
 ```css
+/** 方式一 */
 #box {
   width: 500px;
   height: 500px;
@@ -264,6 +267,20 @@ CSS 的特性：层叠性、继承性、优先级
   width: 100px;
   height: 100px;
   border: 1px solid #e74c3c;
+}
+
+/** 方式二 */
+#box {
+  width: 500px;
+  height: 500px;
+  border: 1px solid #2980b9;
+  display: flex;
+}
+.child-1 {
+  width: 100px;
+  height: 100px;
+  border: 1px solid #e74c3c;
+  margin: auto;
 }
 ```
 
@@ -293,7 +310,7 @@ div:after {
 }
 ```
 
-## 11. 如何实现左侧固定宽度，右侧自适应布局
+## 11. 左侧固定宽度，右侧自适应布局
 
 ### 第一种
 
@@ -350,9 +367,9 @@ div:after {
 }
 ```
 
-## 12. 如何实现左右固定，中间自适应布局
+## 12. 双飞翼布局（圣杯布局）
 
-### 第一种
+双飞翼布局左中右三列布局，渲染顺序中间列书写在前保证提前渲染，左右两列定宽，中间列自适应剩余宽度
 
 Flex 布局
 
@@ -361,46 +378,35 @@ Flex 布局
   display: flex;
 }
 
-.left {
-  flex-basis: 300px;
-  flex-shrink: 0;
-}
-
+.left,
 .right {
   flex-basis: 300px;
-  flex-shrink: 0;
+  flex-shrink: 0; /** 不缩放 */
 }
-
 .main {
-  flex-grow: 1;
+  flex-grow: 1; /** 在主轴上放大 */
 }
 ```
-
-### 第二种
 
 Grid 网格布局
 
 ```css
 .container {
-  height: 20rem;
-  margin: 2rem;
   background-color: #eeeeee;
+  height: 20rem;
   display: grid;
+  /** 固定三列 */
   grid-template-columns: 300px 1fr 300px;
 }
 
-.left {
-  height: 100%;
-  border: 1px solid black;
-}
-
-.main {
-  height: 100%;
-}
-
+.left,
 .right {
   height: 100%;
-  border: 1px solid;
+  background: lightsalmon;
+}
+.main {
+  height: 100%;
+  background: pink;
 }
 ```
 

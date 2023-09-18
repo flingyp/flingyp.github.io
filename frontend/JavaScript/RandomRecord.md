@@ -1,6 +1,6 @@
 # JavaScript 杂记
 
-## 0. JavaScript 是由哪几部分组成的？
+## JavaScript 是由哪几部分组成的？
 
 JavaScript 由 ECMAScript、DOM、BOM 组成
 
@@ -8,7 +8,7 @@ JavaScript 由 ECMAScript、DOM、BOM 组成
 - DOM：文档对象模型，提供访问和操作网页内容的方法和接口
 - BOM：浏览器对象模型，提供与浏览器交互的方法和接口
 
-## 1. 什么是闭包？为什么要用闭包？
+## 什么是闭包？为什么要用闭包？
 
 执行上下文（执行环境）：全局环境（全局作用域）、函数环境（函数作用域）
 
@@ -55,7 +55,7 @@ for (var i = 0; i < 4; i++) {
 }
 ```
 
-## 2. 延迟加载 JS 方式有哪些？
+## 延迟加载 JS 方式有哪些？
 
 一般 HTML 文件当中的 `script` 脚本引入我们会放置在 `body` 的下面，以确保浏览器优先加载 DOM
 
@@ -73,7 +73,7 @@ for (var i = 0; i < 4; i++) {
 
 :::
 
-## 3. JavaScript 数据类型有哪些？
+## JavaScript 数据类型有哪些？
 
 基本数据类型：Number、String、Boolean、Undefined、Null、Symbol（ES6+）
 
@@ -91,7 +91,7 @@ console.log(typeof ("name" + true)); // string
 console.log(undefined + 1); // NaN
 ```
 
-## 4. null 和 undefined 的区别？
+## null 和 undefined 的区别？
 
 JavaScript 在最初设计的时候，参考了 Java 语言，所以有了 Null。而 `null` 会被隐式转换成 0，不容易发现错误，所以为了弥补这个坑，出现了 `undefined`
 
@@ -111,7 +111,7 @@ Number(null); // 0
 Number(undefined); // NaN
 ```
 
-## 5. == 和 === 的区别
+## == 和 === 的区别
 
 **等于操作符**：在 `JavaScript` 中存在隐式转换。等于操作符 == 在比较中会先进行类型转换，再确定值是否相等
 
@@ -143,7 +143,7 @@ console.log(obj1 == obj2); // false
 
 **全等操作符**：由 3 个等于号 `===` 表示，只用在两个操作数在不转换的前提下相等才返回 `true`。即类型相同，值也要相同
 
-## 6. 对事件循环的理解
+## 对事件循环的理解
 
 首先，`JavaScript` 是一门单线程的语言，意味着同一时间内只能做一件事，但是这并不意味着单线程就是阻塞，而实现单线程非阻塞的方法就是事件循环
 
@@ -266,7 +266,7 @@ console.log("script end");
 
 :::
 
-## 7. JavaScript 作用域
+## JavaScript 作用域
 
 **静态作用域**：静态作用域又叫词法作用域，JavaScript 就是静态作用域
 
@@ -391,7 +391,7 @@ console.log(x); // 1
 
 - 参考文章：https://blog.csdn.net/dennis_jiang/article/details/106157904
 
-## 8. JavaScript 预编译是什么
+## JavaScript 预编译是什么
 
 JavaScript 代码是由浏览器的 JS 解析器执行的。解析器在执行过程时分为两步：**预编译和代码执行**
 
@@ -401,7 +401,7 @@ JavaScript 代码是由浏览器的 JS 解析器执行的。解析器在执行�
 
 也就是说同样一个名称的函数和变量，函数会优先被声明，变量则会在后续声明，从而会覆盖声明的函数
 
-## 9. 原型与原型链
+## 原型与原型链
 
 原型 `Prototype` 就是一个普通对象。它是为构造函数的实例共享属性和方法，所有实例中引用的原型都是同一个对象
 
@@ -481,7 +481,7 @@ console.log(Object.__proto__ === Function.__proto__); // true
 2. 所有构造函数都是通过 `new Function()` 构造出来
 3. `Object.__proto__ === Object.constructor.prototype`
 
-## 10. `slice` 和 `splice` 分别是干嘛的
+## `slice` 和 `splice` 分别是干嘛的
 
 `slice` 截取数组中某段片段，然后返回一个新的数组（切片）
 
@@ -508,7 +508,7 @@ arr.splice(1, 0); // [1, 2, 3, 4, 5, 6]
 arr.splice(1, 0, 7, 8, 9); // [1, 7, 8, 9, 2, 4, 5, 6]
 ```
 
-## 11. 实现数组去重的方式
+## 实现数组去重的方式
 
 ### 第一种：`Array.from()` 和 `Set`
 
@@ -571,13 +571,13 @@ const uniqueArr = clearRepeat(arr);
 console.log(uniqueArr); // 输出：[1, 2, 3, 4, 5]
 ```
 
-## 12. 函数内部 this 指向
+## 函数内部 this 指向
 
 函数的 `this` 在调用绑定时，完全取决于函数的调用位置。谁调用函数就指向谁
 
 - 参考文章：https://juejin.cn/post/6844903746984476686#heading-0
 
-## 13. new 操作符具体做了什么
+## new 操作符具体做了什么
 
 1. 创建了一个空对象
 2. 将空对象的 `__proto__` 指向于构造函数的 `prototype` 原型
@@ -623,7 +623,7 @@ Function.createInstance = function (fn, ...rest) {
 Function.createInstance(Cat, "小皮", 2);
 ```
 
-## 14. `call`、`apply`、`bind` 的区别
+## `call`、`apply`、`bind` 的区别
 
 作用：都是用来修改函数的 this 指向的
 
@@ -702,7 +702,7 @@ Function.prototype.myBind = function () {
 fun.myBind(person, "张三", 20)();
 ```
 
-## 15. 深拷贝和浅拷贝
+## 深拷贝和浅拷贝
 
 JavaScript 中存在两大数据类型：基本类型、引用类型
 
@@ -760,13 +760,13 @@ obj.address.x = 200;
 console.log(d);
 ```
 
-## 16. `var、const、let` 的区别
+## `var、const、let` 的区别
 
 1. 使用 `var` 声明的变量存在变量提升的机制，`const、let` 则不存在这个机制了
 2. `const` 声明的变量不可以被再次赋值
 3. ES5 之前没有块级作用域的概念、ES6 之后 `const、let` 声明的变量有块级作用域了
 
-## 17. 函数节流和防抖
+## 函数节流和防抖
 
 **节流和防抖函数**是前端性能优化的知识，在实际开发中遇到的情况相当高
 
@@ -816,7 +816,7 @@ export default function useDebounce(callback: Function, delay: number) {
 }
 ```
 
-## 18. 函数柯里化的使用
+## 函数柯里化的使用
 
 - 柯里化通常称作为部分求值，其含义是给函数分步传递参数
 - 每次传递参数进行处理，并返回一个更具体的函数接受剩下的参数 
@@ -848,7 +848,7 @@ currying(sumFn)(1, 2)(3, 4)(5)(); // 15
 currying(sumFn)(1)(2, 3, 4, 5)(6)(); // 21
 ```
 
-## 19. JavaScript 中数组的方法总结
+## JavaScript 中数组的方法总结
 
 - [concat(...valueN)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/concat)：用于合并两个或多个数组。不会改变现有数组，而是返回一个新数组。（可以合并数组或值）
 - [entries()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/entries)：用于返回一个新的数组迭代器对象。该对象包含数组中每个索引的建/值对
@@ -878,7 +878,7 @@ currying(sumFn)(1)(2, 3, 4, 5)(6)(); // 21
 - [splice(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/splice)：通过删除或替换现有元素或者原地添加新的元素来修改数组，并以数组形式返回被修改的内容。此方法会改变原数组
 - [sort(start，number, item1, item2, ...)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)：数组排序
 
-## 20. 浏览器几种存储方式的的区别
+## 浏览器几种存储方式的的区别
 
 Cookie 是属于文档对象模型 DOM 的一部分，而`SessionStorage`、`LocalStorage`是属于浏览器对象模型 BOM 的一部分
 
@@ -897,7 +897,7 @@ Cookie 是属于文档对象模型 DOM 的一部分，而`SessionStorage`、`Loc
 2. 数据有效期不同
 3. 作用域不同：SessionStorage 不在不同的浏览器页面中共享，即使是同一个页面。LocalStorage 在所有同源窗口中都是共享的。Cookie 也是在所有同源窗口中都是共享的
 
-## 21. JavaScript 中判断变量类型的方法总结
+## JavaScript 中判断变量类型的方法总结
 
 - [推荐文章](https://blog.csdn.net/haotian1997/article/details/114577180?spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-114577180-blog-106403998.t5_layer_eslanding_A_0&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7ECTRLIST%7ERate-1-114577180-blog-106403998.t5_layer_eslanding_A_0&utm_relevant_index=1)
 
@@ -974,13 +974,13 @@ Object.prototype.toString.call(document); // [object HTMLDocument]
 Object.prototype.toString.call(window); //[object global] window是全局对象global的引用
 ```
 
-## 22. 如何阻止事件冒泡和默认事件
+## 如何阻止事件冒泡和默认事件
 
 标准的 DOM 对象中使用事件对象的 `event.stopPropagation()` 方法来阻止事件冒泡，但是在 IE8 以下需要通过设置事件对象的 `cancelBubble` 属性为 `true` 来阻止冒泡
 
 默认事件可以通过事件对象的 `event.preventDefault()` 方法来阻止，而 IE 则需要设置 `event.returnValue` 属性为 `false` 来阻止默认事件
 
-## 23. 简述输入网址到浏览器显示的过程
+## 简述输入网址到浏览器显示的过程
 
 1. **解析 URL**：首先会对 URL 进行解析，分析所需要使用的传输协议和请求的资源的路径。如果输入的 URL 中的协议或者主机名不合法，将会把地址栏中输入的内容传递给搜索引擎。如果没有问题，浏览器会检查 URL 中是否出现了非法字符，如果存在非法字符，则对非法字符进行转义后再进行下一过程。
 
@@ -998,12 +998,12 @@ Object.prototype.toString.call(window); //[object global] window是全局对象g
 
 8. **TCP 四次挥手**：最后一步是 TCP 断开连接的四次挥手过程。若客户端认为数据发送完成，则它需要向服务端发送连接释放请求。服务端收到连接释放请求后，会告诉应用层要释放 TCP 链接。
 
-## 24. JSONP 的实现原理
+## JSONP 的实现原理
 
 JSONP 的原理是使用 `script` 标签来实现跨域，因为 `script` 标签的的 `src` 属性是不受同源策略的影响的，因此可以使用其来跨域。
 一个最简单的 `JSONP` 就是创建一个 `script` 标签，设置相应的 `URL`，在 `URL` 之后添加相应的 `callback`，格式类似于 `url?callback=xxx`，服务端根据我们的 `callback` 来返回相应的数据，类似于 `res.send(req.query.callback + '('+ data + ')')`，这样就实现了一个最简单的 `JSONP`
 
-## 25. 手写模板字符串的实现
+## 手写模板字符串的实现
 
 ```ts
 const str = "Hello ${key} World ${name} 基础数据类型777";
@@ -1017,7 +1017,7 @@ String.prototype.template = function (params) {
 str.template({ key: "唯一", name: "模板字符串" });
 ```
 
-## 26. 实现 `instanceof`
+## 实现 `instanceof`
 
 原理：`instanceof` 用于检测构造函数的 `prototype` 属性是否出现在某个实例对象的原型链上
 
@@ -1041,7 +1041,7 @@ function myInstanceOf(targetObj, targetConstructor) {
 }
 ```
 
-## 27. 实现 Promise 基本功能和相关 API
+## 实现 Promise 基本功能和相关 API
 
 ```ts
 class Promise {
@@ -1221,7 +1221,7 @@ class Promise {
 }
 ```
 
-## 28. 什么是跨域？如何处理跨域？
+## 什么是跨域？如何处理跨域？
 
 :::tip
 同源策略：只有 协议、域名、端口 一致才是同源的
@@ -1238,7 +1238,7 @@ class Promise {
 
 :::
 
-## 29. this 的指向包括哪几种
+## this 的指向包括哪几种
 
 :::tip
 
@@ -1249,7 +1249,7 @@ class Promise {
 - 在箭头函数中，this 的指向是由外层（函数或全局）作用域决定的
   :::
 
-## 30. JSON.stringify() 有什么缺点
+## JSON.stringify() 有什么缺点
 
 1. 如果有属性是 Date 类型的，则通过 `JSON.stringify()` 后在 `JSON.parse()` 得到的结果不再是 Date 类型，而是字符串类型了
 
@@ -1263,7 +1263,7 @@ class Promise {
 
 6. 如果对象中存在循环引用的情况也无法正确实现深拷贝；
 
-## 31. ESM 和 Commonjs 的导入导出有什么区别
+## ESM 和 Commonjs 的导入导出有什么区别
 
 :::tip
 Commonjs 模块输出的是值拷贝。也就是说，一旦输出一个值，模块内部的变化不会影响这个值。
@@ -1271,7 +1271,7 @@ Commonjs 模块输出的是值拷贝。也就是说，一旦输出一个值，�
 ESM 模块导入导出则是动态引用，并且不会缓存，模块里面的变量绑定的所有模块都是动态去加载值，并且不能重新赋值。
 :::
 
-## 32. 求和 1 - 100
+## 求和 1 - 100
 
 ```ts
 // 使用递归
@@ -1299,7 +1299,7 @@ function add(start, end) {
 console.log(add(1, 100)); // 5050
 ```
 
-## 33. `scrollWidth`、`clientWidth`、`offsetWidth` 的区别
+## `scrollWidth`、`clientWidth`、`offsetWidth` 的区别
 
 :::tip
 scrollWidth：DOM 对象的实际内容宽度，不包括滚动条边线宽度，会随着对象中内容超过可视区后而变大
@@ -1318,7 +1318,7 @@ offsetWidth = width（可视区宽度（width + Padding））+ border
 
 :::
 
-## 34. 手写 Flat 扁平化数组
+## 手写 Flat 扁平化数组
 
 ```ts
 const arr = [
@@ -1382,7 +1382,7 @@ console.log(myFlat());
 console.log(myFlat(arr, 2));
 ```
 
-## 35. JavaScript 字符串的方法总结
+## JavaScript 字符串的方法总结
 
 :::tip
 `String.prototype.charAt(index)`：返回字符串中指定下标的字符
@@ -1423,7 +1423,7 @@ console.log(myFlat(arr, 2));
 
 :::
 
-## 36. Ajax 原生基本使用
+## Ajax 原生基本使用
 
 `Ajax` 全称 `Async JavaScript And XML`， 是一种创建交互式用于的网页开发技术，可以在不加载整个网页的情况下，与服务器交换数据，并且更新部分网页内容
 
@@ -1489,7 +1489,7 @@ myAjax({
 });
 ```
 
-## 37. BOM 的理解，常用的 BOM 对象
+## BOM 的理解，常用的 BOM 对象
 
 `BOM` 全称 `Browser Object Model` 浏览器对象模型，提供了与浏览器进行交互的对象
 
@@ -1529,7 +1529,7 @@ BOM 的核心对象就是 `window`，具有双重角色，即是浏览器的一�
 - `history.back()` 向后跳转一个页面
 - `history.length()` 获取历史记录数
 
-## 38. DOM 常见操作
+## DOM 常见操作
 
 文档对象模型
 
@@ -1574,7 +1574,7 @@ document.style.color = "#ff0000"; // 设置CSS
 
 - `removeChild()` 删除一个节点，首先要获得该节点本身以及它的父节点，然后，调用父节点的 removeChild 把自己删掉
 
-## 39. 什么是事件监听
+## 什么是事件监听
 
 首先需要区别清楚事件监听和事件监听器
 
@@ -1597,7 +1597,7 @@ useCapture：默认值为 false，表示事件冒泡。当设置为 true 时，�
 
 事件委托机制：就是利用了捕获、冒泡的原理。只指定一个事件处理程序，就可以管理某一类型的所有事件。
 
-## 40. 解释下什么是事件委托？以及它的应用场景？
+## 解释下什么是事件委托？以及它的应用场景？
 
 ### 是什么
 
@@ -1676,7 +1676,7 @@ useCapture：默认值为 false，表示事件冒泡。当设置为 true 时，�
 </body>
 ```
 
-## 41. 通过 `.charCodeAt(index)` 获取指定字符的 Unicode 编码值
+## 通过 `.charCodeAt(index)` 获取指定字符的 Unicode 编码值
 
 ```ts
 const str = "ABC013";
@@ -1687,7 +1687,7 @@ console.log(str.charCodeAt(0)); // A -> 65
 小写字母 Unicode 编码范围：97 - 122（a 到 z）
 大小字母 Unicode 编码范围：65 - 90 （A 到 Z）
 
-## 42. 前端性能优化处理
+## 前端性能优化处理
 
 ### 代码方面
 
@@ -1725,7 +1725,7 @@ console.log(str.charCodeAt(0)); // A -> 65
 - 开启浏览器的缓存策略（强缓存、协商缓存），从而减少向服务器发送网络请求的次数
 - 做首次访问白屏加载动画（增加用户体验）
 
-## 43. 什么是伪数组
+## 什么是伪数组
 
 **伪数组**即 `arrayLike`，也称为类数组。是一种**按照索引存储数据**具有 `length` 属性的对象。因为是对象，所以不能调用数组的方法
 
@@ -1738,7 +1738,7 @@ console.log(str.charCodeAt(0)); // A -> 65
 - `[].concat.call(arrayLike)`
 - 遍历伪数组的每一项，将其添加到一个新的数组
 
-## 44. 前端的内存泄露怎么理解
+## 前端的内存泄露怎么理解
 
 JS 里分配内存地址的对象，但是由于长时间没有释放或者没有办法清除，造成长期占用内存的现象，会让内存资源不足，从而影响程序的运行。
 
@@ -1751,7 +1751,7 @@ JS 里分配内存地址的对象，但是由于长时间没有释放或者没�
 5. DOM 引用未被清除：在网页中使用 DOM 元素时，如果没有正确清除这些元素，也会导致内存泄漏。
 6. 多次绑定同一事件：如果一个事件被多次绑定，每次都创建了新的对象，而没有及时清除旧的对象，也会导致内存泄漏
 
-## 45. ES6+ 新特性有哪些
+## ES6+ 新特性有哪些
 
 1. 块级作用域 Let、Const
 2. 箭头函数
@@ -1766,7 +1766,7 @@ JS 里分配内存地址的对象，但是由于长时间没有释放或者没�
 11. 新增 Generator 函数
 12. 新增 async/await 异步编程
 
-## 46. 浏览器的缓存策略
+## 浏览器的缓存策略
 
 浏览器的缓存策略主要分为两种：强缓存（本地缓存）、弱缓存（协商缓存）
 
@@ -1783,7 +1783,7 @@ JS 里分配内存地址的对象，但是由于长时间没有释放或者没�
 ![](/202308091331-02.jpg)
 
 
-## 47. 了解 PWA
+## 了解 PWA
 
 PWA 是一种基于 Web 技术的应用程序开发方法，旨在提供类似原生应用的用户体验。
 
