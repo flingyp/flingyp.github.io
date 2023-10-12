@@ -652,7 +652,7 @@ fun(); // window{} 你好
 
 ### 手写 `call` 和 `bind`
 
-原理：将执行函数作为临时属性添加到目标对象下，然后执行这个函数，此时函数的this就指向的是目标对象，最后再删除这个临时属性
+原理：将执行函数作为临时属性添加到目标对象下，然后执行这个函数，此时函数的 this 就指向的是目标对象，最后再删除这个临时属性
 
 区别就是：call 是立即执行、bind 是返回一个函数
 
@@ -819,7 +819,7 @@ export default function useDebounce(callback: Function, delay: number) {
 ## 函数柯里化的使用
 
 - 柯里化通常称作为部分求值，其含义是给函数分步传递参数
-- 每次传递参数进行处理，并返回一个更具体的函数接受剩下的参数 
+- 每次传递参数进行处理，并返回一个更具体的函数接受剩下的参数
 - 这中间可嵌套多层这样的接受部分参数的函数，直至返回最终结果
 
 ```ts
@@ -862,7 +862,7 @@ currying(sumFn)(1)(2, 3, 4, 5)(6)(); // 21
 - [findLastIndex(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/findLastIndex)：返回数组中通过回调函数的**最后一个元素的下标索引**，否则返回 `-1`
 - [flat(depth?=1)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flat)
 - [flatMap(callback, this)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/flatMap)
-扁平化数组，将数组中所有元素与遍历到的子数组的元素合并返回一个新数组（扁平化结构）。参数 depth 是指定要提取嵌套数组的结构深度，默认值为 1
+  扁平化数组，将数组中所有元素与遍历到的子数组的元素合并返回一个新数组（扁平化结构）。参数 depth 是指定要提取嵌套数组的结构深度，默认值为 1
 - [includes(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/includes)：用来判断一个数组是否包含一个指定的值，根据情况，如果包含则返回 true，否则返回 false
 - [indexOf(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/indexOf)：返回在数组中指定元素的第一个元素下标索引，如果不存在，则返回-1
 - [lastIndexOf(value)](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/lastIndexOf)：返回在数组中指定元素的最后一个元素下标索引，如果不存在，则返回-1
@@ -903,9 +903,10 @@ Cookie 是属于文档对象模型 DOM 的一部分，而`SessionStorage`、`Loc
 
 一共有四种方式来判断变量类型：`typeof`、`instanceof`、`constructor` 和 `Object.prototype.toString.call()`
 
-1. `typeof` 
+1. `typeof`
 
 介绍：`typeof` 只适合去判断基础数据类型的变量. 引用数据类型 Object 无论是对象还是数组等统一返回 `object`
+
 - 特点：`typeof null` 会返回一个 object、`typeof function(){}` 会返回一个 function
 - 缺点：`typeof` 对应引用数据类型来说，并不能很好的去判断其变量的具体类型
 
@@ -913,6 +914,7 @@ Cookie 是属于文档对象模型 DOM 的一部分，而`SessionStorage`、`Loc
 
 介绍：`instanceof` 运算符用于检测构造函数的 `prototype` 属性是否出现某个实例对象的原型链上。简单来说就是来判断 A 是否为 B 的实例
 `[] instanceof Array` ：实际上是判断 Array.prototype 是否在[]的原型链上
+
 - 缺点：不管是数组对象还是正则对象，都是 Object 的实例，检测结果都是 TRUE ，所以无法基于这个结果判断是否为普通对象（Array、Date、RegExp 对象等）
 
 加上是否处于原型链上的判断方法不严谨，instanceof 方法判断的是是否处于原型链上，而不是是不是处于原型链最后一位，所以会出现下面这种情况：
@@ -943,6 +945,7 @@ console.log(new Number(1) instanceof Number); //true
 3. `constructor`
 
 介绍：通过查看变量的构造函数来判断。还可以处理基本数据类型的检测
+
 - 缺点：不能判断 `null` 和 `undefined`，因为它们不需要通过构造函数创建，所以是没有构造函数的
 
 ```ts
@@ -1223,20 +1226,51 @@ class Promise {
 
 ## 什么是跨域？如何处理跨域？
 
-:::tip
 同源策略：只有 协议、域名、端口 一致才是同源的
 
-跨域：违反同源策略，浏览器是不支持跨域的
+跨域就是违反了浏览器的同源策略，浏览器是不支持跨域操作的
 
-常见跨域方式：
+解决方式：服务器告诉浏览器，我允许你跨域了，你就可以访问相关资源文件
 
-1. JSONP 利用 html 中的`script` src 属性获取其它源的数据
+常见解决跨域的方式：
 
-2. CORS 跨域资源共享 XMLHttpRequest 发送请求的时候，如果不同源会在请求头中添加一个属性 `Origin`。需要后台处理配置： `Access-control-allow-origin` 配置允许跨域的域名 或者配置 `*` 均可
+JSONP 利用 html 中的`script` src 属性获取其它源的数据
 
-3. `Nginx` 反向代理，通过 Nginx 来接收客户端发送的请求，再通过 Nginx 进行转发，做跳板
+CORS 跨域资源共享 XMLHttpRequest 发送请求的时候，如果不同源会在请求头中添加一个属性 `Origin`。需要后台处理配置： `Access-control-allow-origin` 配置允许跨域的域名 或者配置 `*` 均可。跨域相关的响应头如下：
 
-:::
+- `Access-Control-Allow-Origin`
+- `Access-Control-Allow-Methods`
+- `Access-Control-Allow-Headers`
+- `Access-Control-Allow-Credentials`
+- `Access-Control-Max-Age`
+
+`Nginx` 反向代理，通过 Nginx 来接收客户端发送的请求，再通过 Nginx 进行转发，做跳板
+
+## 预检请求
+
+CORS 将请求分为两种 **简单请求（Simple Request）**、**非简单请求（Preflight Request）（请求方式为 OPTIONS）**
+
+- 请求的方法只能是 GET, POST, HEAD 的一种
+- 请求的 Header 的只能是 Accept，Accept-Language, Content-Language，Content-Type 这些字段，不能超出这些字段
+- 对于请求的 header 的 Content-Type 字段，只能是以下值
+  - `text/plain`
+  - `multipart/form-data`
+  - `application/x-www-form-urlencoded`
+
+都满足以上条件的就是简单请求，否则就是非简单请求
+
+比如我们经常使用的 `Content-Type:application/json; charset=utf-8`，这个请求就是非简单请求
+
+但是如果不是简单请求，浏览器会在发出真正请求前，先发出预检请求，检查当前请求是否符合服务器的 cors 配置，如果符合，则再发出真正的请求。如果不符合，则直接返回跨域报错。
+
+![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/eb003d15b56c4264a0d6b9043911da49~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp?)
+
+预检请求不一定每一次都会产生
+
+- 这个因为浏览器会对预检请求进行缓存
+- 同时通过服务器端设置 Access-Control-Max-Age 字段来设置缓存时间
+- 那么当第一次请求该 URL 时会发出 OPTIONS 请求，浏览器会根据返回的 Access-Control-Max-Age 字段缓存该请求的 OPTIONS 预检请求的响应结果（具体缓存时间还取决于浏览器的支持的默认最大值，取两者最小值，一般为 10 分钟）。在缓存有效期内，该资源的请求（URL 和 header 字段都相同的情况下）不会再触发预检。（chrome 打开控制台可以看到，当服务器响应 Access-Control-Max-Age 时只有第一次请求会有预检，后面不会了。注意要开启缓存，去掉 disable cache 勾选。）
+- 如果值为 -1，表示禁用缓存，则每次请求前都需要使用 OPTIONS 预检请求。
 
 ## this 的指向包括哪几种
 
@@ -1691,13 +1725,13 @@ console.log(str.charCodeAt(0)); // A -> 65
 
 ### 代码方面
 
-前端代码层面的优化：减少冗余代码，避免不必要的DOM操作，提高代码执行效率
+前端代码层面的优化：减少冗余代码，避免不必要的 DOM 操作，提高代码执行效率
 
 - 慎用全局变量导致命名污染和不利于垃圾回收
 - 尽量减少页面上样式的重排与重绘
 - 节流、防抖
 - 慎用闭包，减少内存泄露
-- 使用 `defer` 属性，延迟加载JS脚本文件，保证页面被渲染出来
+- 使用 `defer` 属性，延迟加载 JS 脚本文件，保证页面被渲染出来
 
 ### 资源文件方面
 
@@ -1711,9 +1745,9 @@ console.log(str.charCodeAt(0)); // A -> 65
 
 打包构建层面的优化：减少打包后的文件体积，提高页面加载速度
 
-- 经量使用支持TreeShaking的库和插件
+- 经量使用支持 TreeShaking 的库和插件
 - 利用构建工具抽离公共代码，提取公共文件（如 `node_modules` 可以独立开为一个文件）
-- 可以将一些常用的库和插件配置CDN
+- 可以将一些常用的库和插件配置 CDN
 - 将打包后的代码进行压缩
 - GZIP 压缩
 
@@ -1782,7 +1816,6 @@ JS 里分配内存地址的对象，但是由于长时间没有释放或者没�
 
 ![](/202308091331-02.jpg)
 
-
 ## 了解 PWA
 
 PWA 是一种基于 Web 技术的应用程序开发方法，旨在提供类似原生应用的用户体验。
@@ -1792,6 +1825,6 @@ PWA 是一种基于 Web 技术的应用程序开发方法，旨在提供类似�
 1. **离线访问**： PWA 允许用户在没有网络连接的情况下访问应用程序，通过缓存资源来提供离线体验
 2. **快速加载速度**： PWA 使用了各种性能优化策略，例如缓存、懒加载和预加载，以确保应用程序快速加载
 3. **可安装性**：用户可以将 PWA 添加到其设备的主屏幕，就像安装原生应用一样，无需通过应用商店
-4. **推送通知**：  PWA 具备向用户发送推送通知的能力，可以提高用户参与度和留存率
+4. **推送通知**： PWA 具备向用户发送推送通知的能力，可以提高用户参与度和留存率
 5. **跨平台兼容性**：PWA 可以在不同平台和设备上运行，无需单独开发多个版本的应用程序
 6. **安全性**：PWA 使用 HTTPS 来确保数据传输的安全性，同时提供了一定程度的安全性保护，如内容安全策略（CSP）
