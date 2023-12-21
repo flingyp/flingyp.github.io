@@ -17,9 +17,15 @@ jobs:
       # 获取源码
       - name: Checkout
         uses: actions/checkout@v2.3.1
+        # 安装Pnpm
+      - name: Install Pnpm
+        run: npm install pnpm -g
       # 下载依赖
-      - name: Install dependencies and Build
-        run: npm install && npm run build
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile
+      # 构建
+      - name: Build
+        run: pnpm run build
       # 发布
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.4
