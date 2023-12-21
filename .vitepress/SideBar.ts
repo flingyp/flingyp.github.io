@@ -4,8 +4,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
   "/frontend/": [
     {
       text: "HTML",
-      collapsible: true, // 是否开启折叠
-      collapsed: true,
+      collapsed: true, // 是否开启折叠
       items: [
         {
           text: "杂记",
@@ -15,7 +14,6 @@ export const SideBarList: DefaultTheme.Sidebar = {
     },
     {
       text: "CSS3",
-      collapsible: true,
       collapsed: true,
       items: [
         {
@@ -46,7 +44,6 @@ export const SideBarList: DefaultTheme.Sidebar = {
     },
     {
       text: "JavaScript",
-      collapsible: true,
       collapsed: true,
       items: [
         {
@@ -69,7 +66,6 @@ export const SideBarList: DefaultTheme.Sidebar = {
     },
     {
       text: "TypeScript",
-      collapsible: true,
       collapsed: true,
       items: [
         {
@@ -88,7 +84,6 @@ export const SideBarList: DefaultTheme.Sidebar = {
     },
     {
       text: "Vue",
-      collapsible: true,
       collapsed: true,
       items: [
         {
@@ -111,7 +106,6 @@ export const SideBarList: DefaultTheme.Sidebar = {
     },
     {
       text: "Nuxt3",
-      collapsible: true,
       collapsed: true,
       items: [
         {
@@ -122,7 +116,6 @@ export const SideBarList: DefaultTheme.Sidebar = {
     },
     {
       text: "React",
-      collapsible: true,
       collapsed: true,
       items: [
         {
@@ -153,7 +146,6 @@ export const SideBarList: DefaultTheme.Sidebar = {
     },
     {
       text: "Babel",
-      collapsible: true,
       collapsed: true,
       items: [
         {
@@ -170,7 +162,7 @@ export const SideBarList: DefaultTheme.Sidebar = {
   "/services": [
     {
       text: "Nest.js",
-      collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "基本介绍",
@@ -194,11 +186,61 @@ export const SideBarList: DefaultTheme.Sidebar = {
         },
       ],
     },
+    {
+      text: 'Python',
+      collapsed: true,
+      items: [
+        {
+          text: '环境搭建',
+          link: '/services/Python/',
+        },
+        {
+          text: '变量类型',
+          link: '/services/Python/Python变量类型',
+        },
+        {
+          text: '运算符',
+          link: '/services/Python/Python运算符',
+        },
+        {
+          text: '条件循坏语句',
+          link: '/services/Python/Python条件循环语句',
+        },
+        {
+          text: '函数',
+          link: '/services/Python/Python函数',
+        },
+        {
+          text: '多线程',
+          link: '/services/Python/Python多线程',
+        },
+        {
+          text: '操作文件',
+          link: '/services/Python/Python操作文件',
+        },
+        {
+          text: '模块',
+          link: '/services/Python/Python模块',
+        },
+        {
+          text: '正则',
+          link: '/services/Python/Python正则',
+        },
+        {
+          text: '爬虫',
+          link: '/services/Python/Python爬虫',
+        },
+        {
+          text: '自动化',
+          link: '/services/Python/Python自动化',
+        }
+      ]
+    }
   ],
   "/books/vue_design_realize": [
     {
       text: "Vue.js 设计与实现",
-      collapsible: true,
+      collapsed: true,
       items: [
         {
           text: "第一篇：框架设计与实现",
