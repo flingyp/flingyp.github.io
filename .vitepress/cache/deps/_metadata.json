@@ -1,25 +1,37 @@
 {
-  "hash": "aac94b44",
+  "hash": "9a2c3bc6",
   "configHash": "9884906d",
-  "lockfileHash": "4fae85b4",
-  "browserHash": "49fd0450",
+  "lockfileHash": "247a3ad8",
+  "browserHash": "fdd62067",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.4.15_typescript@5.3.3/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "7864c202",
+      "fileHash": "04ebaf42",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@6.5.1/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "8036607a",
+      "fileHash": "e4ea54a5",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.2_vue@3.4.15/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "122180e8",
+      "fileHash": "1902cdb6",
+      "needsInterop": false
+    },
+    "@flypeng/tool/browser": {
+      "src": "../../../node_modules/.pnpm/@flypeng+tool@5.5.2/node_modules/@flypeng/tool/dist/browser/index.esm.js",
+      "file": "@flypeng_tool_browser.js",
+      "fileHash": "a0f058da",
+      "needsInterop": false
+    },
+    "tinycolor2": {
+      "src": "../../../node_modules/.pnpm/tinycolor2@1.6.0/node_modules/tinycolor2/esm/tinycolor.js",
+      "file": "tinycolor2.js",
+      "fileHash": "5500c5a2",
       "needsInterop": false
     }
   },
