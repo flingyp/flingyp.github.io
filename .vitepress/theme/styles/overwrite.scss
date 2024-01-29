@@ -1,5 +1,5 @@
-body {
-  font-family: "PuHui_Medium";
+:root {
+  --vp-font-family-base: "PuHui_Medium";
 }
 
 .VPNavBarTitle {
@@ -7,7 +7,7 @@ body {
     font-size: 12px;
 
     .VPImage {
-      width: 62px;
+      width: 58px;
     }
   }
 }
