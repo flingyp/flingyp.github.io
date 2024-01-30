@@ -2,6 +2,33 @@
   transition: color 2s linear;
 }
 
+:root {
+  --vp-sidebar-width: 220px;
+  --vp-layout-max-width: 1580px;
+  --vp-doc-top-height: -16px;
+}
+
+html:root {
+  --vp-font-family-base: 'PuHui_Regular';
+}
+
+html.dark:root {
+  --vp-font-family-base: 'PuHui_Thin';
+}
+
+.VPLink,
+.VPFlyout,
+strong,
+b,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'PuHui_Bold' !important;
+}
+
 .VPNavBarTitle {
   .title {
     font-size: 12px;
@@ -14,15 +41,8 @@
 
 .VPDoc {
   padding: 32px 0 0 !important;
-
-  .aside {
-    padding-left: 64px;
-  }
 }
 
-:root {
-  --vp-font-family-base: 'PuHui_Medium';
-  --vp-sidebar-width: 220px;
-  --vp-layout-max-width: 1600px;
-  --vp-doc-top-height: -16px;
+.VPFooter {
+  padding: 16px !important;
 }

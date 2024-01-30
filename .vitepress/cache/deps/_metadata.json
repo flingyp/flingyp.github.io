@@ -1,41 +1,62 @@
 {
-  "hash": "75885c12",
-  "configHash": "9884906d",
+  "hash": "07952216",
+  "configHash": "01bfdb80",
   "lockfileHash": "3f521ec4",
-  "browserHash": "157c5c17",
+  "browserHash": "44559cf7",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.4.15_typescript@5.3.3/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "0729961e",
+      "fileHash": "84229d0f",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@6.5.1/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "9dc2e6f6",
+      "fileHash": "4eba3e66",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.2_vue@3.4.15/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "852c6aba",
+      "fileHash": "961dd0e6",
+      "needsInterop": false
+    },
+    "vitepress > @vueuse/integrations/useFocusTrap": {
+      "src": "../../../node_modules/.pnpm/@vueuse+integrations@10.7.2_focus-trap@7.5.4_vue@3.4.15/node_modules/@vueuse/integrations/useFocusTrap.mjs",
+      "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
+      "fileHash": "29181a01",
+      "needsInterop": false
+    },
+    "vitepress > mark.js/src/vanilla.js": {
+      "src": "../../../node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js",
+      "file": "vitepress___mark__js_src_vanilla__js.js",
+      "fileHash": "84c2dbcf",
+      "needsInterop": false
+    },
+    "vitepress > minisearch": {
+      "src": "../../../node_modules/.pnpm/minisearch@6.3.0/node_modules/minisearch/dist/es/index.js",
+      "file": "vitepress___minisearch.js",
+      "fileHash": "77de1f0d",
       "needsInterop": false
     },
     "@flypeng/tool/browser": {
       "src": "../../../node_modules/.pnpm/@flypeng+tool@5.5.2/node_modules/@flypeng/tool/dist/browser/index.esm.js",
       "file": "@flypeng_tool_browser.js",
-      "fileHash": "cf31735c",
+      "fileHash": "4d754536",
       "needsInterop": false
     },
     "tinycolor2": {
       "src": "../../../node_modules/.pnpm/tinycolor2@1.6.0/node_modules/tinycolor2/esm/tinycolor.js",
       "file": "tinycolor2.js",
-      "fileHash": "ad267384",
+      "fileHash": "93cf4f28",
       "needsInterop": false
     }
   },
   "chunks": {
+    "chunk-27BHTSA2": {
+      "file": "chunk-27BHTSA2.js"
+    },
     "chunk-YP6MUCOV": {
       "file": "chunk-YP6MUCOV.js"
     }

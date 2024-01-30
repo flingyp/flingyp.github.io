@@ -11,7 +11,7 @@ export default {
           collapsed: false,
           items: [
             {
-              text: 'HTML 相关面试题',
+              text: 'HTML 杂记',
               link: '/frontend/HTML5/Interview',
             },
           ],
@@ -21,7 +21,7 @@ export default {
           collapsed: false,
           items: [
             {
-              text: 'CSS 相关面试题',
+              text: 'CSS 杂记',
               link: '/frontend/CSS3/Interview',
             },
           ],
@@ -31,7 +31,7 @@ export default {
           collapsed: false,
           items: [
             {
-              text: 'JavaScript 相关面试题',
+              text: 'JavaScript 杂记',
               link: '/frontend/JavaScript/Interview',
             },
           ],
