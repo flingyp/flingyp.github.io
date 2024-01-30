@@ -1,8 +1,9 @@
 import { DefaultTheme } from 'vitepress/theme';
 
 export default [
-  { text: '首页', link: '/' },
-  { text: '实践案例', link: '/markdown-examples' },
+  { text: '博客', link: '/posts/' },
+  { text: '笔记', link: '/frontend/HTML5/Interview' },
+  { text: '资源导航网', link: '/resource/' },
   {
     text: '开源项目',
     items: [

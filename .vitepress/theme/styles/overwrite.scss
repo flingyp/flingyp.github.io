@@ -2,16 +2,27 @@
   transition: color 2s linear;
 }
 
-:root {
-  --vp-font-family-base: 'PuHui_Medium';
-}
-
 .VPNavBarTitle {
   .title {
     font-size: 12px;
 
     .VPImage {
-      width: 58px;
+      width: 62px;
     }
   }
+}
+
+.VPDoc {
+  padding: 32px 0 0 !important;
+
+  .aside {
+    padding-left: 64px;
+  }
+}
+
+:root {
+  --vp-font-family-base: 'PuHui_Medium';
+  --vp-sidebar-width: 220px;
+  --vp-layout-max-width: 1600px;
+  --vp-doc-top-height: -16px;
 }
