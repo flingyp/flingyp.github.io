@@ -65,6 +65,32 @@ export default {
           collapsed: false,
           items: [],
         },
+        {
+          text: '前端工程化',
+          collapsed: false,
+          items: [
+            {
+              text: '基础概念',
+              link: '/frontend/Engineering/',
+            },
+            {
+              text: '代码格式化',
+              link: '/frontend/Engineering/CodeFormat',
+            },
+            {
+              text: '代码提交规范化',
+              link: '/frontend/Engineering/CodeSubmit',
+            },
+            {
+              text: 'CHANGELOG',
+              link: '/frontend/Engineering/Changelog',
+            },
+            {
+              text: 'Changesets',
+              link: '/frontend/Engineering/Changesets',
+            },
+          ],
+        },
       ],
     },
   ],
