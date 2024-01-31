@@ -1,3 +1,5 @@
+# JavaScript 杂记
+
 ## JavaScript 是由哪几部分组成的
 
 JavaScript 由 ECMAScript、DOM、BOM 组成

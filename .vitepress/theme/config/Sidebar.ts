@@ -39,7 +39,16 @@ export default {
         {
           text: 'TypeScript',
           collapsed: false,
-          items: [],
+          items: [
+            {
+              text: '基础语法',
+              link: '/frontend/TypeScript/',
+            },
+            {
+              text: '工具类型',
+              link: '/frontend/TypeScript/ToolTypes',
+            },
+          ],
         },
         {
           text: 'Vue',

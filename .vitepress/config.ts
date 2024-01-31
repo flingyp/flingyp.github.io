@@ -5,13 +5,14 @@ import socialLinks from './theme/config/Social';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: '✒️',
+  title: 'flingyp ✍️',
   description: "flingyp's site",
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }],
     ['meta', { name: 'referrer', content: 'no-referrer' }],
   ],
   themeConfig: {
+    siteTitle: '',
     logo: {
       light: '/logo/light.png',
       dark: '/logo/dark.png',
@@ -24,6 +25,14 @@ export default defineConfig({
     },
     search: {
       provider: 'local',
+    },
+    outline: {
+      label: '页面大纲',
+      level: [2, 3],
+    },
+    docFooter: {
+      prev: '上一页',
+      next: '下一页',
     },
     footer: {
       message:
