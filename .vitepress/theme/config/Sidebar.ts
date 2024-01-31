@@ -3,7 +3,7 @@ import { DefaultTheme } from 'vitepress/theme';
 export default {
   '/frontend/': [
     {
-      text: 'Frontend',
+      text: '前端',
       collapsed: false,
       items: [
         {
@@ -53,7 +53,12 @@ export default {
         {
           text: 'Vue',
           collapsed: false,
-          items: [],
+          items: [
+            {
+              text: 'Vue 杂记',
+              link: '/frontend/Vue/Interview',
+            },
+          ],
         },
         {
           text: 'React',
