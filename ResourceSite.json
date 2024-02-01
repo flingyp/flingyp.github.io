@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Vue",
+    "options": [
+      {
+        "name": "Vue3 中文官网",
+        "description": "Vue.js - 渐进式的 JavaScript 框架",
+        "url": "https://cn.vuejs.org",
+        "icon": "https://cn.vuejs.org/logo.svg"
+      }
+    ]
+  },
+  {
+    "name": "React",
+    "options": [
+      {
+        "name": "React 中文官网",
+        "description": "用于构建 Web 和原生交互界面的库",
+        "url": "https://zh-hans.react.dev",
+        "icon": "https://zh-hans.reactjs.org/favicon.ico"
+      }
+    ]
+  }
+]

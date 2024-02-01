@@ -17,6 +17,7 @@
   "dependencies": {
     "@flypeng/eslint-config": "2.0.0-beta.3",
     "@flypeng/tool": "^5.5.2",
+    "naive-ui": "^2.37.3",
     "sass": "^1.70.0",
     "tinycolor2": "^1.6.0",
     "vitepress": "1.0.0-rc.40",
