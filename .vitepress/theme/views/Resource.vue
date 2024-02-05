@@ -45,7 +45,7 @@ a {
 .site-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 12px 10px;
 }
 
 .site-item {

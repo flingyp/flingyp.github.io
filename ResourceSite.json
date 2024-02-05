@@ -46,7 +46,7 @@
       {
         "name": "Nest.js 中文网",
         "description": "Nest 是一个用于构建高效、可扩展的 Node.js 服务器端应用程序的框架。 它使用渐进式 JavaScript，使用 TypeScript 构建，并结合了 OOP（面向对象编程）、FP（函数式编程）和 FRP（函数式反应式编程）的元素。",
-        "url": " https://nest.nodejs.cn",
+        "url": "https://nest.nodejs.cn",
         "icon": "https://nest.nodejs.cn/favicon.ico"
       }
     ]
@@ -57,14 +57,26 @@
       {
         "name": "Logo DIY",
         "description": "Simple Logo Diy: 简易logo制作",
-        "url": " https://imxiaolong.com/logodiy",
+        "url": "https://imxiaolong.com/logodiy",
         "icon": "https://imxiaolong.com/logodiy/images/logo.png"
       },
       {
         "name": "Favicon.ico图标生成器 | 一键免费制作ico图标 - 标小智",
         "description": "输入字母或者汉字一键生成透明ICO图标。免费下载多尺寸和分辨率的Favicon.ico图标自动为浏览器提供最佳适配版本的Favicon展示。",
-        "url": " https://www.logosc.cn/logo/favicon",
+        "url": "https://www.logosc.cn/logo/favicon",
         "icon": "https://www.logosc.cn/img/logo-icons/favicon.png?v=1"
+      },
+      {
+        "name": "Can I use",
+        "description": "Can I Use 提供最新的浏览器支持表，用于支持桌面和移动Web浏览器上的前端Web技术。",
+        "url": "https://caniuse.com/",
+        "icon": "https://caniuse.com/img/favicon-128.png"
+      },
+      {
+        "name": "TinyPNG",
+        "description": "加速您网站的访问并节约带宽。TinyPNG 将您的 WebP、PNG 和 JPEG 图片压缩50-80%。同时保留PNG的透明度。",
+        "url": "https://tinify.cn",
+        "icon": "https://tinify.cn/images/favicon.ico"
       }
     ]
   }

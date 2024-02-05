@@ -98,5 +98,21 @@ export default {
       text: 'Git 常规操作',
       link: '/posts/Git常规操作',
     },
+    {
+      text: 'Vue3 最佳实践探索',
+      link: '/posts/Vue3最佳实践探索',
+    },
+    {
+      text: 'VSCode 调试步骤教程',
+      link: '/posts/VSCode调试步骤教程',
+    },
+    {
+      text: 'Vite 打包构建优化',
+      link: '/posts/Vite打包构建优化',
+    },
+    {
+      text: 'Mitt 实现兄弟组件之间的通信',
+      link: '/posts/Mitt-发布订阅',
+    },
   ],
 } as DefaultTheme.Sidebar;
