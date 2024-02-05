@@ -31,7 +31,10 @@ const colors = [
   '#757575',
   '#546e7a',
 ];
-changeCssVariable(colors, 2000, true);
+
+if (typeof document !== 'undefined') {
+  changeCssVariable(colors, 2000, true);
+}
 
 export default {
   extends: DefaultTheme,
