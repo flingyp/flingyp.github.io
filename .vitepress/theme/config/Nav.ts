@@ -19,12 +19,12 @@ export default [
             link: 'https://github.com/flingyp/vitepress-demo-preview',
           },
           {
-            text: 'HotNews - 浏览各平台热搜内容的 VSCode 插件',
-            link: 'https://github.com/flingyp/HotNews',
-          },
-          {
             text: 'vite-plugin-clear-console - 清除项目中所有 console 日志输出插件',
             link: 'https://github.com/flingyp/vite-plugin-clear-console',
+          },
+          {
+            text: 'HotNews - 浏览各平台热搜内容的 VSCode 插件',
+            link: 'https://github.com/flingyp/HotNews',
           },
         ],
       },
@@ -36,7 +36,7 @@ export default [
             link: 'https://github.com/flingyp/flypeng-tool',
           },
           {
-            text: '@flypeng/lint-config - 集成ESLint + Prettier + Stylelint Lint 个人配置包',
+            text: '@flypeng/lint-config - 集成 ESLint + Prettier + Stylelint Lint 个人配置包',
             link: 'https://github.com/flingyp/lint-config',
           },
           {

@@ -61,11 +61,6 @@ export default {
           ],
         },
         {
-          text: 'React',
-          collapsed: false,
-          items: [],
-        },
-        {
           text: '前端工程化',
           collapsed: false,
           items: [
@@ -92,6 +87,16 @@ export default {
           ],
         },
       ],
+    },
+  ],
+  '/posts/': [
+    {
+      text: 'CSS 命名方法论 - BEM',
+      link: '/posts/CSS命名方法论-BEM',
+    },
+    {
+      text: 'Git 常规操作',
+      link: '/posts/Git常规操作',
     },
   ],
 } as DefaultTheme.Sidebar;

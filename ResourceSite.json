@@ -1,23 +1,70 @@
 [
   {
-    "name": "Vue",
+    "name": "文档（前端相关）",
     "options": [
       {
         "name": "Vue3 中文官网",
         "description": "Vue.js - 渐进式的 JavaScript 框架",
         "url": "https://cn.vuejs.org",
         "icon": "https://cn.vuejs.org/logo.svg"
-      }
-    ]
-  },
-  {
-    "name": "React",
-    "options": [
+      },
       {
         "name": "React 中文官网",
         "description": "用于构建 Web 和原生交互界面的库",
         "url": "https://zh-hans.react.dev",
         "icon": "https://zh-hans.reactjs.org/favicon.ico"
+      },
+      {
+        "name": "VueUse",
+        "description": "Vue 组合式函数的集合",
+        "url": "https://vueuse.org",
+        "icon": "https://vueuse.org/favicon.ico"
+      },
+      {
+        "name": "微信开放文档",
+        "description": "微信官方文档 | 微信开放文档",
+        "url": "https://developers.weixin.qq.com/doc",
+        "icon": "https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico"
+      },
+      {
+        "name": "微信开放平台",
+        "description": "微信开放平台",
+        "url": "https://open.weixin.qq.com",
+        "icon": "https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico"
+      },
+      {
+        "name": "微信公众平台",
+        "description": "微信公众平台",
+        "url": "https://mp.weixin.qq.com",
+        "icon": "https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico"
+      }
+    ]
+  },
+  {
+    "name": "文档（后端相关）",
+    "options": [
+      {
+        "name": "Nest.js 中文网",
+        "description": "Nest 是一个用于构建高效、可扩展的 Node.js 服务器端应用程序的框架。 它使用渐进式 JavaScript，使用 TypeScript 构建，并结合了 OOP（面向对象编程）、FP（函数式编程）和 FRP（函数式反应式编程）的元素。",
+        "url": " https://nest.nodejs.cn",
+        "icon": "https://nest.nodejs.cn/favicon.ico"
+      }
+    ]
+  },
+  {
+    "name": "工具网站",
+    "options": [
+      {
+        "name": "Logo DIY",
+        "description": "Simple Logo Diy: 简易logo制作",
+        "url": " https://imxiaolong.com/logodiy",
+        "icon": "https://imxiaolong.com/logodiy/images/logo.png"
+      },
+      {
+        "name": "Favicon.ico图标生成器 | 一键免费制作ico图标 - 标小智",
+        "description": "输入字母或者汉字一键生成透明ICO图标。免费下载多尺寸和分辨率的Favicon.ico图标自动为浏览器提供最佳适配版本的Favicon展示。",
+        "url": " https://www.logosc.cn/logo/favicon",
+        "icon": "https://www.logosc.cn/img/logo-icons/favicon.png?v=1"
       }
     ]
   }

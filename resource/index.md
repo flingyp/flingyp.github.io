@@ -4,14 +4,19 @@
 import Resource from '../.vitepress/theme/views/Resource.vue'
 import ResourceSite from '../ResourceSite.json'
 
-const vueOption = ResourceSite[ResourceSite.findIndex(item => item.name === 'Vue')]
-const reactOption = ResourceSite[ResourceSite.findIndex(item => item.name === 'React')]
+const frontendOption = ResourceSite[ResourceSite.findIndex(item => item.name === '文档（前端相关）')]
+const backendOption = ResourceSite[ResourceSite.findIndex(item => item.name === '文档（后端相关）')]
+const toolOption = ResourceSite[ResourceSite.findIndex(item => item.name === '工具网站')]
 </script>
 
-## Vue
+## 前端文档
 
-<Resource :options="vueOption.options" />
+<Resource :options="frontendOption.options" />
 
-## React
+## 后端文档
 
-<Resource :options="reactOption.options" />
+<Resource :options="backendOption.options" />
+
+## 工具网站
+
+<Resource :options="toolOption.options" />
