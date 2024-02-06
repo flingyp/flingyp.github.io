@@ -114,5 +114,9 @@ export default {
       text: 'Mitt 实现兄弟组件之间的通信',
       link: '/posts/Mitt-发布订阅',
     },
+    {
+      text: '前端重新部署刷新网页',
+      link: '/posts/前端重新部署刷新网页',
+    },
   ],
 } as DefaultTheme.Sidebar;

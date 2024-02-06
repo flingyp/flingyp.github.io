@@ -77,6 +77,12 @@
         "description": "加速您网站的访问并节约带宽。TinyPNG 将您的 WebP、PNG 和 JPEG 图片压缩50-80%。同时保留PNG的透明度。",
         "url": "https://tinify.cn",
         "icon": "https://tinify.cn/images/favicon.ico"
+      },
+      {
+        "name": "Json.cn",
+        "description": "json,json在线解析,json格式化,json格式验证,json转xml,xml转json,json压缩,json转义,js混淆加密,JSON转实体,json在线,JSON校验,json tools,主机评测,主机测评,新手教程,技术博客,电子工具",
+        "url": "https://www.json.cn",
+        "icon": "https://www.json.cn/r/img/favicon/favicon.ico"
       }
     ]
   }
