@@ -28,7 +28,7 @@ export default defineConfig({
     },
     outline: {
       label: '页面大纲',
-      level: [2, 3],
+      level: 2,
     },
     docFooter: {
       prev: '上一页',
