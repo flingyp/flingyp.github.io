@@ -156,5 +156,17 @@ export default {
       text: 'Uniapp && 小程序相关',
       link: '/posts/小程序开发记录',
     },
+    {
+      text: '正则表达式介绍与使用',
+      link: '/posts/正则表达式介绍与使用',
+    },
+    {
+      text: 'Linux 基本命令',
+      link: '/posts/Linux基本命令',
+    },
+    {
+      text: 'Nginx 基本使用',
+      link: '/posts/Nginx基本使用',
+    },
   ],
 } as DefaultTheme.Sidebar;
