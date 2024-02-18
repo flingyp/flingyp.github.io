@@ -2,7 +2,8 @@ import { DefaultTheme } from 'vitepress/theme';
 
 export default [
   { text: '博客', link: '/posts/' },
-  { text: '笔记', link: '/frontend/' },
+  { text: '前端笔记', link: '/frontend/' },
+  { text: '后端笔记', link: '/backend/' },
   { text: '资源导航网', link: '/resource/' },
   {
     text: '开源项目',

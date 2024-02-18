@@ -89,6 +89,40 @@ export default {
       ],
     },
   ],
+  '/backend': [
+    {
+      text: '后端',
+      collapsed: false,
+      items: [
+        {
+          text: 'Nest.js',
+          collapsed: false,
+          items: [
+            {
+              text: '介绍',
+              link: '/backend/Nest/',
+            },
+            {
+              text: '相关使用',
+              link: '/backend/Nest/DevRecord',
+            },
+            {
+              text: '常用配置',
+              link: '/backend/Nest/ServerConfig',
+            },
+            {
+              text: '技术集成',
+              link: '/backend/Nest/TechnologyIntegrate',
+            },
+            {
+              text: '环境变量配置',
+              link: '/backend/Nest/EnvironmentVariousConfig',
+            },
+          ],
+        },
+      ],
+    },
+  ],
   '/posts/': [
     {
       text: 'CSS 命名方法论 - BEM',
@@ -117,6 +151,10 @@ export default {
     {
       text: '前端重新部署刷新网页',
       link: '/posts/前端重新部署刷新网页',
+    },
+    {
+      text: 'Uniapp && 小程序相关',
+      link: '/posts/小程序开发记录',
     },
   ],
 } as DefaultTheme.Sidebar;
