@@ -168,5 +168,9 @@ export default {
       text: 'Nginx 基本使用',
       link: '/posts/Nginx基本使用',
     },
+    {
+      text: "解除浏览器跨域方法",
+      link: "/posts/解除浏览器跨域方法"
+    }
   ],
 } as DefaultTheme.Sidebar;
