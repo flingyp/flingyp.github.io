@@ -125,24 +125,20 @@ export default {
   ],
   '/posts/': [
     {
-      text: 'CSS 命名方法论 - BEM',
-      link: '/posts/CSS命名方法论-BEM',
+      text: 'Vue3 最佳实践探索',
+      link: '/posts/Vue3最佳实践探索',
+    },
+    {
+      text: 'Vite 打包构建优化',
+      link: '/posts/Vite打包构建优化',
     },
     {
       text: 'Git 常规操作',
       link: '/posts/Git常规操作',
     },
     {
-      text: 'Vue3 最佳实践探索',
-      link: '/posts/Vue3最佳实践探索',
-    },
-    {
       text: 'VSCode 调试步骤教程',
       link: '/posts/VSCode调试步骤教程',
-    },
-    {
-      text: 'Vite 打包构建优化',
-      link: '/posts/Vite打包构建优化',
     },
     {
       text: 'Mitt 实现兄弟组件之间的通信',
@@ -169,8 +165,16 @@ export default {
       link: '/posts/Nginx基本使用',
     },
     {
-      text: "解除浏览器跨域方法",
-      link: "/posts/解除浏览器跨域方法"
-    }
+      text: 'CSS 命名方法论 - BEM',
+      link: '/posts/CSS命名方法论-BEM',
+    },
+    {
+      text: '解除浏览器跨域方法',
+      link: '/posts/解除浏览器跨域方法',
+    },
+    {
+      text: 'VitePress 集成使用 TailwindCSS',
+      link: '/posts/Vitepress集成TailwindCSS',
+    },
   ],
 } as DefaultTheme.Sidebar;
