@@ -43,5 +43,23 @@ h6 {
 }
 
 .VPFooter {
-  padding: 16px !important;
+  padding: 6px !important;
+}
+
+.VPHome {
+  padding-bottom: 0px !important;
+}
+
+.VPSidebarItem {
+  .item {
+    .VPLink {
+      .text {
+        display: inline-block;
+        max-width: 210px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }
 }

@@ -107,6 +107,12 @@
         "description": "极简插件是一个优质Chrome插件下载商店，收录热门好用的Chrome插件扩展，国内最方便的Chrome插件下载网站。一键下载谷歌扩展插件，无套路下载插件。",
         "url": "https://chrome.zzzmh.cn",
         "icon": "https://chrome.zzzmh.cn/favicon.ico"
+      },
+      {
+        "name": "iLovePDF",
+        "description": "iLovePDF | 为PDF爱好者提供的PDF文件在线处理工具",
+        "url": "https://www.ilovepdf.com/zh-cn",
+        "icon": "https://www.ilovepdf.com/img/app-icon.png"
       }
     ]
   },
