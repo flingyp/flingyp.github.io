@@ -17,14 +17,15 @@
   "dependencies": {
     "@flypeng/eslint-config": "2.0.0-beta.3",
     "@flypeng/tool": "^5.5.2",
+    "autoprefixer": "^10.4.13",
+    "markdown-it-custom-attrs": "^1.0.2",
     "naive-ui": "^2.37.3",
+    "postcss": "^8.4.20",
     "sass": "^1.71.0",
+    "tailwindcss": "^3.4.1",
     "tinycolor2": "^1.6.0",
     "vitepress": "1.0.0-rc.40",
-    "vue": "^3.4.19",
-    "autoprefixer": "^10.4.13",
-    "postcss": "^8.4.20",
-    "tailwindcss": "^3.4.1"
+    "vue": "^3.4.19"
   },
   "devDependencies": {
     "@types/tinycolor2": "^1.4.6",

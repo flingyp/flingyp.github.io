@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress';
+// @ts-ignore
+import mdItCustomAttrs from 'markdown-it-custom-attrs';
 import nav from './theme/config/Nav';
 import sidebar from './theme/config/Sidebar';
 import socialLinks from './theme/config/Social';
@@ -10,6 +12,8 @@ export default defineConfig({
   head: [
     ['link', { rel: 'icon', href: '/favicon.png' }],
     ['meta', { name: 'referrer', content: 'no-referrer' }],
+    ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css' }],
+    ['script', { src: 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js' }],
   ],
   themeConfig: {
     siteTitle: '',
@@ -42,5 +46,13 @@ export default defineConfig({
     nav,
     sidebar,
     socialLinks,
+  },
+  markdown: {
+    config: (md) => {
+      // Image online preview
+      md.use(mdItCustomAttrs, 'image', {
+        'data-fancybox': 'gallery',
+      });
+    },
   },
 });

@@ -1,5 +1,3 @@
-import "./chunk-ZS7NZCD4.js";
-
 // node_modules/.pnpm/@flypeng+tool@5.5.2/node_modules/@flypeng/tool/dist/browser/index.esm.js
 function $() {
   return typeof window != "undefined" ? { href: window.location.href, hostname: window.location.hostname, port: Number(window.location.port), pathname: window.location.pathname, params: decodeURIComponent(window.location.search), hash: decodeURIComponent(window.location.hash) } : null;

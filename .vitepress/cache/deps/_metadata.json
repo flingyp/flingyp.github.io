@@ -1,61 +1,55 @@
 {
-  "hash": "fb9796d6",
+  "hash": "04e5d188",
   "configHash": "2ba1794d",
-  "lockfileHash": "811446d0",
-  "browserHash": "c3e26dfb",
+  "lockfileHash": "94a15bc3",
+  "browserHash": "e697cb0a",
   "optimized": {
     "vue": {
       "src": "../../../node_modules/.pnpm/vue@3.4.19_typescript@5.3.3/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "f475b2cc",
+      "fileHash": "5de39f48",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../node_modules/.pnpm/@vue+devtools-api@6.6.1/node_modules/@vue/devtools-api/lib/esm/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "edf50a99",
+      "fileHash": "bfa2cce3",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../node_modules/.pnpm/@vueuse+core@10.7.2_vue@3.4.19/node_modules/@vueuse/core/index.mjs",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "ae089676",
+      "fileHash": "39e63e79",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../node_modules/.pnpm/@vueuse+integrations@10.7.2_focus-trap@7.5.4_vue@3.4.19/node_modules/@vueuse/integrations/useFocusTrap.mjs",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "04efd9e0",
+      "fileHash": "1f392af4",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../node_modules/.pnpm/mark.js@8.11.1/node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "699f9356",
+      "fileHash": "2e614f83",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../node_modules/.pnpm/minisearch@6.3.0/node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "91f56eb2",
+      "fileHash": "147663bd",
       "needsInterop": false
     },
     "@flypeng/tool/browser": {
       "src": "../../../node_modules/.pnpm/@flypeng+tool@5.5.2/node_modules/@flypeng/tool/dist/browser/index.esm.js",
       "file": "@flypeng_tool_browser.js",
-      "fileHash": "4b8740bd",
+      "fileHash": "94d006a2",
       "needsInterop": false
     },
     "tinycolor2": {
       "src": "../../../node_modules/.pnpm/tinycolor2@1.6.0/node_modules/tinycolor2/esm/tinycolor.js",
       "file": "tinycolor2.js",
-      "fileHash": "8ece4a3a",
-      "needsInterop": false
-    },
-    "naive-ui": {
-      "src": "../../../node_modules/.pnpm/naive-ui@2.37.3_vue@3.4.19/node_modules/naive-ui/es/index.mjs",
-      "file": "naive-ui.js",
-      "fileHash": "d6ebeb4a",
+      "fileHash": "9beec252",
       "needsInterop": false
     }
   },
@@ -65,9 +59,6 @@
     },
     "chunk-UBIG67LQ": {
       "file": "chunk-UBIG67LQ.js"
-    },
-    "chunk-ZS7NZCD4": {
-      "file": "chunk-ZS7NZCD4.js"
     }
   }
 }
