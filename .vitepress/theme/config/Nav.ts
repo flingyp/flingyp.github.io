@@ -27,6 +27,10 @@ export default [
             text: 'HotNews - 浏览各平台热搜内容的 VSCode 插件',
             link: 'https://github.com/flingyp/HotNews',
           },
+          {
+            text: 'JsonToTs - 将 JSON 数据转换为 TypeScript 接口',
+            link: 'https://jsontots.vercel.app',
+          },
         ],
       },
       {
