@@ -176,5 +176,9 @@ export default {
       text: 'VitePress 集成使用 TailwindCSS',
       link: '/posts/Vitepress集成TailwindCSS',
     },
+    {
+      text: 'Verdaccio 搭建NPM私有仓库',
+      link: '/posts/Verdaccio搭建NPM私有仓库',
+    }
   ],
 } as DefaultTheme.Sidebar;
