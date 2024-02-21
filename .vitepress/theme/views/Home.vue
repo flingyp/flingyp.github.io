@@ -1,5 +1,8 @@
 <script setup lang="ts">
+import { NPopover, NImage } from 'naive-ui';
+
 import IconPencil from '../components/Icons/Pencil.vue';
+import IconWx from '../components/Icons/Wx.vue';
 </script>
 
 <template>
@@ -28,9 +31,9 @@ import IconPencil from '../components/Icons/Pencil.vue';
         </div>
       </div>
 
-      <h3 class="mb-4">👋 Hi, I'm FlyPeng</h3>
+      <h3 class="mb-4">👋 Hi, I'm flingyp</h3>
 
-      <ul class="space-y-[3.5px]">
+      <ul class="space-y-1">
         <li>
           👨‍💻 All of my projects are available at
           <strong><a href="https://github.com/flingyp">https://github.com/flingyp</a></strong>
@@ -40,11 +43,19 @@ import IconPencil from '../components/Icons/Pencil.vue';
           <strong><a href="https://yyblog.top" rel="nofollow">https://yyblog.top</a></strong>
         </li>
         <li>
-          📫 How to reach me <strong><a href="mailto:flingyp@163.com">flingyp@163.com</a></strong>
+          👉 How to contact me：
+          <NPopover trigger="hover">
+            <template #trigger>
+              <IconWx class="w-4 h-4 inline-block outline-none cursor-pointer" />
+            </template>
+            <div class="w-40">
+              <NImage src="/public/wxCode.png" width="100%" :preview-disabled="true" />
+            </div>
+          </NPopover>
         </li>
       </ul>
 
-      <h3 class="mt-6 mb-4">🛠️ Tech Stack</h3>
+      <h3 class="mt-6 mb-4">🛠️ Technology stack</h3>
 
       <div class="flex items-center space-x-2">
         <code><img height="20" src="https://api.iconify.design/skill-icons:vuejs-dark.svg" /></code>&nbsp;
