@@ -179,6 +179,10 @@ export default {
     {
       text: 'Verdaccio 搭建NPM私有仓库',
       link: '/posts/Verdaccio搭建NPM私有仓库',
-    }
+    },
+    {
+      text: '构建高效前端工具函数库',
+      link: '/posts/构建高效前端工具函数库',
+    },
   ],
 } as DefaultTheme.Sidebar;
