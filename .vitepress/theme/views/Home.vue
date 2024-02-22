@@ -8,11 +8,10 @@ import IconWx from '../components/Icons/Wx.vue';
 <template>
   <div class="w-full h-[calc(100vh-64px-61px)] flex justify-center items-center">
     <div
-      class="text-sm w-[94%] md:w-[60%] lg:w-[50%] border border-[#d0d7de] dark:border-[#30363d] p-6 mx-auto rounded"
+      class="text-sm w-[94%] md:w-[60%] lg:w-[50%] p-6 mx-auto rounded border border-[#d0d7de] dark:border-[#30363d] shadow-inner"
     >
-      <div class="w-full flex flex-col justify-center items-center mb-12">
+      <div class="w-full flex flex-col justify-center items-center mb-8">
         <img class="w-24 h-24 rounded-full" src="/public/profile.png" />
-
         <p class="mt-4">Living without an aim is like sailing without a compass</p>
       </div>
 
