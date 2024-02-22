@@ -120,6 +120,12 @@
     "name": "AI 应用",
     "options": [
       {
+        "name": "ChatGPT",
+        "description": "ChatGPT 是一个免费使用的人工智能系统。使用它进行引人入胜的对话，获得洞察力，自动化任务，并见证人工智能的未来，所有这些都在一个地方。",
+        "url": "https://chat.openai.com",
+        "icon": "https://cdn.oaistatic.com/_next/static/media/apple-touch-icon.59f2e898.png"
+      },
+      {
         "name": "豆包 - 抖音旗下 AI 智能助手",
         "description": "豆包是你的AI 聊天智能对话问答助手，写作文案翻译情感陪伴编程全能工具。豆包为你答疑解惑，提供灵感，辅助创作，也可以和你畅聊任何你感兴趣的话题。",
         "url": "https://www.doubao.com/",
