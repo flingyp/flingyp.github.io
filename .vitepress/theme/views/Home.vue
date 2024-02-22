@@ -13,7 +13,7 @@ import IconWx from '../components/Icons/Wx.vue';
       <div class="w-full flex flex-col justify-center items-center mb-12">
         <img class="w-24 h-24 rounded-full" src="/public/profile.png" />
 
-        <p class="mt-4">Living without an aim is like sailing without a compass.</p>
+        <p class="mt-4">Living without an aim is like sailing without a compass</p>
       </div>
 
       <div class="flex justify-between items-center mb-4">
@@ -31,19 +31,17 @@ import IconWx from '../components/Icons/Wx.vue';
         </div>
       </div>
 
-      <h3 class="mb-4">👋 Hi, I'm flingyp</h3>
+      <h2 class="mb-2 text-base">👋 Hi, I'm flingyp</h2>
+
+      <h3 class="mt-4 mb-4">🙂 关于我</h3>
 
       <ul class="space-y-1">
-        <li>
-          👨‍💻 All of my projects are available at
-          <strong><a href="https://github.com/flingyp">https://github.com/flingyp</a></strong>
+        <li class="flex items-center space-x-1">
+          <span>💁 00后，前端程序员，热爱前端和开源爱好者</span>
         </li>
-        <li>
-          📝 I regularly write articles on
-          <strong><a href="https://yyblog.top" rel="nofollow">https://yyblog.top</a></strong>
-        </li>
-        <li>
-          👉 How to contact me：
+
+        <li class="flex items-center space-x-2">
+          <span>👉 WeChat</span>
           <NPopover trigger="hover">
             <template #trigger>
               <IconWx class="w-4 h-4 inline-block outline-none cursor-pointer" />
@@ -53,9 +51,16 @@ import IconWx from '../components/Icons/Wx.vue';
             </div>
           </NPopover>
         </li>
+
+        <li class="flex items-center space-x-2">
+          <span>📧 EMail</span>
+          <a href="mailto:flingyp@163.com" class="underline font-semibold text-black dark:text-white">
+            flingyp@163.com
+          </a>
+        </li>
       </ul>
 
-      <h3 class="mt-6 mb-4">🛠️ Technology stack</h3>
+      <h3 class="mt-6 mb-4">🛠️ 技术栈</h3>
 
       <div class="flex items-center space-x-2">
         <code><img height="20" src="https://api.iconify.design/skill-icons:vuejs-dark.svg" /></code>&nbsp;
