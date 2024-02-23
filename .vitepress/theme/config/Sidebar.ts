@@ -61,6 +61,16 @@ export default {
           ],
         },
         {
+          text: 'React',
+          collapsed: false,
+          items: [
+            {
+              text: 'Hooks',
+              link: '/frontend/React/ReactHooks',
+            },
+          ],
+        },
+        {
           text: '前端工程化',
           collapsed: false,
           items: [
