@@ -36,7 +36,7 @@ import IconWx from '../components/Icons/Wx.vue';
 
       <ul class="space-y-1">
         <li class="flex items-center space-x-1">
-          <span>💁 00后，前端程序员，热爱前端和开源爱好者</span>
+          <span>💁 00后 前端程序员 热爱前端 开源爱好者</span>
         </li>
 
         <li class="flex items-center space-x-2">

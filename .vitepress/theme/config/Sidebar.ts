@@ -194,5 +194,13 @@ export default {
       text: '构建高效前端工具函数库',
       link: '/posts/构建高效前端工具函数库',
     },
+    {
+      text: 'NPM镜像源切换',
+      link: '/posts/NPM镜像源切换',
+    },
+    {
+      text: 'Github SSH 连接不上',
+      link: '/posts/GithubSSH连接不上',
+    },
   ],
 } as DefaultTheme.Sidebar;
