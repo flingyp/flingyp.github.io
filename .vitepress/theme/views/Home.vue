@@ -1,8 +1,54 @@
 <script setup lang="ts">
-import { NPopover, NImage } from 'naive-ui';
+import { ref } from 'vue';
+import { NPopover, NImage, NTooltip } from 'naive-ui';
 
 import IconPencil from '../components/Icons/Pencil.vue';
 import IconWx from '../components/Icons/Wx.vue';
+
+const projectList = ref([
+  {
+    name: 'Vadmire Admin',
+    description: '一款基于 Vue3 + TypeScript + NaiveUI 等技术栈搭建的后台系统',
+    link: 'https://github.com/flingyp/vadmire-admin',
+  },
+  {
+    name: 'vitepress-demo-preview',
+    description: '在 Vitepress 进行 SFC 单文件组件的预览和源码展示',
+    link: 'https://github.com/flingyp/vitepress-demo-preview',
+  },
+  {
+    name: '@flypeng/lint-config',
+    description: '集成 ESLint + Styleint + Prettier Lint 和 Code Formatter 个人配置包',
+    link: 'https://github.com/flingyp/lint-config',
+  },
+
+  {
+    name: '@flypeng/tool',
+    description: '集成业务中常用的工具函数的工具库',
+    link: 'https://github.com/flingyp/flypeng-tool',
+  },
+
+  {
+    name: 'VSCode Settings',
+    description: '个人 VSCode 配置',
+    link: 'https://github.com/flingyp/vscode-settings',
+  },
+  {
+    name: 'vite-plugin-clear-console',
+    description: '生成环境下清除项目中所有 console 日志输出插件',
+    link: 'https://github.com/flingyp/vite-plugin-clear-console',
+  },
+  {
+    name: 'HotNews',
+    description: '预览平台热搜内容的 VSCode 插件',
+    link: 'https://github.com/flingyp/HotNews',
+  },
+  {
+    name: 'JsonToTs',
+    description: '将 JSON 转换为 TypeScript 接口',
+    link: 'https://github.com/flingyp/json-to-ts',
+  },
+]);
 </script>
 
 <template>
@@ -33,7 +79,6 @@ import IconWx from '../components/Icons/Wx.vue';
       <h2 class="mb-2 text-base">👋 Hi, I'm flingyp</h2>
 
       <h3 class="mt-4 mb-4">🙂 关于我</h3>
-
       <ul class="space-y-1">
         <li class="flex items-center space-x-1">
           <span>💁 00后 前端程序员 热爱前端 开源爱好者</span>
@@ -60,7 +105,6 @@ import IconWx from '../components/Icons/Wx.vue';
       </ul>
 
       <h3 class="mt-6 mb-4">🛠️ 技术栈</h3>
-
       <div class="flex items-center space-x-2">
         <code><img height="20" src="https://api.iconify.design/skill-icons:vuejs-dark.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:react-dark.svg" /></code>&nbsp;
@@ -74,6 +118,16 @@ import IconWx from '../components/Icons/Wx.vue';
         <code><img height="20" src="https://api.iconify.design/skill-icons:nestjs-dark.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/devicon:git.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:github-dark.svg" /></code>&nbsp;
+      </div>
+
+      <h3 class="mt-6 mb-4">🍞 开源项目</h3>
+      <div class="grid grid-cols-3 place-items-center gap-4">
+        <NTooltip v-for="item in projectList" :key="item.name" placement="bottom">
+          <template #trigger>
+            <a class="inline-block" :href="item.link" target="_blank">{{ item.name }}</a>
+          </template>
+          <div>{{ item.description }}</div>
+        </NTooltip>
       </div>
     </div>
   </div>
