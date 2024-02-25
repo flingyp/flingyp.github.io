@@ -52,9 +52,9 @@ const projectList = ref([
 </script>
 
 <template>
-  <div class="w-full h-[calc(100vh-64px-61px)] flex justify-center items-center">
+  <div class="w-full my-4 h-[calc(100vh-64px-98px)] flex justify-center items-center">
     <div
-      class="text-sm w-[94%] md:w-[60%] lg:w-[50%] p-6 mx-auto rounded border border-[#d0d7de] dark:border-[#30363d] shadow-inner"
+      class="text-sm w-[94%] md:w-[60%] lg:w-[50%] h-full overflow-y-scroll no-scrollbar scroll-smooth p-6 mx-auto rounded border border-[#d0d7de] dark:border-[#30363d] shadow-inner"
     >
       <div class="w-full flex flex-col justify-center items-center mb-8">
         <img class="w-24 h-24 rounded-full" src="/public/profile.png" />
@@ -121,14 +121,57 @@ const projectList = ref([
       </div>
 
       <h3 class="mt-6 mb-4">🍞 开源项目</h3>
-      <div class="grid grid-cols-3 place-items-center gap-4">
-        <NTooltip v-for="item in projectList" :key="item.name" placement="bottom">
-          <template #trigger>
-            <a class="inline-block" :href="item.link" target="_blank">{{ item.name }}</a>
-          </template>
-          <div>{{ item.description }}</div>
-        </NTooltip>
+      <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+        <div v-for="item in projectList" :key="item.name" class="site-item">
+          <div class="name">
+            <a :href="item.link" target="_blank" class="name">{{ item.name }}</a>
+          </div>
+          <NTooltip placement="bottom" style="font-size: 12px; max-width: 400px">
+            <template #trigger>
+              <p class="description">{{ item.description }}</p>
+            </template>
+            <span>{{ item.description }}</span>
+          </NTooltip>
+        </div>
       </div>
     </div>
   </div>
 </template>
+
+<style scoped lang="scss">
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.site-item {
+  display: flex;
+  flex-direction: column;
+  min-height: 80px;
+  padding: 12px 12px 0;
+  background: var(--vp-c-default-3);
+  border-radius: 4px;
+  transition: transform 0.2s linear;
+
+  .name {
+    font-family: 'PuHui_Bold';
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .description {
+    font-size: 12px;
+    line-height: 16px;
+    margin: 8px 0 0 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+</style>
