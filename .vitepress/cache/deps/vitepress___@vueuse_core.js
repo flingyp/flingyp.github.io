@@ -11,8 +11,6 @@ import {
   breakpointsSematic,
   breakpointsTailwind,
   breakpointsVuetify,
-  breakpointsVuetifyV2,
-  breakpointsVuetifyV3,
   bypassFilter,
   camelize,
   clamp,
@@ -273,7 +271,7 @@ import {
   watchTriggerable,
   watchWithFilter,
   whenever
-} from "./chunk-EZCPEOLR.js";
+} from "./chunk-R7V6TI3X.js";
 import "./chunk-UBIG67LQ.js";
 import "./chunk-ZS7NZCD4.js";
 export {
@@ -291,8 +289,6 @@ export {
   breakpointsSematic,
   breakpointsTailwind,
   breakpointsVuetify,
-  breakpointsVuetifyV2,
-  breakpointsVuetifyV3,
   bypassFilter,
   camelize,
   clamp,

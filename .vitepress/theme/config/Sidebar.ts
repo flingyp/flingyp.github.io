@@ -202,5 +202,9 @@ export default {
       text: 'Github SSH 连接不上',
       link: '/posts/GithubSSH连接不上',
     },
+    {
+      text: 'Uniapp打包安卓和IOS',
+      link: '/posts/Uniapp打包安卓和IOS',
+    }
   ],
 } as DefaultTheme.Sidebar;
