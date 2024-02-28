@@ -203,8 +203,12 @@ export default {
       link: '/posts/GithubSSH连接不上',
     },
     {
-      text: 'Uniapp打包安卓和IOS',
+      text: 'Uniapp 打包安卓和IOS',
       link: '/posts/Uniapp打包安卓和IOS',
-    }
+    },
+    {
+      text: 'UniCloud 开源库',
+      link: '/posts/uniCloud开源库',
+    },
   ],
 } as DefaultTheme.Sidebar;
