@@ -113,6 +113,12 @@
         "description": "iLovePDF | 为PDF爱好者提供的PDF文件在线处理工具",
         "url": "https://www.ilovepdf.com/zh-cn",
         "icon": "https://www.ilovepdf.com/img/app-icon.png"
+      },
+      {
+        "name": "Markdown Live Preview",
+        "description": "Markdown Live Preview",
+        "url": "https://markdownlivepreview.com",
+        "icon": "https://markdownlivepreview.com/favicon.png"
       }
     ]
   },

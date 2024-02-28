@@ -36,7 +36,9 @@ IOS：需要借用 iTunes，通过 USB 连接手机，运行在手机上，使�
 2. 证书 `profile` 文件
 3. 私钥证书
 
-前提是苹果开发者账号，并且已经创建了 AppID，才可以创建上面这些东西
+前提是苹果开发者账号，并且已经创建了 AppID，必须在Mac电脑上才可以创建上面这些东西
+
+如果不是苹果电脑可以使用 [香蕉云编](https://www.yunedit.com/) 去生成
 
 ## 注意
 
@@ -49,3 +51,4 @@ IOS：需要借用 iTunes，通过 USB 连接手机，运行在手机上，使�
 2. [教你做事，uniapp ios App 打包全流程](https://juejin.cn/post/7264939254290579495)
 3. [uniapp打包上线微信小程序、安卓、IOS流程](https://www.bilibili.com/video/BV1Jp4y1V7ad/)
 4. [uniapp运行到IOS真机提示 错误:请查看是否设备未加入到证书列表或者确认证书类型是否匹配](https://blog.csdn.net/cengjing123_/article/details/129490094)
+5. [hbuilderx云打包ios证书的生成方法](https://blog.csdn.net/weixin_48914851/article/details/114979266)
