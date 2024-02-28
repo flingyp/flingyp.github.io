@@ -52,3 +52,6 @@ IOS：需要借用 iTunes，通过 USB 连接手机，运行在手机上，使�
 3. [uniapp打包上线微信小程序、安卓、IOS流程](https://www.bilibili.com/video/BV1Jp4y1V7ad/)
 4. [uniapp运行到IOS真机提示 错误:请查看是否设备未加入到证书列表或者确认证书类型是否匹配](https://blog.csdn.net/cengjing123_/article/details/129490094)
 5. [hbuilderx云打包ios证书的生成方法](https://blog.csdn.net/weixin_48914851/article/details/114979266)
+6. [uniapp项目实践总结(二十四)安卓平台 APP 打包教程](https://juejin.cn/post/7282972975933964323)
+7. [uniapp项目实践总结(二十五)苹果 ios 平台 APP 打包教程](https://juejin.cn/post/7284221961621028919)
+8. [最新 App store 上架教程（uni-app版）](https://ask.dcloud.net.cn/article/37835)
