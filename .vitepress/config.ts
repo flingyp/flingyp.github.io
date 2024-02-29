@@ -10,10 +10,24 @@ export default defineConfig({
   title: 'flingyp ✍️',
   description: "flingyp's site",
   head: [
-    ['link', { rel: 'icon', href: '/favicon.png' }],
     ['meta', { name: 'referrer', content: 'no-referrer' }],
+    ['link', { rel: 'icon', href: '/favicon.png' }],
     ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css' }],
-    ['script', { src: 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js' }],
+    [
+      'script',
+      {
+        src: 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js',
+      },
+    ],
+    [
+      'script',
+      {
+        src: 'https://us.umami.is/script.js',
+        'data-website-id': '152c12e4-e4c7-4077-9be2-019fab898726',
+        // @ts-ignore
+        defer,
+      },
+    ],
   ],
   themeConfig: {
     siteTitle: '',
