@@ -25,7 +25,7 @@ export default defineConfig({
         src: 'https://us.umami.is/script.js',
         'data-website-id': '152c12e4-e4c7-4077-9be2-019fab898726',
         // @ts-ignore
-        defer,
+        defer: true,
       },
     ],
   ],
