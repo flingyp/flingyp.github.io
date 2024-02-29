@@ -203,6 +203,10 @@ export default {
       link: '/posts/GithubSSH连接不上',
     },
     {
+      text: 'WebSocket 介绍和使用',
+      link: '/posts/WebSocket介绍和使用'
+    },
+    {
       text: 'Uniapp 打包安卓和IOS',
       link: '/posts/Uniapp打包安卓和IOS',
     },
