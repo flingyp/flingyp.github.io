@@ -91,7 +91,7 @@ const projectList = ref([
               <IconWx class="w-4 h-4 inline-block outline-none cursor-pointer" />
             </template>
             <div class="w-40">
-              <NImage src="/public/wxCode.png" width="100%" :preview-disabled="true" />
+              <NImage src="/wxCode.png" width="100%" :preview-disabled="true" />
             </div>
           </NPopover>
         </li>
