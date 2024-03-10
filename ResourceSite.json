@@ -148,6 +148,12 @@
         "description": "扣子是新一代 AI 大模型智能体开发平台。整合了插件、长短期记忆、工作流、卡片等丰富能力，扣子能帮你低门槛、快速搭建个性化或具备商业价值的智能体，并发布到豆包、飞书等各个平台。",
         "url": "https://www.coze.cn",
         "icon": "https://lf-coze-web-cdn.coze.cn/obj/coze-web-cn/obric/coze/favicon.1970.png"
+      },
+      {
+        "name": "Phind",
+        "description": "Phind 是一个专为开发者和技术问题优化的搜索引擎。它利用“大型AI语言模型”来生成答案，这些答案基于互联网上的信息，但同时使用多个来源。这种方法帮助 Phind 确定哪些信息是有用的，甚至可以抓取代码片段来协助用户。Phind 的网站上没有太多信息，但这可能是因为它本质上就是一个优化的搜索引擎，不需要通过长篇的解释来装饰。它的目的是简单而有效，智能而帮助用户解决问题。",
+        "url": "https://www.phind.com/",
+        "icon": "https://www.phind.com/images/favicon.png"
       }
     ]
   },
