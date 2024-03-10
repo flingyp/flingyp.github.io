@@ -214,5 +214,9 @@ export default {
       text: 'UniCloud 开源库',
       link: '/posts/uniCloud开源库',
     },
+    {
+      text: 'PicGo 图床搭建',
+      link: '/posts/PicGo图床搭建'
+    }
   ],
 } as DefaultTheme.Sidebar;
