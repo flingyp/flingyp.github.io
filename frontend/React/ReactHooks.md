@@ -132,6 +132,39 @@ function CountLabel({ count }) {
 }
 ```
 
+## `useRef`
+
+帮助引用一个不需要渲染的值
+
+```ts
+const intervalRef = useRef(0);
+const inputRef = useRef(null);
+```
+
+### 通过 Ref 操作 DOM
+
+```tsx
+export default function MyComponent() {
+  const inputRef = useRef(null);
+  // inputRef.current 指向 <input> DOM 元素
+
+  return <input ref={inputRef} />;
+}
+```
+
+### 避免重复创建 Ref 的内容
+
+```tsx
+// `new VideoPlayer()` 的结果只会在首次渲染时使用，但是依然在每次渲染时都在调用这个方法
+const playerRef = useRef(new VideoPlayer());
+
+// 为了解决这个问题，可以这样初始化
+const playerRef = useRef(null);
+if (playerRef.current === null) {
+  playerRef.current = new VideoPlayer();
+}
+```
+
 ## `useMemo`
 
 `useMemo` 重新渲染的时候，缓存状态值计算的结果。类似于 Vue 提供的计算属性 Computed
@@ -165,39 +198,6 @@ export default function ProductPage({ productId, referrer, theme }) {
       orderDetails,
     });
   }, [productId, referrer]);
-}
-```
-
-## `useRef`
-
-帮助引用一个不需要渲染的值
-
-```ts
-const intervalRef = useRef(0);
-const inputRef = useRef(null);
-```
-
-### 通过 Ref 操作 DOM
-
-```tsx
-export default function MyComponent() {
-  const inputRef = useRef(null);
-  // inputRef.current 指向 <input> DOM 元素
-
-  return <input ref={inputRef} />;
-}
-```
-
-### 避免重复创建 Ref 的内容
-
-```tsx
-// `new VideoPlayer()` 的结果只会在首次渲染时使用，但是依然在每次渲染时都在调用这个方法
-const playerRef = useRef(new VideoPlayer());
-
-// 为了解决这个问题，可以这样初始化
-const playerRef = useRef(null);
-if (playerRef.current === null) {
-  playerRef.current = new VideoPlayer();
 }
 ```
 
@@ -337,3 +337,13 @@ export default function Counter() {
   );
 }
 ```
+
+## 总结
+
+- `useState` 用于声明一个状态变量
+- `useRef` 用于声明一个引用变量
+- `useMemo` 类似于 Vue `computed`，计算缓存状态变量结果的值
+- `useCallback` 缓存函数，用于优化，在依赖不变的清空下返回缓存的函数，减少不必要的性能开销
+- `useEffect` 用于声明副作用操作，类似于 Vue 的生命周期 `onMounted`、`watch` 的组合
+- `useContext` 用于声明上下文对象，进行跨组件数据和方法传递
+- `useReducer` 用于声明复杂状态逻辑，类似于 Redux 的 `reducer`
