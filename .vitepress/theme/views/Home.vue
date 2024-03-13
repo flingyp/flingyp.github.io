@@ -148,8 +148,9 @@ a {
 .site-item {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   min-height: 80px;
-  padding: 12px 12px 0;
+  padding: 10px;
   background: var(--vp-c-default-3);
   border-radius: 4px;
   transition: transform 0.2s linear;
@@ -166,7 +167,6 @@ a {
   .description {
     font-size: 12px;
     line-height: 16px;
-    margin: 8px 0 0 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
