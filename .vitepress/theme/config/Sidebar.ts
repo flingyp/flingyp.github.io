@@ -159,10 +159,6 @@ export default {
       link: '/posts/前端重新部署刷新网页',
     },
     {
-      text: 'Uniapp && 小程序相关',
-      link: '/posts/小程序开发记录',
-    },
-    {
       text: '正则表达式介绍与使用',
       link: '/posts/正则表达式介绍与使用',
     },
@@ -204,7 +200,7 @@ export default {
     },
     {
       text: 'WebSocket 介绍和使用',
-      link: '/posts/WebSocket介绍和使用'
+      link: '/posts/WebSocket介绍和使用',
     },
     {
       text: 'Uniapp 打包安卓和IOS',
@@ -215,8 +211,12 @@ export default {
       link: '/posts/uniCloud开源库',
     },
     {
+      text: 'Uniapp && 小程序相关',
+      link: '/posts/小程序开发记录',
+    },
+    {
       text: 'PicGo 图床搭建',
-      link: '/posts/PicGo图床搭建'
-    }
+      link: '/posts/PicGo图床搭建',
+    },
   ],
 } as DefaultTheme.Sidebar;
