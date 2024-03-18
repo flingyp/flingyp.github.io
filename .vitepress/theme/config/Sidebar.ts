@@ -128,6 +128,10 @@ export default {
               text: '环境变量配置',
               link: '/backend/Nest/EnvironmentVariousConfig',
             },
+            {
+              text: '微服务',
+              link: '/backend/Nest/MicroServices',
+            },
           ],
         },
       ],
