@@ -4,6 +4,11 @@ Nest支持几种内置的传输层实现，称为**传输器**。默认使用 TC
 
 ![Microservices_1](http://nestjs.inode.club/assets/Microservices_1.png)
 
+## 概念理解
+
+- `@MessagePattern()`: 请求-响应传递模式，适用于服务之间互相交换消息
+- `@EventPattern()`: 事件消息传递模式，适用于单方面通知服务处理
+
 ## 搭建一个微服务
 
 ### 创建微服务
