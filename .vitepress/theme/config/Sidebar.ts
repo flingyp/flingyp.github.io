@@ -226,5 +226,9 @@ export default {
       text: 'PicGo 图床搭建',
       link: '/posts/PicGo图床搭建',
     },
+    {
+      text: '如何修改第三方依赖包源码',
+      link: '/posts/如何修改第三方依赖包源码',
+    },
   ],
 } as DefaultTheme.Sidebar;
