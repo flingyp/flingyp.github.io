@@ -55,3 +55,4 @@ IOS：需要借用 iTunes，通过 USB 连接手机，运行在手机上，使�
 6. [uniapp项目实践总结(二十四)安卓平台 APP 打包教程](https://juejin.cn/post/7282972975933964323)
 7. [uniapp项目实践总结(二十五)苹果 ios 平台 APP 打包教程](https://juejin.cn/post/7284221961621028919)
 8. [最新 App store 上架教程（uni-app版）](https://ask.dcloud.net.cn/article/37835)
+9. [https://blog.csdn.net/weixin_43742167/article/details/129876427](https://blog.csdn.net/weixin_43742167/article/details/129876427)
