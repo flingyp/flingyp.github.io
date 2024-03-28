@@ -96,6 +96,10 @@ export default {
             },
           ],
         },
+        {
+          text: 'Three.js',
+          link: '/frontend/ThreeJS/',
+        },
       ],
     },
   ],
