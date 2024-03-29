@@ -7,6 +7,7 @@ Three.js 是一个用于 WebGL 的 JavaScript 3D 库。将 **物体 Mesh** 添�
 1. 场景 Scene
 2. 相机 Camera
 3. 物体 Mesh
+4. 渲染器 Renderer
 
 ### 入门代码
 
@@ -40,7 +41,7 @@ scene.add(cube);
 camera.position.z = 5;
 camera.lookAt(0, 0, 0);
 
-// 第六步：渲染
+// 第六步：渲染（场景 + 相机）
 renderer.render(scene, camera);
 
 // 让物体动起来
@@ -110,3 +111,12 @@ scene.add(directionalLight);
 const dirLightHelper = new THREE.DirectionalLightHelper(directionalLight, 10, 'pink');
 scene.add(dirLightHelper);
 ```
+
+## 专业单词
+
+- 摄像机：Camera
+- 曲线：Curve
+- 几何体：Geometry
+- 材质：Material
+- 阴影：Shadow
+- 光源：Light
