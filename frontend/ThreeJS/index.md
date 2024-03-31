@@ -85,31 +85,130 @@ controls.addEventListener('change', () => {
 
 Three.js 提供了多种模拟生活中光源的 API
 
-- 环境光源 `AmbientLight`
 - 点光源 `PointLight`
+- 环境光源 `AmbientLight`
 - 聚光灯光源 `SpotLight`
 - 平行光源 `DirectionalLight`
 
 ```javascript
-// 添加一个环境光源
-const ambientLight = new THREE.AmbientLight('#ffffff', 0.4);
-scene.add(ambientLight);
-
 // 创建一个点光源
 const pointLight = new THREE.PointLight('#ffffff', 1);
 pointLight.position.set(400, 200, 300); // 光源位置
 scene.add(pointLight); // 将光源添加到场景中
-// 点光源辅助观察
-const pointLightHelper = new THREE.PointLightHelper(pointLight, 50);
-scene.add(pointLightHelper);
+
+// 添加一个环境光源
+const ambientLight = new THREE.AmbientLight('#ffffff', 0.4);
+scene.add(ambientLight);
 
 // 添加一个平行光源
 const directionalLight = new THREE.DirectionalLight('#ffffff', 1);
 directionalLight.position.set(0, 100, -100);
 scene.add(directionalLight);
-// 平行光辅助观察
+```
+
+- 点光源辅助观察 `PointLightHelper`
+
+```javascript
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 50);
+scene.add(pointLightHelper);
+```
+
+- 平行光辅助观察 `DirectionalLightHelper`
+
+```javascript
 const dirLightHelper = new THREE.DirectionalLightHelper(directionalLight, 10, 'pink');
 scene.add(dirLightHelper);
+```
+
+## 动画渲染循环
+
+Three.js 可以通过请求动画帧 `requestAnimationFrame()` 来实现循坏渲染，实现动画效果
+
+```javascript
+function render() {
+  mesh.rotateY(0.01); // 让物体每次旋转0.01弧度
+  renderer.render(scene, camera); // 重新渲染
+
+  requestAnimationFrame(render);
+}
+render();
+```
+
+## Canvas 画布布局和全屏
+
+渲染器 `WebGLRenderer` 通过属性 `.domElement` 可以获得渲染结果的 Canvas 画布
+
+之后就可以随意将它插入到任何DOM中
+
+```javascript
+// renderer.domElement
+document.body.appendChild(renderer.domElement);
+```
+
+Canvas 画布宽高度跟随浏览器窗口动态变化
+
+```javascript
+window.addEventListener('resize', () => {
+  // 重置渲染器输出画布canvas尺寸
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  // 重新定义相机的观察范围的宽高比
+  camera.aspect = window.innerWidth / window.innerHeight;
+  // 渲染器执行render方法的时候会读取相机对象的投影矩阵属性projectionMatrix
+  // 但是不会每渲染一帧，就通过相机的属性计算投影矩阵(节约计算资源)
+  // 如果相机的一些属性发生了变化，需要执行updateProjectionMatrix ()方法更新相机的投影矩阵
+  camera.updateProjectionMatrix();
+});
+```
+
+## Stats 查看Three.js 查看渲染帧率
+
+```javascript
+// 性能监视器
+import Stats from 'three/addons/libs/stats.module.js';
+
+const stats = new Stats();
+document.body.appendChild(stats.domElement);
+
+// 动画循环渲染下不断刷新
+function rotateRender() {
+  // 不断刷新渲染帧率
+  stats.update();
+
+  mesh.rotateY(0.01);
+  renderer.render(scene, camera); // 执行渲染操作
+  requestAnimationFrame(rotateRender);
+}
+rotateRender();
+```
+
+## 常见的几何体
+
+- 矩形 `BoxGeometry`
+- 球体 `SphereGeometry`
+- 圆柱体 `CylinderGeometry`
+- 矩形平面 `PlaneGeometry`
+- 圆形平面 `CircleGeometry`
+
+## WebGL 渲染器常用设置
+
+抗锯齿属性
+
+```javascript
+const renderer = new THREE.WebGLRenderer({
+  antialias: true, // 启用抗锯齿
+});
+```
+
+设备像素比 `window.devicePixelRatio`，不同硬件设备的设备像素比不同
+
+```javascript
+// 告诉 Three.js 你的屏幕的设备像素比（固定配置）
+renderer.setPixelRatio(window.devicePixelRatio);
+```
+
+```javascript
+// 设置背景颜色
+renderer.setClearColor(0xffffff, 1);
 ```
 
 ## 专业单词
