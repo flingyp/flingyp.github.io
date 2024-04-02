@@ -98,7 +98,13 @@ export default {
         },
         {
           text: 'Three.js',
-          link: '/frontend/ThreeJS/',
+          collapsed: false,
+          items: [
+            {
+              text: 'Three.js 基础语法',
+              link: '/frontend/ThreeJS/Basic',
+            },
+          ],
         },
       ],
     },
