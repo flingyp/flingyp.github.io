@@ -8,77 +8,13 @@ JavaScript 由 ECMAScript、DOM、BOM 组成
 - DOM：文档对象模型，提供与网页交互的方法和接口
 - BOM：浏览器对象模型，提供与浏览器交互的方法和接口
 
-## 什么是闭包，如何理解它
-
-闭包就是**一个函数和其周围状态的引用捆绑在一起，这样的组合就是闭包**
-
-理解闭包的关键在于理解 **作用域、作用域链** 的概念
-
-执行上下文（执行环境）：全局环境（全局作用域）、函数环境（函数作用域）。也就是说闭包可以让你在外层函数中访问到其内层函数的**作用域**，最典型的就是嵌套函数
-
-有个应用场景就是 **需要访问内部函数的私有变量时** 就可以采取闭包的形式完成
-
-**优点**
-
-1. 可以在函数体外部访问内部函数的私有变量
-2. 不需要将啥杂七杂八的变量都定义在全局环境当中。避免变量污染全局
-3. 把变量存到独立的作用域，作为私有成员的存在
-
-**缺点**
-
-1. 内部作用域中所定义的变量未及时销毁时会造成内存泄漏，内存泄露积累多了就容易导致内存溢出，导致页面卡顿
-
-示例：会打印四个4，但是就是想根据顺序依次打印 1 2 3 4 呢
-
-```ts
-/**
- * 原因：首先根据JS执行顺序，会先执行完所有for循环，再去执行异步任务 setTimeout
- * 但是变量是使用 var 关键字声明的，此时的i是作用在全局的。执行完循环后i已经变成4了
- * 所以打印出来的i就都是4了
- */
-for (var i = 0; i < 4; i++) {
-  setTimeout(() => {
-    console.log(i); // 打印四个 4
-  }, i * 1000);
-}
-
-/**
- * 解决方式：使用闭包配合立即执行函数解决此问题
- * 此时的i作为参数传入立即执行函数当中，会存在到这个闭包当中
- */
-for (var i = 0; i < 4; i++) {
-  (function (i) {
-    setTimeout(() => {
-      console.log(i); // 打印四个 4
-    }, i * 1000);
-  })(i);
-}
-```
-
-## 延迟加载脚本方式有哪些
-
-一般 HTML 文件当中的 `script` 脚本引入我们会放置在 `body` 的下面，以确保浏览器优先加载 DOM
-
-延迟加载的作用：确保等待页面加载完成之后再加载 JavaScript 脚本文件
-
-延迟加载方式有：Async、Defer
-
-- `<script async type="text/javascript" src="xxx.js"></script>`
-- `<script defer type="text/javascript" src="xxx.js"></script>`
-
-Async 和 Defer 的区别
-
-1. Async（异步）：异步加载，加载完 JS 文件后会立即执行（无法保证多个 JS 文件的执行顺序）
-2. Defer（延迟）：延迟加载，会和 HTML 的解析同步进行加载 JS，等待 HTML 解析完成后执行 JS 文件 （可以保证多个 JS 文件的执行顺序）
-
 ## JavaScript 数据类型
+
+JavaScript 是一种弱类型语言，具有丰富的数据类型来表示不同种类的值
 
 基本数据类型：Number、String、Boolean、Undefined、Null、Symbol（ES6+）
 
 引用数据类型：Object
-
-- 基本数据类型都是直接将值存放在栈中的，每种类型的数据占用内存空间都是确定的，并且有系统自动分配和自动释放
-- 引用类型的数据是将值存放在堆中，而堆中的引用地址是存放在栈中的。当我们访问这些值的时候，其实获取到的是堆的地址，之后才能访问到值
 
 ```ts
 console.log(typeof NaN); // number
@@ -89,18 +25,42 @@ console.log(typeof ('name' + true)); // string
 console.log(undefined + 1); // NaN
 ```
 
+## 基本数据类型和引用数据类型的区别是什么
+
+**存储方式**
+
+- 基本数据类型的值存储在栈内存中，直接存储在变量访问的位置上
+- 引用数据类型的值存储在堆内存中，而变量则存储的是对该值的引用，即该值在内存中的引用地址
+
+**赋值方式**
+
+- 基本数据类型的赋值是按值传递的，即在赋值时，变量会复制基本数据类型的值，两者互不影响
+- 引用数据类型的赋值是按引用传递的，即在赋值时，变量会复制引用（指向堆内存中的值的地址），因此两个变量指向的是同一个对象，修改其中一个变量的值会影响到另一个变量（所以就会出现深拷贝和浅拷贝的问题）
+
+**比较方式**
+
+- 基本数据类型的比较是值的比较，只有当两个变量的值相等时才会返回 `true`
+- 引用数据类型的比较是引用的比较，即只有当两个变量引用的是同一个对象时才会返回 `true`，即使两个对象有相同的属性和值，它们也不会被认为是相等的
+
+**内存管理**
+
+- 基本数据类型的内存管理由 JavaScript 引擎自动处理，变量的生命周期由作用域控制
+- 引用数据类型需要手动管理内存，特别是在不需要使用对象时，需要将其置为 null 来释放内存，以避免内存泄漏
+
 ## Null 和 Undefined 的区别
 
 JavaScript 在最初设计的时候，参考了 Java 语言，所以有了 Null。而 `null` 会被隐式转换成 0，不容易发现错误，所以为了弥补这个坑，出现了 `undefined`
 
-`null` 的字面意思是：空值。这个值的语义是，希望表示一个对象被人为的重置为空对象，而非一个变量最原始的状态。在内存里的表示就是，栈中的变量没有指向堆中的内存对象
+**Undefined**
 
-在实际使用过程中，为了保证变量所代表的语义，不要对一个变量显式的赋值 `undefined`，当需要释放一个对象时，直接赋值为 `null` 即可
+- 当声明了一个变量但是没有给它赋值时，这个变量的默认值就是 `undefined`
+- 当访问对象中不存在的属性时，返回的值也是 `undefined`
+- 当函数没有明确返回值时，默认返回的也是 `undefined`
 
-Null 和 Undefined 的区别
+**Null**
 
-1. 都表示的是一个空值
-2. Null 是表示的是一个空对象指针 而 Undefined 是一个变量自然的，最原始的状态值
+- `null` 表示的是一个空的值，可以被赋值给任何类型的变量
+- 当变量明确表示为空时，可以将其赋值为 `null`
 
 ```js
 console.log(Number(null)); // 0
@@ -110,160 +70,31 @@ console.log(undefined == null); // true
 console.log(undefined === null); // false
 ```
 
+**区别**
+
+- `undefined` 表示未定义，通常是变量声明但未初始化的状态，或者访问不存在的属性时返回的值
+- `null` 表示空，通常是用来明确指示变量的空状态
+
+`null` 的字面意思是：空值。这个值的语义是，希望表示一个对象被人为的重置为空对象，而非一个变量最原始的状态。在内存里的表示就是，栈中的变量没有指向堆中的内存对象
+
+在实际使用过程中，为了保证变量所代表的语义，不要对一个变量显式的赋值 `undefined`，当需要释放一个对象时，直接赋值为 `null` 即可
+
 ## `==` 和 `===` 的区别
 
-**等于操作符**：在 `JavaScript` 中存在隐式转换。等于操作符 == 在比较中会先进行类型转换，再确定值是否相等
-
-**全等操作符**：由 3 个等于号 `===` 表示，只用在两个操作数在不转换的前提下相等才返回 `true`。即类型相同，值也要相同
-
-遵循以下规则：
-
-```ts
-// 1. 如果任一操作数是布尔值，则将其转换为数值再比较是否相等
-console.log(true == 1); // true
-// 2. 如果一个操作数是字符串，另一个操作数是数值，则尝试将字符串转换为数值，再比较是否相等
-console.log('55' == 55); // true
-// 3. 如果一个操作数是对象，另一个操作数不是，则会默认调用对象的 valueOf() 方法取得其原始值，再根据前面的规则进行比较
-let obj = {
-  a: 2,
-};
-obj.valueOf = function () {
-  // 重写 valueOf 方法
-  return 1;
-};
-console.log(obj == 1); // true
-// 4. null 和 undefined 是相等
-console.log(null == undefined); // true
-// 5. 如果有任一操作数是 NAN，则相等操作符返回 false
-console.log(NAN == NAN); // false
-// 6. 如果两个操作数都是对象，则比较它们是不是同一个对象。如果两个操作数都指向同一个对象，则相等操作符返回true
-let obj1 = { name: 'xxx' };
-let obj2 = { name: 'xxx' };
-console.log(obj1 == obj2); // false
-```
-
-## 对事件循环的理解
-
-首先，`JavaScript` 是一门单线程的语言，意味着同一时间内只能做一件事，但是这并不意味着单线程就是阻塞，而实现单线程非阻塞的方法就是事件循环
-
-在 `JavaScript` 中所有任务都可以分为：同步任务、异步任务
-
-- 同步任务：立即执行的任务，同步任务一般会直接进入到主线程中执行
-- 异步任务：异步执行的任务，比如网络请求、定时函数、`.then()`等
-
-![JS代码执行顺序](https://img-blog.csdnimg.cn/20200714184207672.png)
-
-**总结 JS 的执行循序**：同步任务进入主线程，即主执行栈，异步任务进入任务队列，主线程内的任务执行完毕为空，会去任务队列读取对应的任务，推入主线程执行。上述过程的不断重复就事件循环
-
-### 宏任务和微任务
-
-任务队列 Event Queue：JS 中有两类任务队列。宏任务队列 和 微任务队列。宏任务队列可以有多个。微任务队列只能有一个
-
-宏任务：全局任务（主线程的同步任务）、`setTimeout/setInterval`、I/O、UI、UI rendering
-
-微任务：`Promise.then()`、`MutationObserver`、`process.nextTick（node.js 中进程相关的对象）`
-
-![宏微任务执行关系](https://img-blog.csdnimg.cn/20200714184526268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NjI0Mzg2,size_16,color_FFFFFF,t_70)
-
-执行机制：执行一个宏任务，如果遇到微任务就将它放到微任务的事件队列中，当前宏任务执行完成后，会查看微任务的事件队列，然后将里面的所有微任务依次执行完。上述过程的不断重复
+- `==` 相等操作符：比较前会先进行类型转换，再确定值是否相等
+- `===` 全等操作符：会比较类型和值都是否相等
 
 ```js
-console.log('1');
-setTimeout(function () {
-  console.log(2);
-  new Promise(function (resolve, reject) {
-    console.log(3);
-    resolve();
-  }).then(function () {
-    console.log(4);
-  });
-});
-new Promise(function (resolve, reject) {
-  console.log(5);
-  resolve();
-})
-  .then(function () {
-    console.log(6);
-  })
-  .then(function () {
-    console.log(7);
-  });
-setTimeout(function () {
-  console.log(8);
-  new Promise(function (resolve, reject) {
-    console.log(9);
-    resolve();
-  }).then(function () {
-    console.log(10);
-  });
-});
+console.log(5 == '5'); // 输出: true，因为 JavaScript 将字符串 "5" 转换为数字 5，然后比较它们的值
+console.log(undefined == null); // 输出: true，因为它们是相等的特殊值
+console.log(0 == false); // 输出: true，因为 JavaScript 将 false 转换为数字 0，然后比较它们的值
 ```
 
-:::details 解释说明
-
-1. 先执行主线程的所有同步任务。打印：1 5
-2. 在执行当前所有的微任务。打印：6 7
-3. 进入事件循环中执行异步任务
-4. 执行第一个 setTimeout 宏任务。 打印：2 3
-5. 执行第一个 setTimeout 宏任务所有微任务。打印：4
-6. 执行第二个 setTimeout 宏任务。打印：8 9
-7. 执行第二个 setTimeout 宏任务所有微任务。打印：10
-
-- 结果：1 5 6 7 2 3 4 8 9 10
-
-**总结**：先执行主线程所有同步任务（宏任务）- 执行所有当前微任务 - 在执行异步任务（宏任务）- 在执行当前的所有微任务 - 周而复始
-
-:::
-
-### Async 和 Await
-
-Async 函数返回一个 Promise 对象，Await 命令后面跟着一个 Promise 对象，如果不是就直接返回对应的值
-
-Await 会阻塞后面代码的执行（后面代码会加入到微任务队列中），先执行外面的同步代码，同步代码执行完，再回到 Async 函数中，再执行之前阻塞的代码
-
-```ts
-async function async1() {
-  console.log('async1 start');
-  await async2();
-  console.log('async1 end');
-}
-async function async2() {
-  console.log('async2');
-}
-console.log('script start');
-setTimeout(function () {
-  console.log('setTimeout');
-});
-async1();
-new Promise(function (resolve) {
-  console.log('promise1');
-  resolve();
-}).then(function () {
-  console.log('promise2');
-});
-console.log('script end');
-/**
- * script start
- * async1 start
- * async2
- * promise1
- * script end
- * async1 end
- * promise2
- * setTimeout
- */
+```js
+console.log(5 === '5'); // 输出: false，因为它们的类型不同
+console.log(undefined === null); // 输出: false，因为它们的类型不同
+console.log(0 === false); // 输出: false，因为它们的值和类型都不同
 ```
-
-:::details 解释说明
-
-1. 先打印 `script start`，遇到 `setTimeout` 丢进任务队列中
-2. 执行 `async1` 函数，打印 `async1 start`，执行 `async2` 函数打印 `async2`
-3. 后面的任务被阻塞去执行其他的同步任务
-4. 后面再打印 `promise1、script end` 执行完所有同步代码后
-5. 先执行阻塞的代码，然后打印 `async1 end、promise2`
-6. 最后执行异步任务的宏任务只有 `setTimeout` 了最后打印 `setTimeout`
-
-:::
 
 ## JavaScript 作用域
 
@@ -389,6 +220,194 @@ console.log(x); // 1
 :::
 
 - 参考文章：https://blog.csdn.net/dennis_jiang/article/details/106157904
+
+## 什么是闭包，如何理解它
+
+理解闭包的关键在于理解 **作用域、作用域链** 的概念，闭包就是**一个函数和其周围状态的引用捆绑在一起，这样的组合就是闭包**
+
+执行上下文（执行环境）：全局环境（全局作用域）、函数环境（函数作用域）
+
+也就是说闭包可以让你在外层函数中访问到某个作用域下**内部变量或函数**，最典型的就是嵌套函数
+
+有个应用场景就是 **需要访问内部函数的私有变量时** 就可以采取闭包的形式完成
+
+**优点**
+
+1. 可以在函数体外部访问某个作用域下的私有变量
+2. 无需将没有意义的变量都定义在全局环境当中，避免变量污染全局
+3. 把变量存到独立的作用域，作为私有成员的存在
+
+**缺点**
+
+1. 内部作用域中所定义的变量未及时销毁时会造成内存泄漏，内存泄露积累多了就容易导致内存溢出，导致页面卡顿
+
+**示例**
+
+会打印四个4，但是就是想根据顺序依次打印 1 2 3 4 呢
+
+```ts
+/**
+ * 原因：首先根据JS执行顺序，会先执行完所有for循环，再去执行异步任务 setTimeout
+ * 但是变量是使用 var 关键字声明的，此时的i是作用在全局的。执行完循环后i已经变成4了
+ * 所以打印出来的i就都是4了
+ */
+for (var i = 0; i < 4; i++) {
+  setTimeout(() => {
+    console.log(i); // 打印四个 4
+  }, i * 1000);
+}
+
+/**
+ * 解决方式：使用闭包配合立即执行函数解决此问题
+ * 此时的i作为参数传入立即执行函数当中，会存在到这个闭包当中
+ */
+for (var i = 0; i < 4; i++) {
+  (function (i) {
+    setTimeout(() => {
+      console.log(i); // 打印四个 4
+    }, i * 1000);
+  })(i);
+}
+```
+
+## 延迟加载脚本方式有哪些
+
+一般 HTML 文件当中的 `script` 脚本引入我们会放置在 `body` 的下面，以确保浏览器优先加载 DOM
+
+延迟加载的作用：确保等待页面加载完成之后再加载 JavaScript 脚本文件
+
+延迟加载方式有：Async、Defer
+
+- `<script async type="text/javascript" src="xxx.js"></script>`
+- `<script defer type="text/javascript" src="xxx.js"></script>`
+
+Async 和 Defer 的区别
+
+1. Async（异步）：异步加载，加载完 JS 文件后会立即执行（无法保证多个 JS 文件的执行顺序）
+2. Defer（延迟）：延迟加载，会和 HTML 的解析同步进行加载 JS，等待 HTML 解析完成后执行 JS 文件 （可以保证多个 JS 文件的执行顺序）
+
+## 对事件循环的理解
+
+首先，`JavaScript` 是一门单线程的语言，意味着同一时间内只能做一件事，但是这并不意味着单线程就是阻塞，而实现单线程非阻塞的方法就是事件循环
+
+在 `JavaScript` 中所有任务都可以分为：同步任务、异步任务
+
+- 同步任务：立即执行的任务，同步任务一般会直接进入到主线程中执行
+- 异步任务：异步执行的任务，比如网络请求、定时函数、`.then()`等
+
+![JS代码执行顺序](https://img-blog.csdnimg.cn/20200714184207672.png)
+
+**总结 JS 的执行循序**：同步任务进入主线程，即主执行栈，异步任务进入任务队列，主线程内的任务执行完毕为空，会去任务队列读取对应的任务，推入主线程执行。上述过程的不断重复就事件循环
+
+### 宏任务和微任务
+
+任务队列 Event Queue：JS 中有两类任务队列。宏任务队列 和 微任务队列。宏任务队列可以有多个。微任务队列只能有一个
+
+宏任务：全局任务（主线程的同步任务）、`setTimeout/setInterval`、I/O、UI、UI rendering
+
+微任务：`Promise.then()`、`MutationObserver`、`process.nextTick（node.js 中进程相关的对象）`
+
+![宏微任务执行关系](https://img-blog.csdnimg.cn/20200714184526268.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NjI0Mzg2,size_16,color_FFFFFF,t_70)
+
+执行机制：执行一个宏任务，如果遇到微任务就将它放到微任务的事件队列中，当前宏任务执行完成后，会查看微任务的事件队列，然后将里面的所有微任务依次执行完。上述过程的不断重复
+
+```js
+console.log('1');
+setTimeout(function () {
+  console.log(2);
+  new Promise(function (resolve, reject) {
+    console.log(3);
+    resolve();
+  }).then(function () {
+    console.log(4);
+  });
+});
+new Promise(function (resolve, reject) {
+  console.log(5);
+  resolve();
+})
+  .then(function () {
+    console.log(6);
+  })
+  .then(function () {
+    console.log(7);
+  });
+setTimeout(function () {
+  console.log(8);
+  new Promise(function (resolve, reject) {
+    console.log(9);
+    resolve();
+  }).then(function () {
+    console.log(10);
+  });
+});
+```
+
+:::details 解释说明
+
+1. 先执行主线程的所有同步任务。打印：1 5
+2. 在执行当前所有的微任务。打印：6 7
+3. 进入事件循环中执行异步任务
+4. 执行第一个 setTimeout 宏任务。 打印：2 3
+5. 执行第一个 setTimeout 宏任务所有微任务。打印：4
+6. 执行第二个 setTimeout 宏任务。打印：8 9
+7. 执行第二个 setTimeout 宏任务所有微任务。打印：10
+
+- 结果：1 5 6 7 2 3 4 8 9 10
+
+**总结**：先执行主线程所有同步任务（宏任务）- 执行所有当前微任务 - 在执行异步任务（宏任务）- 在执行当前的所有微任务 - 周而复始
+
+:::
+
+### Async 和 Await
+
+Async 函数返回一个 Promise 对象，Await 命令后面跟着一个 Promise 对象，如果不是就直接返回对应的值
+
+Await 会阻塞后面代码的执行（后面代码会加入到微任务队列中），先执行外面的同步代码，同步代码执行完，再回到 Async 函数中，再执行之前阻塞的代码
+
+```ts
+async function async1() {
+  console.log('async1 start');
+  await async2();
+  console.log('async1 end');
+}
+async function async2() {
+  console.log('async2');
+}
+console.log('script start');
+setTimeout(function () {
+  console.log('setTimeout');
+});
+async1();
+new Promise(function (resolve) {
+  console.log('promise1');
+  resolve();
+}).then(function () {
+  console.log('promise2');
+});
+console.log('script end');
+/**
+ * script start
+ * async1 start
+ * async2
+ * promise1
+ * script end
+ * async1 end
+ * promise2
+ * setTimeout
+ */
+```
+
+:::details 解释说明
+
+1. 先打印 `script start`，遇到 `setTimeout` 丢进任务队列中
+2. 执行 `async1` 函数，打印 `async1 start`，执行 `async2` 函数打印 `async2`
+3. 后面的任务被阻塞去执行其他的同步任务
+4. 后面再打印 `promise1、script end` 执行完所有同步代码后
+5. 先执行阻塞的代码，然后打印 `async1 end、promise2`
+6. 最后执行异步任务的宏任务只有 `setTimeout` 了最后打印 `setTimeout`
+
+:::
 
 ## JavaScript 预编译是什么
 
