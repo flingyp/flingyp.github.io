@@ -104,6 +104,10 @@ export default {
               text: 'Three.js 基础语法',
               link: '/frontend/ThreeJS/Basic',
             },
+            {
+              text: '几何体 BufferGeometry',
+              link: '/frontend/ThreeJS/BufferGeometry',
+            },
           ],
         },
       ],
