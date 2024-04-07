@@ -231,4 +231,10 @@ export default {
       link: '/posts/如何修改第三方依赖包源码',
     },
   ],
+  '/interview/': [
+    {
+      text: '关于前端面试',
+      link: '/interview/frontend/',
+    },
+  ],
 } as DefaultTheme.Sidebar;
