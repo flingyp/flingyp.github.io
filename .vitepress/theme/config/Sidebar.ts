@@ -230,6 +230,10 @@ export default {
       text: '如何修改第三方依赖包源码',
       link: '/posts/如何修改第三方依赖包源码',
     },
+    {
+      text: 'Uniapp 运行在夜神模拟器',
+      link: '/posts/Uniapp运行在夜神模拟器'
+    }
   ],
   '/interview/': [
     {
