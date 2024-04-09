@@ -232,13 +232,7 @@ export default {
     },
     {
       text: 'Uniapp 运行在夜神模拟器',
-      link: '/posts/Uniapp运行在夜神模拟器'
-    }
-  ],
-  '/interview/': [
-    {
-      text: '关于前端面试',
-      link: '/interview/frontend/',
+      link: '/posts/Uniapp运行在夜神模拟器',
     },
   ],
 } as DefaultTheme.Sidebar;
