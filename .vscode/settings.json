@@ -24,6 +24,6 @@
   "scss.validate": false,
   "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "scss", "sass", "vue", "postcss"],
-  "cSpell.words": ["proto", "reflog", "typeof", "vitepress"],
+  "cSpell.words": ["instanceof", "proto", "reflog", "typeof", "vitepress"],
   "typescript.tsdk": "node_modules/typescript/lib"
 }
