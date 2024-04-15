@@ -115,6 +115,12 @@
         "icon": "https://www.ilovepdf.com/img/app-icon.png"
       },
       {
+        "name": "iLoveIMG",
+        "description": "iLoveIMG | 图像文件在线编辑工具",
+        "url": "https://www.iloveimg.com/zh-cn",
+        "icon": "https://www.ilovepdf.com/img/app-icon.png"
+      },
+      {
         "name": "Markdown Live Preview",
         "description": "Markdown Live Preview",
         "url": "https://markdownlivepreview.com",
