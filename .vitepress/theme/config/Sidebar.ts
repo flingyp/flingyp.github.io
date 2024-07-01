@@ -96,6 +96,28 @@ export default {
             },
           ],
         },
+        {
+          text: 'Uniapp',
+          collapsed: false,
+          items: [
+            {
+              text: 'APP 云打包 Android 和 IOS',
+              link: '/frontend/Uniapp/Uniapp打包IOS和Android',
+            },
+            {
+              text: 'Uniapp 运行在夜神模拟器',
+              link: '/frontend/Uniapp/Uniapp运行在夜神模拟器',
+            },
+            {
+              text: 'UniCloud 开源库',
+              link: '/frontend/Uniapp/UniCloud开源库',
+            },
+            {
+              text: 'Uniapp 集成 TailwindCSS',
+              link: '/frontend/Uniapp/Uniapp集成TailwindCSS',
+            },
+          ],
+        },
       ],
     },
   ],
@@ -211,14 +233,6 @@ export default {
       link: '/posts/WebSocket介绍和使用',
     },
     {
-      text: 'Uniapp 打包安卓和IOS',
-      link: '/posts/Uniapp打包安卓和IOS',
-    },
-    {
-      text: 'UniCloud 开源库',
-      link: '/posts/uniCloud开源库',
-    },
-    {
       text: 'Uniapp && 小程序相关',
       link: '/posts/小程序开发记录',
     },
@@ -229,10 +243,6 @@ export default {
     {
       text: '如何修改第三方依赖包源码',
       link: '/posts/如何修改第三方依赖包源码',
-    },
-    {
-      text: 'Uniapp 运行在夜神模拟器',
-      link: '/posts/Uniapp运行在夜神模拟器',
     },
   ],
 } as DefaultTheme.Sidebar;

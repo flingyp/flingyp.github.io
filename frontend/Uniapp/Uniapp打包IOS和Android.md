@@ -1,4 +1,4 @@
-# Uniapp APP云打包 安卓 和 IOS 开发记录
+# Uniapp APP云打包 安卓 和 IOS
 
 ## 基础信息完善
 
