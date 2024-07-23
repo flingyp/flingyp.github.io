@@ -105,6 +105,10 @@ export default {
               link: '/frontend/Uniapp/Uniapp打包IOS和Android',
             },
             {
+              text: 'Uniapp APP 版本更新',
+              link: '/frontend/Uniapp/Uniapp版本更新',
+            },
+            {
               text: 'Uniapp 运行在夜神模拟器',
               link: '/frontend/Uniapp/Uniapp运行在夜神模拟器',
             },
