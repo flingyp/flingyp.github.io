@@ -38,7 +38,8 @@ IOS：需要借用 iTunes，通过 USB 连接手机，运行在手机上，使�
 
 前提是苹果开发者账号，并且已经创建了 AppID，必须在Mac电脑上才可以创建上面这些东西
 
-如果不是苹果电脑可以使用 [香蕉云编](https://www.yunedit.com/) 去生成
+- 如果不是苹果电脑可以使用 [香蕉云编](https://www.yunedit.com/) 去生成相关文件
+- IPA 文件的上传也可以使用 [香蕉云编](https://www.yunedit.com/) 来完成
 
 ## 注意
 
