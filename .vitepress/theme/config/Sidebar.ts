@@ -109,16 +109,16 @@ export default {
               link: '/frontend/Uniapp/Uniapp版本更新',
             },
             {
-              text: 'Uniapp 运行在夜神模拟器',
-              link: '/frontend/Uniapp/Uniapp运行在夜神模拟器',
-            },
-            {
-              text: 'UniCloud 开源库',
-              link: '/frontend/Uniapp/UniCloud开源库',
+              text: 'Uniapp UniPush2 消息推送',
+              link: '/frontend/Uniapp/Uniapp消息推送',
             },
             {
               text: 'Uniapp 集成 TailwindCSS',
               link: '/frontend/Uniapp/Uniapp集成TailwindCSS',
+            },
+            {
+              text: 'Uniapp 运行在夜神模拟器',
+              link: '/frontend/Uniapp/Uniapp运行在夜神模拟器',
             },
           ],
         },

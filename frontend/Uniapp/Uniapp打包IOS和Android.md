@@ -1,50 +1,48 @@
-# Uniapp APP云打包 安卓 和 IOS
+# Uniapp APP 云打包 安卓 和 IOS
 
-## 基础信息完善
+## APP 基础信息完善
 
-1. 基础配置
-2. App 图标配置
-3. App 启动页配置（通用启动界面、自定义）
+1. 应用名称
+2. 应用描述
+3. 应用版本名称（版本号）
+4. 应用版本号
+5. 应用图标（准备一个 1024\*1024 的图标，HBuilder 会自动生成其他尺寸的图标）
+6. 应用启动图配置（安卓就准备一张启动图即可，IOS 的需要自定义 Storyboard 启动界面）
+
+## Android 证书生成
+
+安卓可以使用云端证书也可以自建证书，推荐使用自建证书
+
+参考文章：[安卓证书使用指南](https://ask.dcloud.net.cn/article/35985)
+
+## IOS 证书生成
+
+前提条件下：需要苹果开发者账号，并且已经创建了 AppID
+
+IOS 相关证书和描述文件的生成需要借助 Mac 才可以创建上面这些东西，在 Windows 可以使用 [香蕉云编](https://www.yunedit.com/) 网站生成相关证书和描述文件
+
+1. 证书文件（.p12）
+2. 证书私钥密码
+3. 描述文件
+
+- 苹果手机的 `UDID` 标识可以通过爱思助手获取
+- IOS 开发描述文件必须绑定调试设备，只有授权的设备才可以直接安装基座，所以在申请开发描述文件之前，先添加调试的 IOS 设备的 UDID
 
 ## 开发测试
 
-安卓：本地开发直接运行在本地浏览器即可，调试可先打自定义基座后运行在模拟器上或者通过 USB 连接手机调试
+本地开发过程中可以直接运行在 H5 即可，也可以运行在安卓模拟器上，IOS 则需要通过 USB 连接手机，使用自定义基座后运行
 
-IOS：需要借用 iTunes，通过 USB 连接手机，运行在手机上，使用自定义基座后运行，通过 USB 连接手机调试
+测试可以使用 [蒲公英](https://www.pgyer.com/) 分发平台，进行内部分发进行测试使用
 
-体验：可使用 [蒲公英](https://www.pgyer.com/) 发布后进行体验版使用
+## APP 云打包
 
-## 打包配置
+直接使用 HBuilder 的云打包选项，配置相关文件和参数即可 生成 APK 和 IPA 文件
 
-安卓 和 IOS 都需要配置相关信息
+## IPA 文件上传
 
-### 安卓
+IPA 文件的上传也可以使用 [香蕉云编](https://www.yunedit.com/) 来完成
 
-安卓证书使用指南：https://ask.dcloud.net.cn/article/35985
-
-可以使用自由证书或者云端证书
-
-安卓自有证书生成指南：https://ask.dcloud.net.cn/article/35777
-
-1. 证书别名
-2. 证书私钥密码
-3. 证书文件
-
-### IOS
-
-1. 证书私钥密码
-2. 证书 `profile` 文件
-3. 私钥证书
-
-前提是苹果开发者账号，并且已经创建了 AppID，必须在Mac电脑上才可以创建上面这些东西
-
-- 如果不是苹果电脑可以使用 [香蕉云编](https://www.yunedit.com/) 去生成相关文件
-- IPA 文件的上传也可以使用 [香蕉云编](https://www.yunedit.com/) 来完成
-
-## 注意
-
-1. 苹果手机的 `UDID` 标识可以通过爱思助手获取
-2. IOS 开发描述文件必须绑定调试设备，只有授权的设备才可以直接安装基座，所以在申请开发描述文件之前，先添加调试的 IOS 设备的 UDID
+首先需要创建一个 开发者账号专用密码 用于上传 IPA 文件
 
 ## 参考文章
 
@@ -56,4 +54,4 @@ IOS：需要借用 iTunes，通过 USB 连接手机，运行在手机上，使�
 6. [uniapp项目实践总结(二十四)安卓平台 APP 打包教程](https://juejin.cn/post/7282972975933964323)
 7. [uniapp项目实践总结(二十五)苹果 ios 平台 APP 打包教程](https://juejin.cn/post/7284221961621028919)
 8. [最新 App store 上架教程（uni-app版）](https://ask.dcloud.net.cn/article/37835)
-9. [https://blog.csdn.net/weixin_43742167/article/details/129876427](https://blog.csdn.net/weixin_43742167/article/details/129876427)
+9. [uniapp开发云打包详细流程（包含安卓Android和苹果IOS）](https://blog.csdn.net/weixin_43742167/article/details/129876427)

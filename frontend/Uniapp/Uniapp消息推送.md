@@ -1,20 +1,18 @@
-# UniCloud 开源库
-
-## uniPush2.0 消息推送
+# UniPush2.0 消息推送
 
 - [集成文档](https://uniapp.dcloud.net.cn/unipush-v2.html)
 
-### 开通
+## 开通
 
 登录 DCloud 开发者中心，在左侧菜单栏找到 `uni-push 2.0（支持全端推送）` 选择要操作的应用，开通 uniPush 服务即可
 
 > 需要填写的就是 Android 包名、Android 应用签名、iOS 应用 BundleID 和 选择关联云服务空间
 
-### 配置
+## 配置
 
 需要配置各手机应用厂商的消息推送（比较麻烦）
 
-### 客户端接收
+## 客户端接收
 
 `manifest.json` 中的 App 模块配置需要开启 **Push 消息推送**，选择 **uniPush 2.0**
 
@@ -59,7 +57,7 @@ uni.getPushClientId({
 });
 ```
 
-### 服务端推送
+## 服务端推送
 
 通过uniCloud云函数来实现推送，创建一个新的云函数并且依赖 `uni-cloud-push` 扩展库
 
@@ -94,62 +92,16 @@ exports.main = async (event, context) => {
 };
 ```
 
-## uni-upgrade-center 升级中心
+## 离线推送
 
-- [集成文档](https://doc.dcloud.net.cn/uniCloud/upgrade-center.html)
+### 华为推送（可以不用上架应用市场就可以进行推送）
 
-APP 升级中心，提供了 APP 版本更新服务
+根据个推提供的文档配置相关参数
 
-整个升级中心包括两个部分 `uni-upgrade-center Admin 管理后台`、`uni-upgrade-center APP`
+在华为推送服务后台配置中申请自分类权益（不然会有推送限制）https://docs.getui.com/getui/mobile/vendor/qps/
 
-1. Android、IOS的APP安装包升级和wgt资源包增量更新
-2. 后台管理系统 `uni-upgrade-center Admin`，用于发布新版、设置升级策略
+在 options HW 配置 `/message/android/category: 'xx'`，具体的值就根据自分类权益来看 https://developer.huawei.com/consumer/cn/doc/HMSCore-Guides/message-classification-0000001149358835#section1085395991513
 
-### uni-upgrade-center Admin 管理后台
+其他：在测试离线推送之前可以先设置 `/message/android/target_user_type': 1`,（华为用于发送测试推送消息，生产不要设置）
 
-负责发布新版和管理历史版本APP的上下线
-
-### uni-upgrade-center-app 前台检测更新
-
-除了管理端，客户端则负责前台检查升级更新，弹出提示框，下载和安装新版
-
-提示框弹窗可以自定义UI
-
-只需要导入这个插件 [uni-upgrade-center-APP](https://ext.dcloud.net.cn/plugin?id=4542)，绑定对应服务空间
-
-在 `page.json`添加升级弹窗页面
-
-```json
-{
-  "pages": [
-    {
-      "path": "uni_modules/uni-upgrade-center-app/pages/upgrade-popup",
-      "style": {
-        "disableScroll": true,
-        "app-plus": {
-          "backgroundColorTop": "transparent",
-          "background": "transparent",
-          "titleNView": false,
-          "scrollIndicator": false,
-          "popGesture": "none",
-          "animationType": "fade-in",
-          "animationDuration": 200
-        }
-      }
-    }
-  ]
-}
-```
-
-在首页或者设置页面调用它提供的检查更新的方法 `check-update`
-
-```vue
-<script>
-import checkUpdate from '@/uni_modules/uni-upgrade-center-app/utils/check-update.js';
-export default {
-  onLaunch() {
-    checkUpdate();
-  },
-};
-</script>
-```
+踩坑文章1：https://ask.dcloud.net.cn/question/181496
