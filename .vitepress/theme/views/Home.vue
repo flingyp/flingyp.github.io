@@ -1,58 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { NPopover, NImage, NTooltip } from 'naive-ui';
+import { NPopover, NImage } from 'naive-ui';
 
 import IconPencil from '../components/Icons/Pencil.vue';
 import IconWx from '../components/Icons/Wx.vue';
-
-const projectList = ref([
-  {
-    name: 'Vadmire Admin',
-    description: '一款基于 Vue3 + TypeScript + NaiveUI 等技术栈搭建的后台系统',
-    link: 'https://github.com/flingyp/vadmire-admin',
-  },
-  {
-    name: 'vitepress-demo-preview',
-    description: '在 Vitepress 进行 SFC 单文件组件的预览和源码展示',
-    link: 'https://github.com/flingyp/vitepress-demo-preview',
-  },
-  {
-    name: '@flypeng/tool',
-    description: '集成业务中常用的工具函数的工具库',
-    link: 'https://github.com/flingyp/flypeng-tool',
-  },
-  {
-    name: '@flypeng/lint-config',
-    description: '集成 ESLint + Styleint + Prettier Lint 和 Code Formatter 个人配置包',
-    link: 'https://github.com/flingyp/lint-config',
-  },
-  {
-    name: 'vite-plugin-clear-console',
-    description: '生成环境下清除项目中所有 console 日志输出插件',
-    link: 'https://github.com/flingyp/vite-plugin-clear-console',
-  },
-  {
-    name: 'HotNews',
-    description: '预览平台热搜内容的 VSCode 插件',
-    link: 'https://github.com/flingyp/HotNews',
-  },
-  {
-    name: 'JsonToTs',
-    description: '将 JSON 转换为 TypeScript 接口',
-    link: 'https://github.com/flingyp/json-to-ts',
-  },
-  {
-    name: 'VSCode Settings',
-    description: '个人 VSCode 配置',
-    link: 'https://github.com/flingyp/vscode-settings',
-  },
-]);
 </script>
 
 <template>
-  <div class="w-full my-4 h-[calc(100vh-64px-98px)] flex justify-center items-center">
+  <div class="w-full h-full mt-[160px] flex justify-center items-center">
     <div
-      class="text-sm w-[94%] md:w-[60%] lg:w-[50%] h-full overflow-y-scroll no-scrollbar scroll-smooth p-6 mx-auto rounded border border-[#d0d7de] dark:border-[#30363d] shadow-inner"
+      class="text-sm w-[90%] md:w-[60%] lg:w-[40%] h-full overflow-y-scroll no-scrollbar scroll-smooth p-6 mx-auto rounded border border-[#d0d7de] dark:border-[#30363d] shadow-inner"
     >
       <div class="w-full flex flex-col justify-center items-center mb-8">
         <img class="w-24 h-24 rounded-full" src="/public/profile.png" />
@@ -116,18 +72,6 @@ const projectList = ref([
         <code><img height="20" src="https://api.iconify.design/skill-icons:nestjs-dark.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/devicon:git.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:github-dark.svg" /></code>&nbsp;
-      </div>
-
-      <h3 class="mt-6 mb-10">🍞 开源项目</h3>
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-x-4 gap-y-10 justify-items-center">
-        <div v-for="item in projectList" :key="item.name" class="site-item">
-          <NTooltip placement="bottom" style="font-size: 12px; max-width: 400px">
-            <template #trigger>
-              <a :href="item.link" target="_blank" class="name">{{ item.name }}</a>
-            </template>
-            <span>{{ item.description }}</span>
-          </NTooltip>
-        </div>
       </div>
     </div>
   </div>
