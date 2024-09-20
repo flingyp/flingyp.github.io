@@ -24,6 +24,6 @@
   "scss.validate": false,
   "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "scss", "sass", "vue", "postcss"],
-  "cSpell.words": ["instanceof", "OPPO", "proto", "reflog", "typeof", "vitepress"],
+  "cSpell.words": ["instanceof", "OPPO", "proto", "Qrcode", "reflog", "typeof", "vitepress"],
   "typescript.tsdk": "node_modules/typescript/lib"
 }

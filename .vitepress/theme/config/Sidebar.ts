@@ -248,5 +248,9 @@ export default {
       text: '如何修改第三方依赖包源码',
       link: '/posts/如何修改第三方依赖包源码',
     },
+    {
+      text: 'H5 扫描二维码',
+      link: '/posts/H5扫描二维码',
+    },
   ],
 } as DefaultTheme.Sidebar;
