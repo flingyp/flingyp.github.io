@@ -105,3 +105,73 @@ exports.main = async (event, context) => {
 其他：在测试离线推送之前可以先设置 `/message/android/target_user_type': 1`,（华为用于发送测试推送消息，生产不要设置）
 
 踩坑文章1：https://ask.dcloud.net.cn/question/181496
+
+### 小米推送（需要上架后才能进行推送）
+
+根据个推提供的文档配置相关参数
+
+在小米推送服务后台配置中申请通知类别（不然有推送限制）https://dev.mi.com/console/doc/detail?pId=2422#_2
+
+在 options XM 配置 `/extra.channel_id：'channel_id'` 具体的值就是你应用申请的通知类别所分配的ID
+
+```js
+await uniPush.sendMessage({
+  options: {
+    XM: {
+      '/extra.channel_id': 'xxxx', // 应用申请的通知类别所分配的ID
+    },
+  },
+});
+```
+
+### VIVO 推送（需要上架后才能进行推送）
+
+根据个推提供的文档配置相关参数
+
+配置
+
+```js
+await uniPush.sendMessage({
+  channel: {
+    VV: 1,
+  },
+  options: {
+    VV: {
+      '/classification': 1,
+      '/notifyType': 4,
+      '/extra/callback.id': 'xxx', // 填写的 VIVO 的回执ID
+    },
+  },
+});
+```
+
+### OPPO 推送（需要上架后才能进行推送）
+
+根据个推提供的文档配置相关参数
+
+在OPPO后台创建了两个推送通道，OPPO_COMMON_PUSH（通道ID）（走公信通道）、OPPO_INSTANT_PUSH（通道ID）（走私信通道（只支持单推））
+
+填写申请私信通道模版，发送邮件给 OPPO 客服，等待审核通过后就可以使用私信通道发送私信的推送消息，其他消息必须走公信通道
+
+在 options OP 配置 `channel: 'OPPO_COMMON_PUSH|OPPO_INSTANT_PUSH'`，具体的值就根据 OPPO 的推送通道来看
+
+注意：私信通道必须单推，所以如果是给某个人推的话，填写 `publish_clientid` 是字符串而不是数组
+
+配置
+
+```js
+await uniPush.sendMessage({
+  channel: {
+    // 在OPPO后台创建了两个推送通道，OPPO_COMMON_PUSH（走公信通道）、OPPO_INSTANT_PUSH（走私信通道（只支持单推））
+    OP: msgtype === 'chat' ? 'OPPO_INSTANT_PUSH' : 'OPPO_COMMON_PUSH',
+  },
+  options: {
+    // 在OPPO后台创建了两个推送通道，OPPO_COMMON_PUSH（走公信通道）、OPPO_INSTANT_PUSH（走私信通道（只支持单推））
+    OP: {
+      '/channel_id': msgtype === 'chat' ? 'OPPO_INSTANT_PUSH' : 'OPPO_COMMON_PUSH',
+      // '/channel_id': 'OPPO_INSTANT_PUSH',
+      // '/channel_id': 'OPPO_COMMON_PUSH',
+    },
+  },
+});
+```

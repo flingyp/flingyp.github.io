@@ -20,3 +20,7 @@ nox_adb devices
 运行 APP 到模拟器（夜神安卓模拟器要是开启状态）
 
 ![](https://cdn.jsdelivr.net/gh/flingyp/ImageStorage/images/20210622144626312.png)
+
+## 其它
+
+- [运行在 MuMu 模拟器](https://blog.csdn.net/lisyao/article/details/132869033)
