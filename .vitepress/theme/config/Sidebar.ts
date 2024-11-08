@@ -252,5 +252,9 @@ export default {
       text: 'H5 扫描二维码',
       link: '/posts/H5扫描二维码',
     },
+    {
+      text: 'Mac 配置和使用',
+      link: '/posts/Mac配置和使用',
+    },
   ],
 } as DefaultTheme.Sidebar;
