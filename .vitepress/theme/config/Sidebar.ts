@@ -162,7 +162,17 @@ export default {
         },
         {
           text: 'Docker',
-          link: '/backend/Docker基本概念',
+          collapsed: false,
+          items: [
+            {
+              text: '基本概念',
+              link: '/backend/Docker/基本概念',
+            },
+            {
+              text: '笔记',
+              link: '/backend/Docker/笔记',
+            },
+          ],
         },
       ],
     },
