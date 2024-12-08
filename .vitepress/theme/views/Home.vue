@@ -21,14 +21,14 @@ import IconWx from '../components/Icons/Wx.vue';
 
       <div class="flex justify-between items-center mb-4">
         <div class="flex justify-between items-center">
-          <a href="https://github.com/flingyp" class="no-underline Link--primary">flingyp</a>
+          <a href="https://github.com/flingyp" class="no-underline">flingyp</a>
           <span class="color-fg-muted d-inline-block" style="padding: 0px 2px">/ </span>
           README
           <span class="color-fg-muted">.md</span>
         </div>
 
         <div class="text-[#57606a]">
-          <a href="https://github.com/flingyp/flingyp/edit/main/README.md" class="no-underline Link--primary">
+          <a href="https://github.com/flingyp/flingyp/edit/main/README.md" class="no-underline">
             <IconPencil class="w-3.5 h-3.5" />
           </a>
         </div>
@@ -84,12 +84,6 @@ import IconWx from '../components/Icons/Wx.vue';
 </template>
 
 <style scoped lang="scss">
-a {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-}
-
 .site-item {
   display: flex;
   flex-direction: column;

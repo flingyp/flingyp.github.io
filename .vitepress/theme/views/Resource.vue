@@ -31,12 +31,12 @@ ul {
   padding-left: 0;
 }
 
-ul li {
+.site-list li {
   list-style: none;
   margin-top: 0;
 }
 
-a {
+.site-item a {
   text-decoration: none;
   color: inherit;
   cursor: pointer;
