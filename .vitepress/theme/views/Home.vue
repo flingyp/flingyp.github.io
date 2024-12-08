@@ -6,13 +6,17 @@ import IconWx from '../components/Icons/Wx.vue';
 </script>
 
 <template>
-  <div class="w-full h-full mt-[160px] flex justify-center items-center">
+  <div class="container mt-32 flex justify-center items-center">
     <div
-      class="text-sm w-[90%] md:w-[60%] lg:w-[40%] h-full overflow-y-scroll no-scrollbar scroll-smooth p-6 mx-auto rounded border border-[#d0d7de] dark:border-[#30363d] shadow-inner"
+      class="text-sm w-full overflow-y-scroll no-scrollbar scroll-smooth p-8 rounded-lg border border-[#d0d7de] dark:border-[#30363d] shadow-sm"
     >
       <div class="w-full flex flex-col justify-center items-center mb-8">
-        <img class="w-24 h-24 rounded-full" src="/public/profile.png" />
-        <p class="mt-4">Living without an aim is like sailing without a compass</p>
+        <img
+          class="w-28 h-28 rounded-full hover:scale-110 transition duration-500 cursor-pointer"
+          src="/public/profile.png"
+        />
+        <span class="mt-4 mb-2 text-base">Living without an aim is like sailing without a compass</span>
+        <span class="text-sm">生活没有目标就像航海没有指南针</span>
       </div>
 
       <div class="flex justify-between items-center mb-4">
@@ -30,12 +34,14 @@ import IconWx from '../components/Icons/Wx.vue';
         </div>
       </div>
 
-      <h2 class="mb-2 text-base">👋 Hi, I'm flingyp</h2>
+      <h2 class="mb-2 !mt-0 text-base">👋 Hi, I'm flingyp</h2>
 
-      <h3 class="mt-4 mb-4">🙂 关于我</h3>
-      <ul class="space-y-1">
-        <li class="flex items-center space-x-1">
-          <span>💁 00后 前端程序员 热爱前端 开源爱好者</span>
+      <h3 class="!mt-4 mb-4">🙂 关于我</h3>
+      <ul class="space-y-2">
+        <li class="flex flex-col space-y-1">
+          <span>💁 00后 前端程序员</span>
+          <span>🔥 热爱开源，开源的价值不在于索取，而在于奉献和共同成长 </span>
+          <span>🧑🏻‍💻 代码洁癖，追求极致的代码质量与相对规范</span>
         </li>
 
         <li class="flex items-center space-x-2">
@@ -58,7 +64,7 @@ import IconWx from '../components/Icons/Wx.vue';
         </li>
       </ul>
 
-      <h3 class="mt-6 mb-4">🛠️ 技术栈</h3>
+      <h3 class="!mb-4">🛠️ 技术栈</h3>
       <div class="flex items-center space-x-2">
         <code><img height="20" src="https://api.iconify.design/skill-icons:vuejs-dark.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:react-dark.svg" /></code>&nbsp;

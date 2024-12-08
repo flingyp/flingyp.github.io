@@ -2,7 +2,7 @@
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
 title: flingyp
-titleTemplate: false
+titleTemplate: true
 ---
 
 <script setup lang="ts">

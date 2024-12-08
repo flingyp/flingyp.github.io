@@ -1,4 +1,4 @@
-import "./chunk-ZS7NZCD4.js";
+import "./chunk-DC5AMYBS.js";
 
 // node_modules/.pnpm/tinycolor2@1.6.0/node_modules/tinycolor2/esm/tinycolor.js
 function _typeof(obj) {
@@ -23,12 +23,9 @@ function tinycolor(color, opts) {
   var rgb = inputToRGB(color);
   this._originalInput = color, this._r = rgb.r, this._g = rgb.g, this._b = rgb.b, this._a = rgb.a, this._roundA = Math.round(100 * this._a) / 100, this._format = opts.format || rgb.format;
   this._gradientType = opts.gradientType;
-  if (this._r < 1)
-    this._r = Math.round(this._r);
-  if (this._g < 1)
-    this._g = Math.round(this._g);
-  if (this._b < 1)
-    this._b = Math.round(this._b);
+  if (this._r < 1) this._r = Math.round(this._r);
+  if (this._g < 1) this._g = Math.round(this._g);
+  if (this._b < 1) this._b = Math.round(this._b);
   this._ok = rgb.ok;
 }
 tinycolor.prototype = {
@@ -60,18 +57,12 @@ tinycolor.prototype = {
     RsRGB = rgb.r / 255;
     GsRGB = rgb.g / 255;
     BsRGB = rgb.b / 255;
-    if (RsRGB <= 0.03928)
-      R = RsRGB / 12.92;
-    else
-      R = Math.pow((RsRGB + 0.055) / 1.055, 2.4);
-    if (GsRGB <= 0.03928)
-      G = GsRGB / 12.92;
-    else
-      G = Math.pow((GsRGB + 0.055) / 1.055, 2.4);
-    if (BsRGB <= 0.03928)
-      B = BsRGB / 12.92;
-    else
-      B = Math.pow((BsRGB + 0.055) / 1.055, 2.4);
+    if (RsRGB <= 0.03928) R = RsRGB / 12.92;
+    else R = Math.pow((RsRGB + 0.055) / 1.055, 2.4);
+    if (GsRGB <= 0.03928) G = GsRGB / 12.92;
+    else G = Math.pow((GsRGB + 0.055) / 1.055, 2.4);
+    if (BsRGB <= 0.03928) B = BsRGB / 12.92;
+    else B = Math.pow((BsRGB + 0.055) / 1.055, 2.4);
     return 0.2126 * R + 0.7152 * G + 0.0722 * B;
   },
   setAlpha: function setAlpha(value) {
@@ -365,16 +356,11 @@ function hslToRgb(h, s, l) {
   s = bound01(s, 100);
   l = bound01(l, 100);
   function hue2rgb(p2, q2, t) {
-    if (t < 0)
-      t += 1;
-    if (t > 1)
-      t -= 1;
-    if (t < 1 / 6)
-      return p2 + (q2 - p2) * 6 * t;
-    if (t < 1 / 2)
-      return q2;
-    if (t < 2 / 3)
-      return p2 + (q2 - p2) * (2 / 3 - t) * 6;
+    if (t < 0) t += 1;
+    if (t > 1) t -= 1;
+    if (t < 1 / 6) return p2 + (q2 - p2) * 6 * t;
+    if (t < 1 / 2) return q2;
+    if (t < 2 / 3) return p2 + (q2 - p2) * (2 / 3 - t) * 6;
     return p2;
   }
   if (s === 0) {
@@ -452,8 +438,7 @@ function rgbaToArgbHex(r, g, b, a) {
   return hex.join("");
 }
 tinycolor.equals = function(color1, color2) {
-  if (!color1 || !color2)
-    return false;
+  if (!color1 || !color2) return false;
   return tinycolor(color1).toRgbString() == tinycolor(color2).toRgbString();
 };
 tinycolor.random = function() {
@@ -802,8 +787,7 @@ function boundAlpha(a) {
   return a;
 }
 function bound01(n, max) {
-  if (isOnePointZero(n))
-    n = "100%";
+  if (isOnePointZero(n)) n = "100%";
   var processPercent = isPercentage(n);
   n = Math.min(max, Math.max(0, parseFloat(n)));
   if (processPercent) {

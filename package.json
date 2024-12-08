@@ -15,23 +15,23 @@
     "lint:fix": "prettier . --write && eslint . --fix"
   },
   "dependencies": {
-    "@flypeng/eslint-config": "^2.0.0",
-    "@flypeng/tool": "^5.5.2",
-    "autoprefixer": "^10.4.19",
+    "@flypeng/eslint-config": "^2.0.2",
+    "@flypeng/tool": "^5.5.4",
+    "autoprefixer": "^10.4.20",
     "markdown-it-custom-attrs": "^1.0.2",
-    "naive-ui": "^2.38.1",
-    "postcss": "^8.4.38",
-    "sass": "^1.72.0",
-    "tailwindcss": "^3.4.3",
+    "naive-ui": "^2.40.3",
+    "postcss": "^8.4.49",
+    "sass": "^1.82.0",
+    "tailwindcss": "^3.4.16",
     "tinycolor2": "^1.6.0",
-    "vitepress": "1.0.0-rc.40",
-    "vue": "^3.4.21"
+    "vitepress": "^1.5.0",
+    "vue": "^3.5.13"
   },
   "devDependencies": {
     "@types/tinycolor2": "^1.4.6",
-    "eslint": "^8.57.0",
-    "prettier": "^3.2.5",
-    "vite": "^5.2.6"
+    "eslint": "^8.57.1",
+    "prettier": "^3.4.2",
+    "vite": "^5.4.11"
   },
   "postcss": {
     "plugins": {
