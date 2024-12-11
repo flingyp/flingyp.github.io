@@ -158,6 +158,10 @@ export default {
               text: '微服务',
               link: '/backend/Nest/MicroServices',
             },
+            {
+              text: '通光秘籍',
+              link: '/backend/Nest/通关秘籍',
+            },
           ],
         },
         {

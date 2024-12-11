@@ -20,6 +20,38 @@ Homebrew 是 Mac 上的包管理器，可以用来安装各种软件。
 
 使用参考文章中的第二种方式，将规则写入配置文件后强制安装解决问题了
 
+## Macos15 访达设置
+
+有一些软件的访达设置，比如 Easy New File 右键菜单，可以设置在访达中右键菜单中添加新建文件的快捷选项。
+
+但是在 MacOS 15 系统中关闭了添加扩展设置的入口，在系统设置中没有地方可以设置，需要手动添加。
+
+以添加 Easy New File 为例，手动添加扩展设置：
+
+```sh
+# 1. 正常安装软件
+
+# 2. 打开终端，执行命令 列出所有已安装和注册的插件和扩展
+
+pluginkit -m
+
+# 3. Cmd+F 搜索 Finder,找到你要添加的扩展, 复制。 一般会带有跟你安装的软件一致的版本号。如： com.liupeng.mac.FinderMenu.FinderSync(5.8)
+
+# 4. 启用扩展 (注意去掉末尾的版本号)
+
+sudo pluginkit -e "use" -i com.liupeng.mac.FinderMenu.FinderSync
+
+# 5. 验证是否生效
+
+# 6. 禁用扩展
+
+sudo pluginkit -e "disable" -i com.example.myplugin
+
+# 7. 注销扩展
+
+sudo pluginkit -r -i com.example.myplugin
+```
+
 ## Mac 快捷键
 
 - `Command + R` 浏览器刷新
