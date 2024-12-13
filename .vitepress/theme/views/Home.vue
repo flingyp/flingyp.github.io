@@ -34,9 +34,10 @@ import IconWx from '../components/Icons/Wx.vue';
         </div>
       </div>
 
-      <h2 class="mb-2 !mt-0 text-base">👋 Hi, I'm flingyp</h2>
+      <h2 class="!mt-0 text-base">👋 Hi, I'm flingyp</h2>
 
-      <h3 class="!mt-4 mb-4">🙂 关于我</h3>
+      <h3>🙂 关于我</h3>
+
       <ul class="space-y-2">
         <li class="flex flex-col space-y-1">
           <span>💁 00后 前端程序员</span>
@@ -45,27 +46,27 @@ import IconWx from '../components/Icons/Wx.vue';
         </li>
 
         <li class="flex items-center space-x-2">
-          <span>👉 WeChat</span>
-          <NPopover trigger="hover">
-            <template #trigger>
-              <IconWx class="w-4 h-4 inline-block outline-none cursor-pointer" />
-            </template>
-            <div class="w-40">
-              <NImage src="/wxCode.png" width="100%" :preview-disabled="true" />
-            </div>
-          </NPopover>
-        </li>
+          <span> 👉 联系我 </span>
+          <div class="space-x-3">
+            <NPopover trigger="hover">
+              <template #trigger>
+                <IconWx class="w-4 h-4 inline-block outline-none cursor-pointer" />
+              </template>
+              <div class="w-40">
+                <NImage src="/wxCode.png" width="100%" :preview-disabled="true" />
+              </div>
+            </NPopover>
 
-        <li class="flex items-center space-x-2">
-          <span>📧 EMail</span>
-          <a href="mailto:flingyp@163.com" class="underline font-semibold text-black dark:text-white">
-            flingyp@163.com
-          </a>
+            <a href="mailto:flingyp@163.com" class="underline font-semibold text-black dark:text-white">
+              flingyp@163.com
+            </a>
+          </div>
         </li>
       </ul>
 
-      <h3 class="!mb-4">🛠️ 技术栈</h3>
-      <div class="flex items-center space-x-2">
+      <h3>🛠️ 技术栈</h3>
+
+      <div class="mt-4 flex items-center space-x-2">
         <code><img height="20" src="https://api.iconify.design/skill-icons:vuejs-dark.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:react-dark.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:typescript.svg" /></code>&nbsp;
