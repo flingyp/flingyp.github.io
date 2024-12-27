@@ -6,18 +6,18 @@ import IconWx from '../components/Icons/Wx.vue';
 </script>
 
 <template>
-  <div class="container mt-32 flex justify-center items-center">
+  <div class="mt-20 space-x-5 flex justify-center items-start">
     <div
-      class="text-sm w-full overflow-y-scroll no-scrollbar scroll-smooth p-8 rounded-lg border border-[#d0d7de] dark:border-[#30363d] shadow-sm"
+      class="flex-1 text-sm w-full overflow-y-scroll no-scrollbar scroll-smooth p-8 rounded-lg border border-[#d0d7de] dark:border-[#30363d] shadow-sm"
     >
-      <div class="w-full flex flex-col justify-center items-center mb-8">
+      <!-- <div class="w-full flex flex-col justify-center items-center mb-8">
         <img
           class="w-28 h-28 rounded-full hover:scale-110 transition duration-500 cursor-pointer"
           src="/public/profile.png"
         />
         <span class="mt-4 mb-2 text-base">Living without an aim is like sailing without a compass</span>
         <span class="text-sm">生活没有目标就像航海没有指南针</span>
-      </div>
+      </div> -->
 
       <div class="flex justify-between items-center mb-4">
         <div class="flex justify-between items-center">
@@ -80,6 +80,10 @@ import IconWx from '../components/Icons/Wx.vue';
         <code><img height="20" src="https://api.iconify.design/devicon:git.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:github-dark.svg" /></code>&nbsp;
       </div>
+    </div>
+
+    <div class="flex justify-center flex-1">
+      <img src="/public/flingyp_contributions.png" style="width: 100%" />
     </div>
   </div>
 </template>

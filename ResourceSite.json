@@ -137,6 +137,18 @@
         "description": "在线转换器 - 免费转换视频、图像、音频和文档",
         "url": "https://www.online-convert.com/",
         "icon": "https://www.online-convert.com/favicon.ico"
+      },
+      {
+        "name": "MacWk",
+        "description": "MacWk - 精品mac软件下载",
+        "url": "https://macwk.cn/",
+        "icon": "https://macwk.cn/wp-content/uploads/2023/07/macwkico.png"
+      },
+      {
+        "name": "Green Wall",
+        "description": "Review the contributions you have made on GitHub over the years.",
+        "url": "https://green-wall.leoku.dev/",
+        "icon": "https://green-wall.leoku.dev/favicon.svg"
       }
     ]
   },
@@ -166,6 +178,12 @@
         "description": "Phind 是一个专为开发者和技术问题优化的搜索引擎。它利用“大型AI语言模型”来生成答案，这些答案基于互联网上的信息，但同时使用多个来源。这种方法帮助 Phind 确定哪些信息是有用的，甚至可以抓取代码片段来协助用户。Phind 的网站上没有太多信息，但这可能是因为它本质上就是一个优化的搜索引擎，不需要通过长篇的解释来装饰。它的目的是简单而有效，智能而帮助用户解决问题。",
         "url": "https://www.phind.com/",
         "icon": "https://www.phind.com/images/favicon.png"
+      },
+      {
+        "name": "Kimi.ai",
+        "description": "Kimi是一款学生和职场人的新质生产力工具，帮你解读论文，策划方案，创作小说，写代码查BUG，多语言翻译，有问题问Kimi，一键解决你的所有难题",
+        "url": "https://kimi.moonshot.cn/",
+        "icon": "https://statics.moonshot.cn/kimi-chat/favicon.ico"
       }
     ]
   },
