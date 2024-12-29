@@ -10,14 +10,13 @@ import IconWx from '../components/Icons/Wx.vue';
     <div
       class="flex-1 text-sm w-full overflow-y-scroll no-scrollbar scroll-smooth p-8 rounded-lg border border-[#d0d7de] dark:border-[#30363d] shadow-sm"
     >
-      <!-- <div class="w-full flex flex-col justify-center items-center mb-8">
+      <div class="w-full flex flex-col justify-center items-center mb-8">
         <img
-          class="w-28 h-28 rounded-full hover:scale-110 transition duration-500 cursor-pointer"
+          class="w-20 h-20 rounded-full hover:scale-110 transition duration-500 cursor-pointer"
           src="/public/profile.png"
         />
-        <span class="mt-4 mb-2 text-base">Living without an aim is like sailing without a compass</span>
-        <span class="text-sm">生活没有目标就像航海没有指南针</span>
-      </div> -->
+        <span class="mt-4 mb-2 text-sm">生活没有目标就像航海没有指南针</span>
+      </div>
 
       <div class="flex justify-between items-center mb-4">
         <div class="flex justify-between items-center">
@@ -36,8 +35,7 @@ import IconWx from '../components/Icons/Wx.vue';
 
       <h2 class="!mt-0 text-base">👋 Hi, I'm flingyp</h2>
 
-      <h3>🙂 关于我</h3>
-
+      <h3 class="!mt-4">🙂 关于我</h3>
       <ul class="space-y-2">
         <li class="flex flex-col space-y-1">
           <span>💁 00后 前端程序员</span>
@@ -65,7 +63,6 @@ import IconWx from '../components/Icons/Wx.vue';
       </ul>
 
       <h3>🛠️ 技术栈</h3>
-
       <div class="mt-4 flex items-center space-x-2">
         <code><img height="20" src="https://api.iconify.design/skill-icons:vuejs-dark.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:react-dark.svg" /></code>&nbsp;
@@ -80,6 +77,39 @@ import IconWx from '../components/Icons/Wx.vue';
         <code><img height="20" src="https://api.iconify.design/devicon:git.svg" /></code>&nbsp;
         <code><img height="20" src="https://api.iconify.design/skill-icons:github-dark.svg" /></code>&nbsp;
       </div>
+
+      <h3>🥳 开源项目</h3>
+      <ul class="!pl-0 grid grid-cols-2 gap-2">
+        <li
+          class="flex flex-col space-y-1 text-xs border border-[#d0d7de] dark:border-[#30363d] rounded px-4 pt-2 pb-2 !m-0"
+        >
+          <a href="https://github.com/flingyp/flypeng-tool" target="_blank" class="text-base"> flypeng-tool </a>
+          <span>集成常用工具方法和函数工具库</span>
+        </li>
+
+        <li
+          class="flex flex-col space-y-1 text-xs border border-[#d0d7de] dark:border-[#30363d] rounded px-4 pt-2 pb-2 !m-0"
+        >
+          <a href="https://github.com/flingyp/lint-config" target="_blank" class="text-base"> lint-config </a>
+          <span>个性化 ESLint 和 Stylelint 配置库</span>
+        </li>
+
+        <li
+          class="flex flex-col space-y-1 text-xs border border-[#d0d7de] dark:border-[#30363d] rounded px-4 pt-2 pb-2 !m-0"
+        >
+          <a href="https://github.com/flingyp/vitepress-demo-preview" target="_blank" class="text-base">
+            vitepress-demo-preview
+          </a>
+          <span>实现在 Vitepress 中展示 Vue 单文件组件效果展示和源码预览</span>
+        </li>
+
+        <li
+          class="flex flex-col space-y-1 text-xs border border-[#d0d7de] dark:border-[#30363d] rounded px-4 pt-2 pb-2 !m-0"
+        >
+          <a href="https://github.com/flingyp/vadmire-admin" target="_blank" class="text-base"> vadmire-admin </a>
+          <span>一款 Vue3 + TypeScript + NaiveUI 等技术栈搭建的后台系统模版</span>
+        </li>
+      </ul>
     </div>
 
     <div class="flex justify-center flex-1">
