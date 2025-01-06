@@ -52,6 +52,16 @@ sudo pluginkit -e "disable" -i com.example.myplugin
 sudo pluginkit -r -i com.example.myplugin
 ```
 
+## 使用 Tree 命令输出目录树
+
+用于以树状图的形式递归地列出目录的内容。它可以帮助用户快速查看文件系统的结构，特别是在需要展示目录层次关系时非常直观
+
+安装：`brew install tree`
+
+- `tree -L 2` 输出两级目录树
+- `tree -L 2 -a` 输出两级目录树，包括隐藏文件
+- `tree -L 2 -a -I "node_modules|dist"` 输出两级目录树，包括隐藏文件，排除 node_modules 和 dist 目录
+
 ## Mac 快捷键
 
 - `Command + R` 浏览器刷新

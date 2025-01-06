@@ -55,3 +55,4 @@ IPA 文件的上传也可以使用 [香蕉云编](https://www.yunedit.com/) 来�
 7. [uniapp项目实践总结(二十五)苹果 ios 平台 APP 打包教程](https://juejin.cn/post/7284221961621028919)
 8. [最新 App store 上架教程（uni-app版）](https://ask.dcloud.net.cn/article/37835)
 9. [uniapp开发云打包详细流程（包含安卓Android和苹果IOS）](https://blog.csdn.net/weixin_43742167/article/details/129876427)
+10. [获取苹果手机设备的UDID](https://www.pgyer.com/tools/udid)
