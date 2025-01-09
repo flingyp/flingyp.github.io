@@ -155,6 +155,12 @@
         "description": "Review the contributions you have made on GitHub over the years.",
         "url": "https://green-wall.leoku.dev/",
         "icon": "https://green-wall.leoku.dev/favicon.svg"
+      },
+      {
+        "name": "Cursor 中文使用文档",
+        "description": "什么是 Cursor Cursor 是一个新兴的、AI 驱动的集成开发环境（IDE），专为现代软件开发而设计。它结合了传统 IDE 的功能与先进的 AI 技术，旨在提高开发者的生产力和代码质量。",
+        "url": "https://www.cursor.com/favicon.svg",
+        "icon": "https://cursor.document.top/"
       }
     ]
   },
