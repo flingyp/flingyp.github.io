@@ -52,11 +52,11 @@ export default defineConfig({
       prev: '上一页',
       next: '下一页',
     },
-    footer: {
-      message:
-        'Released under the <a href="https://github.com/flingyp/flingyp.github.io/blob/main/LICENSE">MIT License</a>.',
-      copyright: 'Copyright © 2024-present <a href="https://github.com/flingyp">flingyp</a>',
-    },
+    // footer: {
+    //   message:
+    //     'Released under the <a href="https://github.com/flingyp/flingyp.github.io/blob/main/LICENSE">MIT License</a>.',
+    //   copyright: 'Copyright © 2024-present <a href="https://github.com/flingyp">flingyp</a>',
+    // },
     nav,
     sidebar,
     socialLinks,

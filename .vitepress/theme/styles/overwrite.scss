@@ -43,7 +43,7 @@ h6 {
 }
 
 .VPFooter {
-  padding: 6px !important;
+  padding: 20px !important;
 }
 
 .VPHome {
@@ -72,4 +72,38 @@ h6 {
   }
 }
 
+// 导航栏样式覆盖
+.VPNav {
+  // 背景色和模糊效果
+  .VPNavBar {
+    background-color: transparent !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(125, 125, 125, 0.1);
 
+    // 暗色模式
+    &.dark {
+      background-color: transparent !important;
+      border-bottom-color: rgba(125, 125, 125, 0.1);
+    }
+  }
+
+  // 导航栏内容区域
+  .VPNavBarContent {
+    background-color: transparent !important;
+  }
+
+  // 导航栏下拉菜单背景
+  .VPNavScreen {
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(10px);
+
+    &.dark {
+      background-color: rgba(0, 0, 0, 0.8) !important;
+    }
+  }
+}
+
+// 确保导航栏在滚动时保持透明
+.VPNav.has-sidebar .VPNavBar:not(.top) {
+  background-color: transparent !important;
+}
