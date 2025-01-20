@@ -270,5 +270,9 @@ export default {
       text: 'Mac 配置和使用',
       link: '/posts/Mac配置和使用',
     },
+    {
+      text: '服务端实时推送SSE',
+      link: '/posts/服务端实时推送SSE',
+    },
   ],
 } as DefaultTheme.Sidebar;
