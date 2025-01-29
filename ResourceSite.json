@@ -161,6 +161,18 @@
         "description": "什么是 Cursor Cursor 是一个新兴的、AI 驱动的集成开发环境（IDE），专为现代软件开发而设计。它结合了传统 IDE 的功能与先进的 AI 技术，旨在提高开发者的生产力和代码质量。",
         "url": "https://www.cursor.com/favicon.svg",
         "icon": "https://cursor.document.top/"
+      },
+      {
+        "name": "图片背景消除",
+        "description": "在线抠图软件_图片去除背景 | remove.bg – remove.bg",
+        "url": "https://www.remove.bg/zh",
+        "icon": "https://www.remove.bg/favicon.ico"
+      },
+      {
+        "name": "放屁音乐网",
+        "description": "放屁网在线音乐搜索，可以在线免费下载全网MP3付费歌曲、流行音乐、经典老歌等。曲库完整，更新迅速，试听流畅，支持高品质|无损音质~",
+        "url": "https://www.fangpi.net/",
+        "icon": "https://www.fangpi.net/favicon.ico"
       }
     ]
   },
