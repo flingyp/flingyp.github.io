@@ -211,6 +211,10 @@ export default {
       link: '/posts/正则表达式介绍与使用',
     },
     {
+      text: 'GitHub Pages自定义域名',
+      link: '/posts/GitHubPages自定义域名',
+    },
+    {
       text: 'Linux 基本命令',
       link: '/posts/Linux基本命令',
     },
