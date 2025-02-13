@@ -122,19 +122,11 @@
 }
 
 /**
- * Layouts
- * -------------------------------------------------------------------------- */
-
-:root {
-  --vp-layout-max-width: 1580px;
-}
-
-/**
  * Component: Sidebar
  * -------------------------------------------------------------------------- */
 
 :root {
-  --vp-sidebar-width: 250px;
+  // --vp-sidebar-width: 250px;
   --vp-sidebar-bg-color: var(--vp-c-bg-alt);
 }
 
