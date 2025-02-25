@@ -278,5 +278,19 @@ export default {
       text: '服务端实时推送SSE',
       link: '/posts/服务端实时推送SSE',
     },
+    {
+      text: '白嫖 Cursor',
+      link: '/posts/白嫖Cursor.md',
+    },
+  ],
+  '/flutter': [
+    {
+      text: '基础环境搭建',
+      link: '/flutter/基础环境搭建',
+    },
+    {
+      text: 'Dart 基础语法',
+      link: '/flutter/Dart基础语法',
+    },
   ],
 } as DefaultTheme.Sidebar;
