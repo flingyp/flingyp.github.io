@@ -280,7 +280,11 @@ export default {
     },
     {
       text: '白嫖 Cursor',
-      link: '/posts/白嫖Cursor.md',
+      link: '/posts/白嫖Cursor',
+    },
+    {
+      text: '有点用的东西',
+      link: '/posts/有点用的东西',
     },
   ],
   '/flutter': [
@@ -291,6 +295,14 @@ export default {
     {
       text: 'Dart 基础语法',
       link: '/flutter/Dart基础语法',
+    },
+    {
+      text: '网络请求与数据存储',
+      link: '/flutter/网络请求与数据存储',
+    },
+    {
+      text: '布局实战技巧与登录模块开发',
+      link: '/flutter/布局实战技巧与登录模块开发',
     },
   ],
 } as DefaultTheme.Sidebar;

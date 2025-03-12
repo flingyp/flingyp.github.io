@@ -25,7 +25,7 @@ const props = defineProps<ResourceProps>();
         <div class="relative flex items-start space-x-4">
           <!-- 图标容器 -->
           <div
-            class="relative flex-shrink-0 rounded-lg p-3 bg-gradient-to-br from-gray-50/90 to-gray-100/90 dark:from-gray-800/90 dark:to-gray-700/90 group-hover:from-blue-50/90 group-hover:to-purple-50/90 dark:group-hover:from-blue-900/20 dark:group-hover:to-purple-900/20 transition-all duration-500"
+            class="flex items-center justify-center relative flex-shrink-0 rounded-lg p-2 bg-gradient-to-br from-gray-50/90 to-gray-100/90 dark:from-gray-800/90 dark:to-gray-700/90 group-hover:from-blue-50/90 group-hover:to-purple-50/90 dark:group-hover:from-blue-900/20 dark:group-hover:to-purple-900/20 transition-all duration-500"
           >
             <NImage
               :src="item.icon"
@@ -37,7 +37,7 @@ const props = defineProps<ResourceProps>();
 
           <!-- 内容区域 -->
           <div class="flex-1 min-w-0 py-0.5">
-            <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center justify-between">
               <a
                 :href="item.url"
                 target="_blank"
@@ -61,7 +61,7 @@ const props = defineProps<ResourceProps>();
             <NTooltip placement="bottom" trigger="hover">
               <template #trigger>
                 <p
-                  class="text-sm leading-relaxed text-gray-500 dark:text-gray-400 line-clamp-2 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300"
+                  class="!m-0 text-sm leading-relaxed text-gray-500 dark:text-gray-400 line-clamp-2 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-colors duration-300"
                 >
                   {{ item.description }}
                 </p>
