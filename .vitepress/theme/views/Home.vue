@@ -200,7 +200,7 @@ const projects = [
                 <div class="relative">
                   <div class="flex items-center justify-between mb-2">
                     <h4
-                      class="text-base font-semibold group-hover:text-blue-500 transition-colors flex items-center !mt-0"
+                      class="text-base font-semibold truncate group-hover:text-blue-500 transition-colors flex items-center !mt-0"
                     >
                       <span class="mr-2 text-nowrap">{{ project.name }}</span>
                       <svg

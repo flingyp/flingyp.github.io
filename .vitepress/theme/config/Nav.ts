@@ -11,6 +11,10 @@ export default [
         text: 'Flutter 学习笔记',
         link: '/flutter/',
       },
+      {
+        text: 'Cursor 使用记录',
+        link: '/cursor/白嫖Cursor',
+      },
     ],
   },
   { text: '资源导航网', link: '/resource/' },

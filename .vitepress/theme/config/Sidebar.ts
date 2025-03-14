@@ -279,10 +279,6 @@ export default {
       link: '/posts/服务端实时推送SSE',
     },
     {
-      text: '白嫖 Cursor',
-      link: '/posts/白嫖Cursor',
-    },
-    {
       text: '有点用的东西',
       link: '/posts/有点用的东西',
     },
@@ -303,6 +299,16 @@ export default {
     {
       text: '布局实战技巧与登录模块开发',
       link: '/flutter/布局实战技巧与登录模块开发',
+    },
+  ],
+  '/cursor': [
+    {
+      text: '白嫖 Cursor',
+      link: '/cursor/白嫖Cursor',
+    },
+    {
+      text: '使用 Cursor 生成设计稿',
+      link: '/cursor/使用Cursor生成设计稿',
     },
   ],
 } as DefaultTheme.Sidebar;
