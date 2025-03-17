@@ -103,7 +103,7 @@ console.log(0 === false); // 输出: false，因为它们的值和类型都不�
 :::details 静态作用域
 
 ```js
-var x = 10;
+const x = 10;
 function f() {
   // 如果此处声明了变量x则返回的是自身作用域的局部变量x
   // var x = 30
@@ -111,7 +111,7 @@ function f() {
   return x;
 }
 function g() {
-  var x = 20;
+  const x = 20;
   // 执行函数f，就去定义该函数的地方查找
   return f();
 }
@@ -313,31 +313,31 @@ Async 和 Defer 的区别
 
 ```js
 console.log('1');
-setTimeout(function () {
+setTimeout(() => {
   console.log(2);
-  new Promise(function (resolve, reject) {
+  new Promise((resolve, reject) => {
     console.log(3);
     resolve();
-  }).then(function () {
+  }).then(() => {
     console.log(4);
   });
 });
-new Promise(function (resolve, reject) {
+new Promise((resolve, reject) => {
   console.log(5);
   resolve();
 })
-  .then(function () {
+  .then(() => {
     console.log(6);
   })
-  .then(function () {
+  .then(() => {
     console.log(7);
   });
-setTimeout(function () {
+setTimeout(() => {
   console.log(8);
-  new Promise(function (resolve, reject) {
+  new Promise((resolve, reject) => {
     console.log(9);
     resolve();
-  }).then(function () {
+  }).then(() => {
     console.log(10);
   });
 });
@@ -455,8 +455,8 @@ console.log(Object.prototype.__proto__); // null
 根据上面的描述可以总结出下面的结构内容：
 
 ```js
-test: {
-  __proto__: Test.prototype = {
+{
+  Test.prototype = {
     __proto__: (Object.prototype = {
       __proto__: null,
     }),
@@ -761,7 +761,7 @@ function deepClone(targetValue, hash = new WeakMap()) {
 
   const cloneValue = new targetValue.constructor();
   hash.set(targetValue, cloneValue);
-  for (let key in targetValue) {
+  for (const key in targetValue) {
     cloneValue[key] = deepClone(targetValue[key], hash);
   }
   return cloneValue;

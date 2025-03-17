@@ -1,28 +1,19 @@
+---
+outline: deep
+---
+
 # Uniapp APP 版本更新
 
 ## 自定义升级中心
 
-### 更新方式
+### APP 更新
+
+#### 更新方式
 
 1. 安卓：下载完成 APK 文件后，重启应用
 2. IOS：点击更新按钮，跳转 AppStore 下载最新版本
 
-### 版本更新流程
-
-1. 获取当前应用版本名称和应用版本号
-2. 比对当前 `wgtVersion` 和 `apkVersion` 与线上版本号
-3. 如果线上版本号大于当前版本号，则需要更新，其他的不需要
-4. 如果是此次更新是 APK 类型，则 IOS 跳转 AppStore，Android 则直接下载并安装后重启应用
-5. 如果是此次更新是 WGT 类型，则直接需要下载并安装后重启应用
-
-注意：
-
-1. APK 类型的适用于大版本更新，需要强制更新并且重新上架应用市场
-2. WGT 类型的更新适用于 小bug调整和样式调整，可以不需要强制更新
-3. WGT 的更新 应用版本名称和应用版本号 一定要大于当前APK基座的应用版本名称和应用版本号
-4. 每次打包前一定注意修改 **应用版本名称**、**应用版本号**
-
-### 使用的相关 API
+#### 使用的相关 API
 
 ```js
 // 创建下载任务
@@ -57,6 +48,56 @@ plus.runtime.restart();
 
 // 跳转 AppStore
 plus.runtime.openURL(`https://itunes.apple.com/cn/app/id${appleId}`);
+```
+
+#### 版本更新流程
+
+1. 获取当前应用版本名称和应用版本号
+2. 比对当前 `wgtVersion` 和 `apkVersion` 与线上版本号
+3. 如果线上版本号大于当前版本号，则需要更新，其他的不需要
+4. 如果是此次更新是 APK 类型，则 IOS 跳转 AppStore，Android 则直接下载并安装后重启应用
+5. 如果是此次更新是 WGT 类型，则直接需要下载并安装后重启应用
+
+注意：
+
+1. APK 类型的适用于大版本更新，需要强制更新并且重新上架应用市场
+2. WGT 类型的更新适用于 小bug调整和样式调整，可以不需要强制更新
+3. WGT 的更新 应用版本名称和应用版本号 一定要大于当前APK基座的应用版本名称和应用版本号
+4. 每次打包前一定注意修改 **应用版本名称**、**应用版本号**
+
+### 微信小程序更新
+
+```js
+export const WxUpdateEvent = () => {
+  const updateManager = uni.getUpdateManager();
+
+  updateManager.onCheckForUpdate((res) => {
+    // 请求完新版本信息的回调
+    console.log('小程序是否存在新版本:', res.hasUpdate);
+  });
+
+  updateManager.onUpdateReady(() => {
+    uni.showModal({
+      title: '更新提示',
+      content: '新版本已经准备好，是否重启应用？',
+      success(res) {
+        if (res.confirm) {
+          // 新的版本已经下载好，调用 applyUpdate 应用新版本并重启
+          updateManager.applyUpdate();
+        }
+      },
+    });
+  });
+
+  updateManager.onUpdateFailed(() => {
+    // 新的版本下载失败
+    uni.showModal({
+      title: '更新提示',
+      content: '新版本下载失败，请检查网络是否正常',
+      showCancel: false,
+    });
+  });
+};
 ```
 
 ## uni-upgrade-center 升级中心

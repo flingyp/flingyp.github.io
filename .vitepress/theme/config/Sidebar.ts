@@ -120,6 +120,14 @@ export default {
               text: 'Uniapp 运行在夜神模拟器',
               link: '/frontend/Uniapp/Uniapp运行在夜神模拟器',
             },
+            {
+              text: 'Uniapp 获取手机号一键登录',
+              link: '/frontend/Uniapp/Uniapp获取手机号一键登录',
+            },
+            {
+              text: 'Axios Adapter 请求封装',
+              link: '/frontend/Uniapp/AxiosAdapter',
+            },
           ],
         },
       ],
