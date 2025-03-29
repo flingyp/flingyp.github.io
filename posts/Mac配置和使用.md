@@ -1,5 +1,26 @@
 # Mac 配置和使用总结
 
+## Mac 环境变量配置
+
+### 确定当前使用的 Shell
+
+- `echo $SHELL`
+
+如果输出是 `/bin/bash`，说明你使用的是 Bash
+
+如果输出是 `/bin/zsh`，说明你使用的是 Zsh
+
+### 编辑配置文件
+
+- Bash：`~/.bash_profile` 或 `~/.bashrc`
+- Zsh：`~/.zshrc`
+
+### 重置配置
+
+- `source ~/.bashrc`
+- `source ~/.zshrc`
+- `source ~/.bash_profile`
+
 ## Mac Homebrew 安装问题
 
 Homebrew 是 Mac 上的包管理器，可以用来安装各种软件。

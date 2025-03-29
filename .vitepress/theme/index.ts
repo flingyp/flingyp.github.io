@@ -11,6 +11,7 @@ import './styles/font.scss';
 import './styles/overwrite.scss';
 
 import { changeCssVariable } from './utils/color';
+import { capture, getFilename } from './utils/screenshot';
 
 // 主题色列表
 const colors = [
@@ -35,8 +36,30 @@ const colors = [
   '#546e7a',
 ];
 
+const saveMain = () => {
+  const mainContainer = document.getElementsByClassName('main')[0];
+  capture({
+    target: mainContainer as HTMLElement,
+    filename: getFilename(),
+    preCapture: () => {
+      mainContainer.classList.add('px-2');
+    },
+    nextCapture: () => {
+      mainContainer.classList.remove('px-2');
+    },
+  });
+};
+
 if (typeof document !== 'undefined') {
   changeCssVariable(colors, 2000, true);
+
+  document.addEventListener('keydown', (event) => {
+    // 检测 Command/Ctrl + C 组合键
+    if ((event.metaKey || event.ctrlKey) && event.key === 'b') {
+      event.preventDefault(); // 阻止默认复制行为
+      saveMain();
+    }
+  });
 }
 
 export default {

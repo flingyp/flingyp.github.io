@@ -170,7 +170,15 @@ export default {
               text: '通光秘籍',
               link: '/backend/Nest/通关秘籍',
             },
+            {
+              text: '部署',
+              link: '/backend/Nest/部署NestJS',
+            },
           ],
+        },
+        {
+          text: 'Nginx',
+          link: '/backend/Nginx',
         },
         {
           text: 'Docker',
@@ -225,10 +233,6 @@ export default {
     {
       text: 'Linux 基本命令',
       link: '/posts/Linux基本命令',
-    },
-    {
-      text: 'Nginx 基本使用',
-      link: '/posts/Nginx基本使用',
     },
     {
       text: 'CSS 命名方法论 - BEM',
@@ -290,6 +294,14 @@ export default {
       text: '有点用的东西',
       link: '/posts/有点用的东西',
     },
+    {
+      text: 'PNPM相关记录',
+      link: '/posts/PNPM相关记录',
+    },
+    // {
+    //   text: 'NestJS 接入 DeepSeek 实现流式对话',
+    //   link: '/posts/NestJS接入DeepSeek实现流式对话',
+    // },
   ],
   '/flutter': [
     {
@@ -307,6 +319,10 @@ export default {
     {
       text: '布局实战技巧与登录模块开发',
       link: '/flutter/布局实战技巧与登录模块开发',
+    },
+    {
+      text: 'APP 导航框架与常用功能实现',
+      link: '/flutter/APP导航框架与常用功能实现',
     },
   ],
   '/cursor': [
