@@ -1,4 +1,3 @@
-import html2canvas from 'html2canvas';
 import { toPng } from 'html-to-image';
 
 interface ScreenshotOptions {
