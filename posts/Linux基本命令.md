@@ -1,3 +1,7 @@
+---
+outline: deep
+---
+
 # Linux 基本命令
 
 ## Linux 基础命令使用

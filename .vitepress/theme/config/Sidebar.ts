@@ -139,6 +139,10 @@ export default {
       collapsed: false,
       items: [
         {
+          text: 'Node.js',
+          link: '/backend/Node/Interview',
+        },
+        {
           text: 'Nest.js',
           collapsed: false,
           items: [
@@ -297,6 +301,18 @@ export default {
     {
       text: 'PNPM相关记录',
       link: '/posts/PNPM相关记录',
+    },
+    {
+      text: '计算机基础相关',
+      link: '/posts/计算机基础相关',
+    },
+    {
+      text: 'Vercel 部署 NestJS',
+      link: '/posts/Vercel部署NestJS',
+    },
+    {
+      text: '数据大屏适配方案',
+      link: '/posts/数据大屏适配方案',
     },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',

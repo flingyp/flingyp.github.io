@@ -18,4 +18,5 @@ export default [
     ],
   },
   { text: '资源导航网', link: '/resource/' },
+  { text: 'flingyp.me', link: 'https://me.flingyp.online' },
 ] as DefaultTheme.NavItem[];

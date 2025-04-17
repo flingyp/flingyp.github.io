@@ -1766,3 +1766,25 @@ PWA 是一种基于 Web 技术的应用程序开发方法，旨在提供类似�
 4. **推送通知**： PWA 具备向用户发送推送通知的能力，可以提高用户参与度和留存率
 5. **跨平台兼容性**：PWA 可以在不同平台和设备上运行，无需单独开发多个版本的应用程序
 6. **安全性**：PWA 使用 HTTPS 来确保数据传输的安全性，同时提供了一定程度的安全性保护，如内容安全策略（CSP）
+
+## Map 和 WeakMap 的使用和区别
+
+```js
+const map = new Map();
+map.set(1, 'number'); // 数字键
+map.set('key', 'string'); // 字符串键
+
+let obj = { id: 1 };
+weakMap.set(obj, 'data'); // 正确
+obj = null; // WeakMap 自动移除该键值对
+```
+
+1. Map 的 Key 可以是任意类型，WeakMap 的 Key 只能是对象
+2. Map 的 Key 是强引用，即使键对象在其他地方无引用，Map 仍保留键值对，可能导致内存泄漏
+3. WeakMap 的 Key 是弱引用，如果键对象在其他地方无引用，WeakMap 会自动清除键值对，释放内存
+4. WeakMap 没有遍历方法，不能直接遍历。仅支持 `set()`、`get()`、`has()`、`delete()` 方法
+
+使用场景：
+
+- Map：数据缓存、复杂键映射
+- WeakMap：临时存储数据对象、DOM 元数据
