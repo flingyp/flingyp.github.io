@@ -1788,3 +1788,78 @@ obj = null; // WeakMap 自动移除该键值对
 
 - Map：数据缓存、复杂键映射
 - WeakMap：临时存储数据对象、DOM 元数据
+
+## Promise.all 的简单实现
+
+```js
+function promiseAll(promises) {
+  return new Promise((resolve, reject) => {
+    // 如果输入是空数组，立即resolve
+    if (promises.length === 0) {
+      return resolve([]);
+    }
+
+    const results = [];
+    let completedCount = 0;
+
+    promises.forEach((promise, index) => {
+      // 确保每个元素都是Promise（处理非Promise值）
+      Promise.resolve(promise)
+        .then((result) => {
+          results[index] = result;
+          completedCount++;
+
+          // 当所有Promise都完成时resolve
+          if (completedCount === promises.length) {
+            resolve(results);
+          }
+        })
+        .catch(reject); // 任何一个Promise reject就立即reject
+    });
+  });
+}
+```
+
+## 谈一下浏览器运行和优化策略
+
+涉及到多个层面的技术，旨在提升页面加载速度、渲染效率及用户体验
+
+### 浏览器运行核心流程
+
+1. 关键渲染路径：
+
+- 解析 HTML：构建DOM树（深度优先解析，遇到 `<script>` 脚本会阻塞）
+- 解析 CSS：构建CSSOM树（层叠样式表，解析顺序影响最终样式）
+- 布局 Layout：结合DOM和CSSOM计算元素几何位置（重排触发条件：视窗变化、字体加载等）
+- 绘制 Paint：将元素绘制到屏幕上（重绘触发条件：元素样式变化、内容变化等）
+- ​​合成 Composite​​：GPU加速合成图层（避免布局和绘制，直接触发合成最优）
+
+2. JavaScript 引擎与事件循环
+
+- V8引擎的优化（如JIT编译、隐藏类优化）。
+- 宏任务（setTimeout、I/O）与微任务（Promise）的调度优先级。
+- 长任务（>50ms）会阻塞交互，可通过Web Workers分流计算。
+
+### 核心优化策略
+
+1. 减少网络请求数量
+2. 压缩几台资源文件
+3. 利用浏览器缓存策略
+4. CDN加速与预加载
+
+### JavaScript 优化
+
+1. 代码拆分​​：
+
+- 按路由分割（React.lazy + Suspense）。
+- Tree Shaking（ES6模块静态分析，移除未导出代码）。
+
+2. ​内存管理​​：
+
+- 避免全局变量（易导致内存泄漏）。
+- 使用WeakMap/WeakSet管理临时引用。
+
+​3. ​性能监控​​：
+
+- Performance API测量FP/FCP/LCP等指标。
+- Long Tasks API检测阻塞任务。
