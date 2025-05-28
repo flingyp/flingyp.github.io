@@ -130,6 +130,16 @@ export default {
             },
           ],
         },
+        {
+          text: 'Electron',
+          collapsed: false,
+          items: [
+            {
+              text: '核心',
+              link: '/frontend/Electron',
+            },
+          ],
+        },
       ],
     },
   ],

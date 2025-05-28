@@ -24,7 +24,19 @@
   "scss.validate": false,
   "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "scss", "sass", "vue", "postcss"],
-  "cSpell.words": ["flypeng", "instanceof", "OPPO", "proto", "Qrcode", "reflog", "typeof", "univerify", "vitepress"],
+  "cSpell.words": [
+    "flypeng",
+    "instanceof",
+    "OPPO",
+    "proto",
+    "Qrcode",
+    "reflog",
+    "shadcn",
+    "Supabase",
+    "typeof",
+    "univerify",
+    "vitepress"
+  ],
   "typescript.tsdk": "node_modules/typescript/lib",
   "Codegeex.RepoIndex": true
 }

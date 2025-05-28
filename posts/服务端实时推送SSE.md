@@ -67,6 +67,8 @@ export class EventsController {
 
 2. 浏览器端：
 
+**EventSource** 实现 SSE
+
 官方文档：https://developer.mozilla.org/zh-CN/docs/Web/API/EventSource
 
 ```javascript
@@ -78,6 +80,47 @@ eventSource.onerror = (error) => {
   console.error('SSE connection failed:', error);
   eventSource.close();
 };
+```
+
+**fetch** + Streams API 模拟 SSE
+
+核心思路：发起 fetch 请求，设置 `Accept: text/event-stream`。通过 `response.body.getReader()` 流式读取数据。手动解析 SSE 格式（data: 开头的消息）。
+
+```javascript
+async function connectSSE(url) {
+  const response = await fetch(url, {
+    headers: {
+      Accept: 'text/event-stream', // 声明需要 SSE 流
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`SSE 连接失败: ${response.status}`);
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) {
+      console.log('SSE 连接关闭');
+      break;
+    }
+
+    // 解析流式数据（可能包含多条消息）
+    const chunk = decoder.decode(value);
+    chunk.split('\n\n').forEach((message) => {
+      if (message.startsWith('data:')) {
+        const data = message.replace('data:', '').trim();
+        console.log('收到消息:', JSON.parse(data));
+      }
+    });
+  }
+}
+
+// 使用示例
+connectSSE('http://localhost:3000/sse/events').catch(console.error);
 ```
 
 ## Websocket 和 SSE 的区别
