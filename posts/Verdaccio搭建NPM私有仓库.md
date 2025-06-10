@@ -12,7 +12,7 @@ Verdaccio 是一个开源的、轻量级的私有 npm 仓库管理器，允许�
 
 ### 安装
 
-1. 在服务器上安装 Verdaccio：npm install verdaccio -g
+1. 在服务器上安装 Verdaccio：`npm install verdaccio -g`
 
 ### 测试
 
@@ -45,13 +45,17 @@ listen: 0.0.0.0:4873
 
 ### 使用切换源地址
 
-当我们的私有仓库服务在服务器上开始跑后，之后安装依赖都通过这个私有仓库去按照。、
-这个时候就需要切换我们本地的NPM源地址，需要安装一个包叫 nrm
+当我们的私有仓库服务在服务器上开始跑后，之后安装依赖都通过这个私有仓库去按照。
+
+这个时候就需要切换我们本地的NPM源地址，需要安装一个包叫 NRM
+
+NRM（NPM Registry Manager）是一个用于​​快速切换镜像源​​的 Node.js 命令行工具。它可以帮助开发者轻松地在不同的 NPM 注册表（如官方 NPM、淘宝镜像、私有 Verdaccio 仓库等）之间切换，而无需手动修改 NPM 配置。
+
 执行命令：
 
-- nrm ls查看当前所有源
-- nrm add 源名称 服务器IP 添加源
-- nrm use 源名称切换源
+- `nrm ls` 查看当前所有源
+- `nrm add` 源名称 服务器IP 添加源
+- `nrm use` 源名称切换源
 
 ![](https://cdn.nlark.com/yuque/0/2023/png/35988724/1699622056243-382d3ac1-0b13-4e23-9aac-7e2a56419a67.png)
 
@@ -59,7 +63,7 @@ listen: 0.0.0.0:4873
 
 我们如果需要向私有仓库发布NPM包，那么就需要有一个用户。
 
-- `npm adduser --registry` 服务器IP
+- `npm adduser --registry 服务器IP`
 
 执行上诉命令，之后会让我们输入用户名、密码和邮箱，之后我们在使用命令 `npm whoami` 查看当前登录用户的名称是否为新增用户的账号或者也可以尝试登录 Verdaccio 的页面
 

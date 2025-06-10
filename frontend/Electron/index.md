@@ -1,96 +1,196 @@
-# Electron
+# Electron 核心流程与最佳实践
 
-Electron 的运行流程结合了主进程（Main Process）和渲染进程（Renderer Process）的协作
+## 进程架构
 
-## 启动应用​
+### 主进程（Main Process）
 
-- 入口文件​​：通过 `package.json` 的 `main` 字段指定主进程的入口文件
-- ​主进程启动​​：Electron 执行入口文件，创建主进程（运行 Node.js 环境），负责管理应用生命周期、窗口和原生交互
+- 负责管理应用生命周期
+- 创建和管理应用窗口
+- 处理系统级事件
+- 访问 Node.js API
+- 管理应用菜单、托盘等
 
-## 主进程创建窗口​
+### 渲染进程（Renderer Process）
 
-- 创建 BrowserWindow​​：主进程调用 `new BrowserWindow()` 创建应用窗口
-  - 配置选项：设置窗口大小、是否集成 Node.js、预加载脚本等
-- ​加载页面​​：窗口通过 `loadFile()`或 `loadURL()` 加载本地 HTML 文件或远程 URL
+- 负责渲染用户界面
+- 运行在 Chromium 环境中
+- 默认情况下无法直接访问 Node.js API
+- 通过预加载脚本和 contextBridge 安全地与主进程通信
 
-## 渲染进程运行​
+## 进程间通信（IPC）
 
-- 独立进程​​：每个 BrowserWindow 或 `<webview>` 标签会启动一个渲染进程，负责显示网页内容（运行在 Chromium 中）
-- ​​限制与能力​​：
-  - 默认情况下，渲染进程无法直接访问 Node.js API（除非设置 nodeIntegration: true，但存在安全风险）
-  - 通过预加载脚本（Preload Script）安全地暴露有限的 Node.js 功能到渲染进程
+### 1. 安全通信模式
 
-## 进程间通信（IPC）​​
+#### 预加载脚本设置
 
-- ​​主进程 ↔ 渲染进程​​：
-  - ​ipcMain​​（主进程）和 ​​ipcRenderer​​（渲染进程）通过事件机制通信
-  - 例如：渲染进程发送事件请求读取文件，主进程处理并返回结果
-- 上下文隔离​​：默认启用，防止全局变量污染，需通过 `contextBridge` 在预加载脚本中安全暴露 API
+```javascript
+// preload.js
+const { contextBridge, ipcRenderer } = require('electron');
 
-### 渲染进程 → 主进程（单向）
+// 安全地暴露 API 到渲染进程
+contextBridge.exposeInMainWorld('electronAPI', {
+  // 发送消息到主进程
+  send: (channel, data) => {
+    ipcRenderer.send(channel, data);
+  },
+  // 接收来自主进程的消息
+  receive: (channel, callback) => {
+    ipcRenderer.on(channel, (event, ...args) => callback(...args));
+  },
+  // 发送消息并等待响应
+  invoke: (channel, data) => {
+    return ipcRenderer.invoke(channel, data);
+  },
+  // 移除事件监听器
+  removeListener: (channel, callback) => {
+    ipcRenderer.removeListener(channel, callback);
+  },
+});
+```
 
-- 渲染进程通过 `ipcRenderer.send(channel, args)` 发送消息
-- 主进程通过 `ipcMain.on(channel, callback)` 监听并处理消息
+#### 渲染进程 → 主进程（单向）
 
-```js
+```javascript
 // 渲染进程
-const { ipcRenderer } = require('electron');
-ipcRenderer.send('message', 'Hello from renderer');
+window.electronAPI.send('event-name', data);
 
 // 主进程
 const { ipcMain } = require('electron');
-ipcMain.on('message', (event, arg) => {
-  console.log(arg); // 输出: "Hello from renderer"
+
+ipcMain.on('event-name', (event, data) => {
+  // 处理数据
 });
 ```
 
-### 主进程 → 渲染进程（单向）
+#### 主进程 → 渲染进程（单向）
 
-- 主进程通过 `webContents.send(channel, args)`向指定窗口发送消息。
-- 渲染进程通过 `ipcRenderer.on(channel, callback)` 监听消息
-
-```js
+```javascript
 // 主进程
-win.webContents.send('reply', 'Hello from main');
+mainWindow.webContents.send('event-name', data);
 
 // 渲染进程
-ipcRenderer.on('reply', (event, arg) => {
-  console.log(arg); // 输出: "Hello from main"
+window.electronAPI.receive('event-name', (data) => {
+  // 处理数据
 });
 ```
 
-### 主进程 ↔ 渲染进程（双向）
+#### 双向通信（请求-响应模式）
 
-- 渲染进程使用 `ipcRenderer.invoke(channel, args)` 发起请求。
-- 主进程通过 `ipcMain.handle(channel, handler)` 处理并返回结果
-
-```js
+```javascript
 // 渲染进程
-const result = await ipcRenderer.invoke('get-data');
+const response = await window.electronAPI.invoke('event-name', data);
 
 // 主进程
-ipcMain.handle('get-data', () => 'Data from main');
+const { ipcMain } = require('electron');
+
+ipcMain.handle('event-name', async (event, data) => {
+  // 处理数据并返回结果
+  return result;
+});
 ```
 
-## 应用生命周期管理​
+### 2. TypeScript 支持
 
-- 主进程控制​​：
-  - 监听 app 模块的事件（如 ready、window-all-closed、before-quit）
-  - 根据平台（macOS 与其他系统）处理窗口关闭时的应用行为
+```typescript
+// types/electron.d.ts
+interface ElectronAPI {
+  send: (channel: string, data: any) => void;
+  receive: (channel: string, callback: (...args: any[]) => void) => void;
+  invoke: (channel: string, data: any) => Promise<any>;
+  removeListener: (channel: string, callback: (...args: any[]) => void) => void;
+}
 
-## 资源加载与安全​​
+declare global {
+  interface Window {
+    electronAPI: ElectronAPI;
+  }
+}
+```
 
-- 协议处理​​：可自定义协议（如 app://）替代 file://，增强安全性
-- ​沙箱化​​：可选启用沙箱模式限制渲染进程的权限
+## 窗口配置
 
-## 开发与调试​​
+### 主进程窗口创建
 
-- 开发工具​​：
-  - 主进程：通过 app.whenReady() 确保初始化完成后打开窗口
-  - 渲染进程：调用 webContents.openDevTools() 调试页面
-- 热重载​​：结合工具（如 electron-reloader）实现代码变更时自动刷新
+```javascript
+const { BrowserWindow } = require('electron');
+const path = require('path');
 
-## 打包与分发​​
+const win = new BrowserWindow({
+  width: 800,
+  height: 600,
+  webPreferences: {
+    nodeIntegration: false, // 禁用 Node.js 集成
+    contextIsolation: true, // 启用上下文隔离
+    preload: path.join(__dirname, 'preload.js'), // 预加载脚本
+    sandbox: true, // 启用沙箱
+  },
+});
+```
 
-- ​打包工具​​：使用 electron-builder 或 electron-packager 生成可执行文件（如 .exe、.dmg、.deb）
-- 优化​​：压缩资源、移除开发依赖、配置签名（发布需要）
+## 安全最佳实践
+
+1. **始终启用上下文隔离**
+
+   - 设置 `contextIsolation: true`
+   - 使用 `contextBridge` 暴露 API
+   - 避免直接暴露 `ipcRenderer`
+
+2. **禁用 Node.js 集成**
+
+   - 设置 `nodeIntegration: false`
+   - 通过预加载脚本安全地暴露需要的功能
+
+3. **使用 CSP**
+
+   - 设置适当的 Content Security Policy
+   - 限制资源加载来源
+
+4. **验证 IPC 消息**
+
+   - 验证所有 IPC 消息的来源和内容
+   - 使用类型检查确保数据格式正确
+
+5. **清理事件监听器**
+   - 在组件卸载时移除事件监听器
+   - 使用 `removeListener` 防止内存泄漏
+
+## 性能优化
+
+1. **进程管理**
+
+   - 及时关闭不需要的窗口
+   - 使用 `backgroundThrottling` 控制后台窗口行为
+
+2. **资源加载**
+
+   - 使用 `protocol` 模块自定义协议
+   - 实现资源缓存策略
+
+3. **内存管理**
+   - 及时清理事件监听器
+   - 使用 `webContents.clearCache()` 清理缓存
+
+## 调试技巧
+
+1. **主进程调试**
+
+```javascript
+// 启用主进程调试
+app.commandLine.appendSwitch('remote-debugging-port', '9222');
+```
+
+2. **渲染进程调试**
+
+```javascript
+// 打开开发者工具
+mainWindow.webContents.openDevTools();
+```
+
+3. **日志管理**
+
+```javascript
+// 使用 electron-log
+const log = require('electron-log');
+log.info('应用启动');
+log.error('发生错误', error);
+```

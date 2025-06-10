@@ -173,9 +173,16 @@
         "description": "放屁网在线音乐搜索，可以在线免费下载全网MP3付费歌曲、流行音乐、经典老歌等。曲库完整，更新迅速，试听流畅，支持高品质|无损音质~",
         "url": "https://www.fangpi.net/",
         "icon": "https://www.fangpi.net/favicon.ico"
+      },
+      {
+        "name": "MagicEraser.Pro",
+        "description": "轻松从在线照片中删除物体、人物、文本",
+        "url": "https://magiceraser.pro/zh",
+        "icon": "https://magiceraser.pro/favicon.ico"
       }
     ]
   },
+
   {
     "name": "AI 应用",
     "options": [

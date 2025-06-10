@@ -324,10 +324,18 @@ export default {
       text: '数据大屏适配方案',
       link: '/posts/数据大屏适配方案',
     },
+    {
+      text: '移动端H5 页面适配方案',
+      link: '/posts/移动端H5页面适配方案',
+    },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',
     //   link: '/posts/NestJS接入DeepSeek实现流式对话',
     // },
+    {
+      text: 'AI Thinking',
+      link: '/posts/AI_Thinking',
+    },
   ],
   '/flutter': [
     {
