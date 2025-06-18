@@ -18,5 +18,6 @@ export default [
   //   ],
   // },
   { text: '资源导航网', link: '/resource/' },
+  { text: 'AI Thinking', link: '/ai_thinking/' },
   // { text: 'flingyp.me', link: 'https://me.flingyp.online' },
 ] as DefaultTheme.NavItem[];

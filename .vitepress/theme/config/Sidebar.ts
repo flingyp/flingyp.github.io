@@ -328,14 +328,14 @@ export default {
       text: '移动端H5 页面适配方案',
       link: '/posts/移动端H5页面适配方案',
     },
+    {
+      text: '配置多个 SSH 密钥',
+      link: '/posts/配置多个SSH密钥',
+    },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',
     //   link: '/posts/NestJS接入DeepSeek实现流式对话',
     // },
-    {
-      text: 'AI Thinking',
-      link: '/posts/AI_Thinking',
-    },
   ],
   '/flutter': [
     {
@@ -367,6 +367,20 @@ export default {
     {
       text: '使用 Cursor 生成设计稿',
       link: '/cursor/使用Cursor生成设计稿',
+    },
+  ],
+  '/ai_thinking': [
+    {
+      text: '利用 `v0.dev` + Cursor/Trae 实现前端页面最小可行性研究方案',
+      link: '/ai_thinking/实现前端页面最小可行性研究方案',
+    },
+    {
+      text: 'Cursor Rules 自定义 AI 编码行为',
+      link: '/ai_thinking/Cursor Rules 自定义 AI 编码行为',
+    },
+    {
+      text: '利用 AI 重构项目',
+      link: '/ai_thinking/利用AI重构项目',
     },
   ],
 } as DefaultTheme.Sidebar;

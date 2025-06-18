@@ -47,4 +47,7 @@ pnpm remove lodash --filter @project/utils
 # 全局管理
 pnpm setup  # 初始化 pnpm 环境
 pnpm env use --global 16  # 切换 Node.js 版本
+
+# 安装 monorepo 项目当中的子包
+pnpm install packageName --workspace -w --filter packageName
 ```

@@ -25,6 +25,7 @@
   "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "scss", "sass", "vue", "postcss"],
   "cSpell.words": [
+    "cursorrules",
     "flypeng",
     "instanceof",
     "OPPO",
