@@ -332,6 +332,10 @@ export default {
       text: '配置多个 SSH 密钥',
       link: '/posts/配置多个SSH密钥',
     },
+    {
+      text: 'Zod-TypeScript 优先的方案验证与静态类型推断',
+      link: '/posts/Zod-TypeScript 优先的方案验证与静态类型推断',
+    },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',
     //   link: '/posts/NestJS接入DeepSeek实现流式对话',
@@ -381,6 +385,10 @@ export default {
     {
       text: '利用 AI 重构项目',
       link: '/ai_thinking/利用AI重构项目',
+    },
+    {
+      text: 'Model Context Protocol',
+      link: '/ai_thinking/Model Context Protocol',
     },
   ],
 } as DefaultTheme.Sidebar;
