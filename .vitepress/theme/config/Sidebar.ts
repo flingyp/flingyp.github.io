@@ -68,6 +68,10 @@ export default {
               text: 'Hooks',
               link: '/frontend/React/ReactHooks',
             },
+            {
+              text: 'React-Redux 搭配 @reduxjs/toolkit 入门教程',
+              link: '/frontend/React/Redux+Toolkit',
+            },
           ],
         },
         {
@@ -271,6 +275,10 @@ export default {
     {
       text: 'NPM镜像源切换',
       link: '/posts/NPM镜像源切换',
+    },
+    {
+      text: 'NRM 镜像源工具',
+      link: '/posts/NRM镜像源工具',
     },
     {
       text: 'Github SSH 连接不上',

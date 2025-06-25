@@ -260,5 +260,6 @@ Cursor Rules 帮助开发者定制 AI 编码行为，确保生成代码符合项
 **资源**：
 
 - [Cursor 官方文档](https://docs.cursor.ac.cn)
+- [Cursor Rules](https://cursor.directory/rules)
 - [Awesome CursorRules](https://github.com/PatrickJS/awesome-cursorrules)
 - [中文社区](https://cursorrules.agnt.one)

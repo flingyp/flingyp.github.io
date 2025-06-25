@@ -20,6 +20,9 @@ pnpm install packageName --registry sourceUrl
 
 ```bash
 pnpm config set registry sourceUrl
+
+# 示例: 使用 CNPM 镜像源
+pnpm config set registry https://registry.npmmirror.com
 ```
 
 ## 还原
