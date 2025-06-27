@@ -398,5 +398,13 @@ export default {
       text: 'Model Context Protocol',
       link: '/ai_thinking/Model Context Protocol',
     },
+    {
+      text: '高效让Cursor改bug的技巧',
+      link: '/ai_thinking/高效让Cursor改bug的技巧',
+    },
+    {
+      text: 'Prompt & Cursors 整理',
+      link: '/ai_thinking/Prompt&Cursors',
+    },
   ],
 } as DefaultTheme.Sidebar;
