@@ -64,3 +64,21 @@ alwaysApply: true
 - 使用 PNPM 包管理器安装依赖包
 - 任何第三发依赖包版本都以 `package.json` 为准
 ```
+
+## Vue 3 和 Composition API 最佳实践 Cursor Rules Template - `vue-best-practices.mdc`
+
+```markdown
+---
+description: Vue 3 和 Composition API 最佳实践
+alwaysApply: true
+---
+
+# Vue 3 和 Composition API 最佳实践
+
+- 使用 `<script setup>` 语法进行简洁的组件定义。
+- 利用 ref 和 computed 进行响应式状态管理，避免使用 reactive 声明响应式变量。
+- 在适当的情况下使用 provide/inject 进行依赖注入。
+- 可组合项命名规范 `useXXX`，实现自定义可组合项 composables 以实现逻辑复用。
+- Vue 组件命名规范 `XXX.vue`，文件名和组件名一致。
+- 组件文件超出 500 行时，需要拆分组件，并考虑组件复用性。
+```

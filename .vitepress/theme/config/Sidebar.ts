@@ -344,6 +344,10 @@ export default {
       text: 'Zod-TypeScript 优先的方案验证与静态类型推断',
       link: '/posts/Zod-TypeScript 优先的方案验证与静态类型推断',
     },
+    {
+      text: '部署 Vitepress 到 Cloudflare',
+      link: '/posts/部署Vitepress到Cloudflare',
+    },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',
     //   link: '/posts/NestJS接入DeepSeek实现流式对话',
