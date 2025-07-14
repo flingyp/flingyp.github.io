@@ -142,6 +142,10 @@ export default {
               text: '核心',
               link: '/frontend/Electron',
             },
+            {
+              text: '从零基础到理解整体运行原理',
+              link: '/frontend/Electron/从零基础到理解整体运行原理',
+            },
           ],
         },
       ],
@@ -347,6 +351,10 @@ export default {
     {
       text: '部署 Vitepress 到 Cloudflare',
       link: '/posts/部署Vitepress到Cloudflare',
+    },
+    {
+      text: 'Cloudflare + Vercel 部署 NextJS 应用',
+      link: '/posts/Cloudflare+Vercel部署NextJS应用',
     },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',
