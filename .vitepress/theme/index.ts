@@ -1,5 +1,5 @@
 // https://vitepress.dev/guide/custom-theme
-import { h } from 'vue';
+import { App, h } from 'vue';
 import type { Theme } from 'vitepress';
 import DefaultTheme from 'vitepress/theme';
 import Layout from './layout/Layout.vue';
@@ -12,6 +12,9 @@ import './styles/overwrite.scss';
 
 import { changeCssVariable } from './utils/color';
 import { capture, getFilename } from './utils/screenshot';
+
+import { initComponent } from 'vitepress-plugin-legend/component';
+import 'vitepress-plugin-legend/dist/index.css';
 
 // 主题色列表
 const colors = [
@@ -68,7 +71,7 @@ export default {
   Layout: () => {
     return h(Layout, null, {});
   },
-  enhanceApp({ app, router, siteData }) {
-    // ...
+  enhanceApp({ app }: { app: App }) {
+    initComponent(app);
   },
 } satisfies Theme;

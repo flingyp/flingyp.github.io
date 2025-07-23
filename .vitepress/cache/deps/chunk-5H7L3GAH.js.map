@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../node_modules/.pnpm/vitepress-plugin-legend@1.0.2_jiti@1.21.7_markmap-common@0.18.9_typescript@5.4.3_yaml@2.7.0/node_modules/vitepress-plugin-legend/dist/clone-BYhKjDMH-CJuBb9uG.js"],
+  "sourcesContent": ["import { C as o } from \"./_baseUniq-CNqCRbrC-BdcmcNSm.js\";\nvar t = 4;\nfunction n(r) {\n  return o(r, t);\n}\nexport {\n  n as a\n};\n"],
+  "mappings": ";;;;;AACA,IAAI,IAAI;AACR,SAAS,EAAE,GAAG;AACZ,SAAO,EAAE,GAAG,CAAC;AACf;",
+  "names": []
+}

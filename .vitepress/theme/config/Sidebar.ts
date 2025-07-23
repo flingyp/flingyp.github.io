@@ -356,6 +356,10 @@ export default {
       text: 'Cloudflare + Vercel 部署 NextJS 应用',
       link: '/posts/Cloudflare+Vercel部署NextJS应用',
     },
+    {
+      text: '让 VitePress 文档“图文并茂”的魔法插件：vitepress-plugin-legend',
+      link: '/posts/vitepress-plugin-legend',
+    },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',
     //   link: '/posts/NestJS接入DeepSeek实现流式对话',

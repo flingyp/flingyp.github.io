@@ -4,6 +4,7 @@ import mdItCustomAttrs from 'markdown-it-custom-attrs';
 import nav from './theme/config/Nav';
 import sidebar from './theme/config/Sidebar';
 import socialLinks from './theme/config/Social';
+import vitepressPluginLegend from 'vitepress-plugin-legend';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -66,6 +67,15 @@ export default defineConfig({
       // Image online preview
       md.use(mdItCustomAttrs, 'image', {
         'data-fancybox': 'gallery',
+      });
+
+      vitepressPluginLegend(md, {
+        markmap: {
+          showToolbar: true,
+        },
+        mermaid: {
+          showToolbar: true,
+        },
       });
     },
   },

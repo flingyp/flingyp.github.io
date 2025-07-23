@@ -1,4 +1,4 @@
-import "./chunk-DC5AMYBS.js";
+import "./chunk-EQCVQC35.js";
 
 // node_modules/.pnpm/html-to-image@1.11.13/node_modules/html-to-image/es/util.js
 function resolveUrl(url, baseUrl) {

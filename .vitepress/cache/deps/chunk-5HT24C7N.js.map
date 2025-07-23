@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../node_modules/.pnpm/vitepress-plugin-legend@1.0.2_jiti@1.21.7_markmap-common@0.18.9_typescript@5.4.3_yaml@2.7.0/node_modules/vitepress-plugin-legend/dist/channel-BmYlKa-S-BWsVrVdW.js"],
+  "sourcesContent": ["import { a$ as r, b0 as s } from \"./component-Dd_YnWOH.js\";\nconst e = (a, o) => r.lang.round(s.parse(a)[o]);\nexport {\n  e as t\n};\n"],
+  "mappings": ";;;;;;AACA,IAAM,IAAI,CAAC,GAAG,MAAM,GAAE,KAAK,MAAM,GAAE,MAAM,CAAC,EAAE,CAAC,CAAC;",
+  "names": []
+}

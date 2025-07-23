@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../node_modules/.pnpm/vitepress-plugin-legend@1.0.2_jiti@1.21.7_markmap-common@0.18.9_typescript@5.4.3_yaml@2.7.0/node_modules/vitepress-plugin-legend/dist/classDiagram-M3E45YP4-wmmfWv7q-DlNs-aPJ.js"],
+  "sourcesContent": ["import { D as s, F as t, T as a, k as e } from \"./chunk-SZ463SBG-Ccm986mJ-Pg0PjiMi.js\";\nimport { p as o } from \"./component-Dd_YnWOH.js\";\nvar m = {\n  parser: a,\n  get db() {\n    return new e();\n  },\n  renderer: t,\n  styles: s,\n  init: /* @__PURE__ */ o((r) => {\n    r.class || (r.class = {}), r.class.arrowMarkerAbsolute = r.arrowMarkerAbsolute;\n  }, \"init\")\n};\nexport {\n  m as diagram\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;AAEA,IAAI,IAAI;AAAA,EACN,QAAQ;AAAA,EACR,IAAI,KAAK;AACP,WAAO,IAAI,GAAE;AAAA,EACf;AAAA,EACA,UAAU;AAAA,EACV,QAAQ;AAAA,EACR,MAAsB,EAAE,CAAC,MAAM;AAC7B,MAAE,UAAU,EAAE,QAAQ,CAAC,IAAI,EAAE,MAAM,sBAAsB,EAAE;AAAA,EAC7D,GAAG,MAAM;AACX;",
+  "names": []
+}

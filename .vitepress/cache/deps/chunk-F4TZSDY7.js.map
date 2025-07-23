@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../node_modules/.pnpm/vitepress-plugin-legend@1.0.2_jiti@1.21.7_markmap-common@0.18.9_typescript@5.4.3_yaml@2.7.0/node_modules/vitepress-plugin-legend/dist/chunk-E2GYISFI-DyFY_2vt-D4drNa2N.js"],
+  "sourcesContent": ["import { p as e } from \"./component-Dd_YnWOH.js\";\nvar l = /* @__PURE__ */ e(() => `\n  /* Font Awesome icon styling - consolidated */\n  .label-icon {\n    display: inline-block;\n    height: 1em;\n    overflow: visible;\n    vertical-align: -0.125em;\n  }\n  \n  .node .label-icon path {\n    fill: currentColor;\n    stroke: revert;\n    stroke-width: revert;\n  }\n`, \"getIconStyles\");\nexport {\n  l\n};\n"],
+  "mappings": ";;;;;AACA,IAAI,IAAoB,EAAE,MAAM;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA,GAc7B,eAAe;",
+  "names": []
+}
