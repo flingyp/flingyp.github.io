@@ -127,8 +127,18 @@ function Counter() {
       <button onClick={() => dispatch(increment())}>+</button>
       <button onClick={() => dispatch(decrement())}>-</button>
       <div>
-        <input type="text" value={incrementAmount} onChange={(e) => setIncrementAmount(e.target.value)} />
-        <button onClick={() => dispatch(incrementByAmount(Number(incrementAmount) || 0))}>Add Amount</button>
+        <input
+          type="text"
+          value={incrementAmount}
+          onChange={(e) => setIncrementAmount(e.target.value)}
+        />
+        <button
+          onClick={() =>
+            dispatch(incrementByAmount(Number(incrementAmount) || 0))
+          }
+        >
+          Add Amount
+        </button>
       </div>
     </div>
   );
@@ -169,10 +179,13 @@ Redux Toolkit 的 `createAsyncThunk` 简化了异步操作。假设我们要从 
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 // 模拟异步 API 调用
-export const incrementAsync = createAsyncThunk('counter/incrementAsync', async (amount) => {
-  await new Promise((resolve) => setTimeout(resolve, 1000)); // 模拟延迟
-  return amount;
-});
+export const incrementAsync = createAsyncThunk(
+  'counter/incrementAsync',
+  async (amount) => {
+    await new Promise((resolve) => setTimeout(resolve, 1000)); // 模拟延迟
+    return amount;
+  },
+);
 
 const counterSlice = createSlice({
   name: 'counter',
@@ -214,7 +227,12 @@ export default counterSlice.reducer;
 ```javascript
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, incrementByAmount, incrementAsync } from './counterSlice';
+import {
+  increment,
+  decrement,
+  incrementByAmount,
+  incrementAsync,
+} from './counterSlice';
 
 function Counter() {
   const count = useSelector((state) => state.counter.value);
@@ -228,9 +246,22 @@ function Counter() {
       <button onClick={() => dispatch(increment())}>+</button>
       <button onClick={() => dispatch(decrement())}>-</button>
       <div>
-        <input type="text" value={incrementAmount} onChange={(e) => setIncrementAmount(e.target.value)} />
-        <button onClick={() => dispatch(incrementByAmount(Number(incrementAmount) || 0))}>Add Amount</button>
-        <button onClick={() => dispatch(incrementAsync(Number(incrementAmount) || 0))} disabled={status === 'loading'}>
+        <input
+          type="text"
+          value={incrementAmount}
+          onChange={(e) => setIncrementAmount(e.target.value)}
+        />
+        <button
+          onClick={() =>
+            dispatch(incrementByAmount(Number(incrementAmount) || 0))
+          }
+        >
+          Add Amount
+        </button>
+        <button
+          onClick={() => dispatch(incrementAsync(Number(incrementAmount) || 0))}
+          disabled={status === 'loading'}
+        >
           {status === 'loading' ? 'Loading...' : 'Add Async'}
         </button>
       </div>
@@ -276,7 +307,12 @@ module.exports = {
 ```javascript
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement, incrementByAmount, incrementAsync } from './counterSlice';
+import {
+  increment,
+  decrement,
+  incrementByAmount,
+  incrementAsync,
+} from './counterSlice';
 
 function Counter() {
   const count = useSelector((state) => state.counter.value);
@@ -310,7 +346,9 @@ function Counter() {
         />
         <button
           className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-          onClick={() => dispatch(incrementByAmount(Number(incrementAmount) || 0))}
+          onClick={() =>
+            dispatch(incrementByAmount(Number(incrementAmount) || 0))
+          }
         >
           Add Amount
         </button>

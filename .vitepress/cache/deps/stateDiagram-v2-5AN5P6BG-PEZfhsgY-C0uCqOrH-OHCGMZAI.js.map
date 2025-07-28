@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../node_modules/.pnpm/vitepress-plugin-legend@1.0.4_jiti@1.21.7_markmap-common@0.18.9_typescript@5.4.3_yaml@2.8.0/node_modules/vitepress-plugin-legend/dist/stateDiagram-v2-5AN5P6BG-PEZfhsgY-C0uCqOrH.js"],
+  "sourcesContent": ["import { U as e, V as a, B as t, M as s } from \"./chunk-OW32GOEJ-DpW_UIGr-olQky-sL.js\";\nimport { p as o } from \"./component-B8iEnLsv.js\";\nvar n = {\n  parser: t,\n  get db() {\n    return new s(2);\n  },\n  renderer: a,\n  styles: e,\n  init: /* @__PURE__ */ o((r) => {\n    r.state || (r.state = {}), r.state.arrowMarkerAbsolute = r.arrowMarkerAbsolute;\n  }, \"init\")\n};\nexport {\n  n as diagram\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;AAEA,IAAI,IAAI;AAAA,EACN,QAAQ;AAAA,EACR,IAAI,KAAK;AACP,WAAO,IAAI,GAAE,CAAC;AAAA,EAChB;AAAA,EACA,UAAU;AAAA,EACV,QAAQ;AAAA,EACR,MAAsB,EAAE,CAAC,MAAM;AAC7B,MAAE,UAAU,EAAE,QAAQ,CAAC,IAAI,EAAE,MAAM,sBAAsB,EAAE;AAAA,EAC7D,GAAG,MAAM;AACX;",
+  "names": []
+}

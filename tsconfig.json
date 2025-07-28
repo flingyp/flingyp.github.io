@@ -10,10 +10,18 @@
     "skipLibCheck": true,
     "resolveJsonModule": true,
     "paths": {
-      "@flypeng/tool/browser": ["node_modules/@flypeng/tool/dist/browser/index.d.ts"],
+      "@flypeng/tool/browser": [
+        "node_modules/@flypeng/tool/dist/browser/index.d.ts"
+      ],
       "@flypeng/tool/node": ["node_modules/@flypeng/tool/dist/node/index.d.ts"]
     }
   },
-  "include": ["**/.vitepress/**/*.ts", "**/.vitepress/**/*.vue", "docs/**/*", "./*.ts", "./*.d.ts"],
+  "include": [
+    "**/.vitepress/**/*.ts",
+    "**/.vitepress/**/*.vue",
+    "docs/**/*",
+    "./*.ts",
+    "./*.d.ts"
+  ],
   "exclude": ["node_modules"]
 }

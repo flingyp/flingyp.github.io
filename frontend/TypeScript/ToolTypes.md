@@ -187,7 +187,9 @@ type TestPartialType = string;
 
 ```ts
 // 想象成联合类型的每一个类型都会进一遍这个三元表达式，因此来进行判断
-type CustomExcludeType<T extends keyof any, K extends T> = T extends K ? never : T;
+type CustomExcludeType<T extends keyof any, K extends T> = T extends K
+  ? never
+  : T;
 ```
 
 ## `Extract<Type, Union>`
@@ -212,7 +214,9 @@ type CustomExtractType<T, K> = T extends K ? T : never;
 `NonNullable<Type>` 排除类型 Type 中的 null 和 undefined 构造一个新的类型
 
 ```ts
-type TestNonNullableType = CustomNonNullableType<string | number | undefined | null>;
+type TestNonNullableType = CustomNonNullableType<
+  string | number | undefined | null
+>;
 
 // 转换为如下类型
 type TestNonNullableType = string | number;
@@ -241,7 +245,11 @@ type TestParametersType = [s: string, b: number];
 
 ```ts
 // infer X 类型推断 假设为X类型的意思
-type CustomParametersType<T extends (...args: any[]) => any> = T extends (...args: infer X) => any ? X : never;
+type CustomParametersType<T extends (...args: any[]) => any> = T extends (
+  ...args: infer X
+) => any
+  ? X
+  : never;
 ```
 
 ## `ConstructorParameters<Type>`
@@ -292,11 +300,9 @@ type TestConstructorParametersType = [message?: string | undefined];
 **实现源码：**
 
 ```ts
-type CustomConstructorParametersType<T extends abstract new (...args: any) => any> = T extends abstract new (
-  ...args: infer P
-) => any
-  ? P
-  : never;
+type CustomConstructorParametersType<
+  T extends abstract new (...args: any) => any,
+> = T extends abstract new (...args: infer P) => any ? P : never;
 ```
 
 ## `ReturnType<Type>`
@@ -318,7 +324,9 @@ type TestReturnType = {
 **实现源码：**
 
 ```ts
-type CustomReturnType<T extends () => any> = T extends () => infer X ? X : never;
+type CustomReturnType<T extends () => any> = T extends () => infer X
+  ? X
+  : never;
 ```
 
 ## `InstanceType<Type>`
@@ -355,9 +363,8 @@ type TestCustomInstanceType = ClockInterface;
 **实现源码：**
 
 ```ts
-type CustomInstanceType<T extends abstract new (...args: any) => any> = T extends abstract new (...args: any) => infer X
-  ? X
-  : never;
+type CustomInstanceType<T extends abstract new (...args: any) => any> =
+  T extends abstract new (...args: any) => infer X ? X : never;
 ```
 
 ## `ThisParameterType<Type>`
@@ -378,12 +385,8 @@ type TestThisParameterType = number;
 **实现源码：**
 
 ```ts
-type CustomThisParameterType<T extends (this: any, ...args: any) => any> = T extends (
-  this: infer X,
-  ...args: any
-) => any
-  ? X
-  : unknown;
+type CustomThisParameterType<T extends (this: any, ...args: any) => any> =
+  T extends (this: infer X, ...args: any) => any ? X : unknown;
 ```
 
 ## `OmitThisParameter<Type>`
@@ -404,12 +407,10 @@ type TestOmitThisParameter = () => string;
 **实现源码：**
 
 ```ts
-type CustomOmitThisParameter<T extends (this: any, ...args: any) => any> = T extends (
-  this: any,
-  ...args: infer A
-) => infer X
-  ? (...args: A) => X
-  : never;
+type CustomOmitThisParameter<T extends (this: any, ...args: any) => any> =
+  T extends (this: any, ...args: infer A) => infer X
+    ? (...args: A) => X
+    : never;
 ```
 
 ## `ThisType<Type>`

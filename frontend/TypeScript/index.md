@@ -360,7 +360,10 @@ let sumFunction = function (x: number, y: number): number {
 /**
  * Function Expression
  */
-let sumFunction: (x: number, y: number) => number = function (x: number, y: number): number {
+let sumFunction: (x: number, y: number) => number = function (
+  x: number,
+  y: number,
+): number {
   return x + y;
 };
 ```
@@ -375,7 +378,10 @@ interface ISearchFunc {
   (source: string, subString: string): boolean;
 }
 
-const mySearch: ISearchFunc = function (source: string, subString: string): boolean {
+const mySearch: ISearchFunc = function (
+  source: string,
+  subString: string,
+): boolean {
   return source.search(subString) !== -1;
 };
 
@@ -427,7 +433,11 @@ console.log(buildName('This is'));
 /**
  * 剩余参数
  */
-function restName(firstName: string, secondName: string, ...restOfName: string[]) {
+function restName(
+  firstName: string,
+  secondName: string,
+  ...restOfName: string[]
+) {
   // [ 'Lucas', 'MacKinzie' ]
   console.log('restOfName', restOfName);
   return firstName + ' ' + ' ' + secondName + restOfName.join(' ');

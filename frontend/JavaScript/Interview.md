@@ -1343,7 +1343,16 @@ offsetWidth = width（可视区宽度（width + Padding））+ border
 ## 手写 Flat 扁平化数组
 
 ```ts
-const arr = [1, 2, 3, 4, [5, 6, 7, [8, 9, 10, [11, 12, 13]]], 14, 'string', { name: '前端收割机' }];
+const arr = [
+  1,
+  2,
+  3,
+  4,
+  [5, 6, 7, [8, 9, 10, [11, 12, 13]]],
+  14,
+  'string',
+  { name: '前端收割机' },
+];
 // 使用递归 实现扁平化
 function myFlat(arr) {
   let res = []; // 存放扁平化结构的数组

@@ -20,12 +20,15 @@ Nest支持几种内置的传输层实现，称为**传输器**。默认使用 TC
 ```ts
 async function bootstrap() {
   // 创建一个APP微服务实列
-  const app = await NestFactory.createMicroservice<MicroserviceOptions>(AppModule, {
-    transport: Transport.TCP,
-    options: {
-      port: 8888,
+  const app = await NestFactory.createMicroservice<MicroserviceOptions>(
+    AppModule,
+    {
+      transport: Transport.TCP,
+      options: {
+        port: 8888,
+      },
     },
-  });
+  );
   app.listen();
 }
 bootstrap();

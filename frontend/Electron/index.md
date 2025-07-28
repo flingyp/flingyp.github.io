@@ -130,23 +130,19 @@ const win = new BrowserWindow({
 ## 安全最佳实践
 
 1. **始终启用上下文隔离**
-
    - 设置 `contextIsolation: true`
    - 使用 `contextBridge` 暴露 API
    - 避免直接暴露 `ipcRenderer`
 
 2. **禁用 Node.js 集成**
-
    - 设置 `nodeIntegration: false`
    - 通过预加载脚本安全地暴露需要的功能
 
 3. **使用 CSP**
-
    - 设置适当的 Content Security Policy
    - 限制资源加载来源
 
 4. **验证 IPC 消息**
-
    - 验证所有 IPC 消息的来源和内容
    - 使用类型检查确保数据格式正确
 
@@ -157,12 +153,10 @@ const win = new BrowserWindow({
 ## 性能优化
 
 1. **进程管理**
-
    - 及时关闭不需要的窗口
    - 使用 `backgroundThrottling` 控制后台窗口行为
 
 2. **资源加载**
-
    - 使用 `protocol` 模块自定义协议
    - 实现资源缓存策略
 

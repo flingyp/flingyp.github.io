@@ -10,7 +10,7 @@ import {
   toValue,
   watch
 } from "./chunk-ZNML7WN5.js";
-import "./chunk-EQCVQC35.js";
+import "./chunk-DC5AMYBS.js";
 
 // node_modules/.pnpm/tabbable@6.2.0/node_modules/tabbable/dist/index.esm.js
 var candidateSelectors = ["input:not([inert])", "select:not([inert])", "textarea:not([inert])", "a[href]:not([inert])", "button:not([inert])", "[tabindex]:not(slot):not([inert])", "audio[controls]:not([inert])", "video[controls]:not([inert])", '[contenteditable]:not([contenteditable="false"]):not([inert])', "details>summary:first-of-type:not([inert])", "details:not([inert])"];
@@ -343,7 +343,7 @@ var isFocusable = function isFocusable2(node, options) {
   return isNodeMatchingSelectorFocusable(options, node);
 };
 
-// node_modules/.pnpm/focus-trap@7.6.4/node_modules/focus-trap/dist/focus-trap.esm.js
+// node_modules/.pnpm/focus-trap@7.6.5/node_modules/focus-trap/dist/focus-trap.esm.js
 function _arrayLikeToArray(r, a) {
   (null == a || a > r.length) && (a = r.length);
   for (var e = 0, n = Array(a); e < a; e++) n[e] = r[e];
@@ -394,7 +394,7 @@ function _toPrimitive(t, r) {
   if ("object" != typeof t || !t) return t;
   var e = t[Symbol.toPrimitive];
   if (void 0 !== e) {
-    var i = e.call(t, r || "default");
+    var i = e.call(t, r);
     if ("object" != typeof i) return i;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
@@ -948,7 +948,7 @@ var createFocusTrap = function createFocusTrap2(elements, userOptions) {
       }
       state.active = true;
       state.paused = false;
-      state.nodeFocusedBeforeActivation = doc.activeElement;
+      state.nodeFocusedBeforeActivation = _getActiveElement(doc);
       onActivate === null || onActivate === void 0 || onActivate();
       var finishActivation = function finishActivation2() {
         if (checkCanFocusTrap) {
@@ -1066,7 +1066,7 @@ var createFocusTrap = function createFocusTrap2(elements, userOptions) {
   return trap;
 };
 
-// node_modules/.pnpm/@vueuse+integrations@12.8.2_async-validator@4.2.5_focus-trap@7.6.4_typescript@5.4.3/node_modules/@vueuse/integrations/useFocusTrap.mjs
+// node_modules/.pnpm/@vueuse+integrations@12.8.2_async-validator@4.2.5_focus-trap@7.6.5_typescript@5.4.3/node_modules/@vueuse/integrations/useFocusTrap.mjs
 function useFocusTrap(target, options = {}) {
   let trap;
   const { immediate, ...focusTrapOptions } = options;
@@ -1139,7 +1139,7 @@ tabbable/dist/index.esm.js:
 
 focus-trap/dist/focus-trap.esm.js:
   (*!
-  * focus-trap 7.6.4
+  * focus-trap 7.6.5
   * @license MIT, https://github.com/focus-trap/focus-trap/blob/master/LICENSE
   *)
 */

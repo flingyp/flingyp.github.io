@@ -59,7 +59,9 @@ module.exports = {
       }
 
       if (typeof commit.subject === 'string') {
-        let url = context.repository ? `${context.host}/${context.owner}/${context.repository}` : context.repoUrl;
+        let url = context.repository
+          ? `${context.host}/${context.owner}/${context.repository}`
+          : context.repoUrl;
 
         if (url) {
           url = `${url}/issues/`;
@@ -72,12 +74,15 @@ module.exports = {
 
         if (context.host) {
           // User URLs.
-          commit.subject = commit.subject.replace(/\B@([a-z0-9](?:-?[a-z0-9/]){0,38})/g, (_, username) => {
-            if (username.includes('/')) {
-              return `@${username}`;
-            }
-            return `[@${username}](${context.host}/${username})`;
-          });
+          commit.subject = commit.subject.replace(
+            /\B@([a-z0-9](?:-?[a-z0-9/]){0,38})/g,
+            (_, username) => {
+              if (username.includes('/')) {
+                return `@${username}`;
+              }
+              return `[@${username}](${context.host}/${username})`;
+            },
+          );
         }
       }
 

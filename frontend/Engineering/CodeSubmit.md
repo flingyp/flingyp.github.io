@@ -35,7 +35,10 @@ lint-staged 只检测那些加入缓冲区的文件，本地暂存代码检查�
 // 检查 src 所有目录下 js,jsx,ts,tsx,json 文件，执行下面的命令
 {
   "lint-staged": {
-    "src/**/*.{js,jsx,ts,tsx,json}": ["prettier --write", "eslint --cache --fix"]
+    "src/**/*.{js,jsx,ts,tsx,json}": [
+      "prettier --write",
+      "eslint --cache --fix"
+    ]
   }
 }
 ```

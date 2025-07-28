@@ -128,10 +128,14 @@ const child_process = require('child_process');
 let tailwindMode = process.env.NODE_ENV;
 
 // 主进程输出
-console.log(`[tailwindcss] 开始${tailwindMode == 'production' ? '生产环境打包' : '开发模式监听'}`);
+console.log(
+  `[tailwindcss] 开始${tailwindMode == 'production' ? '生产环境打包' : '开发模式监听'}`,
+);
 child_process.exec(
   // 这里指令对应 package.json 中的 npm scripts
-  tailwindMode == 'production' ? 'npm run tailwind-build' : 'npm run tailwind-dev',
+  tailwindMode == 'production'
+    ? 'npm run tailwind-build'
+    : 'npm run tailwind-dev',
   {
     cwd: __dirname, // 切换目录到当前项目，必须
   },

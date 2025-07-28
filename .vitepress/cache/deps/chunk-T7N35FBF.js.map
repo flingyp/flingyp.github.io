@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../node_modules/.pnpm/vitepress-plugin-legend@1.0.4_jiti@1.21.7_markmap-common@0.18.9_typescript@5.4.3_yaml@2.8.0/node_modules/vitepress-plugin-legend/dist/chunk-353BL4L5-xy92gJmW-DsDFHcGi.js"],
+  "sourcesContent": ["import { p as c } from \"./component-B8iEnLsv.js\";\nfunction i(t, e) {\n  t.accDescr && e.setAccDescription?.(t.accDescr), t.accTitle && e.setAccTitle?.(t.accTitle), t.title && e.setDiagramTitle?.(t.title);\n}\nc(i, \"populateCommonDb\");\nexport {\n  i as t\n};\n"],
+  "mappings": ";;;;;AACA,SAAS,EAAE,GAAG,GAAG;AADjB;AAEE,IAAE,cAAY,OAAE,sBAAF,2BAAsB,EAAE,YAAW,EAAE,cAAY,OAAE,gBAAF,2BAAgB,EAAE,YAAW,EAAE,WAAS,OAAE,oBAAF,2BAAoB,EAAE;AAC/H;AACA,EAAE,GAAG,kBAAkB;",
+  "names": []
+}

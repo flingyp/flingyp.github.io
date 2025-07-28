@@ -27,7 +27,9 @@ class EventEmitter {
 
   off(eventName: string, callback: Function) {
     if (this.events[eventName]) {
-      this.events[eventName] = this.events[eventName].filter((cb) => cb !== callback);
+      this.events[eventName] = this.events[eventName].filter(
+        (cb) => cb !== callback,
+      );
     }
   }
 }

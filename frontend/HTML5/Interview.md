@@ -113,7 +113,8 @@ Cookie：是存储在浏览器上的一小段文本信息，可以随着请求�
 
 ```js
 // 设置 Cookie
-document.cookie = 'username=John Doe; expires=Thu, 18 Dec 202312:00:00 UTC; path=/';
+document.cookie =
+  'username=John Doe; expires=Thu, 18 Dec 202312:00:00 UTC; path=/';
 
 // 读取 Cookie
 const username = document.cookie;

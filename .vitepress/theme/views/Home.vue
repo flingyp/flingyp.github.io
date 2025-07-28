@@ -89,7 +89,9 @@ const projects = [
                   flingyp
                 </a>
                 <span class="text-gray-400">/</span>
-                <span class="font-mono">README<span class="text-gray-400">.md</span></span>
+                <span class="font-mono"
+                  >README<span class="text-gray-400">.md</span></span
+                >
               </div>
               <a
                 href="https://github.com/flingyp/flingyp/edit/main/README.md"
@@ -113,7 +115,9 @@ const projects = [
                 </li>
                 <li class="flex items-center space-x-3">
                   <span class="text-red-500">🔥</span>
-                  <span>热爱开源，开源的价值不在于索取，而在于奉献和共同成长</span>
+                  <span
+                    >热爱开源，开源的价值不在于索取，而在于奉献和共同成长</span
+                  >
                 </li>
                 <li class="flex items-center space-x-3">
                   <span class="text-purple-500">🧑🏻‍💻</span>
@@ -126,13 +130,22 @@ const projects = [
                 <span>联系我</span>
                 <NPopover trigger="hover" placement="bottom">
                   <template #trigger>
-                    <IconWx class="w-6 h-6 cursor-pointer hover:text-blue-500 transition-colors" />
+                    <IconWx
+                      class="w-6 h-6 cursor-pointer hover:text-blue-500 transition-colors"
+                    />
                   </template>
                   <div class="w-40 p-2 rounded-lg shadow-lg">
-                    <NImage src="/wxCode.png" width="100%" :preview-disabled="true" />
+                    <NImage
+                      src="/wxCode.png"
+                      width="100%"
+                      :preview-disabled="true"
+                    />
                   </div>
                 </NPopover>
-                <a href="mailto:flingyp@163.com" class="underline font-semibold hover:text-blue-500 transition-colors">
+                <a
+                  href="mailto:flingyp@163.com"
+                  class="underline font-semibold hover:text-blue-500 transition-colors"
+                >
                   flingyp@163.com
                 </a>
               </div>
@@ -143,7 +156,11 @@ const projects = [
           <div
             class="rounded-xl overflow-hidden bg-white/70 dark:bg-[#1a1a1a]/70 backdrop-blur-2xl border border-gray-200/50 dark:border-gray-800/50 shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            <img src="/public/flingyp_contributions.png" alt="contributions" class="w-full h-auto" />
+            <img
+              src="/public/flingyp_contributions.png"
+              alt="contributions"
+              class="w-full h-auto"
+            />
           </div>
         </div>
 
@@ -155,7 +172,10 @@ const projects = [
           >
             <h3 class="text-xl font-semibold !mt-0 !mb-3 flex items-center">
               <span class="mr-2 text-2xl">🛠️</span>
-              <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">技术栈</span>
+              <span
+                class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
+                >技术栈</span
+              >
             </h3>
             <div class="grid grid-cols-4 gap-4">
               <div
@@ -163,7 +183,10 @@ const projects = [
                 :key="index"
                 class="group relative aspect-square flex items-center justify-center rounded-xl bg-gradient-to-br from-gray-50/30 to-gray-100/30 dark:from-gray-800/20 dark:to-gray-700/20 hover:from-blue-50/40 hover:to-purple-50/40 dark:hover:from-blue-900/30 dark:hover:to-purple-900/30 transition-all duration-500"
               >
-                <img :src="icon" class="w-6 h-6 group-hover:scale-110 transition-transform duration-500" />
+                <img
+                  :src="icon"
+                  class="w-6 h-6 group-hover:scale-110 transition-transform duration-500"
+                />
                 <div
                   class="absolute inset-0 rounded-xl ring-1 ring-inset ring-gray-200/50 dark:ring-gray-700/50 group-hover:ring-blue-500/50 dark:group-hover:ring-blue-500/50 transition-colors duration-500"
                 ></div>
@@ -177,7 +200,10 @@ const projects = [
           >
             <h3 class="text-xl font-semibold !mt-0 !mb-6 flex items-center">
               <span class="mr-2 text-2xl">🥳</span>
-              <span class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">开源项目</span>
+              <span
+                class="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent"
+                >开源项目</span
+              >
             </h3>
             <div class="space-y-4">
               <a
@@ -233,7 +259,10 @@ const projects = [
                       </svg>
                     </div>
                   </div>
-                  <span class="text-sm text-gray-600 dark:text-gray-400 mt-0.5 !mb-0">{{ project.description }}</span>
+                  <span
+                    class="text-sm text-gray-600 dark:text-gray-400 mt-0.5 !mb-0"
+                    >{{ project.description }}</span
+                  >
                 </div>
 
                 <!-- 边框效果 -->

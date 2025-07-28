@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../node_modules/.pnpm/vitepress-plugin-legend@1.0.2_jiti@1.21.7_markmap-common@0.18.9_typescript@5.4.3_yaml@2.7.0/node_modules/vitepress-plugin-legend/dist/chunk-AACKK3MU-sby0uGws-B0vysnSJ.js"],
-  "sourcesContent": ["import { p as r } from \"./component-Dd_YnWOH.js\";\nvar t, e = (t = class {\n  /**\n   * @param init - Function that creates the default state.\n   */\n  constructor(i) {\n    this.init = i, this.records = this.init();\n  }\n  reset() {\n    this.records = this.init();\n  }\n}, r(t, \"ImperativeState\"), t);\nexport {\n  e\n};\n"],
-  "mappings": ";;;;;AACA,IAAI;AAAJ,IAAO,KAAK,IAAI,MAAM;AAAA;AAAA;AAAA;AAAA,EAIpB,YAAY,GAAG;AACb,SAAK,OAAO,GAAG,KAAK,UAAU,KAAK,KAAK;AAAA,EAC1C;AAAA,EACA,QAAQ;AACN,SAAK,UAAU,KAAK,KAAK;AAAA,EAC3B;AACF,GAAG,EAAE,GAAG,iBAAiB,GAAG;",
-  "names": []
-}

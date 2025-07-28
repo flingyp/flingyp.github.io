@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../../../node_modules/.pnpm/vitepress-plugin-legend@1.0.2_jiti@1.21.7_markmap-common@0.18.9_typescript@5.4.3_yaml@2.7.0/node_modules/vitepress-plugin-legend/dist/chunk-BFAMUDN2-CO_IEwBa-CLsabudx.js"],
-  "sourcesContent": ["import { p as d, d as e } from \"./component-Dd_YnWOH.js\";\nvar a = /* @__PURE__ */ d((o, t) => {\n  let n;\n  return t === \"sandbox\" && (n = e(\"#i\" + o)), (t === \"sandbox\" ? e(n.nodes()[0].contentDocument.body) : e(\"body\")).select(`[id=\"${o}\"]`);\n}, \"getDiagramElement\");\nexport {\n  a as d\n};\n"],
-  "mappings": ";;;;;;AACA,IAAI,IAAoB,EAAE,CAAC,GAAG,MAAM;AAClC,MAAI;AACJ,SAAO,MAAM,cAAc,IAAI,GAAE,OAAO,CAAC,KAAK,MAAM,YAAY,GAAE,EAAE,MAAM,EAAE,CAAC,EAAE,gBAAgB,IAAI,IAAI,GAAE,MAAM,GAAG,OAAO,QAAQ,CAAC,IAAI;AACxI,GAAG,mBAAmB;",
-  "names": []
-}

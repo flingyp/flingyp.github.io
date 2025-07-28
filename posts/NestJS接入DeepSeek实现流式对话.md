@@ -68,7 +68,9 @@ export class ChatController {
     res.setHeader('Connection', 'keep-alive');
 
     try {
-      const response = await this.deepSeekService.createChatCompletion(body.messages);
+      const response = await this.deepSeekService.createChatCompletion(
+        body.messages,
+      );
 
       for await (const chunk of response.data) {
         const content = chunk.choices[0]?.delta?.content || '';

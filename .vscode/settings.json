@@ -1,8 +1,13 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.inlineSuggest.showToolbar": "onHover",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.stylelint": "explicit"
+  },
   "eslint.enable": true,
-  "eslint.experimental.useFlatConfig": true, // 启用ESLint新的配置系统
+  "eslint.useFlatConfig": true,
   "eslint.format.enable": true,
   "eslint.validate": [
     "javascript",
@@ -24,24 +29,5 @@
   "scss.validate": false,
   "stylelint.enable": true,
   "stylelint.validate": ["css", "less", "scss", "sass", "vue", "postcss"],
-  "cSpell.words": [
-    "CNPM",
-    "cursorrules",
-    "flypeng",
-    "instanceof",
-    "modelcontextprotocol",
-    "OPPO",
-    "proto",
-    "Qrcode",
-    "reflog",
-    "shadcn",
-    "Streamable",
-    "Supabase",
-    "Trae",
-    "typeof",
-    "univerify",
-    "vitepress"
-  ],
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "Codegeex.RepoIndex": true
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

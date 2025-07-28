@@ -46,7 +46,6 @@
 ### 2. 添加公钥到远程服务
 
 1. **复制公钥**：
-
    - 查看公钥内容：
      ```bash
      cat ~/.ssh/id_ed25519_github.pub
@@ -54,7 +53,6 @@
    - 复制输出内容
 
 2. **添加到 Git 平台**：
-
    - **GitHub**：登录 GitHub → Settings → SSH and GPG keys → New SSH key，粘贴 `id_ed25519_github.pub` 的内容
    - **GitLab**：登录 GitLab → Settings → SSH Keys，粘贴 `id_ed25519_gitlab.pub` 的内容
 
@@ -153,7 +151,6 @@
    ```
 
 2. **设置远程 URL**：
-
    - 对于 GitHub 仓库：
      ```bash
      git remote set-url origin git@github.com:<username>/<repo>.git

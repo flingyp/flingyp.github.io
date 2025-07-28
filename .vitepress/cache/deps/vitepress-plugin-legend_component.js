@@ -1,13 +1,13 @@
 import {
-  Fet,
-  Mrt,
-  kq
-} from "./chunk-XXGV6SHG.js";
+  Cnt,
+  Gq,
+  Trt
+} from "./chunk-G6K7VW2X.js";
 import "./chunk-ZNML7WN5.js";
-import "./chunk-EQCVQC35.js";
+import "./chunk-DC5AMYBS.js";
 export {
-  Mrt as initComponent,
-  kq as initMarkmapComponent,
-  Fet as initMermaidComponent
+  Cnt as initComponent,
+  Gq as initMarkmapComponent,
+  Trt as initMermaidComponent
 };
 //# sourceMappingURL=vitepress-plugin-legend_component.js.map

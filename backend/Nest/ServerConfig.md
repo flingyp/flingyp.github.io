@@ -30,7 +30,9 @@ export class LoggerMiddleware implements NestMiddleware {
 ```ts
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes({ path: '*', method: RequestMethod.ALL });
+    consumer
+      .apply(LoggerMiddleware)
+      .forRoutes({ path: '*', method: RequestMethod.ALL });
   }
 }
 ```
@@ -40,7 +42,13 @@ export class AppModule implements NestModule {
 同全局日志打印中间件功能一样
 
 ```ts
-import { CallHandler, ExecutionContext, Injectable, Logger, NestInterceptor } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  Injectable,
+  Logger,
+  NestInterceptor,
+} from '@nestjs/common';
 import { Request } from 'express';
 import { Observable, tap } from 'rxjs';
 import { useFormatDate } from '@flypeng/tool';
@@ -55,7 +63,9 @@ export class LoggingInterceptor implements NestInterceptor {
     console.log(`\t\t\tRequest-URL: ${request.url}\t\t\t`);
     console.log(`\t\t\tRequest-Method: ${request.method}\t\t\t`);
     console.log(`\t\t\tRequest-Ip: ${request.ip}\t\t\t`);
-    console.log(`\t\t\tRequest-QueryParams: ${JSON.stringify(request.query)}\t\t\t`);
+    console.log(
+      `\t\t\tRequest-QueryParams: ${JSON.stringify(request.query)}\t\t\t`,
+    );
     console.log(`\t\t\tRequest-Body: ${JSON.stringify(request.body)}\t\t\t`);
     return next.handle().pipe(
       tap(() => {
@@ -77,7 +87,13 @@ app.useGlobalInterceptors(new LoggingInterceptor());
 ## 全局响应拦截器（统一返回数据格式）
 
 ```ts
-import { CallHandler, ExecutionContext, HttpStatus, Injectable, NestInterceptor } from '@nestjs/common';
+import {
+  CallHandler,
+  ExecutionContext,
+  HttpStatus,
+  Injectable,
+  NestInterceptor,
+} from '@nestjs/common';
 import { map, Observable } from 'rxjs';
 
 /**
@@ -120,7 +136,14 @@ app.useGlobalInterceptors(new TransformResInterceptor());
 ## 全局异常过滤器（统一处理异常）
 
 ```ts
-import { ArgumentsHost, Catch, ExceptionFilter, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import {
+  ArgumentsHost,
+  Catch,
+  ExceptionFilter,
+  HttpException,
+  HttpStatus,
+  Logger,
+} from '@nestjs/common';
 import { Response } from 'express';
 
 @Catch()
@@ -131,8 +154,14 @@ export class HttpExceptionFilter implements ExceptionFilter {
     const response = ctx.getResponse<Response>();
     Logger.error(exception, 'Logging');
     const path = request.url;
-    const status = exception instanceof HttpException ? exception.getStatus() : HttpStatus.INTERNAL_SERVER_ERROR;
-    const message = exception instanceof HttpException ? JSON.stringify(exception.getResponse()) : '操作失败';
+    const status =
+      exception instanceof HttpException
+        ? exception.getStatus()
+        : HttpStatus.INTERNAL_SERVER_ERROR;
+    const message =
+      exception instanceof HttpException
+        ? JSON.stringify(exception.getResponse())
+        : '操作失败';
 
     response.header('Content-Type', 'application/json; charset=utf-8');
     response.status(status).json({

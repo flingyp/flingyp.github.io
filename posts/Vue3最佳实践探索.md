@@ -74,7 +74,8 @@ class RefImpl<T> {
   }
 
   set value(newVal) {
-    const useDirectValue = this.__v_isShallow || isShallow(newVal) || isReadonly(newVal);
+    const useDirectValue =
+      this.__v_isShallow || isShallow(newVal) || isReadonly(newVal);
     newVal = useDirectValue ? newVal : toRaw(newVal);
     if (hasChanged(newVal, this._rawValue)) {
       this._rawValue = newVal;
@@ -87,7 +88,8 @@ class RefImpl<T> {
 
 ```ts
 // 如果 value 是个引用数据类型，会执行 reactive(value) 否则直接返回 value
-export const toReactive = <T extends unknown>(value: T): T => (isObject(value) ? reactive(value) : value);
+export const toReactive = <T extends unknown>(value: T): T =>
+  isObject(value) ? reactive(value) : value;
 ```
 
 ```ts
@@ -98,7 +100,13 @@ export function reactive(target: object) {
   if (isReadonly(target)) {
     return target;
   }
-  return createReactiveObject(target, false, mutableHandlers, mutableCollectionHandlers, reactiveMap);
+  return createReactiveObject(
+    target,
+    false,
+    mutableHandlers,
+    mutableCollectionHandlers,
+    reactiveMap,
+  );
 }
 
 function createReactiveObject(
@@ -116,7 +124,10 @@ function createReactiveObject(
   }
   // target is already a Proxy, return it.
   // exception: calling readonly() on a reactive object
-  if (target[ReactiveFlags.RAW] && !(isReadonly && target[ReactiveFlags.IS_REACTIVE])) {
+  if (
+    target[ReactiveFlags.RAW] &&
+    !(isReadonly && target[ReactiveFlags.IS_REACTIVE])
+  ) {
     return target;
   }
   // target already has corresponding Proxy
@@ -129,7 +140,10 @@ function createReactiveObject(
   if (targetType === TargetType.INVALID) {
     return target;
   }
-  const proxy = new Proxy(target, targetType === TargetType.COLLECTION ? collectionHandlers : baseHandlers);
+  const proxy = new Proxy(
+    target,
+    targetType === TargetType.COLLECTION ? collectionHandlers : baseHandlers,
+  );
   proxyMap.set(target, proxy);
   return proxy;
 }
@@ -203,7 +217,10 @@ export class ComputedRefImpl<T> {
   }
 }
 
-export function computed<T>(getter: ComputedGetter<T>, debugOptions?: DebuggerOptions): ComputedRef<T>;
+export function computed<T>(
+  getter: ComputedGetter<T>,
+  debugOptions?: DebuggerOptions,
+): ComputedRef<T>;
 export function computed<T>(
   options: WritableComputedOptions<T>,
   debugOptions?: DebuggerOptions,
@@ -229,7 +246,12 @@ export function computed<T>(
     setter = getterOrOptions.set;
   }
 
-  const cRef = new ComputedRefImpl(getter, setter, onlyGetter || !setter, isSSR);
+  const cRef = new ComputedRefImpl(
+    getter,
+    setter,
+    onlyGetter || !setter,
+    isSSR,
+  );
 
   if (__DEV__ && debugOptions && !isSSR) {
     cRef.effect.onTrack = debugOptions.onTrack;

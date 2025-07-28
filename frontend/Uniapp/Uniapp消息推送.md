@@ -79,7 +79,10 @@ exports.main = async (event, context) => {
   // Body -> JSON.parse(event.body)
   return await uniPush.sendMessage({
     // 填写上一步在uni-app客户端获取到的客户端推送标识push_clientid
-    push_clientid: ['49bedf77cd89dd2d5b058dd03a1fb9e5', '5ca73311443a1d14a91365f52be82345'],
+    push_clientid: [
+      '49bedf77cd89dd2d5b058dd03a1fb9e5',
+      '5ca73311443a1d14a91365f52be82345',
+    ],
     title: '系统通知',
     content: '系统通知内容',
     payload: {
@@ -168,7 +171,8 @@ await uniPush.sendMessage({
   options: {
     // 在OPPO后台创建了两个推送通道，OPPO_COMMON_PUSH（走公信通道）、OPPO_INSTANT_PUSH（走私信通道（只支持单推））
     OP: {
-      '/channel_id': msgtype === 'chat' ? 'OPPO_INSTANT_PUSH' : 'OPPO_COMMON_PUSH',
+      '/channel_id':
+        msgtype === 'chat' ? 'OPPO_INSTANT_PUSH' : 'OPPO_COMMON_PUSH',
       // '/channel_id': 'OPPO_INSTANT_PUSH',
       // '/channel_id': 'OPPO_COMMON_PUSH',
     },

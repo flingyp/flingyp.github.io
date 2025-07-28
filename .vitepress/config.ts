@@ -1,10 +1,10 @@
 import { defineConfig } from 'vitepress';
-// @ts-ignore
+import { vitepressPluginLegend } from 'vitepress-plugin-legend';
+// @ts-expect-error 已知错误
 import mdItCustomAttrs from 'markdown-it-custom-attrs';
 import nav from './theme/config/Nav';
 import sidebar from './theme/config/Sidebar';
 import socialLinks from './theme/config/Social';
-import vitepressPluginLegend from 'vitepress-plugin-legend';
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -13,7 +13,13 @@ export default defineConfig({
   head: [
     ['meta', { name: 'referrer', content: 'no-referrer' }],
     ['link', { rel: 'icon', href: '/favicon.png' }],
-    ['link', { rel: 'stylesheet', href: 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css' }],
+    [
+      'link',
+      {
+        rel: 'stylesheet',
+        href: 'https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css',
+      },
+    ],
     [
       'script',
       {
@@ -25,7 +31,7 @@ export default defineConfig({
       {
         src: 'https://us.umami.is/script.js',
         'data-website-id': '152c12e4-e4c7-4077-9be2-019fab898726',
-        // @ts-ignore
+        // @ts-expect-error 已知错误
         defer: true,
       },
     ],
