@@ -360,6 +360,14 @@ export default {
       text: '让 VitePress 文档“图文并茂”的魔法插件：vitepress-plugin-legend',
       link: '/posts/vitepress-plugin-legend',
     },
+    {
+      text: '调试代理工具介绍Whistle + SwitchyOmega',
+      link: '/posts/调试代理工具介绍 Whistle + SwitchyOmega',
+    },
+    {
+      text: '部署 Monorepo Nuxt Cloudflare Workers',
+      link: '/posts/部署 Monorepo Nuxt Cloudflare Workers',
+    },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',
     //   link: '/posts/NestJS接入DeepSeek实现流式对话',
