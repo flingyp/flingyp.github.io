@@ -430,5 +430,9 @@ export default {
       text: 'Prompt & Cursors 整理',
       link: '/ai_thinking/Prompt&Cursors',
     },
+    {
+      text: 'Context Engineering 的理解',
+      link: '/ai_thinking/Context Engineering 的理解',
+    },
   ],
 } as DefaultTheme.Sidebar;
