@@ -427,10 +427,6 @@ export default {
       link: '/ai_thinking/高效让Cursor改bug的技巧',
     },
     {
-      text: 'Prompt & Cursors 整理',
-      link: '/ai_thinking/Prompt&Cursors',
-    },
-    {
       text: 'Context Engineering 的理解',
       link: '/ai_thinking/Context Engineering 的理解',
     },
