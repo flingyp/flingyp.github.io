@@ -434,5 +434,9 @@ export default {
       text: 'Context Engineering 的理解',
       link: '/ai_thinking/Context Engineering 的理解',
     },
+    {
+      text: 'Vibe Coding 经验贴',
+      link: '/ai_thinking/Vibe Coding 经验贴.md',
+    },
   ],
 } as DefaultTheme.Sidebar;
