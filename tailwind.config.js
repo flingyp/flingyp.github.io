@@ -4,5 +4,6 @@ module.exports = {
     './.vitepress/**/*.js',
     './.vitepress/**/*.vue',
     './.vitepress/**/*.ts',
+    './posts/**/*.md',
   ],
 };
