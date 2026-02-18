@@ -26,7 +26,7 @@
     "tailwindcss": "^3.4.17",
     "tinycolor2": "^1.6.0",
     "vitepress": "^1.6.3",
-    "vitepress-plugin-legend": "^1.0.4",
+    "vitepress-plugin-legend": "^1.2.1",
     "vue": "^3.5.18"
   },
   "devDependencies": {

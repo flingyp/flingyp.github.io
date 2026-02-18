@@ -57,6 +57,7 @@ if (typeof document !== 'undefined') {
   changeCssVariable(colors, 2000, true);
 
   document.addEventListener('keydown', (event) => {
+    console.log('event:', event);
     // 检测 Command/Ctrl + C 组合键
     if ((event.metaKey || event.ctrlKey) && event.key === 'b') {
       event.preventDefault(); // 阻止默认复制行为

@@ -368,6 +368,14 @@ export default {
       text: '部署 Monorepo Nuxt Cloudflare Workers',
       link: '/posts/部署 Monorepo Nuxt Cloudflare Workers',
     },
+    {
+      text: '在 Claude Code 里 0 基础创建并使用自己的 Skill',
+      link: '/posts/在 Claude Code 里 0 基础创建并使用自己的 Skill',
+    },
+    {
+      text: 'TypeScript Claude Agent SDK 入门到实战',
+      link: '/posts/TypeScript Claude Agent SDK 入门到实战',
+    },
     // {
     //   text: 'NestJS 接入 DeepSeek 实现流式对话',
     //   link: '/posts/NestJS接入DeepSeek实现流式对话',
@@ -433,6 +441,27 @@ export default {
     {
       text: 'Vibe Coding 经验贴',
       link: '/ai_thinking/Vibe Coding 经验贴.md',
+    },
+    {
+      text: '从零开始构建智能体',
+      items: [
+        {
+          text: '初识智能体',
+          link: '/ai_thinking/从零开始构建智能体/初识智能体',
+        },
+        {
+          text: '智能体范式 ReAct (Reason + Act)',
+          link: '/ai_thinking/从零开始构建智能体/ReAct',
+        },
+        {
+          text: '智能体范式 Plan-and-Slove',
+          link: '/ai_thinking/从零开始构建智能体/Plan-and-Solve',
+        },
+        {
+          text: '智能体范式 Reflection',
+          link: '/ai_thinking/从零开始构建智能体/Reflection',
+        },
+      ],
     },
   ],
 } as DefaultTheme.Sidebar;
